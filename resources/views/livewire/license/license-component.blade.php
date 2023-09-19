@@ -41,7 +41,7 @@
 
             <x-table>
                 <x-slot name="thead">
-                    <tr>
+                    <tr wire:key="licence-{{ $licence->id }}">
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">

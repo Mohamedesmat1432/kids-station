@@ -11,5 +11,5 @@
                 @livewire('user.user-component')
             </div>
         </div>
-    </div>
+    </div>s
 </x-app-layout>

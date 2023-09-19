@@ -96,7 +96,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @foreach ($companies as $company)
-                        <tr>
+                        <tr wire:key="company-{{ $company->id }}">
                             <td class="p-2 border">
                                 {{ $company->id }}
                             </td>

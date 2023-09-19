@@ -52,7 +52,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @foreach ($patchs as $patch)
-                        <tr>
+                        <tr wire:key="patch-{{ $patch->id }}">
                             <td class="p-2 border">
                                 {{ $patch->id }}
                             </td>

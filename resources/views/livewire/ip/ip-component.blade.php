@@ -52,7 +52,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @foreach ($ips as $ip)
-                        <tr>
+                        <tr wire:key="ip-{{ $ip->id }}">
                             <td class="p-2 border">
                                 {{ $ip->id }}
                             </td>

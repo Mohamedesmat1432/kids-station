@@ -68,7 +68,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @foreach ($devices as $device)
-                        <tr>
+                        <tr wire:key="device-{{ $device->id }}">
                             <td class="p-2 border">
                                 {{ $device->id }}
                             </td>
