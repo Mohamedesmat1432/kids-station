@@ -21,7 +21,7 @@ class LicenseComponent extends Component
 
     public function render()
     {
-        $companies = Company::get();
+        $companies = Company::pluck('name','id');
 
         $licenses = License::when($this->search, function ($query) {
             return $query->where(function ($query) {

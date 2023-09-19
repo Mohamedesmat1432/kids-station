@@ -23,8 +23,8 @@
                 <x-label for="department_id" value="{{ __('Department') }}" />
                 <x-select id="department_id" class="mt-1 block w-full" wire:model="department_id">
                     <option value="#">{{ __('Select Department') }}</option>
-                    @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @foreach ($departments as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="department_id" class="mt-2" />
@@ -33,8 +33,8 @@
                 <x-label for="device_id" value="{{ __('Devices') }}" />
                 <x-select id="device_id" class="mt-1 block w-full" wire:model="device_id">
                     <option value="#">{{ __('Select Device') }}</option>
-                    @foreach ($devices as $device)
-                        <option value="{{ $device->id }}">{{ $device->name }}</option>
+                    @foreach ($devices as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="device_id" class="mt-2" />
@@ -43,8 +43,8 @@
                 <x-label for="ip_id" value="{{ __('IP') }}" />
                 <x-select id="ip_id" class="mt-1 block w-full" wire:model="ip_id">
                     <option value="#">{{ __('Select IP') }}</option>
-                    @foreach ($ips as $ip)
-                        <option value="{{ $ip->id }}">{{ $ip->number }}</option>
+                    @foreach ($ips as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="ip_id" class="mt-2" />
@@ -53,8 +53,8 @@
                 <x-label for="switch_id" value="{{ __('Switch') }}" />
                 <x-select id="switch_id" class="mt-1 block w-full" wire:model="switch_id">
                     <option value="#">{{ __('Select Switch') }}</option>
-                    @foreach ($switchs as $switch)
-                        <option value="{{ $switch->id }}">{{ $switch->port }}</option>
+                    @foreach ($switchs as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="switch_id" class="mt-2" />
@@ -63,8 +63,8 @@
                 <x-label for="patch_id" value="{{ __('Patch') }}" />
                 <x-select id="patch_id" class="mt-1 block w-full" wire:model="patch_id">
                     <option value="#">{{ __('Select Patch') }}</option>
-                    @foreach ($patchs as $patch)
-                        <option value="{{ $patch->id }}">{{ $patch->port }}</option>
+                    @foreach ($patchs as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="patch_id" class="mt-2" />

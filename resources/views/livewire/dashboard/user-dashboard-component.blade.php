@@ -1,3 +1,0 @@
-<div>
-    User Dashboard
-</div>

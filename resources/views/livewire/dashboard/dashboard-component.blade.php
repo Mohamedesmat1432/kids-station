@@ -1,7 +1,7 @@
 <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
     <div class="mt-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <a href="{{ route('admin.users') }}">
+            <a wire:navigate href="{{ route('users') }}">
                 <div class="bg-indigo-600 hover:bg-indigo-700 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="user" />
@@ -12,7 +12,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.companies') }}">
+            <a wire:navigate href="{{ route('companies') }}">
                 <div class="bg-yellow-500 hover:bg-yellow-600 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="home-modern" />
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.departments') }}">
+            <a wire:navigate href="{{ route('departments') }}">
                 <div class="bg-red-500 hover:bg-red-600 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="rectangle-stack" />
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.licenses') }}">
+            <a wire:navigate href="{{ route('licenses') }}">
                 <div class="bg-green-500 hover:bg-green-600 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="clipboard-document-check" />
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.switchs') }}">
+            <a wire:navigate href="{{ route('switchs') }}">
                 <div class="bg-gray-700 hover:bg-gray-800 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="server-stack" />
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.patchs') }}">
+            <a wire:navigate href="{{ route('patchs') }}">
                 <div class="bg-gray-500 hover:bg-gray-600 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="server" />
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.ips') }}">
+            <a wire:navigate href="{{ route('ips') }}">
                 <div class="bg-blue-500 hover:bg-blue-600 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.edokis') }}">
+            <a wire:navigate href="{{ route('edokis') }}">
                 <div class="bg-red-600 hover:bg-red-700 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </a>
-            <a href="{{ route('admin.emad-edeens') }}">
+            <a wire:navigate href="{{ route('emad-edeens') }}">
                 <div class="bg-green-600 hover:bg-green-700 rounded p-5 text-white">
                     <div class="flex text-2xl justify-between">
                         <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />

@@ -23,11 +23,11 @@ class EmadEdeenComponent extends Component
 
     public function render()
     {
-        $departments = Department::select('id', 'name')->get();
-        $devices = Device::select('id', 'name')->get();
-        $ips = Ip::select('id', 'number')->get();
-        $patchs = PatchBranch::select('id', 'port')->get();
-        $switchs = SwitchBranch::select('id', 'port')->get();
+        $departments = Department::pluck('name', 'id');
+        $devices = Device::pluck('name', 'id');
+        $ips = Ip::pluck('number', 'id');
+        $patchs = PatchBranch::pluck('port', 'id');
+        $switchs = SwitchBranch::pluck('port', 'id');
 
         $emadEdeens = EmadEdeen::when($this->search, function ($query) {
             return $query->where(function ($query) {

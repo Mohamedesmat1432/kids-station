@@ -17,8 +17,8 @@
                 <x-label for="company_id" value="{{ __('Company') }}" />
                 <x-select id="company_id" class="mt-1 block w-full overflow-scroll" wire:model="company_id">
                     <option value="#">{{ __('Select company') }}</option>
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->id }}">{{ $company->name }}</option>
+                    @foreach ($companies as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error for="company_id" class="mt-2" />

@@ -13,7 +13,7 @@ use App\Models\SwitchBranch;
 use App\Models\User;
 use Livewire\Component;
 
-class AdminDashboardComponent extends Component
+class DashboardComponent extends Component
 {
     public function render()
     {
@@ -27,7 +27,7 @@ class AdminDashboardComponent extends Component
         $edokis = Edoki::count();
         $emadEdeens = EmadEdeen::count();
 
-        return view('livewire.dashboard.admin-dashboard-component', [
+        return view('livewire.dashboard.dashboard-component', [
             'users' => $users,
             'departments' => $departments,
             'companies' => $companies,

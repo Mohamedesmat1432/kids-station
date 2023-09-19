@@ -19,9 +19,9 @@
                 @csrf
 
                 <div>
-                    <x-button type="submit">
+                    <x-indigo-button type="submit">
                         {{ __('Resend Verification Email') }}
-                    </x-button>
+                    </x-indigo-button>
                 </div>
             </form>
 

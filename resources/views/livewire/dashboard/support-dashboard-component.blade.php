@@ -1,3 +1,0 @@
-<div>
-    Support Dashboard
-</div>

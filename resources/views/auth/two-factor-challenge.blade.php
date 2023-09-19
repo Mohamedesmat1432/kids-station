@@ -48,9 +48,9 @@
                         {{ __('Use an authentication code') }}
                     </button>
 
-                    <x-button class="ml-4">
+                    <x-indigo-button class="ml-4">
                         {{ __('Log in') }}
-                    </x-button>
+                    </x-indigo-button>
                 </div>
             </form>
         </div>
