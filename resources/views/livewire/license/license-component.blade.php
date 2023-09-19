@@ -41,7 +41,7 @@
 
             <x-table>
                 <x-slot name="thead">
-                    <tr wire:key="licence-{{ $licence->id }}">
+                    <tr>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -115,7 +115,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @foreach ($licenses as $license)
-                        <tr>
+                        <tr wire:key="license-{{ $license->id }}">
                             <td class="p-2 border">
                                 {{ $license->id }}
                             </td>
