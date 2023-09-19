@@ -54,6 +54,7 @@ class UserComponent extends Component
         if (isset($this->user_id)) {
             $user = User::findOrFail($this->user_id);
             $user->update($validated);
+            $this->dispatch('refresh-navigation-menu');
             $this->successMessage(__('User updated succssfully'));
         } else {
             $validated['password'] = Hash::make($this->password);
