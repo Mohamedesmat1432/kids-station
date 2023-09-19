@@ -1,32 +1,32 @@
-{{-- confirm show license details --}}
+{{-- confirm show license_show details --}}
 <x-dialog-modal wire:model="confirm_show">
     <x-slot name="title">
-        {{ __('Licenses Company Details') }}
+        {{ __('license_shows Company Details') }}
     </x-slot>
 
     <x-slot name="content">
         <div class="mt-2">
             <p>
                 <b>Name:</b>
-                {{ $license->company->name ?? '' }}
+                {{ $license_show->company->name ?? '' }}
             </p>
         </div>
         <div class="mt-2">
             <p>
                 <b>Email:</b>
-                {{ $license->company->email ?? '' }}
+                {{ $license_show->company->email ?? '' }}
             </p>
         </div>
         <div class="mt-2">
             <p>
                 <b>Address:</b>
-                {{ $license->company->address ?? '' }}
+                {{ $license_show->company->address ?? '' }}
             </p>
         </div>
         <div class="mt-2">
             <p>
                 <b>Contacts:</b>
-                @foreach (explode(',', $license->company->contacts ?? '') as $contact)
+                @foreach (explode(',', $license_show->company->contacts ?? '') as $contact)
                     {{ $contact }}
                 @endforeach
             </p>
@@ -34,7 +34,7 @@
         <div class="mt-2">
             <p>
                 <b>Specialization:</b>
-                {{ $license->company->specialization ?? '' }}
+                {{ $license_show->company->specialization ?? '' }}
             </p>
         </div>
     </x-slot>
@@ -45,4 +45,4 @@
         </x-secondary-button>
     </x-slot>
 </x-dialog-modal>
-{{-- end confirm show license details --}}
+{{-- end confirm show license_show details --}}

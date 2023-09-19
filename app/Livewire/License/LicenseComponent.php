@@ -62,7 +62,7 @@ class LicenseComponent extends Component
     {
         $this->resetItems();
         $this->confirm_show = true;
-        $license = License::findOrFail($id);
+        $this->license_show = License::findOrFail($id);
     }
 
     public function saveLicense()
