@@ -13,14 +13,10 @@ class LicenseComponent extends Component
 {
     use LicenseTrait;
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sort_by' => ['except' => 'id'],
-        'sort_asc' => ['except' => true]
-    ];
-
     public function render()
     {
+        $this->authorize('view-license');
+
         $companies = Company::pluck('name','id');
 
         $licenses = License::when($this->search, function ($query) {

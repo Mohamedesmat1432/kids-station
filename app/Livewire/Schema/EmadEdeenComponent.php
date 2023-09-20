@@ -15,14 +15,10 @@ class EmadEdeenComponent extends Component
 {
     use EmadEdeenTrait;
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sort_by' => ['except' => 'id'],
-        'sort_asc' => ['except' => true]
-    ];
-
     public function render()
     {
+        $this->authorize('view-schema');
+        
         $departments = Department::pluck('name', 'id');
         $devices = Device::pluck('name', 'id');
         $ips = Ip::pluck('number', 'id');

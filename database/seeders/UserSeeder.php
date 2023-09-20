@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,11 +18,6 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('Q@W#E$P@ssw0rd'),
-            ],
-            [
                 'name' => 'eslam',
                 'email' => 'eslam@gmail.com',
                 'password' => Hash::make('P@ssw0rd'),
@@ -36,5 +32,17 @@ class UserSeeder extends Seeder
         foreach ($users as $user) {
             User::create($user);
         }
+
+        $user = User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('Q@W#E$P@ssw0rd'),
+        ]);
+
+        // Adding permissions to a user
+        $user->syncPermissions(Permission::pluck('id')->all());
+
+        // Adding permissions via a role
+        $user->syncRoles(['Admin']);
     }
 }

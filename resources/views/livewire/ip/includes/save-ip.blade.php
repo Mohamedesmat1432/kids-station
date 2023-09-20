@@ -5,16 +5,12 @@
     </x-slot>
 
     <x-slot name="content">
-        <form>
-            @csrf
-            <div class="col-span-6 sm:col-span-4">
-                <x-label for="number" value="{{ __('Number') }}" />
-                <x-input id="number" type="text" class="mt-1 block w-full" wire:model="number"
-                    placeholder="{{ __('Enter ip number') }}" />
-                <x-input-error for="number" class="mt-2" />
-            </div>
-        </form>
-
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="number" value="{{ __('Number') }}" />
+            <x-input id="number" type="text" class="mt-1 block w-full" wire:model="number"
+                placeholder="{{ __('Enter ip number') }}" />
+            <x-input-error for="number" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="footer">

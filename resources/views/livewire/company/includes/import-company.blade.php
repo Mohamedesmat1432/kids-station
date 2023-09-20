@@ -5,15 +5,11 @@
     </x-slot>
 
     <x-slot name="content">
-        <form>
-            @csrf
-            <div class="col-span-6 sm:col-span-4">
-                <x-label for="file" value="{{ __('Choose File') }}" />
-                <x-input id="file" type="file" class="mt-1 block w-full border p-1" wire:model="file" />
-                <x-input-error for="file" class="mt-2" />
-            </div>
-        </form>
-
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="file" value="{{ __('Choose File') }}" />
+            <x-input id="file" type="file" class="mt-1 block w-full border p-1" wire:model="file" />
+            <x-input-error for="file" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="footer">

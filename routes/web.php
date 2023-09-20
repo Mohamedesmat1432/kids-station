@@ -24,6 +24,8 @@ Route::middleware([
     Route::controller(PagesController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
         Route::get('/users', 'users')->name('users');
+        Route::get('/roles', 'roles')->name('roles');
+        Route::get('/permissions', 'permissions')->name('permissions');
         Route::get('/departments', 'departments')->name('departments');
         Route::get('/companies', 'companies')->name('companies');
         Route::get('/licenses', 'licenses')->name('licenses');

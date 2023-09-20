@@ -12,10 +12,12 @@
             <h1 class=" text-2xl font-medium text-gray-900">
                 {{ __('Users') }}
             </h1>
-            <x-indigo-button wire:click="confirmUserAdd()" wire:loading.attr="disabled">
-                <x-icon class="w-4 h-4" name="plus" />
-                {{ __('Create') }}
-            </x-indigo-button>
+            @can(['create-user'])
+                <x-indigo-button wire:click="confirmUserAdd()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4" name="plus" />
+                    {{ __('Create') }}
+                </x-indigo-button>
+            @endcan
         </div>
 
         <div class="mt-6 text-gray-500 leading-relaxed">
@@ -27,7 +29,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <x-table>
                 <x-slot name="thead">
                     <tr>
@@ -83,21 +85,25 @@
                                 {{ $user->email }}
                             </td>
                             {{-- <td class="p-2 border">
-                                {{ $user->role }}
+                                {{ $user->getRoleNames() }}
                             </td> --}}
                             <td class="p-2 border">
-                                <x-indigo-button wire:click="confirmUserEdit({{ $user->id }})"
-                                    wire:loading.attr="disabled">
-                                    <x-icon class="w-4 h-4" name="pencil-square" />
-                                    {{ __('Edit') }}
-                                </x-indigo-button>
+                                @can(['edit-user'])
+                                    <x-indigo-button wire:click="confirmUserEdit({{ $user->id }})"
+                                        wire:loading.attr="disabled">
+                                        <x-icon class="w-4 h-4" name="pencil-square" />
+                                        {{ __('Edit') }}
+                                    </x-indigo-button>
+                                @endcan
                             </td>
                             <td class="p-2 border">
-                                <x-danger-button wire:click="confirmUserDeletion({{ $user->id }})"
-                                    wire:loading.attr="disabled">
-                                    <x-icon class="w-4 h-4" name="trash" />
-                                    {{ __('Delete') }}
-                                </x-danger-button>
+                                @can(['delete-user'])
+                                    <x-danger-button wire:click="confirmUserDeletion({{ $user->id }})"
+                                        wire:loading.attr="disabled">
+                                        <x-icon class="w-4 h-4" name="trash" />
+                                        {{ __('Delete') }}
+                                    </x-danger-button>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

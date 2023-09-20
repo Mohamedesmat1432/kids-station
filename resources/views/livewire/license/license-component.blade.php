@@ -12,11 +12,12 @@
             <h1 class=" text-2xl font-medium text-gray-900">
                 {{ __('Licenses') }}
             </h1>
-            <x-indigo-button wire:click="confirmLicenseAdd()" wire:loading.attr="disabled">
-                <x-icon class="w-4 h-4" name="plus" />
-
-                {{ __('Create') }}
-            </x-indigo-button>
+            @can('create-license')
+                <x-indigo-button wire:click="confirmLicenseAdd()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4" name="plus" />
+                    {{ __('Create') }}
+                </x-indigo-button>
+            @endcan
         </div>
 
         <div class="mt-6 text-gray-500 leading-relaxed">
@@ -148,25 +149,31 @@
                                 {{ $license->end_date }}
                             </td>
                             <td class="p-2 border">
-                                <x-yellow-button wire:click="confirmLicenseShow({{ $license->id }})"
-                                    wire:loading.attr="disabled">
-                                    <x-icon class="w-4 h-4" name="eye" />
-                                    {{-- {{ __('Details') }} --}}
-                                </x-yellow-button>
+                                @can('show-license')
+                                    <x-yellow-button wire:click="confirmLicenseShow({{ $license->id }})"
+                                        wire:loading.attr="disabled">
+                                        <x-icon class="w-4 h-4" name="eye" />
+                                        {{-- {{ __('Details') }} --}}
+                                    </x-yellow-button>
+                                @endcan
                             </td>
                             <td class="p-2 border">
-                                <x-indigo-button wire:click="confirmLicenseEdit({{ $license->id }})"
-                                    wire:loading.attr="disabled">
-                                    <x-icon class="w-4 h-4" name="pencil-square" />
-                                    {{-- {{ __('Edit') }} --}}
-                                </x-indigo-button>
+                                @can('edit-license')
+                                    <x-indigo-button wire:click="confirmLicenseEdit({{ $license->id }})"
+                                        wire:loading.attr="disabled">
+                                        <x-icon class="w-4 h-4" name="pencil-square" />
+                                        {{-- {{ __('Edit') }} --}}
+                                    </x-indigo-button>
+                                @endcan
                             </td>
                             <td class="p-2 border">
-                                <x-danger-button wire:click="confirmLicenseDeletion({{ $license->id }})"
-                                    wire:loading.attr="disabled">
-                                    <x-icon class="w-4 h-4" name="trash" />
-                                    {{-- {{ __('Delete') }} --}}
-                                </x-danger-button>
+                                @can('delete-license')
+                                    <x-danger-button wire:click="confirmLicenseDeletion({{ $license->id }})"
+                                        wire:loading.attr="disabled">
+                                        <x-icon class="w-4 h-4" name="trash" />
+                                        {{-- {{ __('Delete') }} --}}
+                                    </x-danger-button>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

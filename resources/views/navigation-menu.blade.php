@@ -15,18 +15,36 @@
                     <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
-                        {{ __('Departments') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
-                        {{ __('Comapnies') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
-                        {{ __('Licenses') }}
-                    </x-nav-link>
+                    @can('view-user')
+                        <x-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view-role')
+                        <x-nav-link wire:navigate href="{{ route('roles') }}" :active="request()->routeIs('roles')">
+                            {{ __('Roles') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view-permission')
+                        <x-nav-link wire:navigate href="{{ route('permissions') }}" :active="request()->routeIs('permissions')">
+                            {{ __('Permissions') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view-department')
+                        <x-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
+                            {{ __('Departments') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view-company')
+                        <x-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                            {{ __('Comapnies') }}
+                        </x-nav-link>
+                    @endcan
+                    @can('view-license')
+                        <x-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
+                            {{ __('Licenses') }}
+                        </x-nav-link>
+                    @endcan
 
                 </div>
             </div>
@@ -122,24 +140,34 @@
                             <x-dropdown-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
-                                {{ __('Devices') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
-                                {{ __('Switchs') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
-                                {{ __('Patchs') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
-                                {{ __('IPs') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
-                                {{ __('Edoki') }}
-                            </x-dropdown-link>
-                            <x-dropdown-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
-                                {{ __('EmadEdeen') }}
-                            </x-dropdown-link>
+                            @can('view-device')
+                                <x-dropdown-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                                    {{ __('Devices') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('view-switch')
+                                <x-dropdown-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
+                                    {{ __('Switchs') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('view-patch')
+                                <x-dropdown-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
+                                    {{ __('Patchs') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('view-ip')
+                                <x-dropdown-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
+                                    {{ __('IPs') }}
+                                </x-dropdown-link>
+                            @endcan
+                            @can('view-schema')
+                                <x-dropdown-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
+                                    {{ __('Edoki') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
+                                    {{ __('EmadEdeen') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link wire:navigate href="{{ route('api-tokens.index') }}">
@@ -184,18 +212,36 @@
             <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
-                {{ __('Users') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
-                {{ __('Departments') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
-                {{ __('Comapnies') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
-                {{ __('Licenses') }}
-            </x-responsive-nav-link>
+            @can('view-user')
+                <x-responsive-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-role')
+                <x-responsive-nav-link wire:navigate href="{{ route('roles') }}" :active="request()->routeIs('roles')">
+                    {{ __('Roles') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-permission')
+                <x-responsive-nav-link wire:navigate href="{{ route('permissions') }}" :active="request()->routeIs('permissions')">
+                    {{ __('Permissions') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-department')
+                <x-responsive-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
+                    {{ __('Departments') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-company')
+                <x-responsive-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                    {{ __('Comapnies') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('view-license')
+                <x-responsive-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
+                    {{ __('Licenses') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->
@@ -219,24 +265,34 @@
                 <x-responsive-nav-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
-                    {{ __('Devices') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
-                    {{ __('Switchs') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
-                    {{ __('Patchs') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
-                    {{ __('IPs') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
-                    {{ __('Edoki') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
-                    {{ __('EmadEdeen') }}
-                </x-responsive-nav-link>
+                @can('view-device')
+                    <x-responsive-nav-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                        {{ __('Devices') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('view-switch')
+                    <x-responsive-nav-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
+                        {{ __('Switchs') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('view-patch')
+                    <x-responsive-nav-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
+                        {{ __('Patchs') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('view-ip')
+                    <x-responsive-nav-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
+                        {{ __('IPs') }}
+                    </x-responsive-nav-link>
+                @endcan
+                @can('view-schema')
+                    <x-responsive-nav-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
+                        {{ __('Edoki') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
+                        {{ __('EmadEdeen') }}
+                    </x-responsive-nav-link>
+                @endcan
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link wire:navigate href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">

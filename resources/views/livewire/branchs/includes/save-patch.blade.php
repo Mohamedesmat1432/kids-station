@@ -5,16 +5,12 @@
     </x-slot>
 
     <x-slot name="content">
-        <form>
-            @csrf
-            <div class="col-span-6 sm:col-span-4">
-                <x-label for="port" value="{{ __('Port') }}" />
-                <x-input id="port" type="text" class="mt-1 block w-full" wire:model="port"
-                    placeholder="{{ __('Enter patch port') }}" />
-                <x-input-error for="port" class="mt-2" />
-            </div>
-        </form>
-
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="port" value="{{ __('Port') }}" />
+            <x-input id="port" type="text" class="mt-1 block w-full" wire:model="port"
+                placeholder="{{ __('Enter patch port') }}" />
+            <x-input-error for="port" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="footer">

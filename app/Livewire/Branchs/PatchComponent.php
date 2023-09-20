@@ -10,14 +10,10 @@ class PatchComponent extends Component
 {
     use PatchTrait;
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sort_by' => ['except' => 'id'],
-        'sort_asc' => ['except' => true]
-    ];
-
     public function render()
     {
+        $this->authorize('view-patch');
+        
         $patchs = PatchBranch::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('port', 'like', '%' . $this->search . '%');

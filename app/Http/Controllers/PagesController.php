@@ -21,6 +21,16 @@ class PagesController extends Controller
         return view('pages.users');
     }
 
+    public function roles()
+    {
+        return view('pages.roles');
+    }
+
+    public function permissions()
+    {
+        return view('pages.permissions');
+    }
+
     public function departments()
     {
         return view('pages.departments');

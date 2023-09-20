@@ -10,14 +10,10 @@ class DepartmentComponent extends Component
 {
     use DepartmentTrait;
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sort_by' => ['except' => 'id'],
-        'sort_asc' => ['except' => true]
-    ];
-
     public function render()
     {
+        $this->authorize('view-department');
+
         $departments = Department::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');

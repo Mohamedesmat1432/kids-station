@@ -19,16 +19,24 @@
                     placeholder="{{ __('Enter user email') }}" />
                 <x-input-error for="email" class="mt-2" />
             </div>
-            {{-- <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="role" value="{{ __('Role') }}" />
-                <x-select id="role" class="mt-1 block w-full" wire:model="role">
-                    <option value="#">{{ __('Select Role') }}</option>
-                    <option value="admin">{{ __('Admin') }}</option>
-                    <option value="support">{{ __('Support') }}</option>
-                    <option value="user">{{ __('User') }}</option>
+            <div class="col-span-6 sm:col-span-4 mt-3">
+                <x-label for="role" value="{{ __('Roles') }}" />
+                <x-select id="role" class="mt-1 block w-full" wire:model="role" multiple>
+                    @foreach ($roles as $key => $val)
+                        <option value="{{  $key }}">{{ $val }}</option>
+                    @endforeach
                 </x-select>
                 <x-input-error for="role" class="mt-2" />
-            </div> --}}
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-3">
+                <x-label for="permission" value="{{ __('Permissions') }}" />
+                <x-select id="permission" class="mt-1 block w-full" wire:model="permission" multiple>
+                    @foreach ($permissions as $key => $val)
+                        <option value="{{  $key }}">{{ $val }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error for="permission" class="mt-2" />
+            </div>
             @if (!isset($this->user_id))
                 <div class="col-span-6 sm:col-span-4 mt-3">
                     <x-label for="password" value="{{ __('Password') }}" />

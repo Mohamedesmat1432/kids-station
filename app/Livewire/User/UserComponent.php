@@ -3,6 +3,8 @@
 namespace App\Livewire\User;
 
 use App\Models\Department;
+use App\Models\Permission;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\UserTrait;
 use Illuminate\Support\Facades\Hash;
@@ -12,14 +14,13 @@ class UserComponent extends Component
 {
     use UserTrait;
 
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sort_by' => ['except' => 'id'],
-        'sort_asc' => ['except' => true]
-    ];
-
     public function render()
     {
+        $this->authorize('view-user');
+        
+        $roles = Role::pluck('name','id');
+        $permissions = Permission::pluck('name','id');
+
         $users = User::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
@@ -28,6 +29,8 @@ class UserComponent extends Component
 
         return view('livewire.user.user-component', [
             'users' => $users,
+            'roles' => $roles,
+            'permissions' => $permissions,
         ]);
     }
 
@@ -46,6 +49,8 @@ class UserComponent extends Component
         $this->user_id = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->role = $user->roles->pluck('id');
+        $this->permission = $user->permissions->pluck('id');
     }
 
     public function saveUser()
@@ -53,12 +58,16 @@ class UserComponent extends Component
         $validated = $this->validate();
         if (isset($this->user_id)) {
             $user = User::findOrFail($this->user_id);
+            $user->syncRoles($this->role);
+            $user->syncPermissions($this->permission);
             $user->update($validated);
             $this->dispatch('refresh-navigation-menu');
             $this->successMessage(__('User updated succssfully'));
         } else {
             $validated['password'] = Hash::make($this->password);
-            User::create($validated);
+            $user = User::create($validated);
+            $user->syncRoles($this->role);
+            $user->syncPermissions($this->permission);
             $this->successMessage(__('User created succssfully'));
         }
 

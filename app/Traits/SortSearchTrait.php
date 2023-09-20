@@ -2,12 +2,19 @@
 
 namespace App\Traits;
 
+use Livewire\Attributes\Url;
+
 trait SortSearchTrait
 {
+    #[Url()]
     public $search;
+
+    #[Url()]
     public $sort_by = 'id';
+
+    #[Url()]
     public $sort_asc = true;
-    
+
     public function updatingSearch()
     {
         $this->resetPage();
