@@ -67,6 +67,16 @@
             </x-select>
             <x-input-error for="patch_id" class="mt-2" />
         </div>
+        <div class="col-span-6 sm:col-span-4 mt-3">
+            <x-label for="point_id" value="{{ __('Point') }}" />
+            <x-select id="point_id" class="mt-1 block w-full" wire:model="point_id">
+                <option value="#">{{ __('Select Point') }}</option>
+                @foreach ($points as $key => $val)
+                    <option value="{{ $key }}">{{ $val }}</option>
+                @endforeach
+            </x-select>
+            <x-input-error for="point_id" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="footer">

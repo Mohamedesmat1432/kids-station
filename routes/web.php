@@ -35,5 +35,6 @@ Route::middleware([
         Route::get('/ips', 'ips')->name('ips');
         Route::get('/edokis', 'edokis')->name('edokis');
         Route::get('/emad-edeens', 'emadEdeens')->name('emad-edeens');
+        Route::get('/points', 'points')->name('points');
     });
 });

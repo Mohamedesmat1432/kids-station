@@ -19,7 +19,6 @@ class UserComponent extends Component
         $this->authorize('view-user');
         
         $roles = Role::pluck('name','id');
-        $permissions = Permission::pluck('name','id');
 
         $users = User::when($this->search, function ($query) {
             return $query->where(function ($query) {
@@ -29,8 +28,7 @@ class UserComponent extends Component
 
         return view('livewire.user.user-component', [
             'users' => $users,
-            'roles' => $roles,
-            'permissions' => $permissions,
+            'roles' => $roles
         ]);
     }
 
@@ -50,7 +48,6 @@ class UserComponent extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->role = $user->roles->pluck('id');
-        $this->permission = $user->permissions->pluck('id');
     }
 
     public function saveUser()
@@ -59,7 +56,6 @@ class UserComponent extends Component
         if (isset($this->user_id)) {
             $user = User::findOrFail($this->user_id);
             $user->syncRoles($this->role);
-            $user->syncPermissions($this->permission);
             $user->update($validated);
             $this->dispatch('refresh-navigation-menu');
             $this->successMessage(__('User updated succssfully'));
@@ -67,7 +63,6 @@ class UserComponent extends Component
             $validated['password'] = Hash::make($this->password);
             $user = User::create($validated);
             $user->syncRoles($this->role);
-            $user->syncPermissions($this->permission);
             $this->successMessage(__('User created succssfully'));
         }
 

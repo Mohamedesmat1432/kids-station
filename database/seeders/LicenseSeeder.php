@@ -22,12 +22,12 @@ class LicenseSeeder extends Seeder
             [
                 'name' => 'Forti Emad Eldeen',
                 'start_date' => '2023-07-30',
-                'end_date' => '2023-10-30'
+                'end_date' => '2026-07-30'
             ],
             [
                 'name' => 'Forti Doki',
                 'start_date' => '2023-07-29',
-                'end_date' => '2023-10-29'
+                'end_date' => '2026-07-29'
             ],
             [
                 'name' => 'Redhat',

@@ -29,9 +29,9 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-indigo-button>
+                <x-auth-indigo-button>
                     {{ __('Email Password Reset Link') }}
-                </x-indigo-button>
+                </x-auth-indigo-button>
             </div>
         </form>
     </x-authentication-card>

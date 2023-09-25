@@ -58,7 +58,11 @@ class PermissionSeeder extends Seeder
             'view-schema',
             'create-schema',
             'edit-schema',
-            'delete-schema',            
+            'delete-schema',     
+            'view-point',
+            'create-point',
+            'edit-point',
+            'delete-point',        
         ];
 
         foreach ($permissions as $permission) {

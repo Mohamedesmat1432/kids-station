@@ -7,6 +7,7 @@ use App\Models\Device;
 use App\Models\Edoki;
 use App\Models\Ip;
 use App\Models\PatchBranch;
+use App\Models\Point;
 use App\Models\SwitchBranch;
 use App\Traits\EdokiTrait;
 use Livewire\Component;
@@ -23,7 +24,9 @@ class EdokiComponent extends Component
         $devices = Device::pluck('name', 'id');
         $ips = Ip::pluck('number', 'id');
         $patchs = PatchBranch::pluck('port', 'id');
-        $switchs = SwitchBranch::pluck('port', 'id');
+        $edokiNullSwitch = Edoki::where('switch_id', '!=', null)->where('switch_id','!=',$this->switch_id)->pluck('switch_id');
+        $switchs = SwitchBranch::whereNotIn('id', $edokiNullSwitch)->pluck('hostname', 'id');
+        $points = Point::pluck('name', 'id');
 
         $edokis = Edoki::when($this->search, function ($query) {
             return $query->where(function ($query) {
@@ -38,6 +41,7 @@ class EdokiComponent extends Component
             'ips' => $ips,
             'patchs' => $patchs,
             'switchs' => $switchs,
+            'points' => $points
         ]);
     }
 
@@ -61,6 +65,7 @@ class EdokiComponent extends Component
         $this->ip_id = $edoki->ip_id;
         $this->switch_id = $edoki->switch_id;
         $this->patch_id = $edoki->patch_id;
+        $this->point_id = $edoki->point_id;
     }
 
     public function saveEdoki()

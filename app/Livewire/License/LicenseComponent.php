@@ -117,11 +117,11 @@ class LicenseComponent extends Component
         }
     }
 
-    public function exportLicense(LicensesExport $exportLicenses)
+    public function exportLicense()
     {
         try {
             $this->successMessage(__('License exported successfully'));
-            return $exportLicenses->download('licenses.xlsx');
+            return new LicensesExport($this->search);
         } catch (\Throwable $e) {
             $this->errorMessage($e->getMessage());
         }

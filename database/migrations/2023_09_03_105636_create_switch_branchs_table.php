@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('switch_branchs', function (Blueprint $table) {
             $table->id();
-            $table->string('port')->unique();
+            $table->string('hostname')->unique();
+            $table->string('ip')->unique();
+            $table->string('platform')->nullable();
+            $table->string('version')->nullable();
+            $table->string('floor')->nullable();
+            $table->string('location')->nullable();
+            $table->string('password')->nullable();
+            $table->string('password_enable')->nullable();
             $table->timestamps();
         });
     }

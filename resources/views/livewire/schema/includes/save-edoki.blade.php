@@ -7,13 +7,13 @@
     <x-slot name="content">
         <div class="col-span-6 sm:col-span-4">
             <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model.debounce.500ms="name"
+            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="name"
                 placeholder="{{ __('Enter edoki name') }}" />
             <x-input-error for="name" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4 mt-3">
             <x-label for="email" value="{{ __('Email') }}" />
-            <x-input id="email" type="text" class="mt-1 block w-full" wire:model.debounce.500ms="email"
+            <x-input id="email" type="text" class="mt-1 block w-full" wire:model="email"
                 placeholder="{{ __('Enter edoki email') }}" />
             <x-input-error for="email" class="mt-2" />
         </div>
@@ -66,6 +66,16 @@
                 @endforeach
             </x-select>
             <x-input-error for="patch_id" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4 mt-3">
+            <x-label for="point_id" value="{{ __('Point') }}" />
+            <x-select id="point_id" class="mt-1 block w-full" wire:model="point_id">
+                <option value="#">{{ __('Select Point') }}</option>
+                @foreach ($points as $key => $val)
+                    <option value="{{ $key }}">{{ $val }}</option>
+                @endforeach
+            </x-select>
+            <x-input-error for="point_id" class="mt-2" />
         </div>
     </x-slot>
 

@@ -9,7 +9,7 @@ trait UserTrait
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
     public $user_id, $name, $email, $password;
-    public $role, $permission;
+    public $role;
 
     protected function rules()
     {
@@ -17,7 +17,6 @@ trait UserTrait
             'name' => 'required|string|min:4',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->user_id,
             'role' => 'required',
-            'permission' => 'required',
         ];
 
         if (!$this->user_id) {

@@ -3,24 +3,46 @@
 namespace App\Exports;
 
 use App\Models\Company;
+use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Excel;
 
-class CompaniesExport implements FromCollection, WithHeadings
+class CompaniesExport implements FromCollection, WithHeadings, Responsable
 {
     use Exportable;
-    /**
-     * @return \Illuminate\Support\Collection
-     */
+
+    public $search;
+
+    private $fileName = 'companies.xlsx';
+
+    private $writerType = Excel::XLSX;
+
+    private $headers = [
+        'Content-Type' => 'text/csv',
+    ];
+
+    public function __construct($search)
+    {
+        $this->search = $search;
+    }
 
     public function collection()
     {
-        return Company::select('id', 'name', 'email', 'address', 'contacts', 'specialization')->get();
+        return Company::select('id', 'name', 'email', 'address', 'contacts', 'specialization')
+            ->where('name', 'like', '%' . $this->search . '%')->get();
     }
 
     public function headings(): array
     {
-        return ['ID', 'Name', 'Email', 'Address', 'Contacts', 'Specialization'];
+        return [
+            'ID', 
+            'Name', 
+            'Email', 
+            'Address', 
+            'Contacts', 
+            'Specialization'
+        ];
     }
 }

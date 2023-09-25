@@ -12,7 +12,16 @@ class SwitchBranch extends Model
 
     protected $table = 'switch_branchs';
 
-    protected $fillable = ['port'];
+    protected $fillable = [
+        'hostname',
+        'ip',
+        'platform',
+        'version',
+        'floor',
+        'location',
+        'password',
+        'password_enable',
+    ];
 
     public function Edokis(): HasMany
     {

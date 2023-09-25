@@ -94,6 +94,14 @@
                                 <x-sort-icon sort_field="patch_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                             </div>
                         </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('point_id')">
+                                    {{ __('Point') }}
+                                </button>
+                                <x-sort-icon sort_field="point_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border" colspan="2">
                             <div class="flex items-center">
                                 {{ __('Action') }}
@@ -123,10 +131,13 @@
                                 {{ $emadEdeen->ip->number ?? '' }}
                             </td>
                             <td class="p-2 border">
-                                {{ $emadEdeen->switch->port ?? '' }}
+                                {{ $emadEdeen->switch->hostname ?? '' }}
                             </td>
                             <td class="p-2 border">
                                 {{ $emadEdeen->patch->port ?? '' }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $emadEdeen->point->name ?? '' }}
                             </td>
                             <td class="p-2 border">
                                 @can('edit-schema')
@@ -156,5 +167,4 @@
             </div>
         </div>
     </div>
-
 </div>

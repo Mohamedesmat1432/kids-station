@@ -9,7 +9,7 @@ trait EmadEdeenTrait
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
     public $emadedeen_id, $name, $email;
-    public $department_id, $device_id, $ip_id, $switch_id, $patch_id;
+    public $department_id, $device_id, $ip_id, $switch_id, $patch_id, $point_id;
 
     protected function rules()
     {
@@ -21,6 +21,7 @@ trait EmadEdeenTrait
             'ip_id' => 'nullable|numeric|exists:ips,id',
             'switch_id' => 'nullable|numeric|exists:switch_branchs,id',
             'patch_id' => 'nullable|numeric|exists:patch_branchs,id',
+            'point_id' => 'nullable|numeric|exists:points,id',
         ];
 
         return $rules;

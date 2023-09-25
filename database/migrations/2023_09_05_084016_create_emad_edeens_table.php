@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('ip_id')->nullable();
             $table->foreignId('switch_id')->nullable();
             $table->foreignId('patch_id')->nullable();
+            $table->foreignId('point_id')->nullable();
             $table->timestamps();
         });
     }

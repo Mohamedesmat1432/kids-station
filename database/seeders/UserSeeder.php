@@ -34,15 +34,12 @@ class UserSeeder extends Seeder
         }
 
         $user = User::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'SuperAdmin',
+            'email' => 'superadmin@gmail.com',
             'password' => Hash::make('Q@W#E$P@ssw0rd'),
         ]);
 
-        // Adding permissions to a user
-        $user->syncPermissions(Permission::pluck('id')->all());
-
         // Adding permissions via a role
-        $user->syncRoles(['Admin']);
+        $user->syncRoles(['Super Admin']);
     }
 }

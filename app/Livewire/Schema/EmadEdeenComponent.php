@@ -7,6 +7,7 @@ use App\Models\Device;
 use App\Models\EmadEdeen;
 use App\Models\Ip;
 use App\Models\PatchBranch;
+use App\Models\Point;
 use App\Models\SwitchBranch;
 use App\Traits\EmadEdeenTrait;
 use Livewire\Component;
@@ -23,7 +24,9 @@ class EmadEdeenComponent extends Component
         $devices = Device::pluck('name', 'id');
         $ips = Ip::pluck('number', 'id');
         $patchs = PatchBranch::pluck('port', 'id');
-        $switchs = SwitchBranch::pluck('port', 'id');
+        $emadEdeenNullSwitch = EmadEdeen::where('switch_id', '!=', null)->pluck('switch_id');
+        $switchs = SwitchBranch::whereNotIn('id', $emadEdeenNullSwitch)->pluck('hostname', 'id');
+        $points = Point::pluck('name', 'id');
 
         $emadEdeens = EmadEdeen::when($this->search, function ($query) {
             return $query->where(function ($query) {
@@ -38,6 +41,7 @@ class EmadEdeenComponent extends Component
             'ips' => $ips,
             'patchs' => $patchs,
             'switchs' => $switchs,
+            'points' => $points,
         ]);
     }
 
@@ -60,6 +64,7 @@ class EmadEdeenComponent extends Component
         $this->ip_id = $emadEdeen->ip_id;
         $this->switch_id = $emadEdeen->switch_id;
         $this->patch_id = $emadEdeen->patch_id;
+        $this->point_id = $emadEdeen->point_id;
     }
 
     public function saveEmadEdeen()

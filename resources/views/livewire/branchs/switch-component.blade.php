@@ -3,6 +3,8 @@
 
     @include('livewire.branchs.includes.delete-switch')
 
+    @include('livewire.branchs.includes.import-switch')
+
     <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
         <div class="flex justify-between">
@@ -25,6 +27,16 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                 </div>
+                <div class="mt-3 flex">
+                    <x-indigo-button class="mr-2" wire:click="confirmImport()" wire:loading.attr="disabled">
+                        <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
+                        {{ __('Import') }}
+                    </x-indigo-button>
+                    <x-danger-button wire:click="exportSwitch()" wire:loading.attr="disabled">
+                        <x-icon class="w-4 h-4 mr-1" name="arrow-down" />
+                        {{ __('Export') }}
+                    </x-danger-button>
+                </div>
             </div>
             <x-table>
                 <x-slot name="thead">
@@ -39,10 +51,66 @@
                         </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
-                                <button wire:click="sortByField('port')">
-                                    {{ __('Port') }}
+                                <button wire:click="sortByField('hostname')">
+                                    {{ __('HostName') }}
                                 </button>
-                                <x-sort-icon sort_field="port" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                <x-sort-icon sort_field="hostname" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('ip')">
+                                    {{ __('Ip / 24') }}
+                                </button>
+                                <x-sort-icon sort_field="ip" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('platform')">
+                                    {{ __('Platform') }}
+                                </button>
+                                <x-sort-icon sort_field="platform" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('version')">
+                                    {{ __('Version') }}
+                                </button>
+                                <x-sort-icon sort_field="version" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('floor')">
+                                    {{ __('Floor') }}
+                                </button>
+                                <x-sort-icon sort_field="floor" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('location')">
+                                    {{ __('Location') }}
+                                </button>
+                                <x-sort-icon sort_field="location" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('password')">
+                                    {{ __('Password') }}
+                                </button>
+                                <x-sort-icon sort_field="password" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('password_enable')">
+                                    {{ __('PasswordEnable') }}
+                                </button>
+                                <x-sort-icon sort_field="password_enable" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                             </div>
                         </td>
                         <td class="px-4 py-2 border" colspan="2">
@@ -59,14 +127,35 @@
                                 {{ $switch->id }}
                             </td>
                             <td class="p-2 border">
-                                {{ $switch->port }}
+                                {{ $switch->hostname }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->ip }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->platform }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->version }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->floor }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->location }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->password }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $switch->password_enable }}
                             </td>
                             <td class="p-2 border">
                                 @can('edit-switch')
                                     <x-indigo-button wire:click="confirmSwitchEdit({{ $switch->id }})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{ __('Edit') }}
+                                        {{-- {{ __('Edit') }} --}}
                                     </x-indigo-button>
                                 @endcan
                             </td>
@@ -75,7 +164,7 @@
                                     <x-danger-button wire:click="confirmSwitchDeletion({{ $switch->id }})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
-                                        {{ __('Delete') }}
+                                        {{-- {{ __('Delete') }} --}}
                                     </x-danger-button>
                                 @endcan
                             </td>

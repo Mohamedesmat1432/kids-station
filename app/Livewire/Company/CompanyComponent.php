@@ -78,7 +78,6 @@ class CompanyComponent extends Component
     public function confirmImport()
     {
         $this->confirm_import = true;
-        $this->resetItems();
     }
 
     public function importCompany(CompaniesImport $importCompany)
@@ -93,11 +92,11 @@ class CompanyComponent extends Component
         }
     }
 
-    public function exportCompany(CompaniesExport $exportCompany)
+    public function exportCompany()
     {
         try {
             $this->successMessage(__('Companies imported successfully'));
-            return $exportCompany->download('companies.xlsx');
+            return (new CompaniesExport($this->search))->download('companies.xlsx');
         } catch (\Throwable $e) {
             $this->errorMessage($e->getMessage());
         }

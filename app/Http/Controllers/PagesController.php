@@ -76,4 +76,8 @@ class PagesController extends Controller
         return view('pages.emad-edeens');
     }
     
+    public function points()
+    {
+        return view('pages.points');
+    }
 }

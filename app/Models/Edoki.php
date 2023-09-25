@@ -20,6 +20,7 @@ class Edoki extends Model
         'ip_id',
         'switch_id',
         'patch_id',
+        'point_id',
     ];
 
     public function Department(): BelongsTo
@@ -45,5 +46,10 @@ class Edoki extends Model
     public function Patch(): BelongsTo
     {
         return $this->belongsTo(PatchBranch::class);
+    }
+
+    public function Point(): BelongsTo
+    {
+        return $this->belongsTo(Point::class);
     }
 }

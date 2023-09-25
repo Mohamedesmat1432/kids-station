@@ -168,7 +168,11 @@
                                     {{ __('EmadEdeen') }}
                                 </x-dropdown-link>
                             @endcan
-
+                            @can('view-point')
+                                <x-dropdown-link wire:navigate href="{{ route('points') }}" :active="request()->routeIs('points')">
+                                    {{ __('Points') }}
+                                </x-dropdown-link>
+                            @endcan
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link wire:navigate href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
@@ -188,160 +192,166 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-            </div>
 
-            <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            @can('view-user')
-                <x-responsive-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
-                    {{ __('Users') }}
-                </x-responsive-nav-link>
-            @endcan
-            @can('view-role')
-                <x-responsive-nav-link wire:navigate href="{{ route('roles') }}" :active="request()->routeIs('roles')">
-                    {{ __('Roles') }}
-                </x-responsive-nav-link>
-            @endcan
-            @can('view-permission')
-                <x-responsive-nav-link wire:navigate href="{{ route('permissions') }}" :active="request()->routeIs('permissions')">
-                    {{ __('Permissions') }}
-                </x-responsive-nav-link>
-            @endcan
-            @can('view-department')
-                <x-responsive-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
-                    {{ __('Departments') }}
-                </x-responsive-nav-link>
-            @endcan
-            @can('view-company')
-                <x-responsive-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
-                    {{ __('Comapnies') }}
-                </x-responsive-nav-link>
-            @endcan
-            @can('view-license')
-                <x-responsive-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
-                    {{ __('Licenses') }}
-                </x-responsive-nav-link>
-            @endcan
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div class="shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                            alt="{{ Auth::user()->name }}" />
-                    </div>
-                @endif
-
-                <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <!-- Hamburger -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button @click="open = ! open"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
+        </div>
 
-            <div class="mt-3 space-y-1">
-                <!-- Account Management -->
-                <x-responsive-nav-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('Profile') }}
+        <!-- Responsive Navigation Menu -->
+        <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                @can('view-device')
-                    <x-responsive-nav-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
-                        {{ __('Devices') }}
+                @can('view-user')
+                    <x-responsive-nav-link wire:navigate href="{{ route('users') }}" :active="request()->routeIs('users')">
+                        {{ __('Users') }}
                     </x-responsive-nav-link>
                 @endcan
-                @can('view-switch')
-                    <x-responsive-nav-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
-                        {{ __('Switchs') }}
+                @can('view-role')
+                    <x-responsive-nav-link wire:navigate href="{{ route('roles') }}" :active="request()->routeIs('roles')">
+                        {{ __('Roles') }}
                     </x-responsive-nav-link>
                 @endcan
-                @can('view-patch')
-                    <x-responsive-nav-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
-                        {{ __('Patchs') }}
+                @can('view-permission')
+                    <x-responsive-nav-link wire:navigate href="{{ route('permissions') }}" :active="request()->routeIs('permissions')">
+                        {{ __('Permissions') }}
                     </x-responsive-nav-link>
                 @endcan
-                @can('view-ip')
-                    <x-responsive-nav-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
-                        {{ __('IPs') }}
+                @can('view-department')
+                    <x-responsive-nav-link wire:navigate href="{{ route('departments') }}" :active="request()->routeIs('departments')">
+                        {{ __('Departments') }}
                     </x-responsive-nav-link>
                 @endcan
-                @can('view-schema')
-                    <x-responsive-nav-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
-                        {{ __('Edoki') }}
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
-                        {{ __('EmadEdeen') }}
+                @can('view-company')
+                    <x-responsive-nav-link wire:navigate href="{{ route('companies') }}" :active="request()->routeIs('companies')">
+                        {{ __('Comapnies') }}
                     </x-responsive-nav-link>
                 @endcan
-
-                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-responsive-nav-link wire:navigate href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
-                        {{ __('API Tokens') }}
+                @can('view-license')
+                    <x-responsive-nav-link wire:navigate href="{{ route('licenses') }}" :active="request()->routeIs('licenses')">
+                        {{ __('Licenses') }}
                     </x-responsive-nav-link>
-                @endif
+                @endcan
+            </div>
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}" x-data>
-                    @csrf
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="flex items-center px-4">
+                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                        <div class="shrink-0 mr-3">
+                            <img class="h-10 w-10 rounded-full object-cover"
+                                src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        </div>
+                    @endif
 
-                    <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-
-                <!-- Team Management -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
-
-                    <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
+                    <div>
+                        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                     </div>
+                </div>
 
-                    <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
-                        :active="request()->routeIs('teams.show')">
-                        {{ __('Team Settings') }}
+                <div class="mt-3 space-y-1">
+                    <!-- Account Management -->
+                    <x-responsive-nav-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                        {{ __('Profile') }}
                     </x-responsive-nav-link>
-
-                    @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
-                            {{ __('Create New Team') }}
+                    @can('view-device')
+                        <x-responsive-nav-link wire:navigate href="{{ route('devices') }}" :active="request()->routeIs('devices')">
+                            {{ __('Devices') }}
                         </x-responsive-nav-link>
                     @endcan
+                    @can('view-switch')
+                        <x-responsive-nav-link wire:navigate href="{{ route('switchs') }}" :active="request()->routeIs('switchs')">
+                            {{ __('Switchs') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('view-patch')
+                        <x-responsive-nav-link wire:navigate href="{{ route('patchs') }}" :active="request()->routeIs('patchs')">
+                            {{ __('Patchs') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('view-ip')
+                        <x-responsive-nav-link wire:navigate href="{{ route('ips') }}" :active="request()->routeIs('ips')">
+                            {{ __('IPs') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('view-schema')
+                        <x-responsive-nav-link wire:navigate href="{{ route('edokis') }}" :active="request()->routeIs('edokis')">
+                            {{ __('Edoki') }}
+                        </x-responsive-nav-link>
+                        <x-responsive-nav-link wire:navigate href="{{ route('emad-edeens') }}" :active="request()->routeIs('emad-edeens')">
+                            {{ __('EmadEdeen') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @can('view-point')
+                        <x-responsive-nav-link wire:navigate href="{{ route('points') }}" :active="request()->routeIs('points')">
+                            {{ __('Points') }}
+                        </x-responsive-nav-link>
+                    @endcan
+                    @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                        <x-responsive-nav-link wire:navigate href="{{ route('api-tokens.index') }}"
+                            :active="request()->routeIs('api-tokens.index')">
+                            {{ __('API Tokens') }}
+                        </x-responsive-nav-link>
+                    @endif
 
-                    <!-- Team Switcher -->
-                    @if (Auth::user()->allTeams()->count() > 1)
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+
+                        <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                            {{ __('Log Out') }}
+                        </x-responsive-nav-link>
+                    </form>
+
+                    <!-- Team Management -->
+                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                         <div class="border-t border-gray-200"></div>
 
                         <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Switch Teams') }}
+                            {{ __('Manage Team') }}
                         </div>
 
-                        @foreach (Auth::user()->allTeams() as $team)
-                            <x-switchable-team :team="$team" component="responsive-nav-link" />
-                        @endforeach
+                        <!-- Team Settings -->
+                        <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                            :active="request()->routeIs('teams.show')">
+                            {{ __('Team Settings') }}
+                        </x-responsive-nav-link>
+
+                        @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                            <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
+                                {{ __('Create New Team') }}
+                            </x-responsive-nav-link>
+                        @endcan
+
+                        <!-- Team Switcher -->
+                        @if (Auth::user()->allTeams()->count() > 1)
+                            <div class="border-t border-gray-200"></div>
+
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Switch Teams') }}
+                            </div>
+
+                            @foreach (Auth::user()->allTeams() as $team)
+                                <x-switchable-team :team="$team" component="responsive-nav-link" />
+                            @endforeach
+                        @endif
                     @endif
-                @endif
+                </div>
             </div>
         </div>
     </div>
