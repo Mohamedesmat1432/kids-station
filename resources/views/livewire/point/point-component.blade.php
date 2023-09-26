@@ -65,7 +65,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($points as $point)
+                    @forelse ($points as $point)
                         <tr wire:key="point-{{ $point->id }}">
                             <td class="p-2 border">
                                 {{ $point->id }}
@@ -92,7 +92,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

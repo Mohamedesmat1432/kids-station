@@ -3,7 +3,7 @@
     @include('livewire.schema.includes.save-emad-edeen')
 
     @include('livewire.schema.includes.delete-emad-edeen')
-    
+
     @include('livewire.schema.includes.import-emad-edeen')
 
     <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
@@ -130,7 +130,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($emadEdeens as $emadEdeen)
+                    @forelse ($emadEdeens as $emadEdeen)
                         <tr wire:key="emadEdeen-{{ $emadEdeen->id }}">
                             <td class="p-2 border">
                                 {{ $emadEdeen->id }}
@@ -181,7 +181,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

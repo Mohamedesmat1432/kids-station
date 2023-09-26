@@ -53,7 +53,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($permissions as $permission)
+                    @forelse ($permissions as $permission)
                         <tr wire:key="permission-{{ $permission->id }}">
                             <td class="p-2 border">
                                 {{ $permission->id }}
@@ -80,7 +80,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

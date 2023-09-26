@@ -121,7 +121,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($switchs as $switch)
+                    @forelse ($switchs as $switch)
                         <tr wire:key="switch-{{ $switch->id }}">
                             <td class="p-2 border">
                                 {{ $switch->id }}
@@ -169,7 +169,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

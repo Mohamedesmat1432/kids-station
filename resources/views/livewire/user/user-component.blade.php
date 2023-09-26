@@ -73,7 +73,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($users as $user)
+                    @forelse ($users as $user)
                         <tr wire:key="user-{{ $user->id }}">
                             <td class="p-2 border">
                                 {{ $user->id }}
@@ -106,7 +106,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

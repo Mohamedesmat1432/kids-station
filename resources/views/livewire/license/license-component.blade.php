@@ -115,7 +115,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($licenses as $license)
+                    @forelse ($licenses as $license)
                         <tr wire:key="license-{{ $license->id }}">
                             <td class="p-2 border">
                                 {{ $license->id }}
@@ -176,7 +176,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 

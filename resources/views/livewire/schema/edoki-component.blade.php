@@ -130,7 +130,7 @@
                     </tr>
                 </x-slot>
                 <x-slot name="tbody">
-                    @foreach ($edokis as $edoki)
+                    @forelse ($edokis as $edoki)
                         <tr wire:key="edoki-{{ $edoki->id }}">
                             <td class="p-2 border">
                                 {{ $edoki->id }}
@@ -181,7 +181,13 @@
                                 @endcan
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                {{ __('No Data Found') }}
+                            </td>
+                        </tr>
+                    @endforelse
                 </x-slot>
             </x-table>
 
