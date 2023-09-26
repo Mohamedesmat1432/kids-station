@@ -13,7 +13,7 @@ trait LicenseTrait
     protected function rules()
     {
         $rules =  [
-            'name' => 'required|string|min:3',
+            'name' => 'required|string|min:3|unique:licenses,name,' . $this->license_id,
             'company_id' => 'nullable|numeric|exists:companies,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date'
