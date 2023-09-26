@@ -6,7 +6,7 @@
         <x-icon class="h-6 w-6" name="exclamation-triangle" />
     </div>
 @elseif(Helper::countDays($start, $end) >= 180 && Helper::countDays($start, $end) < 300)
-    <div class="bg-yellow-500 hover:bg-yellow-600 rounded-lg p-1 flex justify-center text-white">
+    <div class="bg-yellow-600 hover:bg-yellow-700 rounded-lg p-1 flex justify-center text-white">
         <span class="mr-2">{{ __('Warning') }}</span>
         <x-icon class="h-6 w-6" name="exclamation-triangle" />
     </div>
