@@ -32,7 +32,7 @@ class LicensesImport implements ToModel, WithHeadingRow, WithValidation, SkipsEm
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', 'min:3', 'unique:licenses,name'],
             'phone' => ['required', 'string'],
             'start_date' => ['required'],
             'end_date' => ['required'],
