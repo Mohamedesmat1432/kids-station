@@ -6,7 +6,7 @@ use Livewire\WithPagination;
 
 trait PointTrait {
 
-    use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
+    use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait, FileTrait;
 
     public $point_id, $name;
 

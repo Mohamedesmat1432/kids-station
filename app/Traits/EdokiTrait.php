@@ -6,7 +6,7 @@ use Livewire\WithPagination;
 
 trait EdokiTrait
 {
-    use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
+    use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait, FileTrait;
 
     public $edoki_id, $name, $email, $port;
     public $department_id, $device_id, $ip_id, $switch_id, $patch_id, $point_id;
