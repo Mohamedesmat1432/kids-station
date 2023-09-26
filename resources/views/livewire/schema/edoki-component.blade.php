@@ -4,6 +4,8 @@
 
     @include('livewire.schema.includes.delete-edoki')
 
+    @include('livewire.schema.includes.import-edoki')
+
     <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
         <div class="flex justify-between">
@@ -26,6 +28,16 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                 </div>
+            </div>
+            <div class="mt-3 flex">
+                <x-indigo-button class="mr-2" wire:click="confirmImport()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
+                    {{ __('Import') }}
+                </x-indigo-button>
+                <x-danger-button wire:click="exportEdoki()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4 mr-1" name="arrow-down" />
+                    {{ __('Export') }}
+                </x-danger-button>
             </div>
             <x-table>
                 <x-slot name="thead">
@@ -102,6 +114,14 @@
                                 <x-sort-icon sort_field="point_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                             </div>
                         </td>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <button wire:click="sortByField('port')">
+                                    {{ __('Switch Port') }}
+                                </button>
+                                <x-sort-icon sort_field="port" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border" colspan="2">
                             <div class="flex items-center">
                                 {{ __('Action') }}
@@ -138,6 +158,9 @@
                             </td>
                             <td class="p-2 border">
                                 {{ $edoki->point->name ?? '' }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $edoki->port }}
                             </td>
                             <td class="p-2 border">
                                 @can('edit-schema')

@@ -3,11 +3,13 @@
 
     @include('livewire.point.includes.delete-point')
 
+    @include('livewire.point.includes.import-point')
+
     <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
         <div class="flex justify-between">
             <h1 class=" text-2xl font-medium text-gray-900">
-                {{ __('points') }}
+                {{ __('Points') }}
             </h1>
             @can('create-point')
                 <x-indigo-button wire:click="confirmPointAdd()" wire:loading.attr="disabled">
@@ -25,6 +27,16 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                 </div>
+            </div>
+            <div class="mt-3 flex">
+                <x-indigo-button class="mr-2" wire:click="confirmImport()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
+                    {{ __('Import') }}
+                </x-indigo-button>
+                <x-danger-button wire:click="exportPoint()" wire:loading.attr="disabled">
+                    <x-icon class="w-4 h-4 mr-1" name="arrow-down" />
+                    {{ __('Export') }}
+                </x-danger-button>
             </div>
             <x-table>
                 <x-slot name="thead">

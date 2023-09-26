@@ -15,6 +15,7 @@ class EmadEdeen extends Model
     protected $fillable = [
         'name',
         'email',
+        'port',
         'department_id',
         'device_id',
         'ip_id',

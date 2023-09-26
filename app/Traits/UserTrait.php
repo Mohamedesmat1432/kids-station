@@ -16,7 +16,7 @@ trait UserTrait
         $rules = [
             'name' => 'required|string|min:4',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->user_id,
-            'role' => 'required',
+            'role' => 'nullable|exists:roles,name',
         ];
 
         if (!$this->user_id) {

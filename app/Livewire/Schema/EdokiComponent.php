@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Schema;
 
+use App\Exports\EdokiExport;
+use App\Imports\EdokiImport;
 use App\Models\Department;
 use App\Models\Device;
 use App\Models\Edoki;
@@ -24,8 +26,8 @@ class EdokiComponent extends Component
         $devices = Device::pluck('name', 'id');
         $ips = Ip::pluck('number', 'id');
         $patchs = PatchBranch::pluck('port', 'id');
-        $edokiNullSwitch = Edoki::where('switch_id', '!=', null)->where('switch_id','!=',$this->switch_id)->pluck('switch_id');
-        $switchs = SwitchBranch::whereNotIn('id', $edokiNullSwitch)->pluck('hostname', 'id');
+        $edokiNullSwitch = Edoki::where('switch_id','!=',$this->switch_id)->pluck('switch_id');
+        $switchs = SwitchBranch::pluck('hostname', 'id');
         $points = Point::pluck('name', 'id');
 
         $edokis = Edoki::when($this->search, function ($query) {
@@ -66,6 +68,7 @@ class EdokiComponent extends Component
         $this->switch_id = $edoki->switch_id;
         $this->patch_id = $edoki->patch_id;
         $this->point_id = $edoki->point_id;
+        $this->port = $edoki->port;
     }
 
     public function saveEdoki()
@@ -94,5 +97,32 @@ class EdokiComponent extends Component
         $edoki->delete();
         $this->successMessage(__('Edoki deleted successfully'));
         $this->confirm_delete = false;
+    }
+
+    public function confirmImport()
+    {
+        $this->confirm_import = true;
+    }
+
+    public function importEdoki(EdokiImport $importSchema)
+    {
+        $this->validate(['file' => 'required|mimes:xlsx,xls']);
+        try {
+            $this->successMessage(__('Edoki schema imported successfully'));
+            $this->confirm_import = false;
+            return $importSchema->import($this->file);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
+    }
+
+    public function exportEdoki()
+    {
+        try {
+            $this->successMessage(__('Edoki schema exported successfully'));
+            return new EdokiExport($this->search);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
     }
 }

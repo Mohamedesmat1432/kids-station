@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Schema;
 
+use App\Exports\EmadEdeenExport;
+use App\Imports\EmadEdeenImport;
 use App\Models\Department;
 use App\Models\Device;
 use App\Models\EmadEdeen;
@@ -25,7 +27,7 @@ class EmadEdeenComponent extends Component
         $ips = Ip::pluck('number', 'id');
         $patchs = PatchBranch::pluck('port', 'id');
         $emadEdeenNullSwitch = EmadEdeen::where('switch_id', '!=', null)->pluck('switch_id');
-        $switchs = SwitchBranch::whereNotIn('id', $emadEdeenNullSwitch)->pluck('hostname', 'id');
+        $switchs = SwitchBranch::pluck('hostname', 'id');
         $points = Point::pluck('name', 'id');
 
         $emadEdeens = EmadEdeen::when($this->search, function ($query) {
@@ -65,6 +67,7 @@ class EmadEdeenComponent extends Component
         $this->switch_id = $emadEdeen->switch_id;
         $this->patch_id = $emadEdeen->patch_id;
         $this->point_id = $emadEdeen->point_id;
+        $this->port = $emadEdeen->port;
     }
 
     public function saveEmadEdeen()
@@ -94,5 +97,32 @@ class EmadEdeenComponent extends Component
         $emadEdeen->delete();
         $this->successMessage(__('Emad Edeen deleted successfully'));
         $this->confirm_delete = false;
+    }
+
+    public function confirmImport()
+    {
+        $this->confirm_import = true;
+    }
+
+    public function importEmadEdeen(EmadEdeenImport $importSchema)
+    {
+        $this->validate(['file' => 'required|mimes:xlsx,xls']);
+        try {
+            $this->successMessage(__('EmadEdeen schema imported successfully'));
+            $this->confirm_import = false;
+            return $importSchema->import($this->file);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
+    }
+
+    public function exportEmadEdeen()
+    {
+        try {
+            $this->successMessage(__('EmadEdeen schema exported successfully'));
+            return new EmadEdeenExport($this->search);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
     }
 }

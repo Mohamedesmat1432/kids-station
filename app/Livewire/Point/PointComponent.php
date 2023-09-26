@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Point;
 
+use App\Exports\PointExport;
+use App\Imports\PointImport;
 use App\Models\Point;
 use App\Traits\PointTrait;
 use Livewire\Component;
@@ -67,5 +69,32 @@ class PointComponent extends Component
         $point->delete();
         $this->successMessage(__('Point deleted successfully'));
         $this->confirm_delete = false;
+    }
+
+    public function confirmImport()
+    {
+        $this->confirm_import = true;
+    }
+
+    public function importPoint(PointImport $importPoint)
+    {
+        $this->validate(['file' => 'required|mimes:xlsx,xls']);
+        try {
+            $this->successMessage(__('Edoki schema imported successfully'));
+            $this->confirm_import = false;
+            return $importPoint->import($this->file);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
+    }
+
+    public function exportPoint()
+    {
+        try {
+            $this->successMessage(__('Edoki schema exported successfully'));
+            return new PointExport($this->search);
+        } catch (\Throwable $e) {
+            $this->errorMessage($e->getMessage());
+        }
     }
 }

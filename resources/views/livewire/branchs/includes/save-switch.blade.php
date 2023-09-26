@@ -31,14 +31,24 @@
         </div>
         <div class="col-span-6 sm:col-span-4 mt-2">
             <x-label for="floor" value="{{ __('Floor') }}" />
-            <x-input id="floor" type="text" class="mt-1 block w-full" wire:model="floor"
-                placeholder="{{ __('Enter switch floor') }}" />
+            <x-select id="location" class="mt-1 block w-full overflow-scroll" wire:model="location">
+                <option value="#">{{ __('Select Location') }}</option>
+                <option value="WeData">{{ __('We Data') }}</option>
+                <option value="DataCenter">{{ __('Data Center') }}</option>
+                <option value="5th">{{ __('5th') }}</option>
+                <option value="6th">{{ __('6th') }}</option>
+            </x-select>
             <x-input-error for="floor" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4 mt-2">
             <x-label for="location" value="{{ __('Location') }}" />
-            <x-input id="location" type="text" class="mt-1 block w-full" wire:model="location"
-                placeholder="{{ __('Enter switch location') }}" />
+            <x-select id="location" class="mt-1 block w-full overflow-scroll" wire:model="location">
+                <option value="#">{{ __('Select Location') }}</option>
+                <option value="WeData">{{ __('We Data') }}</option>
+                <option value="DataCenter">{{ __('Data Center') }}</option>
+                <option value="Rack1">{{ __('Rack1') }}</option>
+                <option value="Rack2">{{ __('Rack2') }}</option>
+            </x-select>
             <x-input-error for="location" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4 mt-2">

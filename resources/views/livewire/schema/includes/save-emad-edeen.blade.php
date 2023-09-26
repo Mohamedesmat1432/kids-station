@@ -77,6 +77,16 @@
             </x-select>
             <x-input-error for="point_id" class="mt-2" />
         </div>
+        <div class="col-span-6 sm:col-span-4 mt-3">
+            <x-label for="port" value="{{ __('Switch Port') }}" />
+            <x-select id="port" class="mt-1 block w-full" wire:model="port">
+                <option value="#">{{ __('Select Port') }}</option>
+                @for ($i = 1; $i <= 24; $i++)
+                    <option value="{{ $i }}">{{ $i }}</option>
+                @endfor
+            </x-select>
+            <x-input-error for="port" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="footer">

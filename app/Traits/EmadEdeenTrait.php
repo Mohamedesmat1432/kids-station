@@ -8,7 +8,7 @@ trait EmadEdeenTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $emadedeen_id, $name, $email;
+    public $emadedeen_id, $name, $email, $port;
     public $department_id, $device_id, $ip_id, $switch_id, $patch_id, $point_id;
 
     protected function rules()
@@ -16,6 +16,7 @@ trait EmadEdeenTrait
         $rules = [
             'name' => 'required|string|min:4',
             'email' => 'required|string|email|max:255|unique:emad_edeens,email,' . $this->emadedeen_id,
+            'port' => 'nullable|numeric',
             'department_id' => 'nullable|numeric|exists:departments,id',
             'device_id' => 'nullable|numeric|exists:devices,id',
             'ip_id' => 'nullable|numeric|exists:ips,id',
