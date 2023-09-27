@@ -14,6 +14,8 @@ class PatchComponent extends Component
     {
         $this->authorize('view-patch');
         
+        $this->bulk_disabled = count($this->selected_patch);
+
         $patchs = PatchBranch::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('port', 'like', '%' . $this->search . '%');
@@ -25,13 +27,13 @@ class PatchComponent extends Component
         ]);
     }
 
-    public function confirmPatchAdd()
+    public function confirmAdd()
     {
         $this->resetItems();
         $this->confirm_form = true;
     }
 
-    public function confirmPatchEdit($id)
+    public function confirmEdit($id)
     {
         $this->resetItems();
         $this->confirm_form = true;
@@ -40,7 +42,7 @@ class PatchComponent extends Component
         $this->port = $patch->port;
     }
 
-    public function savePatch()
+    public function save()
     {
         $validated = $this->validate();
         if (isset($this->patch_id)) {
@@ -55,12 +57,12 @@ class PatchComponent extends Component
         $this->confirm_form = false;
     }
 
-    public function confirmPatchDeletion($id)
+    public function confirmDeletion($id)
     {
         $this->confirm_delete = $id;
     }
 
-    public function deletePatch()
+    public function delete()
     {
         $patch = PatchBranch::findOrFail($this->confirm_delete);
         $patch->edokis()->update(['patch_id' => null]);
@@ -68,5 +70,33 @@ class PatchComponent extends Component
         $patch->delete();
         $this->successMessage(__('Patch deleted successfully'));
         $this->confirm_delete = false;
+    }
+
+    public function confirmDeletionAll()
+    {
+        $this->confirm_delete = true;
+    }
+
+    public function selectedAll()
+    {
+        if (count($this->selected_patch) > 0) {
+            $this->selected_patch = [];
+        } else {
+            $this->selected_patch = PatchBranch::pluck('id');
+        }
+    }
+
+    public function deleteAll()
+    {
+        $patchs = PatchBranch::whereIn('id', $this->selected_patch);
+        foreach ($patchs as $patch) {
+            $patch->edokis()->update(['patch_id' => null]);
+            $patch->emadEdeens()->update(['patch_id' => null]);
+        }
+        $patchs->delete();
+        $this->successMessage(__('Selected patch deleted successfully'));
+        $this->confirm_delete = false;
+        $this->selected_patch = [];
+        $this->bulk_disabled = false;
     }
 }

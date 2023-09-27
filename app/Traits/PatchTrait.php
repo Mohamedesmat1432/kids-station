@@ -8,7 +8,10 @@ trait PatchTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $patch_id, $port;
+    public $patch_id;
+    public $port;
+    public $selected_patch = [];
+    public $bulk_disabled = false;
 
     protected function rules()
     {

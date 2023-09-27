@@ -16,6 +16,8 @@ class SwitchComponent extends Component
     {
         $this->authorize('view-switch');
 
+        $this->bulk_disabled = count($this->selected_switch);
+
         $switchs = SwitchBranch::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('hostname', 'like', '%' . $this->search . '%');
@@ -27,13 +29,13 @@ class SwitchComponent extends Component
         ]);
     }
 
-    public function confirmSwitchAdd()
+    public function confirmAdd()
     {
         $this->resetItems();
         $this->confirm_form = true;
     }
 
-    public function confirmSwitchEdit($id)
+    public function confirmEdit($id)
     {
         $this->resetItems();
         $this->confirm_form = true;
@@ -49,7 +51,7 @@ class SwitchComponent extends Component
         $this->password_enable = $switch->password_enable;
     }
 
-    public function saveSwitch()
+    public function save()
     {
         $validated = $this->validate();
         if (isset($this->switch_id)) {
@@ -64,12 +66,12 @@ class SwitchComponent extends Component
         $this->confirm_form = false;
     }
 
-    public function confirmSwitchDeletion($id)
+    public function confirmDeletion($id)
     {
         $this->confirm_delete = $id;
     }
 
-    public function deleteSwitch()
+    public function delete()
     {
         $switch = SwitchBranch::findOrFail($this->confirm_delete);
         $switch->edokis()->update(['switch_id' => null]);
@@ -79,12 +81,40 @@ class SwitchComponent extends Component
         $this->confirm_delete = false;
     }
 
+    public function confirmDeletionAll()
+    {
+        $this->confirm_delete = true;
+    }
+
+    public function selectedAll()
+    {
+        if (count($this->selected_switch) > 0) {
+            $this->selected_switch = [];
+        } else {
+            $this->selected_switch = SwitchBranch::pluck('id');
+        }
+    }
+
+    public function deleteAll()
+    {
+        $switchs = SwitchBranch::whereIn('id', $this->selected_switch);
+        foreach ($switchs as $switch) {
+            $switch->edokis()->update(['switch_id' => null]);
+            $switch->emadEdeens()->update(['switch_id' => null]);
+        }
+        $switchs->delete();
+        $this->successMessage(__('Selected switch deleted successfully'));
+        $this->confirm_delete = false;
+        $this->selected_switch = [];
+        $this->bulk_disabled = false;
+    }
+
     public function confirmImport()
     {
         $this->confirm_import = true;
     }
 
-    public function importSwitch(SwitchImport $importSwitch)
+    public function import(SwitchImport $importSwitch)
     {
         $this->validate(['file' => 'required|mimes:xlsx,xls']);
         try {
@@ -96,7 +126,7 @@ class SwitchComponent extends Component
         }
     }
 
-    public function exportSwitch()
+    public function export()
     {
         try {
             $this->successMessage(__('Switch exported successfully'));
@@ -105,5 +135,4 @@ class SwitchComponent extends Component
             $this->errorMessage($e->getMessage());
         }
     }
-
 }

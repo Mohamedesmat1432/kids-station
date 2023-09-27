@@ -17,7 +17,7 @@
         <x-secondary-button wire:click="$set('confirm_form',false)" wire:loading.attr="disabled">
             {{ __('Cancel') }}
         </x-secondary-button>
-        <x-indigo-button class="ml-3" wire:click.prevent="savePatch()" wire:loading.attr="disabled">
+        <x-indigo-button class="ml-3" wire:click.prevent="save()" wire:loading.attr="disabled">
             {{ __('Save Patch') }}
         </x-indigo-button>
     </x-slot>

@@ -8,7 +8,8 @@ trait DepartmentTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $department_id, $name;
+    public $department_id;
+    public $name;
 
     protected function rules()
     {

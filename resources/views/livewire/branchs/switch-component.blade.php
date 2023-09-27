@@ -12,7 +12,7 @@
                 {{ __('Switchs') }}
             </h1>
             @can('create-switch')
-                <x-indigo-button wire:click="confirmSwitchAdd()" wire:loading.attr="disabled">
+                <x-indigo-button wire:click="confirmAdd()" wire:loading.attr="disabled">
                     <x-icon class="w-4 h-4" name="plus" />
                     {{ __('Create') }}
                 </x-indigo-button>
@@ -32,15 +32,28 @@
                         <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
                         {{ __('Import') }}
                     </x-indigo-button>
-                    <x-danger-button wire:click="exportSwitch()" wire:loading.attr="disabled">
+                    <x-danger-button wire:click="export()" wire:loading.attr="disabled">
                         <x-icon class="w-4 h-4 mr-1" name="arrow-down" />
                         {{ __('Export') }}
                     </x-danger-button>
+                </div>
+                <div class="mt-3">
+                    @if ($bulk_disabled)
+                        <x-danger-button wire:click="confirmDeletionAll()" wire:loading.attr="disabled">
+                            <x-icon class="w-4 h-4" name="trash" />
+                            {{ __('Delete Selected') }} ({{ $bulk_disabled }})
+                        </x-danger-button>
+                    @endif
                 </div>
             </div>
             <x-table>
                 <x-slot name="thead">
                     <tr>
+                        <td class="px-4 py-2 border">
+                            <div class="flex items-center">
+                                <x-checkbox wire:click="selectedAll" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -124,6 +137,9 @@
                     @forelse ($switchs as $switch)
                         <tr wire:key="switch-{{ $switch->id }}">
                             <td class="p-2 border">
+                                <x-checkbox wire:model.live="selected_switch" value="{{ $switch->id }}" />
+                            </td>
+                            <td class="p-2 border">
                                 {{ $switch->id }}
                             </td>
                             <td class="p-2 border">
@@ -152,7 +168,7 @@
                             </td>
                             <td class="p-2 border">
                                 @can('edit-switch')
-                                    <x-indigo-button wire:click="confirmSwitchEdit({{ $switch->id }})"
+                                    <x-indigo-button wire:click="confirmEdit({{ $switch->id }})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="pencil-square" />
                                         {{-- {{ __('Edit') }} --}}
@@ -161,7 +177,7 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-switch')
-                                    <x-danger-button wire:click="confirmSwitchDeletion({{ $switch->id }})"
+                                    <x-danger-button wire:click="confirmDeletion({{ $switch->id }})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

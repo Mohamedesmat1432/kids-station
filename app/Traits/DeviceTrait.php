@@ -8,7 +8,10 @@ trait DeviceTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $device_id, $name, $serial, $specifications;
+    public $device_id;
+    public $name;
+    public $serial;
+    public $specifications;
 
     protected function rules()
     {

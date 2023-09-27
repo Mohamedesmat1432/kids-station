@@ -8,8 +8,16 @@ trait EdokiTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait, FileTrait;
 
-    public $edoki_id, $name, $email, $port;
-    public $department_id, $device_id, $ip_id, $switch_id, $patch_id, $point_id;
+    public $edoki_id;
+    public $name;
+    public $email;
+    public $port;
+    public $department_id;
+    public $device_id;
+    public $ip_id;
+    public $switch_id;
+    public $patch_id;
+    public $point_id;
 
     protected function rules()
     {

@@ -8,7 +8,8 @@ trait IpTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $ip_id, $number;
+    public $ip_id;
+    public $number;
 
     protected function rules()
     {

@@ -8,7 +8,8 @@ trait PointTrait {
 
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait, FileTrait;
 
-    public $point_id, $name;
+    public $point_id;
+    public $name;
 
     protected function rules()
     {

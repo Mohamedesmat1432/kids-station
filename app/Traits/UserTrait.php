@@ -8,7 +8,10 @@ trait UserTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $user_id, $name, $email, $password;
+    public $user_id;
+    public $name;
+    public $email;
+    public $password;
     public $role;
 
     protected function rules()

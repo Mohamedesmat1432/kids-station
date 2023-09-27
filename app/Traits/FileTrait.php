@@ -10,8 +10,10 @@ trait FileTrait
     use WithFileUploads;
 
     public $fileRule = 'nullable|file|mimes:jpg,png,jpeg,docx,xlsx,csv,pdf|max:12288';
-
-    public $file, $newFile, $files, $newFiles;
+    public $file;
+    public $newFile;
+    public $files;
+    public $newFiles;
 
     public function uploadFile($file, $folder)
     {

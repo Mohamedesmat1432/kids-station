@@ -17,7 +17,7 @@
             {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-indigo-button class="ml-3" wire:click="importSwitch()" wire:loading.attr="disabled">
+        <x-indigo-button class="ml-3" wire:click="import()" wire:loading.attr="disabled">
             {{ __('Import Switch') }}
         </x-indigo-button>
     </x-slot>

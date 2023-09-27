@@ -8,7 +8,8 @@ trait PermissionTrait
 {
     use WithPagination, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $permission_id, $name;
+    public $permission_id;
+    public $name;
 
     protected function rules()
     {

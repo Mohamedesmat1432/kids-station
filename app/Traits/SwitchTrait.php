@@ -8,7 +8,17 @@ trait SwitchTrait
 {
     use WithPagination, FileTrait, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $switch_id, $hostname, $ip, $platform, $version, $floor, $location, $password, $password_enable;
+    public $switch_id;
+    public $hostname;
+    public $ip;
+    public $platform;
+    public $version;
+    public $floor;
+    public $location;
+    public $password;
+    public $password_enable;
+    public $selected_switch = [];
+    public $bulk_disabled = false;
 
     protected function rules()
     {

@@ -5,7 +5,10 @@
     </x-slot>
 
     <x-slot name="content">
-        {{ __('Are you sure you want to delete your switch?') }}
+        {{ __('Are you sure you want to delete this switch?') }}
+        @if ($bulk_disabled)
+            {{ __('And this count is: ') . $bulk_disabled }}
+        @endif
 
     </x-slot>
 
@@ -14,10 +17,15 @@
             {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-danger-button class="ml-3" wire:click="deleteSwitch()"
-            wire:loading.attr="disabled">
-            {{ __('Delete Switch') }}
-        </x-danger-button>
+        @if ($bulk_disabled)
+            <x-danger-button class="ml-3" wire:click="deleteAll()" wire:loading.attr="disabled">
+                {{ __('Delete All') }}
+            </x-danger-button>
+        @else
+            <x-danger-button class="ml-3" wire:click="delete()" wire:loading.attr="disabled">
+                {{ __('Delete Switch') }}
+            </x-danger-button>
+        @endif
     </x-slot>
 </x-dialog-modal-danger>
 {{-- end confirm delete switch --}}

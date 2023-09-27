@@ -8,7 +8,12 @@ trait CompanyTrait
 {
     use WithPagination, FileTrait, ConfirmTrait, SortSearchTrait, MessageTrait;
 
-    public $company_id, $name, $email, $address, $contacts, $specialization;
+    public $company_id;
+    public $name;
+    public $email;
+    public $address;
+    public $contacts;
+    public $specialization;
 
     protected function rules()
     {
