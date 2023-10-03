@@ -3,12 +3,9 @@
 namespace App\Traits;
 
 use Illuminate\Support\Carbon;
-use Livewire\WithFileUploads;
 
 trait FileTrait
 {
-    use WithFileUploads;
-
     public $fileRule = 'nullable|file|mimes:jpg,png,jpeg,docx,xlsx,csv,pdf|max:12288';
     public $file;
     public $newFile;

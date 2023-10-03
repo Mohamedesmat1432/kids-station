@@ -4,7 +4,7 @@
          <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
              <div class="overflow-x-auto">
                  <table class="table-auto min-w-full">
-                     <thead>
+                     <thead class="text-center">
                          {{ $thead }}
                      </thead>
                      <tbody class="text-center">

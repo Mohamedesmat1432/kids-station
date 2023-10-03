@@ -1,6 +1,11 @@
-@props(['id' => null, 'maxWidth' => null])
+@props(['id' => null, 'maxWidth' => null, 'submit' => null, 'method' => null])
 
 <x-modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
+    @if ($submit)
+        <form wire:submit="{{ $submit }}">
+            @csrf
+            @method($method)
+    @endif
     <div class="px-6 py-4">
         <div class="text-lg font-medium text-gray-900 flex">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -19,4 +24,7 @@
     <div class="flex flex-row justify-end px-6 py-4 bg-gray-100 text-right">
         {{ $footer }}
     </div>
+    @if ($submit)
+        </form>
+    @endif
 </x-modal>
