@@ -6,8 +6,8 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="form.name" value="{{ __('Name') }}" />
-                <x-input id="form.name" type="text" class="mt-1 block w-full" wire:model="form.name"
+                <x-label for="name" value="{{ __('Name') }}" />
+                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="form.name"
                     placeholder="{{ __('Enter permission name') }}" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>

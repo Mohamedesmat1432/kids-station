@@ -13,14 +13,14 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="form.name" value="{{ __('Name') }}" />
-                <x-input id="form.name" type="text" class="mt-1 block w-full" wire:model="form.name"
+                <x-label for="name" value="{{ __('Name') }}" />
+                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="form.name"
                     placeholder="{{ __('Enter license name') }}" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.company_id" value="{{ __('Company') }}" />
-                <x-select id="form.company_id" class="mt-1 block w-full overflow-scroll" wire:model="form.company_id">
+                <x-label for="company_id" value="{{ __('Company') }}" />
+                <x-select id="company_id" class="mt-1 block w-full overflow-scroll" wire:model="form.company_id">
                     <option value="#">{{ __('Select company') }}</option>
                     @foreach ($companies as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
@@ -29,23 +29,23 @@
                 <x-input-error for="form.company_id" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.file" value="{{ __('File') }}" />
-                <x-input id="form.file" type="file" class="mt-1 block w-full" wire:model="form.file" />
+                <x-label for="file" value="{{ __('File') }}" />
+                <x-input id="file" type="file" class="mt-1 block w-full" wire:model="form.file" />
                 <x-input-error for="form.file" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.file" value="{{ __('Files') }}" />
-                <x-input id="form.files" type="file" class="mt-1 block w-full" wire:model="form.files" multiple />
+                <x-label for="file" value="{{ __('Files') }}" />
+                <x-input id="files" type="file" class="mt-1 block w-full" wire:model="form.files" multiple />
                 <x-input-error for="form.files.*" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.start_date" value="{{ __('Start Date') }}" />
-                <x-input id="form.start_date" type="date" class="mt-1 block w-full" wire:model="form.start_date" />
+                <x-label for="start_date" value="{{ __('Start Date') }}" />
+                <x-input id="start_date" type="date" class="mt-1 block w-full" wire:model="form.start_date" />
                 <x-input-error for="form.start_date" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.end_date" value="{{ __('End Date') }}" />
-                <x-input id="form.end_date" type="date" class="mt-1 block w-full" wire:model="form.end_date" />
+                <x-label for="end_date" value="{{ __('End Date') }}" />
+                <x-input id="end_date" type="date" class="mt-1 block w-full" wire:model="form.end_date" />
                 <x-input-error for="form.end_date" class="mt-2" />
             </div>
         </x-slot>

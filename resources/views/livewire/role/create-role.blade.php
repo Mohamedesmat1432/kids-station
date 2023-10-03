@@ -12,14 +12,14 @@
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="form.name" value="{{ __('Name') }}" />
-                <x-input id="form.name" type="text" class="mt-1 block w-full" wire:model="form.name"
+                <x-label for="name" value="{{ __('Name') }}" />
+                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="form.name"
                     placeholder="{{ __('Enter role name') }}" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="form.permission" value="{{ __('Permissions') }}" />
-                <x-select id="form.permission" class="mt-1 block w-full h-48" wire:model="form.permission" multiple>
+                <x-label for="permission" value="{{ __('Permissions') }}" />
+                <x-select id="permission" class="mt-1 block w-full h-48" wire:model="form.permission" multiple>
                     @foreach ($permissions as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
