@@ -32,10 +32,26 @@
             <div class="mt-3 flex">
                 @livewire('license.import-export-license')
             </div>
+            <div class="mt-3">
+                @if (count($checkbox_arr) > 0)
+                    <x-danger-button
+                        wire:click="$dispatch('bulk-delete-modal',{arr:'{{ implode(',', $checkbox_arr) }}'})"
+                        wire:loading.attr="disabled">
+                        <x-icon class="w-4 h-4" name="trash" />
+                        {{ __('Delete All') }} ({{ count($checkbox_arr) }})
+                    </x-danger-button>
+                @endif
 
+                @livewire('license.bulk-delete-license')
+            </div>
             <x-table>
                 <x-slot name="thead">
                     <tr>
+                        <td class="px-4 py-2 border">
+                            <div class="text-center">
+                                <x-checkbox wire:click="checkboxAll" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -110,6 +126,9 @@
                 <x-slot name="tbody">
                     @forelse ($licenses as $license)
                         <tr wire:key="license-{{ $license->id }}">
+                            <td class="p-2 border">
+                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $license->id }}" />
+                            </td>
                             <td class="p-2 border">
                                 {{ $license->id }}
                             </td>

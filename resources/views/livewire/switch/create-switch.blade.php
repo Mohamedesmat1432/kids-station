@@ -25,10 +25,10 @@
                 <x-input-error for="form.ip" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-2">
-                <x-label for="platform" value="{{ __('Platform') }}" />
-                <x-input id="platform" type="text" class="mt-1 block w-full" wire:model="platform"
+                <x-label for="form.platform" value="{{ __('Platform') }}" />
+                <x-input id="form.platform" type="text" class="mt-1 block w-full" wire:model="form.platform"
                     placeholder="{{ __('Enter switch platform') }}" />
-                <x-input-error for="platform" class="mt-2" />
+                <x-input-error for="form.platform" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-2">
                 <x-label for="form.version" value="{{ __('Version') }}" />
