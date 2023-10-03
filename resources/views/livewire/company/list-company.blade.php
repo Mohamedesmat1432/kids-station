@@ -19,6 +19,13 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
+                    <div>
+                        <x-select id="page_element" class="mt-1 block w-full" wire:model.live="page_element">
+                            @for ($i = 10; $i <= 100; $i++)
+                                <option value="{{ $i }}">Per page {{ $i }}</option>
+                            @endfor
+                        </x-select>
+                    </div>
                 </div>
             </div>
             <div class="mt-3 flex">

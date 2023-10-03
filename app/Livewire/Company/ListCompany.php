@@ -42,7 +42,7 @@ class ListCompany extends Component
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->latest()->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->latest()->paginate($this->page_element);
 
         return view('livewire.company.list-company', [
             'companies' => $companies

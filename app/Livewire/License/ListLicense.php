@@ -27,7 +27,7 @@ class ListLicense extends Component
                     ->orWhere('start_date', 'like', '%' . $this->search . '%')
                     ->orWhere('end_date', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.license.list-license', [
             'licenses' => $licenses,
