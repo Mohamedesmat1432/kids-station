@@ -12,9 +12,27 @@ class ListIp extends Component
 {
     use WithPagination, SortSearchTrait;
 
+    public $checkbox_arr = [];
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Ip::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    #[On('bulk-delete-clear')]
+    public function checkboxClear()
+    {
+        $this->checkbox_arr = [];
+    }
+
     #[On('create-ip')]
     #[On('update-ip')]
     #[On('delete-ip')]
+    #[On('bulk-delete-ip')]
     public function render()
     {
         $this->authorize('view-ip');

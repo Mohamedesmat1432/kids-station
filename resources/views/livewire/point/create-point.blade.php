@@ -5,7 +5,7 @@
             {{ __('Create') }}
         </x-indigo-button>
     @endcan
-    
+
     <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
         <x-slot name="title">
             {{ __('Create New Point') }}
@@ -14,8 +14,8 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="form.name"
-                    placeholder="{{ __('Enter point name') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
+                    placeholder="{{ __('Enter point name') }}" autocomplete="on" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
         </x-slot>

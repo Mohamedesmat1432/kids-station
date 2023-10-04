@@ -13,19 +13,19 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="form-name-create" type="text" class="mt-1 block w-full" wire:model="form.name"
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
                     placeholder="{{ __('Enter user name') }}" autocomplete="username" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="form-email-create" type="email" class="mt-1 block w-full" wire:model="form.email"
+                <x-input type="email" class="mt-1 block w-full" wire:model="form.email"
                     placeholder="{{ __('Enter user email') }}" autocomplete="form.email" />
                 <x-input-error for="form.email" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="role" value="{{ __('Roles') }}" />
-                <x-select id="form-role-create" class="mt-1 block w-full" wire:model="form.role" multiple>
+                <x-select class="mt-1 block w-full" wire:model="form.role" multiple>
                     @foreach ($roles as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
@@ -34,7 +34,7 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="form-password-create" type="password" class="mt-1 block w-full" wire:model="form.password"
+                <x-input type="password" class="mt-1 block w-full" wire:model="form.password"
                     placeholder="{{ __('Enter user password') }}" autocomplete="current-password" />
                 <x-input-error for="form.password" class="mt-2" />
             </div>

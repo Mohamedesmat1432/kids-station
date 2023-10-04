@@ -21,23 +21,32 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="mt-3">
-                @if ($bulk_disabled)
-                    <x-danger-button wire:click="confirmDeletionAll()" wire:loading.attr="disabled">
+            <div class="mt-3">
+                @if (count($checkbox_arr) > 0)
+                    <x-danger-button
+                        wire:click="$dispatch('bulk-delete-modal',{arr:'{{ implode(',', $checkbox_arr) }}'})"
+                        wire:loading.attr="disabled">
                         <x-icon class="w-4 h-4" name="trash" />
-                        {{ __('Delete Selected') }} ({{ $bulk_disabled }})
+                        {{ __('Delete All') }} ({{ count($checkbox_arr) }})
                     </x-danger-button>
                 @endif
-            </div> --}}
-        </div>
-        <x-table>
-            <x-slot name="thead">
-                <tr>
-                    {{-- <td class="px-4 py-2 border">
+
+                @livewire('patch.bulk-delete-patch')
+            </div>
+
+            <x-table>
+                <x-slot name="thead">
+                    <tr>
+                        <td class="px-4 py-2 border">
+                            <div class="text-center">
+                                <x-checkbox wire:click="checkboxAll" />
+                            </div>
+                        </td>
+                    <td class="px-4 py-2 border">
                         <div class="text-center">
-                            <x-checkbox wire:click="selectedAll" />
+                            <x-checkbox wire:click="checkboxAll" />
                         </div>
-                    </td> --}}
+                    </td>
                     <td class="px-4 py-2 border">
                         <div class="flex items-center">
                             <button class="flex items-center" wire:click="sortByField('id')">
@@ -64,9 +73,9 @@
             <x-slot name="tbody">
                 @forelse ($patchs as $patch)
                     <tr wire:key="patch-{{ $patch->id }}">
-                        {{-- <td class="p-2 border">
-                            <x-checkbox wire:model.live="selected_patch" value="{{ $patch->id }}" />
-                        </td> --}}
+                        <td class="p-2 border">
+                            <x-checkbox wire:model.live="checkbox_arr" value="{{ $patch->id }}" />
+                        </td>
                         <td class="p-2 border">
                             {{ $patch->id }}
                         </td>

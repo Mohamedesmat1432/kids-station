@@ -7,21 +7,21 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="name" value="{{ __('Device Name') }}" />
-                <x-input id="name" type="text" class="mt-1 block w-full" wire:model="form.name"
-                    placeholder="{{ __('Enter device name') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
+                    placeholder="{{ __('Enter device name') }}" autocomplete="on" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="serial" value="{{ __('Serial') }}" />
-                <x-input id="serial" type="text" class="mt-1 block w-full" wire:model="form.serial"
-                    placeholder="{{ __('Enter device serial') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.serial"
+                    placeholder="{{ __('Enter device serial') }}" autocomplete="on" />
                 <x-input-error for="form.serial" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="specifications" value="{{ __('Specifications') }}" />
                 <x-quill-editor name="form.specifications" body="{!! $this->form->specifications !!}" />
 
-                {{-- <x-textarea id="specifications" type="text" class="mt-1 block w-full" wire:model="form.specifications"
+                {{-- <x-textarea type="text" class="mt-1 block w-full" wire:model="form.specifications"
                     placeholder="{{ __('Enter device specifications') }}">
                 </x-textarea> --}}
                 <x-input-error for="form.specifications" class="mt-2" />

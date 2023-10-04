@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Company;
+namespace App\Livewire\Switch;
 
-use App\Models\Company;
+use App\Models\SwitchBranch;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteCompany extends Component
+class BulkDeleteSwitch extends Component
 {
     use WithNotify;
 
@@ -24,21 +24,22 @@ class BulkDeleteCompany extends Component
 
     public function delete()
     {
-        $companies = Company::whereIn('id', $this->arr);
+        $switchs = SwitchBranch::whereIn('id', $this->arr);
 
-        foreach ($companies as $company) {
-            $company->licenses()->update(['company_id' => null]);
+        foreach ($switchs as $switch) {
+            $switch->edokis()->update(['switch_id' => null]);
+            $switch->emadEdeens()->update(['switch_id' => null]);
         }
-        
-        $companies->delete();
-        $this->dispatch('bulk-delete-company');
+
+        $switchs->delete();
+        $this->dispatch('bulk-delete-switch');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('Companies deleted successfully'));
+        $this->successNotify(__('Switchs deleted successfully'));
         $this->bulk_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.company.bulk-delete-company');
+        return view('livewire.switch.bulk-delete-switch');
     }
 }

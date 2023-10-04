@@ -12,9 +12,27 @@ class ListSwitch extends Component
 {
     use WithPagination, SortSearchTrait;
 
+    public $checkbox_arr = [];
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = SwitchBranch::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    #[On('bulk-delete-clear')]
+    public function checkboxClear()
+    {
+        $this->checkbox_arr = [];
+    }
+
     #[On('create-switch')]
     #[On('update-switch')]
     #[On('delete-switch')]
+    #[On('bulk-delete-switch')]
     public function render()
     {
         $this->authorize('view-switch');

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Department;
+namespace App\Livewire\Patch;
 
-use App\Models\Department;
+use App\Models\PatchBranch;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteDepartment extends Component
+class BulkDeletePatch extends Component
 {
     use WithNotify;
 
@@ -24,22 +24,22 @@ class BulkDeleteDepartment extends Component
 
     public function delete()
     {
-        $departments = Department::whereIn('id', $this->arr);
+        $patchs = PatchBranch::whereIn('id', $this->arr);
 
-        foreach ($departments as $department) {
-            $department->edokis()->update(['department_id' => null]);
-            $department->emadEdeens()->update(['department_id' => null]);
+        foreach ($patchs as $patch) {
+            $patch->edokis()->update(['patch_id' => null]);
+            $patch->emadEdeens()->update(['patch_id' => null]);
         }
         
-        $departments->delete();
-        $this->dispatch('bulk-delete-department');
+        $patchs->delete();
+        $this->dispatch('bulk-delete-patch');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('Departments deleted successfully'));
+        $this->successNotify(__('Patchs deleted successfully'));
         $this->bulk_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.department.bulk-delete-department');
+        return view('livewire.patch.bulk-delete-patch');
     }
 }

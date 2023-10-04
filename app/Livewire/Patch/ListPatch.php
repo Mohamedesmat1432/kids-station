@@ -12,9 +12,27 @@ class ListPatch extends Component
 {
     use WithPagination, SortSearchTrait;
 
+    public $checkbox_arr = [];
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = PatchBranch::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    #[On('bulk-delete-clear')]
+    public function checkboxClear()
+    {
+        $this->checkbox_arr = [];
+    }
+
     #[On('create-patch')]
     #[On('update-patch')]
     #[On('delete-patch')]
+    #[On('bulk-delete-patch')]
     public function render()
     {
         $this->authorize('view-patch');

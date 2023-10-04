@@ -7,8 +7,8 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="form.name" value="{{ __('Name') }}" />
-                <x-input id="form.name" type="text" class="mt-1 block w-full" wire:model="form.name"
-                    placeholder="{{ __('Enter department name') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
+                    placeholder="{{ __('Enter department name') }}" autocomplete="on" />
                 <x-input-error for="form.name" class="mt-2" />
             </div>
         </x-slot>

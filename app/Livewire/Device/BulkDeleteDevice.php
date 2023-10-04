@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Company;
+namespace App\Livewire\Device;
 
-use App\Models\Company;
+use App\Models\Device;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteCompany extends Component
+class BulkDeleteDevice extends Component
 {
     use WithNotify;
 
@@ -24,21 +24,22 @@ class BulkDeleteCompany extends Component
 
     public function delete()
     {
-        $companies = Company::whereIn('id', $this->arr);
+        $devices = Device::whereIn('id', $this->arr);
 
-        foreach ($companies as $company) {
-            $company->licenses()->update(['company_id' => null]);
+        foreach ($devices as $device) {
+            $device->edokis()->update(['device_id' => null]);
+            $device->emadEdeens()->update(['device_id' => null]);
         }
         
-        $companies->delete();
-        $this->dispatch('bulk-delete-company');
+        $devices->delete();
+        $this->dispatch('bulk-delete-device');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('Companies deleted successfully'));
+        $this->successNotify(__('Devices deleted successfully'));
         $this->bulk_delete_modal = false;
     }
-
+    
     public function render()
     {
-        return view('livewire.company.bulk-delete-company');
+        return view('livewire.device.bulk-delete-device');
     }
 }

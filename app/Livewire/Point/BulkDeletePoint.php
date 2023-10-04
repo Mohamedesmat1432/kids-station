@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Department;
+namespace App\Livewire\Point;
 
-use App\Models\Department;
+use App\Models\Point;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteDepartment extends Component
+class BulkDeletePoint extends Component
 {
     use WithNotify;
 
@@ -24,22 +24,22 @@ class BulkDeleteDepartment extends Component
 
     public function delete()
     {
-        $departments = Department::whereIn('id', $this->arr);
+        $points = Point::whereIn('id', $this->arr);
 
-        foreach ($departments as $department) {
-            $department->edokis()->update(['department_id' => null]);
-            $department->emadEdeens()->update(['department_id' => null]);
+        foreach ($points as $point) {
+            $point->edokis()->update(['point_id' => null]);
+            $point->emadEdeens()->update(['point_id' => null]);
         }
         
-        $departments->delete();
-        $this->dispatch('bulk-delete-department');
+        $points->delete();
+        $this->dispatch('bulk-delete-point');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('Departments deleted successfully'));
+        $this->successNotify(__('Points deleted successfully'));
         $this->bulk_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.department.bulk-delete-department');
+        return view('livewire.point.bulk-delete-point');
     }
 }

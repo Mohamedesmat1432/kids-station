@@ -21,9 +21,27 @@
                     </div>
                 </div>
             </div>
+            <div class="mt-3">
+                @if (count($checkbox_arr) > 0)
+                    <x-danger-button
+                        wire:click="$dispatch('bulk-delete-modal',{arr:'{{ implode(',', $checkbox_arr) }}'})"
+                        wire:loading.attr="disabled">
+                        <x-icon class="w-4 h-4" name="trash" />
+                        {{ __('Delete All') }} ({{ count($checkbox_arr) }})
+                    </x-danger-button>
+                @endif
+
+                @livewire('point.bulk-delete-point')
+            </div>
+
             <x-table>
                 <x-slot name="thead">
                     <tr>
+                        <td class="px-4 py-2 border">
+                            <div class="text-center">
+                                <x-checkbox wire:click="checkboxAll" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -50,6 +68,9 @@
                 <x-slot name="tbody">
                     @forelse ($points as $point)
                         <tr wire:key="point-{{ $point->id }}">
+                            <td class="p-2 border">
+                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $point->id }}" />
+                            </td>
                             <td class="p-2 border">
                                 {{ $point->id }}
                             </td>

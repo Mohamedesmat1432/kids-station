@@ -14,8 +14,8 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="number" value="{{ __('Number') }}" />
-                <x-input id="number" type="text" class="mt-1 block w-full" wire:model="form.number"
-                    placeholder="{{ __('Enter ip number') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="form.number"
+                    placeholder="{{ __('Enter ip number') }}" autocomplete="on" />
                 <x-input-error for="form.number" class="mt-2" />
             </div>
         </x-slot>
