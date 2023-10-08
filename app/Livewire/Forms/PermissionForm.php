@@ -10,6 +10,7 @@ class PermissionForm extends Form
     public ?Permission $permission;
     public $permission_id;
     public $name;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -46,5 +47,20 @@ class PermissionForm extends Form
     {
         $permission = Permission::findOrFail($this->permission_id);
         $permission->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Permission::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $permissions = Permission::whereIn('id', $this->checkbox_arr);
+        $permissions->delete();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Department;
 
+use App\Livewire\Forms\DepartmentForm;
 use App\Models\Department;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,21 +13,17 @@ class ListDepartment extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public DepartmentForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Department::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+        $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-department')]

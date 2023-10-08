@@ -19,17 +19,18 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
+                    <div>
+                        <x-select class="block w-full" wire:model.live="page_element">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </x-select>
+                    </div>
                 </div>
             </div>
             <div class="mt-3">
-                @if (count($checkbox_arr) > 0)
-                    <x-danger-button
-                        wire:click="$dispatch('bulk-delete-modal',{arr:'{{ implode(',', $checkbox_arr) }}'})"
-                        wire:loading.attr="disabled">
-                        <x-icon class="w-4 h-4" name="trash" />
-                        {{ __('Delete All') }} ({{ count($checkbox_arr) }})
-                    </x-danger-button>
-                @endif
+                <x-bulk-delete-button />
 
                 @livewire('ip.bulk-delete-ip')
             </div>
@@ -69,7 +70,7 @@
                     @forelse ($ips as $ip)
                         <tr wire:key="ip-{{ $ip->id }}">
                             <td class="p-2 border">
-                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $ip->id }}" />
+                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $ip->id }}" />
                             </td>
                             <td class="p-2 border">
                                 {{ $ip->id }}

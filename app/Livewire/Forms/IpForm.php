@@ -10,6 +10,7 @@ class IpForm extends Form
     public ?Ip $ip;
     public $ip_id;
     public $number;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -48,5 +49,26 @@ class IpForm extends Form
         $ip->edokis()->update(['ip_id' => null]);
         $ip->emadEdeens()->update(['ip_id' => null]);
         $ip->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Ip::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $ips = Ip::whereIn('id', $this->checkbox_arr);
+
+        foreach ($ips as $ip) {
+            $ip->edokis()->update(['ip_id' => null]);
+            $ip->emadEdeens()->update(['ip_id' => null]);
+        }
+        
+        $ips->delete();
     }
 }

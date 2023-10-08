@@ -12,6 +12,7 @@ class PatchForm extends Form
     public $port;
     public $selected_patch = [];
     public $bulk_disabled = false;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -50,5 +51,26 @@ class PatchForm extends Form
         $patch->edokis()->update(['patch_id' => null]);
         $patch->emadEdeens()->update(['patch_id' => null]);
         $patch->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = PatchBranch::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $patchs = PatchBranch::whereIn('id', $this->checkbox_arr);
+
+        foreach ($patchs as $patch) {
+            $patch->edokis()->update(['patch_id' => null]);
+            $patch->emadEdeens()->update(['patch_id' => null]);
+        }
+
+        $patchs->delete();
     }
 }

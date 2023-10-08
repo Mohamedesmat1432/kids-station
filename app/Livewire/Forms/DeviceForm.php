@@ -12,6 +12,7 @@ class DeviceForm extends Form
     public $name;
     public $serial;
     public $specifications;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -56,5 +57,26 @@ class DeviceForm extends Form
         $device->edokis()->update(['device_id' => null]);
         $device->emadEdeens()->update(['device_id' => null]);
         $device->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Device::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $devices = Device::whereIn('id', $this->checkbox_arr);
+
+        foreach ($devices as $device) {
+            $device->edokis()->update(['device_id' => null]);
+            $device->emadEdeens()->update(['device_id' => null]);
+        }
+        
+        $devices->delete();
     }
 }

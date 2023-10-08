@@ -20,23 +20,17 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select id="page_element" class="mt-1 block w-full" wire:model.live="page_element">
-                            @for ($i = 10; $i <= 100; $i++)
-                                <option value="{{ $i }}">Per page {{ $i }}</option>
-                            @endfor
+                        <x-select class="block w-full" wire:model.live="page_element">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
                         </x-select>
                     </div>
                 </div>
             </div>
             <div class="mt-3">
-                @if (count($checkbox_arr) > 0)
-                    <x-danger-button
-                        wire:click="$dispatch('bulk-delete-modal',{arr:'{{ implode(',', $checkbox_arr) }}'})"
-                        wire:loading.attr="disabled">
-                        <x-icon class="w-4 h-4" name="trash" />
-                        {{ __('Delete All') }} ({{ count($checkbox_arr) }})
-                    </x-danger-button>
-                @endif
+                <x-bulk-delete-button />
 
                 @livewire('department.bulk-delete-department')
             </div>
@@ -76,7 +70,7 @@
                     @forelse ($departments as $department)
                         <tr wire:key="department-{{ $department->id }}">
                             <td class="p-2 border">
-                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $department->id }}" />
+                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $department->id }}" />
                             </td>
                             <td class="p-2 border">
                                 {{ $department->id }}

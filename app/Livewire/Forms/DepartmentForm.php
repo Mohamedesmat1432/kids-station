@@ -10,6 +10,7 @@ class DepartmentForm extends Form
     public ?Department $department;
     public $department_id;
     public $name;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -48,5 +49,26 @@ class DepartmentForm extends Form
         $department->edokis()->update(['department_id' => null]);
         $department->emadEdeens()->update(['department_id' => null]);
         $department->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Department::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $departments = Department::whereIn('id', $this->checkbox_arr);
+
+        foreach ($departments as $department) {
+            $department->edokis()->update(['department_id' => null]);
+            $department->emadEdeens()->update(['department_id' => null]);
+        }
+        
+        $departments->delete();
     }
 }

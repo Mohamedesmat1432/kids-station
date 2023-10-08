@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Livewire\Forms\CompanyForm;
 use App\Models\Company;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,21 +13,17 @@ class ListCompany extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public CompanyForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Company::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+        $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-company')]

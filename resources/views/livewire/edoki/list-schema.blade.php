@@ -9,7 +9,7 @@
             <h1 class=" text-2xl font-medium text-gray-900">
                 {{ __('Edoki Schema') }}
             </h1>
-          @livewire('edoki.create-schema')
+            @livewire('edoki.create-schema')
         </div>
 
         <div class="mt-6 text-gray-500 leading-relaxed">
@@ -19,14 +19,33 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
+                    <div>
+                        <x-select class="block w-full" wire:model.live="page_element">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </x-select>
+                    </div>
                 </div>
             </div>
             <div class="mt-3 flex">
                 @livewire('edoki.import-export-schema')
             </div>
+            <div class="mt-3">
+                <x-bulk-delete-button />
+
+                @livewire('edoki.bulk-delete-schema')
+            </div>
+
             <x-table>
                 <x-slot name="thead">
                     <tr>
+                        <td class="px-4 py-2 border">
+                            <div class="text-center">
+                                <x-checkbox wire:click="checkboxAll" />
+                            </div>
+                        </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -118,6 +137,9 @@
                     @forelse ($edokis as $edoki)
                         <tr wire:key="edoki-{{ $edoki->id }}">
                             <td class="p-2 border">
+                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $edoki->id }}" />
+                            </td>
+                            <td class="p-2 border">
                                 {{ $edoki->id }}
                             </td>
                             <td class="p-2 border">
@@ -158,7 +180,8 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-schema')
-                                    <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $edoki->id }}',name:'{{ $edoki->name }}'})"
+                                    <x-danger-button
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $edoki->id }}',name:'{{ $edoki->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{ __('Delete') }}

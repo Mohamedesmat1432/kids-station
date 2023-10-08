@@ -18,7 +18,8 @@ class EdokiForm extends Form
     public $switch_id;
     public $patch_id;
     public $point_id;
-
+    public $checkbox_arr = [];
+    
     protected function rules()
     {
         $rules = [
@@ -50,17 +51,17 @@ class EdokiForm extends Form
 
     public function setSchema(Edoki $edoki)
     {
-       $this->edoki = $edoki;
-       $this->edoki_id = $edoki->id;
-       $this->name = $edoki->name;
-       $this->email = $edoki->email;
-       $this->department_id = $edoki->department_id;
-       $this->device_id = $edoki->device_id;
-       $this->ip_id = $edoki->ip_id;
-       $this->switch_id = $edoki->switch_id;
-       $this->patch_id = $edoki->patch_id;
-       $this->point_id = $edoki->point_id;
-       $this->port = $edoki->port;
+        $this->edoki = $edoki;
+        $this->edoki_id = $edoki->id;
+        $this->name = $edoki->name;
+        $this->email = $edoki->email;
+        $this->department_id = $edoki->department_id;
+        $this->device_id = $edoki->device_id;
+        $this->ip_id = $edoki->ip_id;
+        $this->switch_id = $edoki->switch_id;
+        $this->patch_id = $edoki->patch_id;
+        $this->point_id = $edoki->point_id;
+        $this->port = $edoki->port;
     }
 
     public function store()
@@ -80,5 +81,20 @@ class EdokiForm extends Form
     {
         $edoki = Edoki::findOrFail($this->edoki_id);
         $edoki->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Edoki::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $edokis = Edoki::whereIn('id', $this->checkbox_arr);
+        $edokis->delete();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\License;
 
+use App\Livewire\Forms\LicenseForm;
 use App\Models\License;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
@@ -11,24 +12,24 @@ class BulkDeleteLicense extends Component
 {
     use WithNotify;
 
+    public LicenseForm $form;
     public $bulk_delete_modal = false;
-    public $arr = [], $count;
+    public $count;
 
     #[On('bulk-delete-modal')]
     public function confirmDelete($arr)
     {
-        $this->arr = explode(',', $arr);
-        $this->count = count($this->arr);
+        $this->form->checkbox_arr = explode(',', $arr);
+        $this->count = count($this->form->checkbox_arr);
         $this->bulk_delete_modal = true;
     }
 
     public function delete()
     {
-        $companies = License::whereIn('id', $this->arr);
-        $companies->delete();
+        $this->form->bulkDelete();
         $this->dispatch('bulk-delete-license');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('Companies deleted successfully'));
+        $this->successNotify(__('Licenses deleted successfully'));
         $this->bulk_delete_modal = false;
     }
 

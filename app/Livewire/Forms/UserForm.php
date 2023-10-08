@@ -15,6 +15,7 @@ class UserForm extends Form
     public $email;
     public $password;
     public $role;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -67,5 +68,20 @@ class UserForm extends Form
     {
         $user = User::findOrFail($this->user_id);
         $user->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = User::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $users = User::whereIn('id', $this->checkbox_arr);
+        $users->delete();
     }
 }

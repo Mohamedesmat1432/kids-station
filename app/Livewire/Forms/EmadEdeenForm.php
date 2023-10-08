@@ -18,6 +18,7 @@ class EmadEdeenForm extends Form
     public $switch_id;
     public $patch_id;
     public $point_id;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -80,5 +81,20 @@ class EmadEdeenForm extends Form
     {
         $emad_edeen = EmadEdeen::findOrFail($this->emad_edeen_id);
         $emad_edeen->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = EmadEdeen::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $emad_edeens = EmadEdeen::whereIn('id', $this->checkbox_arr);
+        $emad_edeens->delete();
     }
 }

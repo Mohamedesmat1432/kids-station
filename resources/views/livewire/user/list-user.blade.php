@@ -19,6 +19,14 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
+                    <div>
+                        <x-select class="block w-full" wire:model.live="page_element">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </x-select>
+                    </div>
                 </div>
             </div>
 

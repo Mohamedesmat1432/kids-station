@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Switch;
 
+use App\Livewire\Forms\SwitchForm;
 use App\Models\SwitchBranch;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,21 +13,17 @@ class ListSwitch extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public SwitchForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = SwitchBranch::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+       $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-switch')]
@@ -41,7 +38,7 @@ class ListSwitch extends Component
             return $query->where(function ($query) {
                 $query->where('hostname', 'like', '%' . $this->search . '%');
             });
-        })->latest()->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->latest()->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.switch.list-switch', [
             'switchs' => $switchs

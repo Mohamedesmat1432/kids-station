@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
+    @vite('resources/js/app.js')
 
     <!-- Styles -->
     @livewireStyles
@@ -22,7 +22,11 @@
 <body class="font-sans antialiased">
 
     <div class="min-h-screen bg-gray-100">
-        @livewire('navigation-menu')
+        @auth
+            @livewire('navigation-menu')
+        @else
+            @include('home-menu')
+        @endauth
 
         <!-- Page Heading -->
         @if (isset($header))
@@ -42,7 +46,6 @@
     </div>
 
     @stack('modals')
-    @stack('scripts')
 
     @livewireScripts
 </body>

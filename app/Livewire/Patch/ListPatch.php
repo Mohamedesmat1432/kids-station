@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Patch;
 
+use App\Livewire\Forms\PatchForm;
 use App\Models\PatchBranch;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,21 +13,17 @@ class ListPatch extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public PatchForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = PatchBranch::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+       $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-patch')]
@@ -41,7 +38,7 @@ class ListPatch extends Component
             return $query->where(function ($query) {
                 $query->where('port', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.patch.list-patch', [
             'patchs' => $patchs

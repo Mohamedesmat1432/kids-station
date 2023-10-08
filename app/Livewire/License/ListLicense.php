@@ -2,6 +2,7 @@
 
 namespace App\Livewire\License;
 
+use App\Livewire\Forms\LicenseForm;
 use App\Models\License;
 use Livewire\Component;
 use App\Traits\SortSearchTrait;
@@ -12,21 +13,17 @@ class ListLicense extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public LicenseForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = License::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+       $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-license')]

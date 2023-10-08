@@ -17,8 +17,7 @@ class SwitchForm extends Form
     public $location;
     public $password;
     public $password_enable;
-    public $selected_switch = [];
-    public $bulk_disabled = false;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -79,5 +78,25 @@ class SwitchForm extends Form
         $switch->edokis()->update(['switch_id' => null]);
         $switch->emadEdeens()->update(['switch_id' => null]);
         $switch->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = SwitchBranch::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $switchs = SwitchBranch::whereIn('id', $this->checkbox_arr);
+
+        foreach ($switchs as $switch) {
+            $switch->edokis()->update(['switch_id' => null]);
+            $switch->emadEdeens()->update(['switch_id' => null]);
+        }
+        $switchs->delete();
     }
 }

@@ -11,6 +11,7 @@ class RoleForm extends Form
     public $role_id;
     public $name;
     public $permission;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -52,5 +53,20 @@ class RoleForm extends Form
     {
         $role = Role::findOrFail($this->role_id);
         $role->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Role::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $roles = Role::whereIn('id', $this->checkbox_arr);
+        $roles->delete();
     }
 }

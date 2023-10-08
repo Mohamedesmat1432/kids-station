@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Livewire\Ip;
+namespace App\Livewire\EmadEdeen;
 
-use App\Livewire\Forms\IpForm;
-use App\Models\Ip;
+use App\Livewire\Forms\EmadEdeenForm;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteIp extends Component
+class BulkDeleteSchema extends Component
 {
     use WithNotify;
 
-    public IpForm $form;
+    public EmadEdeenForm $form;
     public $bulk_delete_modal = false;
     public $count;
 
@@ -27,14 +26,14 @@ class BulkDeleteIp extends Component
     public function delete()
     {
         $this->form->bulkDelete();
-        $this->dispatch('bulk-delete-ip');
+        $this->dispatch('bulk-delete-schema');
         $this->dispatch('bulk-delete-clear');
-        $this->successNotify(__('ips deleted successfully'));
+        $this->successNotify(__('Schema deleted successfully'));
         $this->bulk_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.ip.bulk-delete-ip');
+        return view('livewire.emad-edeen.bulk-delete-schema');
     }
 }

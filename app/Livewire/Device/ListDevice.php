@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Device;
 
+use App\Livewire\Forms\DeviceForm;
 use App\Models\Device;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,21 +13,17 @@ class ListDevice extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public $checkbox_arr = [];
+    public DeviceForm $form;
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Device::pluck('id')->toArray();
-        } else {
-            $this->checkbox_arr = [];
-        }
+        $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
     {
-        $this->checkbox_arr = [];
+        $this->form->checkbox_arr = [];
     }
 
     #[On('create-device')]
@@ -42,7 +39,7 @@ class ListDevice extends Component
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('serial', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.device.list-device', [
             'devices' => $devices

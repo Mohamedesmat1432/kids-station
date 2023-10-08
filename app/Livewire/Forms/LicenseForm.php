@@ -16,6 +16,7 @@ class LicenseForm extends Form
     public $name;
     public $start_date;
     public $end_date;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -89,5 +90,26 @@ class LicenseForm extends Form
         $this->deleteFile($license->file, 'licenses');
         $this->deleteFiles($license->files, 'licenses');
         $license->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = License::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $licenses = License::whereIn('id', $this->checkbox_arr);
+
+        foreach ($licenses as $license) {
+            $this->deleteFile($license->file, 'licenses');
+            $this->deleteFiles($license->files, 'licenses');
+        }
+
+        $licenses->delete();
     }
 }

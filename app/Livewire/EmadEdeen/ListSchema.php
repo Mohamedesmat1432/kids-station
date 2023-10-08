@@ -12,10 +12,24 @@ class ListSchema extends Component
 {
     use WithPagination, SortSearchTrait;
 
+    public EmadEdeen $form;
+
+    public function checkboxAll()
+    {
+        $this->form->checkboxAll();
+    }
+
+    #[On('bulk-delete-clear')]
+    public function checkboxClear()
+    {
+        $this->form->checkbox_arr = [];
+    }
+
     #[On('create-schema')]
     #[On('update-schema')]
     #[On('delete-schema')]
     #[On('import-schema')]
+    #[On('bulk-delete-schema')]
     public function render()
     {
         $this->authorize('view-schema');
@@ -24,7 +38,7 @@ class ListSchema extends Component
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.emad-edeen.list-schema', [
             'emadEdeens' => $emadEdeens

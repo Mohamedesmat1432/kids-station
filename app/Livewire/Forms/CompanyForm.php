@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Company;
+use Livewire\Attributes\On;
 use Livewire\Form;
 
 class CompanyForm extends Form
@@ -14,6 +15,7 @@ class CompanyForm extends Form
     public $address;
     public $contacts;
     public $specialization;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -63,5 +65,24 @@ class CompanyForm extends Form
         $company = Company::findOrFail($this->company_id);
         $company->licenses()->update(['company_id' => null]);
         $company->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Company::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $companies = Company::whereIn('id', $this->checkbox_arr);
+
+        foreach ($companies as $company) {
+            $company->licenses()->update(['company_id' => null]);
+        }
+        $companies->delete();
     }
 }

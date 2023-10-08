@@ -1,30 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Home') }}
+    </x-slot>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Home') }}
+        </h2>
+    </x-slot>
 
-    <title>{{ __('Home') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-   <!-- Scripts -->
-   @vite(['resources/js/app.js', 'resources/css/app.css'])
-
-    <!-- Styles -->
-    @livewireStyles
-</head>
-
-<body class="font-sans antialiased">
-
-    @include('home-menu')
-
-    <x-home />
-
-    @livewireScripts
-</body>
-
-</html>
+    <div>
+        <x-home />
+    </div>
+</x-app-layout>

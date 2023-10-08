@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 
 class ListUser extends Component
 {
-    use WithPagination,SortSearchTrait;
+    use WithPagination, SortSearchTrait;
 
     #[On('create-user')]
     #[On('update-user')]
@@ -23,7 +23,7 @@ class ListUser extends Component
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate(10);
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 
         return view('livewire.user.list-user', [
             'users' => $users

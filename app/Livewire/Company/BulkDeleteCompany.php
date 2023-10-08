@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Livewire\Forms\CompanyForm;
 use App\Models\Company;
 use App\Traits\WithNotify;
 use Livewire\Attributes\On;
@@ -11,26 +12,21 @@ class BulkDeleteCompany extends Component
 {
     use WithNotify;
 
+    public CompanyForm $form;
     public $bulk_delete_modal = false;
-    public $arr = [], $count;
+    public $count;
 
     #[On('bulk-delete-modal')]
     public function confirmDelete($arr)
     {
-        $this->arr = explode(',', $arr);
-        $this->count = count($this->arr);
+        $this->form->checkbox_arr = explode(',', $arr);
+        $this->count = count($this->form->checkbox_arr);
         $this->bulk_delete_modal = true;
     }
 
     public function delete()
     {
-        $companies = Company::whereIn('id', $this->arr);
-
-        foreach ($companies as $company) {
-            $company->licenses()->update(['company_id' => null]);
-        }
-        
-        $companies->delete();
+        $this->form->bulkDelete();
         $this->dispatch('bulk-delete-company');
         $this->dispatch('bulk-delete-clear');
         $this->successNotify(__('Companies deleted successfully'));

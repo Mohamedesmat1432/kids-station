@@ -11,6 +11,7 @@ class PointForm extends Form
 
     public $point_id;
     public $name;
+    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -49,5 +50,26 @@ class PointForm extends Form
         $point->edokis()->update(['point_id' => null]);
         $point->emadEdeens()->update(['point_id' => null]);
         $point->delete();
+    }
+
+    public function checkboxAll()
+    {
+        if (empty($this->checkbox_arr)) {
+            $this->checkbox_arr = Point::pluck('id')->toArray();
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function bulkDelete()
+    {
+        $points = Point::whereIn('id', $this->checkbox_arr);
+
+        foreach ($points as $point) {
+            $point->edokis()->update(['point_id' => null]);
+            $point->emadEdeens()->update(['point_id' => null]);
+        }
+
+        $points->delete();
     }
 }
