@@ -19,14 +19,6 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
-                    <div>
-                        <x-select class="block w-full" wire:model.live="page_element">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </x-select>
-                    </div>
                 </div>
             </div>
 
@@ -92,7 +84,7 @@
                                     <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $user->id }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{ __('Edit') }}
+                                        {{-- {{ __('Edit') }} --}}
                                     </x-indigo-button>
                                 @endcan
                             </td>
@@ -102,7 +94,7 @@
                                         wire:click="$dispatch('delete-modal',{id:'{{ $user->id }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
-                                        {{ __('Delete') }}
+                                        {{-- {{ __('Delete') }} --}}
                                     </x-danger-button>
                                 @endcan
                             </td>
@@ -118,6 +110,15 @@
             </x-table>
 
             <div class="mt-4">
+                <div>
+                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-select class="ml-2 py-1" wire:model.live="page_element">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </x-select>
+                </div>
                 {{ $users->links() }}
             </div>
         </div>
