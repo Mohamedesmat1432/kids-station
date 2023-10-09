@@ -2,6 +2,7 @@
 
 namespace App\Livewire\EmadEdeen;
 
+use App\Livewire\Forms\EmadEdeenForm;
 use App\Models\EmadEdeen;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
@@ -12,7 +13,7 @@ class ListSchema extends Component
 {
     use WithPagination, SortSearchTrait;
 
-    public EmadEdeen $form;
+    public EmadEdeenForm $form;
 
     public function checkboxAll()
     {
