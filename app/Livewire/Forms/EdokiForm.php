@@ -19,7 +19,7 @@ class EdokiForm extends Form
     public $patch_id;
     public $point_id;
     public $checkbox_arr = [];
-    
+
     protected function rules()
     {
         $rules = [
@@ -85,8 +85,11 @@ class EdokiForm extends Form
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Edoki::pluck('id')->toArray();
+        $data = Edoki::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
         }

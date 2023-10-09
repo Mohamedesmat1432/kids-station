@@ -59,10 +59,14 @@ class DeviceForm extends Form
         $device->delete();
     }
 
+
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Device::pluck('id')->toArray();
+        $data = Device::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
         }
@@ -76,7 +80,7 @@ class DeviceForm extends Form
             $device->edokis()->update(['device_id' => null]);
             $device->emadEdeens()->update(['device_id' => null]);
         }
-        
+
         $devices->delete();
     }
 }

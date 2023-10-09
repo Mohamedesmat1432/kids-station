@@ -71,7 +71,6 @@ class SwitchForm extends Form
         $this->switch->update($validated);
     }
 
-
     public function delete()
     {
         $switch = SwitchBranch::findOrFail($this->switch_id);
@@ -82,8 +81,11 @@ class SwitchForm extends Form
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = SwitchBranch::pluck('id')->toArray();
+        $data = SwitchBranch::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
         }

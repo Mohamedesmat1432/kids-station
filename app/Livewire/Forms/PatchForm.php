@@ -55,8 +55,11 @@ class PatchForm extends Form
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = PatchBranch::pluck('id')->toArray();
+        $data = PatchBranch::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
         }

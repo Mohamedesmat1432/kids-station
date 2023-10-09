@@ -54,8 +54,11 @@ class PointForm extends Form
 
     public function checkboxAll()
     {
-        if (empty($this->checkbox_arr)) {
-            $this->checkbox_arr = Point::pluck('id')->toArray();
+        $data = Point::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
         }
