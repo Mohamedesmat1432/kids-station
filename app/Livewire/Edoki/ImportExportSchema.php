@@ -14,9 +14,9 @@ class ImportExportSchema extends Component
     use WithNotify, SortSearchTrait, WithFileUploads;
 
     public $file;
-
     public $import_modal = false;
     public $export_modal = false;
+    public $extension = 'xlsx';
 
     public function importModal()
     {

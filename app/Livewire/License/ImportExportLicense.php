@@ -17,6 +17,7 @@ class ImportExportLicense extends Component
     public $file;
     public $import_modal = false;
     public $export_modal = false;
+    public $extension = 'xlsx';
 
     public function importModal()
     {
