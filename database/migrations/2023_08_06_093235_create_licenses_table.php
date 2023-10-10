@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('file')->nullable();
             $table->text('files')->nullable();
             $table->foreignId('company_id')->nullable();
+            $table->enum('status', ['success', 'warning', 'danger', 'expired'])->default('success');
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

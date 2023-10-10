@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\Helper;
 use App\Models\License;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -87,6 +88,15 @@ class LicenseSeeder extends Seeder
         ];
 
         foreach ($licenses as $license) {
+            if (Helper::countDays(now(), $license['end_date']) >= 1 && Helper::countDays(now(), $license['end_date']) < 180) {
+                $license['status'] = 'danger';
+            } elseif (Helper::countDays(now(), $license['end_date']) >= 180 && Helper::countDays(now(), $license['end_date']) < 300) {
+                $license['status'] = 'warning';
+            } elseif (Helper::countDays(now(), $license['end_date']) >= 300) {
+                $license['status'] = 'success';
+            } else {
+                $license['status'] = 'expired';
+            }
             License::create($license);
         }
     }

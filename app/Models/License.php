@@ -16,6 +16,7 @@ class License extends Model
         'name',
         'file',
         'files',
+        'status',
         'start_date',
         'end_date',
         'company_id'

@@ -3,27 +3,17 @@
 namespace App\Exports;
 
 use App\Models\License;
-use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use Maatwebsite\Excel\Excel;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class LicensesExport implements FromCollection, WithHeadings, Responsable, WithStyles
+class LicensesExport implements FromCollection, WithHeadings, WithStyles
 {
     use Exportable;
 
     public $search;
-
-    private $fileName = 'licenses.xlsx';
-
-    private $writerType = Excel::XLSX;
-
-    private $headers = [
-        'Content-Type' => 'text/csv',
-    ];
 
     public function styles(Worksheet $sheet)
     {
@@ -43,7 +33,7 @@ class LicensesExport implements FromCollection, WithHeadings, Responsable, WithS
 
     public function collection()
     {
-        return License::select('id', 'name', 'start_date', 'end_date')
+        return License::select('id', 'name','status', 'start_date', 'end_date')
             ->where('name', 'like', '%' . $this->search . '%')->get();
     }
 
@@ -52,6 +42,7 @@ class LicensesExport implements FromCollection, WithHeadings, Responsable, WithS
         return [
             'ID',
             'Name',
+            'Status',
             'Start Date',
             'End Date'
         ];

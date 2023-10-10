@@ -6,22 +6,12 @@ use App\Models\SwitchBranch;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Excel;
-use Illuminate\Contracts\Support\Responsable;
 
-class SwitchExport implements FromCollection, WithHeadings, Responsable
+class SwitchExport implements FromCollection, WithHeadings
 {
     use Exportable;
 
     public $search;
-
-    private $fileName = 'switchs.xlsx';
-
-    private $writerType = Excel::XLSX;
-
-    private $headers = [
-        'Content-Type' => 'text/csv',
-    ];
 
     public function __construct($search)
     {

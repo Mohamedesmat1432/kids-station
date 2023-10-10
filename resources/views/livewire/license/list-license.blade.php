@@ -20,6 +20,16 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('Search ...') }}" />
                     </div>
+                    <div>
+                        <x-label for="status_mode" value="{{ __('Status') }}" />
+                        <x-select class="mt-1 ml-2 overflow-scroll" wire:model.live="search">
+                            <option value="">{{ __('Select status') }}</option>
+                            <option value="success">{{ __('Success') }}</option>
+                            <option value="warning">{{ __('Warning') }}</option>
+                            <option value="danger">{{ __('Danger') }}</option>
+                            <option value="expired">{{ __('Expired') }}</option>
+                        </x-select>
+                    </div>
                 </div>
             </div>
             <div class="mt-3 flex">
@@ -72,7 +82,7 @@
                         </td>
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
-                                <button>
+                                <button wire:click="sortByField('status')">
                                     {{ __('Status') }}
                                 </button>
                                 <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -138,7 +148,7 @@
                                 @endif
                             </td>
                             <td class="p-2 border">
-                                <x-status-date start="{{ now() }}" end="{{ $license->end_date }}" />
+                                <x-status-date status="{{ $license->status }}" />
                             </td>
                             <td class="p-2 border">
                                 {{ $license->start_date }}
@@ -186,7 +196,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

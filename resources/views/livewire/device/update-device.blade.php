@@ -21,7 +21,7 @@
                 <x-label for="specifications" value="{{ __('Specifications') }}" />
                 <x-quill-editor name="form.specifications" body="{!! $this->form->specifications !!}" />
 
-                {{-- <x-textarea type="text" class="mt-1 block w-full" wire:model="form.specifications"
+                {{-- <x-textarea id="editor" type="text" class="mt-1 block w-full" wire:model="form.specifications"
                     placeholder="{{ __('Enter device specifications') }}">
                 </x-textarea> --}}
                 <x-input-error for="form.specifications" class="mt-2" />

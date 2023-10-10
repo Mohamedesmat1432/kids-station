@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="mt-3 flex">
-                @livewire('company.import-export-company')
+                @livewire('company.import-export-company', ['search' => $this->search])
             </div>
             <div class="mt-3">
                 <x-bulk-delete-button />
@@ -150,7 +150,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

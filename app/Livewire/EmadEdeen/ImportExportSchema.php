@@ -15,6 +15,7 @@ class ImportExportSchema extends Component
 
     public $file;
     public $import_modal = false;
+    public $export_modal = false;
 
     public function importModal()
     {
@@ -36,11 +37,19 @@ class ImportExportSchema extends Component
         }
     }
 
+    public function exportModal()
+    {
+        $this->reset();
+        $this->resetValidation();
+        $this->export_modal = true;
+    }
+
     public function export()
     {
         try {
+            $this->export_modal = false;
             $this->successNotify(__('Schema exported successfully'));
-            return (new EmadEdeenExport($this->search));
+            return (new EmadEdeenExport($this->search))->download('emad-edeen-schema.' . $this->extension);
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
         }

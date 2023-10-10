@@ -30,6 +30,7 @@ class ListCompany extends Component
     #[On('update-company')]
     #[On('delete-company')]
     #[On('import-company')]
+    #[On('export-company')]
     #[On('bulk-delete-company')]
     public function render()
     {

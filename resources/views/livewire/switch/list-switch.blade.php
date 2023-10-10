@@ -152,7 +152,7 @@
                                     <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $switch->id }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{ __('Edit') }}
+                                        {{-- {{ __('Edit') }} --}}
                                     </x-indigo-button>
                                 @endcan
                             </td>
@@ -161,7 +161,7 @@
                                     <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $switch->id }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
-                                        {{ __('Delete') }}
+                                        {{-- {{ __('Delete') }} --}}
                                     </x-danger-button>
                                 @endcan
                             </td>
@@ -178,7 +178,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

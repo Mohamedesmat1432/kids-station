@@ -38,6 +38,7 @@ class ListLicense extends Component
         $licenses = License::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('status', 'like', '%' . $this->search . '%')
                     ->orWhere('file', 'like', '%' . $this->search . '%')
                     ->orWhere('start_date', 'like', '%' . $this->search . '%')
                     ->orWhere('end_date', 'like', '%' . $this->search . '%');

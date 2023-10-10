@@ -6,22 +6,12 @@ use App\Models\Edoki;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Excel;
-use Illuminate\Contracts\Support\Responsable;
 
-class EdokiExport implements FromCollection, WithHeadings, Responsable
+class EdokiExport implements FromCollection, WithHeadings
 {
     use Exportable;
 
     public $search;
-
-    private $fileName = 'edoki_schema.xlsx';
-
-    private $writerType = Excel::XLSX;
-
-    private $headers = [
-        'Content-Type' => 'text/csv',
-    ];
 
     public function __construct($search)
     {
