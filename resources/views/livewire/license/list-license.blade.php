@@ -31,22 +31,30 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3 flex">
-                @livewire('license.import-export-license')
-            </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('import-export-license')
+                <div class="mt-3 flex">
+                    @livewire('license.import-export-license')
+                </div>
+            @endcan
+            @can('bulk-delete-license')
+                <td class="px-4 py-2 border">
+                    <div class="mt-3">
+                        <x-bulk-delete-button />
 
-                @livewire('license.bulk-delete-license')
-            </div>
+                        @livewire('license.bulk-delete-license')
+                    </div>
+                </td>
+            @endcan
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-license')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -121,9 +129,11 @@
                 <x-slot name="tbody">
                     @forelse ($licenses as $license)
                         <tr wire:key="license-{{ $license->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $license->id }}" />
-                            </td>
+                            @can('bulk-delete-license')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $license->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $license->id }}
                             </td>
@@ -147,7 +157,7 @@
                                 @endif
                             </td>
                             <td class="p-2 border">
-                                <x-status-date status="{{ $license->status }}" />
+                                <x-license-status status="{{ $license->status }}" />
                             </td>
                             <td class="p-2 border">
                                 {{ $license->start_date }}
@@ -175,7 +185,8 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-license')
-                                    <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $license->id }}'})"
+                                    <x-danger-button
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $license->id }}',name:'{{ $license->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

@@ -45,6 +45,11 @@
                             {{ __('Licenses') }}
                         </x-nav-link>
                     @endcan
+                    @can('view-orange')
+                        <x-nav-link wire:navigate href="{{ route('oranges') }}" :active="request()->routeIs('oranges')">
+                            {{ __('Oranges') }}
+                        </x-nav-link>
+                    @endcan
 
                 </div>
             </div>
@@ -246,6 +251,11 @@
                         {{ __('Licenses') }}
                     </x-responsive-nav-link>
                 @endcan
+                @can('view-orange')
+                <x-responsive-nav-link wire:navigate href="{{ route('oranges') }}" :active="request()->routeIs('oranges')">
+                    {{ __('Oranges') }}
+                </x-responsive-nav-link>
+            @endcan
             </div>
 
             <!-- Responsive Settings Options -->

@@ -45,9 +45,9 @@ class PatchForm extends Form
         $this->patch->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $patch = PatchBranch::findOrFail($this->patch_id);
+        $patch = PatchBranch::findOrFail($id);
         $patch->edokis()->update(['patch_id' => null]);
         $patch->emadEdeens()->update(['patch_id' => null]);
         $patch->delete();

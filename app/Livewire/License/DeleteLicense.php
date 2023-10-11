@@ -3,8 +3,6 @@
 namespace App\Livewire\License;
 
 use App\Livewire\Forms\LicenseForm;
-use App\Models\License;
-use App\Traits\FileTrait;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -18,16 +16,20 @@ class DeleteLicense extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(License $id)
+    public function confirmDelete($id,$name)
     {
-        $this->form->setLicense($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-license');
         $this->successNotify(__('License deleted successfully'));
         $this->delete_modal = false;

@@ -49,9 +49,9 @@ class RoleForm extends Form
         $this->role->syncPermissions($this->permission);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $role = Role::findOrFail($this->role_id);
+        $role = Role::findOrFail($id);
         $role->delete();
     }
 

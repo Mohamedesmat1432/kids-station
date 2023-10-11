@@ -44,9 +44,9 @@ class PointForm extends Form
         $this->point->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $point = Point::findOrFail($this->point_id);
+        $point = Point::findOrFail($id);
         $point->edokis()->update(['point_id' => null]);
         $point->emadEdeens()->update(['point_id' => null]);
         $point->delete();

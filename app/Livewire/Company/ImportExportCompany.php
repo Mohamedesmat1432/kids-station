@@ -49,8 +49,8 @@ class ImportExportCompany extends Component
     {
         try {
             $this->export_modal = false;
-            $this->successNotify(__('Companies exported successfully'));
             $this->dispatch('export-company');
+            $this->successNotify(__('Companies exported successfully'));
             return (new CompaniesExport($this->search))->download('companies.' . $this->extension);
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());

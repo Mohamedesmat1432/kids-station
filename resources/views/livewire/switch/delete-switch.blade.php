@@ -5,7 +5,7 @@
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you want to delete ') . $this->form->hostname }} ?
+            {{ __('Are you sure you want to delete ') . $hostname }} ?
         </x-slot>
 
         <x-slot name="footer">

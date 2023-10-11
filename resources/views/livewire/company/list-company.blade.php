@@ -21,22 +21,28 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3 flex">
-                @livewire('company.import-export-company', ['search' => $this->search])
-            </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('import-export-company')
+                <div class="mt-3 flex">
+                    @livewire('company.import-export-company')
+                </div>
+            @endcan
+            @can('bulk-delete-company')
+                <div class="mt-3">
+                    <x-bulk-delete-button />
 
-                @livewire('company.bulk-delete-company')
-            </div>
+                    @livewire('company.bulk-delete-company')
+                </div>
+            @endcan
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-company')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -95,9 +101,11 @@
                 <x-slot name="tbody">
                     @forelse ($companies as $company)
                         <tr wire:key="company-{{ $company->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $company->id }}" />
-                            </td>
+                            @can('bulk-delete-company')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $company->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $company->id }}
                             </td>
@@ -130,7 +138,8 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-company')
-                                    <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $company->id }}'})"
+                                    <x-danger-button
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $company->id }}',name:'{{ $company->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

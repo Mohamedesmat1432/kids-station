@@ -3,7 +3,6 @@
 namespace App\Livewire\Switch;
 
 use App\Livewire\Forms\SwitchForm;
-use App\Models\SwitchBranch;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -17,16 +16,20 @@ class DeleteSwitch extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $hostname;
+
     #[On('delete-modal')]
-    public function confirmDelete(SwitchBranch $id)
+    public function confirmDelete($id, $hostname)
     {
-        $this->form->setSwitch($id);
+        $this->id = $id;
+        $this->hostname = $hostname;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-switch');
         $this->successNotify(__('Switch deleted successfully'));
         $this->delete_modal = false;

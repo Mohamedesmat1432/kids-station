@@ -51,9 +51,9 @@ class DeviceForm extends Form
         $this->device->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $device = Device::findOrFail($this->device_id);
+        $device = Device::findOrFail($id);
         $device->edokis()->update(['device_id' => null]);
         $device->emadEdeens()->update(['device_id' => null]);
         $device->delete();

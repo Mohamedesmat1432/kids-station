@@ -104,9 +104,9 @@ class LicenseForm extends Form
         $this->license->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $license = License::findOrFail($this->license_id);
+        $license = License::findOrFail($id);
         $this->deleteFile($license->file, 'licenses');
         $this->deleteFiles($license->files, 'licenses');
         $license->delete();

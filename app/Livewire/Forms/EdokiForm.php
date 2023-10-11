@@ -77,9 +77,9 @@ class EdokiForm extends Form
         $this->edoki->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $edoki = Edoki::findOrFail($this->edoki_id);
+        $edoki = Edoki::findOrFail($id);
         $edoki->delete();
     }
 

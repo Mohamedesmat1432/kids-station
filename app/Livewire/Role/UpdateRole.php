@@ -30,6 +30,7 @@ class UpdateRole extends Component
     {
         $this->form->update();
         $this->dispatch('update-role');
+        $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('Role updated successfully'));
         $this->edit_modal = false;
     }

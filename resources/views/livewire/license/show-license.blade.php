@@ -1,7 +1,7 @@
 <div>
     <x-dialog-modal wire:model.live="show_modal">
         <x-slot name="title">
-            {{ __('licenses Company Details') }}
+            {{ __('Licenses Company Details') }}
         </x-slot>
     
         <x-slot name="content">

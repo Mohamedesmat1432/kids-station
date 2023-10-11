@@ -68,7 +68,7 @@
                             <td class="p-2 border">
                                 @can(['delete-role'])
                                     <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $role->id }}'})"
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $role->id }}',name:'{{ $role->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}
@@ -88,7 +88,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

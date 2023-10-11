@@ -43,9 +43,9 @@ class IpForm extends Form
         $this->ip->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $ip = Ip::findOrFail($this->ip_id);
+        $ip = Ip::findOrFail($id);
         $ip->edokis()->update(['ip_id' => null]);
         $ip->emadEdeens()->update(['ip_id' => null]);
         $ip->delete();

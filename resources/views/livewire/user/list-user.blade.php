@@ -91,7 +91,7 @@
                             <td class="p-2 border">
                                 @can(['delete-user'])
                                     <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $user->id }}'})"
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $user->id }}',name:'{{ $user->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

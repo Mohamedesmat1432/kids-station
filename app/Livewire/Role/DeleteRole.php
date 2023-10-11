@@ -3,7 +3,6 @@
 namespace App\Livewire\Role;
 
 use App\Livewire\Forms\RoleForm;
-use App\Models\Role;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -17,16 +16,20 @@ class DeleteRole extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(Role $id)
+    public function confirmDelete($id, $name)
     {
-        $this->form->setRole($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-role');
         $this->successNotify(__('Role deleted successfully'));
         $this->delete_modal = false;

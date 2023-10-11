@@ -24,6 +24,11 @@ class Company extends Model
     {
         return $this->hasMany(License::class);
     }
+
+    public function Oranges(): HasMany
+    {
+        return $this->hasMany(Orange::class);
+    }
     
     // public function getPhoneNumberAttribute()
     // {

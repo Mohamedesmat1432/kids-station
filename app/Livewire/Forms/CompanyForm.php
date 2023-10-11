@@ -60,10 +60,11 @@ class CompanyForm extends Form
         $this->company->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $company = Company::findOrFail($this->company_id);
+        $company = Company::findOrFail($id);
         $company->licenses()->update(['company_id' => null]);
+        $company->oranges()->update(['company_id' => null]);
         $company->delete();
     }
 
@@ -85,6 +86,7 @@ class CompanyForm extends Form
 
         foreach ($companies as $company) {
             $company->licenses()->update(['company_id' => null]);
+            $company->oranges()->update(['company_id' => null]);
         }
         $companies->delete();
     }

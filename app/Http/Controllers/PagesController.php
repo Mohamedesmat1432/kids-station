@@ -46,6 +46,11 @@ class PagesController extends Controller
         return view('pages.licenses');
     }
 
+    public function oranges()
+    {
+        return view('pages.oranges');
+    }
+
     public function devices()
     {
         return view('pages.devices');

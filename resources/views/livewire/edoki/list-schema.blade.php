@@ -21,23 +21,30 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3 flex">
-                @livewire('edoki.import-export-schema')
-            </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('import-export-schema')
+                <div class="mt-3 flex">
+                    @livewire('edoki.import-export-schema')
+                </div>
+            @endcan
+            @can('bulk-delete-schema')
+                <div class="mt-3">
+                    <x-bulk-delete-button />
 
-                @livewire('edoki.bulk-delete-schema')
-            </div>
+                    @livewire('edoki.bulk-delete-schema')
+                </div>
+            @endcan
 
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-schema')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
+
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -128,9 +135,11 @@
                 <x-slot name="tbody">
                     @forelse ($edokis as $edoki)
                         <tr wire:key="edoki-{{ $edoki->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $edoki->id }}" />
-                            </td>
+                            @can('bulk-delete-schema')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $edoki->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $edoki->id }}
                             </td>
@@ -193,7 +202,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

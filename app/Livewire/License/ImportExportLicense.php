@@ -50,6 +50,7 @@ class ImportExportLicense extends Component
     {
         try {
             $this->export_modal = false;
+            $this->dispatch('export-license');
             $this->successNotify(__('License exported successfully'));
             return (new LicensesExport($this->search))->download('licenses.' . $this->extension);
         } catch (\Throwable $e) {

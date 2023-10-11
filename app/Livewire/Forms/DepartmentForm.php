@@ -43,9 +43,9 @@ class DepartmentForm extends Form
         $this->department->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $department = Department::findOrFail($this->department_id);
+        $department = Department::findOrFail($id);
         $department->edokis()->update(['department_id' => null]);
         $department->emadEdeens()->update(['department_id' => null]);
         $department->delete();

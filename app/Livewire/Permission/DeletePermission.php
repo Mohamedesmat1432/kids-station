@@ -3,8 +3,8 @@
 namespace App\Livewire\Permission;
 
 use App\Livewire\Forms\PermissionForm;
-use App\Models\Permission;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -16,16 +16,20 @@ class DeletePermission extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(Permission $id)
+    public function confirmDelete($id, $name)
     {
-        $this->form->setPermission($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-permission');
         $this->successNotify(__('Permission deleted successfully'));
         $this->delete_modal = false;

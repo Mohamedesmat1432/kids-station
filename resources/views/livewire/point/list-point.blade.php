@@ -21,20 +21,24 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('bulk-delete-point')
+                <div class="mt-3">
+                    <x-bulk-delete-button />
 
-                @livewire('point.bulk-delete-point')
-            </div>
+                    @livewire('point.bulk-delete-point')
+                </div>
+            @endcan
 
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-point')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -61,9 +65,11 @@
                 <x-slot name="tbody">
                     @forelse ($points as $point)
                         <tr wire:key="point-{{ $point->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $point->id }}" />
-                            </td>
+                            @can('bulk-delete-point')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $point->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $point->id }}
                             </td>
@@ -82,7 +88,7 @@
                             <td class="p-2 border">
                                 @can('delete-point')
                                     <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $point->id }}'})"
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $point->id }}',name:'{{ $point->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}
@@ -102,7 +108,7 @@
 
             <div class="mt-4">
                 <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}"/>
+                    <x-label for="page_element" value="{{ __('Per Page') }}" />
                     <x-select class="ml-2 py-1" wire:model.live="page_element">
                         <option value="10">10</option>
                         <option value="25">25</option>

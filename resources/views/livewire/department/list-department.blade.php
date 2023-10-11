@@ -21,20 +21,24 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('bulk-delete-department')
+                <div class="mt-3">
+                    <x-bulk-delete-button />
 
-                @livewire('department.bulk-delete-department')
-            </div>
+                    @livewire('department.bulk-delete-department')
+                </div>
+            @endcan
 
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-department')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -61,9 +65,11 @@
                 <x-slot name="tbody">
                     @forelse ($departments as $department)
                         <tr wire:key="department-{{ $department->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $department->id }}" />
-                            </td>
+                            @can('bulk-delete-department')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $department->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $department->id }}
                             </td>
@@ -81,7 +87,8 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-department')
-                                    <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $department->id }}'})"
+                                    <x-danger-button
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $department->id }}',name:'{{ $department->name }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

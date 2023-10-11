@@ -21,20 +21,24 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
-                <x-bulk-delete-button />
+            @can('bulk-delete-switch')
+                <div class="mt-3">
+                    <x-bulk-delete-button />
 
-                @livewire('switch.bulk-delete-switch')
-            </div>
+                    @livewire('switch.bulk-delete-switch')
+                </div>
+            @endcan
 
             <x-table>
                 <x-slot name="thead">
                     <tr>
-                        <td class="px-4 py-2 border">
-                            <div class="text-center">
-                                <x-checkbox wire:click="checkboxAll" />
-                            </div>
-                        </td>
+                        @can('bulk-delete-switch')
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <x-checkbox wire:click="checkboxAll" />
+                                </div>
+                            </td>
+                        @endcan
                         <td class="px-4 py-2 border">
                             <div class="flex items-center">
                                 <button class="flex items-center" wire:click="sortByField('id')">
@@ -117,9 +121,11 @@
                 <x-slot name="tbody">
                     @forelse ($switchs as $switch)
                         <tr wire:key="switch-{{ $switch->id }}">
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $switch->id }}" />
-                            </td>
+                            @can('bulk-delete-switch')
+                                <td class="p-2 border">
+                                    <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $switch->id }}" />
+                                </td>
+                            @endcan
                             <td class="p-2 border">
                                 {{ $switch->id }}
                             </td>
@@ -158,7 +164,8 @@
                             </td>
                             <td class="p-2 border">
                                 @can('delete-switch')
-                                    <x-danger-button wire:click="$dispatch('delete-modal',{id:'{{ $switch->id }}'})"
+                                    <x-danger-button
+                                        wire:click="$dispatch('delete-modal',{id:'{{ $switch->id }}',hostname:'{{ $switch->hostname }}'})"
                                         wire:loading.attr="disabled">
                                         <x-icon class="w-4 h-4" name="trash" />
                                         {{-- {{ __('Delete') }} --}}

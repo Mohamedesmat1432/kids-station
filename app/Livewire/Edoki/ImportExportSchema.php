@@ -49,6 +49,7 @@ class ImportExportSchema extends Component
     {
         try {
             $this->export_modal = false;
+            $this->dispatch('export-schema');
             $this->successNotify(__('Schema exported successfully'));
             return (new EdokiExport($this->search))->download('edoki-schema.' . $this->extension);
         } catch (\Throwable $e) {

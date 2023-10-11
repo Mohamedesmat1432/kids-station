@@ -71,9 +71,9 @@ class SwitchForm extends Form
         $this->switch->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $switch = SwitchBranch::findOrFail($this->switch_id);
+        $switch = SwitchBranch::findOrFail($id);
         $switch->edokis()->update(['switch_id' => null]);
         $switch->emadEdeens()->update(['switch_id' => null]);
         $switch->delete();

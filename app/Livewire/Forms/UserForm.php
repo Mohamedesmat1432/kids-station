@@ -64,9 +64,9 @@ class UserForm extends Form
         $this->user->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $user = User::findOrFail($this->user_id);
+        $user = User::findOrFail($id);
         $user->delete();
     }
 

@@ -43,9 +43,9 @@ class PermissionForm extends Form
         $this->permission->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $permission = Permission::findOrFail($this->permission_id);
+        $permission = Permission::findOrFail($id);
         $permission->delete();
     }
 

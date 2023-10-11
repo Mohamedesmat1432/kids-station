@@ -3,8 +3,8 @@
 namespace App\Livewire\Point;
 
 use App\Livewire\Forms\PointForm;
-use App\Models\Point;
 use App\Traits\WithNotify;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -16,16 +16,20 @@ class DeletePoint extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(Point $id)
+    public function confirmDelete($id, $name)
     {
-        $this->form->setPoint($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-point');
         $this->successNotify(__('Point deleted successfully'));
         $this->delete_modal = false;

@@ -3,7 +3,6 @@
 namespace App\Livewire\Device;
 
 use App\Livewire\Forms\DeviceForm;
-use App\Models\Device;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -17,16 +16,20 @@ class DeleteDevice extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(Device $id)
+    public function confirmDelete($id,$name)
     {
-        $this->form->setDevice($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-device');
         $this->successNotify(__('Device deleted successfully'));
         $this->delete_modal = false;

@@ -30,14 +30,13 @@
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="file" value="{{ __('File') }}" />
-                <x-input type="file" class="mt-1 block w-full" wire:model="form.newFile" autocomplete="on" />
-                <x-input-error for="form.newFile" class="mt-2" />
+                <x-input type="file" class="mt-1 block w-full" wire:model="form.file" autocomplete="on" />
+                <x-input-error for="form.file" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="file" value="{{ __('Files') }}" />
-                <x-input type="file" class="mt-1 block w-full" wire:model="form.newFiles" multiple
-                    autocomplete="on" />
-                <x-input-error for="form.newFiles.*" class="mt-2" />
+                <x-input type="file" class="mt-1 block w-full" wire:model="form.files" multiple autocomplete="on" />
+                <x-input-error for="form.files.*" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
                 <x-label for="start_date" value="{{ __('Start Date') }}" />

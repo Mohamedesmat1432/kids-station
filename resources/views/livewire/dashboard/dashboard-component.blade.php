@@ -14,6 +14,32 @@
                     </div>
                 </a>
             @endcan
+            @can('view-role')
+                <a wire:navigate href="{{ route('roles') }}">
+                    <div class="bg-gray-700 hover:bg-gray-800 rounded p-5 text-white">
+                        <div class="flex text-2xl justify-between">
+                            <x-icon class="w-12 h-12 text-center" name="lock-closed" />
+                            <div class="text-center">
+                                <div> {{ __('Roles') }}</div>
+                                <div>{{ $roles }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endcan
+            @can('view-permission')
+                <a wire:navigate href="{{ route('permissions') }}">
+                    <div class="bg-gray-500 hover:bg-gray-600 rounded p-5 text-white">
+                        <div class="flex text-2xl justify-between">
+                            <x-icon class="w-12 h-12 text-center" name="receipt-percent" />
+                            <div class="text-center">
+                                <div> {{ __('Permissions') }}</div>
+                                <div>{{ $permissions }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endcan
             @can('view-company')
                 <a wire:navigate href="{{ route('companies') }}">
                     <div class="bg-yellow-500 hover:bg-yellow-600 rounded p-5 text-white">
@@ -53,6 +79,19 @@
                     </div>
                 </a>
             @endcan
+            @can('view-orange')
+                <a wire:navigate href="{{ route('oranges') }}">
+                    <div class="bg-orange-500 hover:bg-orange-600 rounded p-5 text-white">
+                        <div class="flex text-2xl justify-between">
+                            <x-icon class="w-12 h-12 text-center" name="clipboard-document-check" />
+                            <div class="text-center">
+                                <div> {{ __('Oranges') }}</div>
+                                <div>{{ $oranges }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endcan
             @can('view-switch')
                 <a wire:navigate href="{{ route('switchs') }}">
                     <div class="bg-gray-700 hover:bg-gray-800 rounded p-5 text-white">
@@ -74,6 +113,32 @@
                             <div class="text-center">
                                 <div> {{ __('Patchs') }}</div>
                                 <div>{{ $patchs }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endcan
+            @can('view-point')
+                <a wire:navigate href="{{ route('points') }}">
+                    <div class="bg-green-600 hover:bg-green-700 rounded p-5 text-white">
+                        <div class="flex text-2xl justify-between">
+                            <x-icon class="w-12 h-12 text-center" name="server" />
+                            <div class="text-center">
+                                <div> {{ __('Points') }}</div>
+                                <div>{{ $points }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            @endcan
+            @can('view-device')
+                <a wire:navigate href="{{ route('devices') }}">
+                    <div class="bg-indigo-500 hover:bg-indigo-600 rounded p-5 text-white">
+                        <div class="flex text-2xl justify-between">
+                            <x-icon class="w-12 h-12 text-center" name="computer-desktop" />
+                            <div class="text-center">
+                                <div> {{ __('Devices') }}</div>
+                                <div>{{ $devices }}</div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +170,7 @@
                     </div>
                 </a>
                 <a wire:navigate href="{{ route('emad-edeens') }}">
-                    <div class="bg-green-600 hover:bg-green-700 rounded p-5 text-white">
+                    <div class="bg-gray-500 hover:bg-gray-600 rounded p-5 text-white">
                         <div class="flex text-2xl justify-between">
                             <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
                             <div class="text-center">

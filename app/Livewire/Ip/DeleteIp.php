@@ -17,16 +17,20 @@ class DeleteIp extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $number;
+
     #[On('delete-modal')]
-    public function confirmDelete(Ip $id)
+    public function confirmDelete($id, $number)
     {
-        $this->form->setIp($id);
+        $this->id = $id;
+        $this->number = $number;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-ip');
         $this->successNotify(__('Ip deleted successfully'));
         $this->delete_modal = false;

@@ -30,6 +30,7 @@ class ListLicense extends Component
     #[On('update-license')]
     #[On('delete-license')]
     #[On('import-license')]
+    #[On('export-license')]
     #[On('bulk-delete-license')]
     public function render()
     {

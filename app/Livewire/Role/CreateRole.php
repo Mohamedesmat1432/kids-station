@@ -26,6 +26,7 @@ class CreateRole extends Component
     {
         $this->form->store();
         $this->dispatch('create-role');
+        $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('Role created successfully'));
         $this->create_modal = false;
     }

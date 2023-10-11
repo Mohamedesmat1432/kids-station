@@ -23,7 +23,7 @@ class LicensesImport implements ToModel, WithHeadingRow, WithValidation, SkipsEm
     {
         return new License([
             'name'     => $row['name'],
-            'phone'    => $row['phone'],
+            'status'    => $row['status'],
             'start_date' => $row['start_date'],
             'end_date' => $row['end_date'],
         ]);
@@ -33,7 +33,7 @@ class LicensesImport implements ToModel, WithHeadingRow, WithValidation, SkipsEm
     {
         return [
             'name' => ['required', 'string', 'min:3', 'unique:licenses,name'],
-            'phone' => ['required', 'string'],
+            'status' => ['required', 'string'],
             'start_date' => ['required'],
             'end_date' => ['required'],
         ];

@@ -77,9 +77,9 @@ class EmadEdeenForm extends Form
         $this->emad_edeen->update($validated);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        $emad_edeen = EmadEdeen::findOrFail($this->emad_edeen_id);
+        $emad_edeen = EmadEdeen::findOrFail($id);
         $emad_edeen->delete();
     }
 

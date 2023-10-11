@@ -3,7 +3,6 @@
 namespace App\Livewire\Department;
 
 use App\Livewire\Forms\DepartmentForm;
-use App\Models\Department;
 use App\Traits\WithNotify;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -17,16 +16,20 @@ class DeleteDepartment extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $name;
+
     #[On('delete-modal')]
-    public function confirmDelete(Department $id)
+    public function confirmDelete($id,$name)
     {
-        $this->form->setDepartment($id);
+        $this->id = $id;
+        $this->name = $name;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-department');
         $this->successNotify(__('Department deleted successfully'));
         $this->delete_modal = false;

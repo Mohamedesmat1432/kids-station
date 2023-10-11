@@ -30,6 +30,7 @@ class ListSchema extends Component
     #[On('update-schema')]
     #[On('delete-schema')]
     #[On('import-schema')]
+    #[On('export-schema')]
     #[On('bulk-delete-schema')]
     public function render()
     {

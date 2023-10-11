@@ -17,16 +17,20 @@ class DeletePatch extends Component
 
     public $delete_modal = false;
 
+    #[Locked]
+    public $id, $port;
+
     #[On('delete-modal')]
-    public function confirmDelete(PatchBranch $id)
+    public function confirmDelete($id, $port)
     {
-        $this->form->setPatch($id);
+        $this->id = $id;
+        $this->port = $port;
         $this->delete_modal = true;
     }
 
     public function delete()
     {
-        $this->form->delete();
+        $this->form->delete($this->id);
         $this->dispatch('delete-patch');
         $this->successNotify(__('Patch deleted successfully'));
         $this->delete_modal = false;
