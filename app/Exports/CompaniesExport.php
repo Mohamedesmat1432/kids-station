@@ -20,9 +20,8 @@ class CompaniesExport implements FromCollection, WithHeadings, WithStyles,Should
     {
         return [
             1    => [
-                'font' => ['bold' => true, 'italic' => true],
+                'font' => ['bold' => true],
                 'color' => ['#FFFF00' => true],
-                'padding' => ['5px' => true],
             ],
         ];
     }

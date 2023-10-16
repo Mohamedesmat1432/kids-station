@@ -6,13 +6,25 @@ use App\Models\Edoki;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class EdokiExport implements FromCollection, WithHeadings, ShouldAutoSize
+class EdokiExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     use Exportable;
 
     public $search;
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1    => [
+                'font' => ['bold' => true],
+                'color' => ['#FFFF00' => true],
+            ],
+        ];
+    }
 
     public function __construct($search)
     {

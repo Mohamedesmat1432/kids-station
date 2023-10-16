@@ -20,9 +20,8 @@ class OrangesExport implements FromCollection, WithHeadings, WithStyles, ShouldA
     {
         return [
             1    => [
-                'font' => ['bold' => true, 'italic' => true],
+                'font' => ['bold' => true],
                 'color' => ['#FFFF00' => true],
-                'width' => ['200px' => true],
             ],
         ];
     }
