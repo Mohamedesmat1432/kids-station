@@ -30,7 +30,8 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            User::create($user);
+            $user_role = User::create($user);
+            $user_role->syncRoles(['User']);
         }
 
         $user = User::create([

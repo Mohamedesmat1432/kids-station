@@ -6,8 +6,9 @@ use App\Models\Edoki;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class EdokiExport implements FromCollection, WithHeadings
+class EdokiExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     use Exportable;
 

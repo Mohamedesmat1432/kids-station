@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class LicensesExport implements FromCollection, WithHeadings, WithStyles
+class LicensesExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     use Exportable;
 
@@ -21,11 +22,11 @@ class LicensesExport implements FromCollection, WithHeadings, WithStyles
             1    => [
                 'font' => ['bold' => true, 'italic' => true],
                 'color' => ['#FFFF00' => true],
-                'width' => ['200px' => true],
+                'padding' => ['5px' => true],
             ],
         ];
     }
- 
+
     public function __construct($search)
     {
         $this->search = $search;
@@ -33,8 +34,9 @@ class LicensesExport implements FromCollection, WithHeadings, WithStyles
 
     public function collection()
     {
-        return License::select('id', 'name','status', 'start_date', 'end_date')
-            ->where('name', 'like', '%' . $this->search . '%')->get();
+        return License::select('id', 'name', 'status', 'start_date', 'end_date')
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('status', 'like', '%' . $this->search . '%')->get();
     }
 
     public function headings(): array

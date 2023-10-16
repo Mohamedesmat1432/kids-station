@@ -6,8 +6,9 @@ use App\Models\EmadEdeen;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class EmadEdeenExport implements FromCollection, WithHeadings
+class EmadEdeenExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     use Exportable;
 
@@ -40,4 +41,3 @@ class EmadEdeenExport implements FromCollection, WithHeadings
         ];
     }
 }
-

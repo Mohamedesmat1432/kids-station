@@ -4,19 +4,19 @@ namespace App\Livewire\Orange;
 
 use App\Exports\OrangesExport;
 use App\Imports\OrangesImport;
-use App\Traits\SortSearchTrait;
 use App\Traits\WithNotify;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithFileUploads;
 
 class ImportExportOrange extends Component
 {
-    use WithNotify, SortSearchTrait, WithFileUploads;
+    use WithNotify, WithFileUploads;
 
     public $file;
     public $import_modal = false;
     public $export_modal = false;
     public $extension = 'xlsx';
+    public $search = '';
 
     public function importModal()
     {

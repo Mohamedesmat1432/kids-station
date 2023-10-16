@@ -6,8 +6,9 @@ use App\Models\SwitchBranch;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class SwitchExport implements FromCollection, WithHeadings
+class SwitchExport implements FromCollection, WithHeadings, ShouldAutoSize
 {
     use Exportable;
 

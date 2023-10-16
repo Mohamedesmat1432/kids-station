@@ -10,6 +10,9 @@ trait SortSearchTrait
     public $search = '';
 
     #[Url()]
+    public $filter = '';
+
+    #[Url()]
     public $sort_by = 'id';
 
     #[Url()]
@@ -24,6 +27,11 @@ trait SortSearchTrait
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter()
     {
         $this->resetPage();
     }

@@ -19,7 +19,7 @@ class BulkDeleteLicense extends Component
     #[On('bulk-delete-modal')]
     public function confirmDelete($arr)
     {
-        $this->form->checkbox_arr = explode(',', $arr);
+        $this->form->checkbox_arr = json_decode($arr);
         $this->count = count($this->form->checkbox_arr);
         $this->bulk_delete_modal = true;
     }

@@ -17,7 +17,7 @@ class ListLicense extends Component
 
     public function checkboxAll()
     {
-       $this->form->checkboxAll();
+        $this->form->checkboxAll();
     }
 
     #[On('bulk-delete-clear')]
@@ -39,10 +39,12 @@ class ListLicense extends Component
         $licenses = License::when($this->search, function ($query) {
             return $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('status', 'like', '%' . $this->search . '%')
-                    ->orWhere('file', 'like', '%' . $this->search . '%')
                     ->orWhere('start_date', 'like', '%' . $this->search . '%')
                     ->orWhere('end_date', 'like', '%' . $this->search . '%');
+            });
+        })->when($this->filter, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('status', 'like', '%' . $this->filter . '%');
             });
         })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
 

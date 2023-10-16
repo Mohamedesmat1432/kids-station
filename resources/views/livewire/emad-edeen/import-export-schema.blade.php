@@ -16,7 +16,7 @@
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
                 <x-label for="file" value="{{ __('Choose File') }}" />
-                <x-input id="file" type="file" class="mt-1 block w-full border p-1" wire:model="file" />
+                <x-input type="file" class="mt-1 block w-full border p-1" wire:model="file" />
                 <x-input-error for="file" class="mt-2" />
             </div>
         </x-slot>
@@ -48,6 +48,12 @@
                     <option value="html">html</option>
                     <option value="pdf">pdf</option>
                 </x-select>
+            </div>
+            <div class="col-span-6 sm:col-span-4 mt-3">
+                <x-label for="search" value="{{ __('Search') }}" />
+                <x-input type="search" placeholder="{{ __('Search by name') }}" class="mt-1 block w-full border p-1"
+                    wire:model.live="search" />
+                <x-input-error for="search" class="mt-2" />
             </div>
         </x-slot>
 

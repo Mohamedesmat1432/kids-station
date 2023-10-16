@@ -8,8 +8,9 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class OrangesExport implements FromCollection, WithHeadings, WithStyles
+class OrangesExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
 {
     use Exportable;
 
@@ -34,7 +35,8 @@ class OrangesExport implements FromCollection, WithHeadings, WithStyles
     public function collection()
     {
         return Orange::select('id', 'name', 'price', 'number', 'status', 'start_date', 'end_date')
-            ->where('name', 'like', '%' . $this->search . '%')->get();
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('status', 'like', '%' . $this->search . '%')->get();
     }
 
     public function headings(): array

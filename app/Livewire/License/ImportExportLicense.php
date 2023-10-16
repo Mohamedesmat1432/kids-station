@@ -4,20 +4,19 @@ namespace App\Livewire\License;
 
 use App\Exports\LicensesExport;
 use App\Imports\LicensesImport;
-use App\Traits\FileTrait;
-use App\Traits\SortSearchTrait;
 use App\Traits\WithNotify;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ImportExportLicense extends Component
 {
-    use WithNotify, SortSearchTrait, WithFileUploads;
+    use WithNotify, WithFileUploads;
 
     public $file;
     public $import_modal = false;
     public $export_modal = false;
     public $extension = 'xlsx';
+    public $search = '';
 
     public function importModal()
     {

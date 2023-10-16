@@ -1,9 +1,8 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import 'toastify-js/src/toastify.css';
 @import 'quill/dist/quill.snow.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 [x-cloak] {
     display: none;

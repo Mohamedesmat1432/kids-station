@@ -21,7 +21,7 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select class="mt-1 overflow-scroll" wire:model.live="search">
+                        <x-select class="mt-1 overflow-scroll" wire:model.live="filter">
                             <option value="">{{ __('Status') }}</option>
                             <option value="success">{{ __('Success') }}</option>
                             <option value="warning">{{ __('Warning') }}</option>
