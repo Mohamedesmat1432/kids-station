@@ -1,6 +1,6 @@
 <div>
     @hasrole('User|Super Admin|Admin')
-        <h1 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white text-center">
+        <h1 class="mt-6 p-2 text-2xl font-semibold text-gray-700 dark:text-white text-center">
             Welcome To Dashboard {{ auth()->user()->name }}
         </h1>
     @endhasrole
