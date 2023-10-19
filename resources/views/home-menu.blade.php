@@ -5,32 +5,28 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a wire:navigate href="/">
+                    <a href="/">
                         <x-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @auth
+                        <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('Login') }}
+                        </x-nav-link>
+                        @if (Route::has('register'))
+                            <x-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
+                                {{ __('Register') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
 
-                    @if (Route::has('login'))
-                        @auth
-                            <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
-                                {{ __('Login') }}
-                            </x-nav-link>
-                            @if (Route::has('register'))
-                                <x-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
-                                    {{ __('Register') }}
-                                </x-nav-link>
-                            @endif
-                        @endauth
-                    @endif
                 </div>
-
             </div>
 
             <!-- Hamburger -->
@@ -51,9 +47,11 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+        <div class="pt-4 pb-1 border-t border-gray-200">
+
+            <div class="mt-3 space-y-1">
+                <!-- Account Management -->
+                @if (Route::has('login'))
                     @auth
                         <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -68,9 +66,8 @@
                             </x-responsive-nav-link>
                         @endif
                     @endauth
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
-
     </div>
 </nav>

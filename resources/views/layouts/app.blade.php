@@ -22,7 +22,7 @@
 
     <div class="font-sans antialiased min-h-screen bg-gray-100">
         @auth
-            @livewire('navigation-menu')
+            @livewire('navigate-menu')
         @else
             @include('home-menu')
         @endauth
@@ -45,7 +45,6 @@
     </div>
 
     @stack('modals')
-    @stack('scripts')
 
     @livewireScripts
 </body>
