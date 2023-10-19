@@ -170,14 +170,6 @@
             <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-
-            @foreach ($responsive_links as $link)
-                @can($link['role'])
-                    <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                        {{ __($link['value']) }}
-                    </x-responsive-nav-link>
-                @endcan
-            @endforeach
         </div>
 
         <!-- Responsive Settings Options -->
@@ -201,6 +193,14 @@
                 <x-responsive-nav-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @foreach ($responsive_links as $link)
+                    @can($link['role'])
+                        <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
+                            {{ __($link['value']) }}
+                        </x-responsive-nav-link>
+                    @endcan
+                @endforeach
 
                 @foreach ($dropdown_links as $link)
                     @can($link['role'])
