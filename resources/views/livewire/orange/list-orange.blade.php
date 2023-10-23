@@ -7,7 +7,7 @@
 
     <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
         <div class="flex justify-between">
-            <h1 class=" text-2xl font-medium text-gray-900">
+            <h1 class="text-2xl font-medium text-gray-900">
                 {{ __('Oranges') }}
             </h1>
             @livewire('orange.create-orange')
@@ -21,7 +21,7 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select class="mt-1 overflow-scroll" wire:model.live="filter">
+                        <x-select class="overflow-scroll" wire:model.live="filter">
                             <option value="">{{ __('Status') }}</option>
                             <option value="active">{{ __('Active') }}</option>
                             <option value="pendding">{{ __('Pendding') }}</option>

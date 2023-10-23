@@ -13,7 +13,7 @@
             @livewire('license.create-license')
         </div>
 
-        <div class="mt-6 text-gray-500 leading-relaxed">
+        <div class="mt-6 text-gray-500">
             <div class="mt-3">
                 <div class="flex justify-between">
                     <div>
@@ -21,7 +21,7 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select class="mt-1 overflow-scroll" wire:model.live="filter">
+                        <x-select class="overflow-scroll" wire:model.live="filter">
                             <option value="">{{ __('Status') }}</option>
                             <option value="success">{{ __('Success') }}</option>
                             <option value="warning">{{ __('Warning') }}</option>
