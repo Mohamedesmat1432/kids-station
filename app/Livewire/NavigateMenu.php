@@ -38,6 +38,12 @@ class NavigateMenu extends NavigationMenu
             'role' => 'home-modern'
         ],
         [
+            'name' => 'companies',
+            'value' => 'Companies',
+            'icon' => 'clipboard-document-check',
+            'role' => 'view-company'
+        ],
+        [
             'name' => 'licenses',
             'value' => 'Licenses',
             'icon' => 'clipboard-document-check',
