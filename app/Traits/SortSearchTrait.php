@@ -6,19 +6,19 @@ use Livewire\Attributes\Url;
 
 trait SortSearchTrait
 {
-    #[Url()]
+    #[Url('')]
     public $search = '';
 
-    #[Url()]
+    #[Url('')]
     public $filter = '';
 
-    #[Url()]
+    #[Url('')]
     public $sort_by = 'id';
 
-    #[Url()]
+    #[Url('')]
     public $sort_asc = false;
 
-    #[Url()]
+    #[Url('')]
     public $page_element = 10;
 
     public function updatingPageElement()

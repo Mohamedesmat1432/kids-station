@@ -77,23 +77,11 @@
                                 {{ $ip->number }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-ip')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $ip->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-ip" id="{{ $ip->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-ip')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $ip->id }}',number:'{{ $ip->number }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-ip" id="{{ $ip->id }}"
+                                    name="{{ $ip->number }}" />
                             </td>
                         </tr>
                     @empty

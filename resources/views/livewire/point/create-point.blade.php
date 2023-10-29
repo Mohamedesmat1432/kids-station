@@ -1,10 +1,5 @@
 <div>
-    @can('create-point')
-        <x-indigo-button wire:click="createModal()" wire:loading.attr="disabled">
-            <x-icon class="w-4 h-4" name="plus" />
-            {{ __('Create') }}
-        </x-indigo-button>
-    @endcan
+    <x-create-button permission="create-point" />
 
     <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
         <x-slot name="title">

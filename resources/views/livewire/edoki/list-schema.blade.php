@@ -171,23 +171,11 @@
                                 {{ $edoki->port }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-schema')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $edoki->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{ __('Edit') }}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-schema" id="{{ $edoki->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-schema')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $edoki->id }}',name:'{{ $edoki->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{ __('Delete') }}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-schema" id="{{ $edoki->id }}"
+                                    name="{{ $edoki->name }}" />
                             </td>
                         </tr>
                     @empty

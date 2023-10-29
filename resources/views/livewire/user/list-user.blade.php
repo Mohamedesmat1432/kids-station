@@ -80,23 +80,11 @@
                                 {{ $user->getRoleNames() }}
                             </td> --}}
                             <td class="p-2 border">
-                                @can(['edit-user'])
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $user->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-user" id="{{ $user->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can(['delete-user'])
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $user->id }}',name:'{{ $user->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-user" id="{{ $user->id }}"
+                                    name="{{ $user->name }}" />
                             </td>
                         </tr>
                     @empty

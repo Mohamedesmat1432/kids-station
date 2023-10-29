@@ -128,23 +128,11 @@
                                 {{ $company->specialization }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-company')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $company->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-company" id="{{ $company->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-company')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $company->id }}',name:'{{ $company->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-company" id="{{ $company->id }}"
+                                    name="{{ $company->name }}" />
                             </td>
                         </tr>
                     @empty

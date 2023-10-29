@@ -21,10 +21,10 @@ class DeleteIp extends Component
     public $id, $number;
 
     #[On('delete-modal')]
-    public function confirmDelete($id, $number)
+    public function confirmDelete($id, $name)
     {
         $this->id = $id;
-        $this->number = $number;
+        $this->number = $name;
         $this->delete_modal = true;
     }
 

@@ -77,23 +77,11 @@
                                 {{ $department->name }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-department')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $department->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-department" id="{{ $department->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-department')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $department->id }}',name:'{{ $department->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-department" id="{{ $department->id }}"
+                                    name="{{ $department->name }}" />
                             </td>
                         </tr>
                     @empty

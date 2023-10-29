@@ -21,10 +21,10 @@ class DeletePatch extends Component
     public $id, $port;
 
     #[On('delete-modal')]
-    public function confirmDelete($id, $port)
+    public function confirmDelete($id, $name)
     {
         $this->id = $id;
-        $this->port = $port;
+        $this->port = $name;
         $this->delete_modal = true;
     }
 

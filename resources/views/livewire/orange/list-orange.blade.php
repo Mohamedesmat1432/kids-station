@@ -21,7 +21,7 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select class="overflow-scroll" wire:model.live="filter">
+                        <x-select class="overflow-scroll" wire:model.live.debounce.500ms="filter">
                             <option value="">{{ __('Status') }}</option>
                             <option value="active">{{ __('Active') }}</option>
                             <option value="pendding">{{ __('Pendding') }}</option>
@@ -153,32 +153,14 @@
                                 {{ $orange->end_date }}
                             </td>
                             <td class="p-2 border">
-                                @can('show-orange')
-                                    <x-yellow-button wire:click="$dispatch('show-modal',{id:'{{ $orange->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="eye" />
-                                        {{-- {{ __('Details') }} --}}
-                                    </x-yellow-button>
-                                @endcan
+                                <x-show-button permission="show-orange" id="{{ $orange->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('edit-orange')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $orange->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-orange" id="{{ $orange->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-orange')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $orange->id }}',name:'{{ $orange->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-orange" id="{{ $orange->id }}"
+                                    name="{{ $orange->name }}" />
                             </td>
                         </tr>
                     @empty

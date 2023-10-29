@@ -154,23 +154,11 @@
                                 {{ $switch->password_enable }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-switch')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $switch->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-switch" id="{{ $switch->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-switch')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $switch->id }}',hostname:'{{ $switch->hostname }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-switch" id="{{ $switch->id }}"
+                                    name="{{ $switch->hostname }}" />
                             </td>
                         </tr>
                     @empty

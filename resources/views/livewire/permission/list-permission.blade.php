@@ -57,23 +57,14 @@
                                 {{ $permission->name }}
                             </td>
                             <td class="p-2 border">
-                                @can('edit-permission')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $permission->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                {{ $permission->name }}
                             </td>
                             <td class="p-2 border">
-                                @can('delete-permission')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $permission->id }}',name:'{{ $permission->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-edit-button permission="edit-permission" id="{{ $permission->id }}" />
+                            </td>
+                            <td class="p-2 border">
+                                <x-delete-button permission="delete-permission" id="{{ $permission->id }}"
+                                    name="{{ $permission->name }}" />
                             </td>
                         </tr>
                     @empty

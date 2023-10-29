@@ -20,10 +20,10 @@ class DeleteSwitch extends Component
     public $id, $hostname;
 
     #[On('delete-modal')]
-    public function confirmDelete($id, $hostname)
+    public function confirmDelete($id, $name)
     {
         $this->id = $id;
-        $this->hostname = $hostname;
+        $this->hostname = $name;
         $this->delete_modal = true;
     }
 

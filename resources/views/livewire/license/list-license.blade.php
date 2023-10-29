@@ -21,7 +21,7 @@
                             placeholder="{{ __('Search ...') }}" />
                     </div>
                     <div>
-                        <x-select class="overflow-scroll" wire:model.live="filter">
+                        <x-select class="overflow-scroll" wire:model.live.debounce.500ms="filter">
                             <option value="">{{ __('Status') }}</option>
                             <option value="success">{{ __('Success') }}</option>
                             <option value="warning">{{ __('Warning') }}</option>
@@ -166,32 +166,14 @@
                                 {{ $license->end_date }}
                             </td>
                             <td class="p-2 border">
-                                @can('show-license')
-                                    <x-yellow-button wire:click="$dispatch('show-modal',{id:'{{ $license->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="eye" />
-                                        {{-- {{ __('Details') }} --}}
-                                    </x-yellow-button>
-                                @endcan
+                                <x-show-button permission="show-license" id="{{ $license->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('edit-license')
-                                    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $license->id }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="pencil-square" />
-                                        {{-- {{ __('Edit') }} --}}
-                                    </x-indigo-button>
-                                @endcan
+                                <x-edit-button permission="edit-license" id="{{ $license->id }}" />
                             </td>
                             <td class="p-2 border">
-                                @can('delete-license')
-                                    <x-danger-button
-                                        wire:click="$dispatch('delete-modal',{id:'{{ $license->id }}',name:'{{ $license->name }}'})"
-                                        wire:loading.attr="disabled">
-                                        <x-icon class="w-4 h-4" name="trash" />
-                                        {{-- {{ __('Delete') }} --}}
-                                    </x-danger-button>
-                                @endcan
+                                <x-delete-button permission="delete-license" id="{{ $license->id }}"
+                                    name="{{ $license->name }}" />
                             </td>
                         </tr>
                     @empty
