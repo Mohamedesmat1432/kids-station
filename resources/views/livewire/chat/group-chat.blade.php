@@ -1,11 +1,11 @@
 <div>
-    <div wire:click="toggleChat" class="fixed right-10 bottom-20 z-50 bg-indigo-200 p-3 rounded-3xl cursor-pointer">
+    <div wire:click="toggleChat" class="fixed right-5 bottom-20 z-50 bg-indigo-200 p-2 rounded-full cursor-pointer">
         <x-icon name="chat-bubble-oval-left-ellipsis" class="h-8 w-8 text-indigo-600" />
     </div>
   
     @if ($toggle_chat)
         <div wire:transition
-            class="fixed left-0 top-0 min-h-screen xl:w-3/4  lg:w-3/4 md:w-3/4 sm:w-2/4 bg-gray-800 p-2 z-40">
+            class="fixed left-0 top-0 min-h-screen w-full bg-gray-800 p-2 z-40">
             <div class="flex justify-between">
                 <div class="p-2 w-1/3">
                     <h1 class="flex justify-between text-lg mb-5 text-white">
