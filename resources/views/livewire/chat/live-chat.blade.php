@@ -4,7 +4,7 @@
     </div>
 
     @if ($toggle_chat)
-        <div wire:transition class="fixed left-0 top-0 min-h-screen  lg:w-3/4 md:w-3/4 sm:w-2/4 bg-gray-800 p-2 z-40">
+        <div wire:transition class="fixed left-0 top-0 min-h-screen xl:w-3/4  lg:w-3/4 md:w-3/4 sm:w-2/4 bg-gray-800 p-2 z-40">
             <div class="flex justify-between">
                 <div class="p-2 w-1/2">
                     <h1 class="flex justify-between text-lg mb-5 text-white">
