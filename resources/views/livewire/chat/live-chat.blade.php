@@ -30,7 +30,7 @@
                     </form>
                 </div>
                 @if (count($messages) > 0)
-                    <div class="overflow-y-scroll p-2 border-l border-l-gray-400" style="height: 550px;" wire:poll>
+                    <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-1/2" style="height: 550px;" wire:poll>
 
                         <ul class="list-none">
                             @foreach ($messages as $message)
