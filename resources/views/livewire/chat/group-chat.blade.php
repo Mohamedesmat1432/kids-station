@@ -7,7 +7,7 @@
         <div wire:transition
             class="fixed left-0 top-0 min-h-screen xl:w-3/4  lg:w-3/4 md:w-3/4 sm:w-2/4 bg-gray-800 p-2 z-40">
             <div class="flex justify-between">
-                <div class="p-2 w-1/2">
+                <div class="p-2 w-1/3">
                     <h1 class="flex justify-between text-lg mb-5 text-white">
                         <span> {{ __('Group Chat') }}</span>
                         <span class="cursor-pointer" wire:click="$set('toggle_chat',false)">
@@ -40,7 +40,7 @@
                     </form>
                 </div>
                 @if (count($messages) > 0)
-                    <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-1/2" style="height: 550px;"
+                    <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-2/3" style="height: 550px;"
                         wire:poll>
                         <ul class="list-none">
                             @foreach ($messages as $message)
