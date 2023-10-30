@@ -3,11 +3,9 @@
 namespace App\Livewire\Chat;
 
 use App\Models\Chat;
-use App\Models\User;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
-class LiveChat extends Component
+class GroupChat extends Component
 {
     public $message = '';
     public $user_id = '';
@@ -24,11 +22,6 @@ class LiveChat extends Component
         $this->resetValidation();
     }
 
-    // public function sendToUser($reciver_id)
-    // {
-    //     $this->reciver_id = $reciver_id;
-    // }
-
     public function sendMessage()
     {
         $validated = $this->validate([
@@ -44,8 +37,7 @@ class LiveChat extends Component
 
     public function render()
     {
-        return view('livewire.chat.live-chat', [
-            // 'users' => User::where('id', '!=', auth()->user()->id)->get(),
+        return view('livewire.chat.group-chat', [
             'messages' => Chat::with('user')->latest()->get()
         ]);
     }

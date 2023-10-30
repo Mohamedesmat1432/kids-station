@@ -40,7 +40,7 @@
         <main>
             <div class="relative">
                 
-                @livewire('chat.live-chat')
+                @livewire('chat.group-chat')
             </div>
             <x-notify />
 
