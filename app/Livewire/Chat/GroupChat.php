@@ -38,7 +38,7 @@ class GroupChat extends Component
     public function render()
     {
         return view('livewire.chat.group-chat', [
-            'messages' => Chat::with('user')->latest()->get()
+            'messages' => Chat::with('user')->get()
         ]);
     }
 }
