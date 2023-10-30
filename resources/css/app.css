@@ -7,3 +7,32 @@
 [x-cloak] {
     display: none;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #8f87e2;
+    border-radius: 3px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #4F46E4;
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #8f87e2;
+}
+
+select:focus option:checked {
+    background-color: #4F46E5;
+    color: white;
+    font-weight: bold;
+}

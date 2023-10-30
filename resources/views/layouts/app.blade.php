@@ -15,12 +15,6 @@
     <!-- Scripts -->
     @vite('resources/js/app.js')
 
-
-    <style>
-        select option:hover {
-            background-color: red;
-        }
-    </style>
     @livewireStyles
 </head>
 
@@ -44,6 +38,10 @@
 
         <!-- Page Content -->
         <main>
+            <div class="relative">
+                
+                @livewire('chat.live-chat')
+            </div>
             <x-notify />
 
             {{ $slot }}

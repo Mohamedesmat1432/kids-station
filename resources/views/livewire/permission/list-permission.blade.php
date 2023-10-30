@@ -57,9 +57,6 @@
                                 {{ $permission->name }}
                             </td>
                             <td class="p-2 border">
-                                {{ $permission->name }}
-                            </td>
-                            <td class="p-2 border">
                                 <x-edit-button permission="edit-permission" id="{{ $permission->id }}" />
                             </td>
                             <td class="p-2 border">
