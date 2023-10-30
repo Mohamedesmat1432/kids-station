@@ -25,7 +25,7 @@
 
                             <div class="mt-3">
                                 @for ($i = 12; $i <= 88; $i++)
-                                <span
+                                <span class="cursor-pointer"
                                     onclick="var x = document.getElementById('chat-message').value += '&#1285{{ $i }};';  @this.set('message',x);">
                                     &#1285{{ $i }};
                                 </span>
