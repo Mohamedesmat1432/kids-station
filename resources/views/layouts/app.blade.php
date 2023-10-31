@@ -38,10 +38,10 @@
 
         <!-- Page Content -->
         <main>
-            <div class="relative">
-                
+            @auth
                 @livewire('chat.group-chat')
-            </div>
+            @endauth
+
             <x-notify />
 
             {{ $slot }}
