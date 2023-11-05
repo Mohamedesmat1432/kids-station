@@ -13,13 +13,6 @@ class IpSeeder extends Seeder
      */
     public function run(): void
     {
-        $ips = [];
-        for ($i = 1; $i <= 255; $i++) {
-            $ips[]['number'] = '10.0.0.' . $i;
-        }
 
-        foreach ($ips as $ip) {
-            Ip::create($ip);
-        }
     }
 }

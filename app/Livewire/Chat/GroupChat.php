@@ -14,12 +14,9 @@ class GroupChat extends Component
 
     public function toggleChat()
     {
-        $this->toggle_chat
-            ? $this->toggle_chat = false
-            : $this->toggle_chat = true;
-
         $this->reset('message');
         $this->resetValidation();
+        $this->toggle_chat = !$this->toggle_chat;
     }
 
     public function sendMessage()
@@ -37,8 +34,11 @@ class GroupChat extends Component
 
     public function render()
     {
+        $json = json_decode(file_get_contents(public_path() .'/json/emojis.json'));
+        
         return view('livewire.chat.group-chat', [
-            'messages' => Chat::with('user')->get()
+            'messages' => Chat::with('user')->get(),
+            'json' => $json
         ]);
     }
 }

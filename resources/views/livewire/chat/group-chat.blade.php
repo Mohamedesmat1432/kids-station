@@ -1,4 +1,5 @@
 <div>
+
     <div class="relative">
         <div wire:click="toggleChat" class="fixed right-5 bottom-20 z-50 bg-indigo-200 p-2 rounded-full cursor-pointer">
             <x-icon name="chat-bubble-oval-left-ellipsis" class="h-8 w-8 text-indigo-600" />
@@ -22,15 +23,6 @@
                                     placeholder="{{ __('Enter Your Message') }}" />
 
                                 <x-input-error for="message" />
-
-                                <div class="mt-3">
-                                    @for ($i = 12; $i <= 88; $i++)
-                                        <span class="cursor-pointer"
-                                            onclick="var x = document.getElementById('chat-message').value += '&#1285{{ $i }};';  @this.set('message',x);">
-                                            &#1285{{ $i }};
-                                        </span>
-                                    @endfor
-                                </div>
                             </div>
                             <div class="mt-3">
                                 <x-indigo-button type="submit" class="hidden">
@@ -38,9 +30,20 @@
                                 </x-indigo-button>
                             </div>
                         </form>
+                        <div class="emoji mt-3" x-data="{ open: false }">
+                            <button class="float-right" style="position: relative; top:-40px; right: 15px;" x-on:click="open = ! open"> &#128512;</button>
+                            <div x-show="open" class="overflow-y-scroll h-52">
+                                @foreach ($json->emojis as $item)
+                                    <span class="cursor-pointer "
+                                        onclick="var x = document.getElementById('chat-message').value += '{{ $item->emoji }}';  @this.set('message',x);">
+                                        {{ $item->emoji }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
                     @if (count($messages) > 0)
-                        <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-2/3" style="height: 550px;"
+                        <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-2/3" style="height: 80%;"
                             wire:poll>
                             <ul class="list-none">
                                 @foreach ($messages as $message)

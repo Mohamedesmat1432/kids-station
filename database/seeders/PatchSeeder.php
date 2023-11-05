@@ -13,15 +13,6 @@ class PatchSeeder extends Seeder
      */
     public function run(): void
     {
-        $patchs = [];
-        for ($i = 1; $i <= 5; $i++) {
-            for ($j = 1; $j <= 24; $j++) {
-                $patchs[]['port'] = $i . '/' . $j;
-            }
-        }
 
-        foreach ($patchs as $patch) {
-            PatchBranch::create($patch);
-        }
     }
 }
