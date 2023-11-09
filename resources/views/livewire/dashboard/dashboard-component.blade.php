@@ -9,9 +9,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 @can('view-user')
                     <a wire:navigate href="{{ route('users') }}">
-                        <div class="bg-indigo-600 hover:bg-indigo-700 rounded p-5 text-white">
+                        <div class="bg-blue-600 hover:bg-blue-700 rounded p-5 text-white">
                             <div class="flex text-2xl justify-between">
-                                <x-icon class="w-12 h-12 text-center" name="user" />
+                                <x-icon class="w-12 h-12 text-center" name="user-group" />
                                 <div class="text-center">
                                     <div> {{ __('Users') }}</div>
                                     <div>{{ $users }}</div>
@@ -139,7 +139,7 @@
                 @endcan
                 @can('view-device')
                     <a wire:navigate href="{{ route('devices') }}">
-                        <div class="bg-indigo-500 hover:bg-indigo-600 rounded p-5 text-white">
+                        <div class="bg-blue-500 hover:bg-blue-600 rounded p-5 text-white">
                             <div class="flex text-2xl justify-between">
                                 <x-icon class="w-12 h-12 text-center" name="computer-desktop" />
                                 <div class="text-center">
@@ -154,7 +154,7 @@
                     <a wire:navigate href="{{ route('ips') }}">
                         <div class="bg-blue-500 hover:bg-blue-600 rounded p-5 text-white">
                             <div class="flex text-2xl justify-between">
-                                <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
+                                <x-icon class="w-12 h-12 text-center" name="document-chart-bar" />
                                 <div class="text-center">
                                     <div> {{ __('IPs') }}</div>
                                     <div>{{ $ips }}</div>
@@ -167,7 +167,7 @@
                     <a wire:navigate href="{{ route('edokis') }}">
                         <div class="bg-red-600 hover:bg-red-700 rounded p-5 text-white">
                             <div class="flex text-2xl justify-between">
-                                <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
+                                <x-icon class="w-12 h-12 text-center" name="adjustments-horizontal" />
                                 <div class="text-center">
                                     <div> {{ __('Edoki Schema') }}</div>
                                     <div>{{ $edokis }}</div>
@@ -178,7 +178,7 @@
                     <a wire:navigate href="{{ route('emad-edeens') }}">
                         <div class="bg-gray-500 hover:bg-gray-600 rounded p-5 text-white">
                             <div class="flex text-2xl justify-between">
-                                <x-icon class="w-12 h-12 text-center" name="arrow-trending-up" />
+                                <x-icon class="w-12 h-12 text-center" name="adjustments-vertical" />
                                 <div class="text-center">
                                     <div> {{ __('EmadEdeen Schema') }}</div>
                                     <div>{{ $emadEdeens }}</div>

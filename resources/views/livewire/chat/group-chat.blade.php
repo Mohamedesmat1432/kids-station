@@ -1,8 +1,8 @@
 <div>
 
     <div class="relative">
-        <div wire:click="toggleChat" class="fixed right-5 bottom-20 z-50 bg-indigo-200 p-2 rounded-full cursor-pointer">
-            <x-icon name="chat-bubble-oval-left-ellipsis" class="h-8 w-8 text-indigo-600" />
+        <div wire:click="toggleChat" class="fixed right-10 bottom-20 z-50 bg-blue-200 p-2 rounded-full cursor-pointer">
+            <x-icon name="chat-bubble-oval-left-ellipsis" class="h-8 w-8 text-blue-600" />
         </div>
 
         @if ($toggle_chat)
@@ -31,7 +31,8 @@
                             </div>
                         </form>
                         <div class="emoji mt-3" x-data="{ open: false }">
-                            <button class="float-right" style="position: relative; top:-40px; right: 15px;" x-on:click="open = ! open"> &#128512;</button>
+                            <button class="float-right" style="position: relative; top:-40px; right: 15px;"
+                                x-on:click="open = ! open"> &#128512;</button>
                             <div x-show="open" class="overflow-y-scroll h-52">
                                 @foreach ($json->emojis as $item)
                                     <span class="cursor-pointer "
@@ -43,12 +44,12 @@
                         </div>
                     </div>
                     @if (count($messages) > 0)
-                        <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-2/3" style="height: 80%;"
+                        <div class="overflow-y-scroll p-2 border-l border-l-gray-400 w-2/3" style="height: 550px;"
                             wire:poll>
                             <ul class="list-none">
                                 @foreach ($messages as $message)
                                     <li
-                                        class=" mb-2 w-2/3 text-white py-1 px-2 rounded-lg overflow-hidden {{ $message->user_id === auth()->user()->id ? 'text-right bg-indigo-700 float-right' : 'text-left bg-gray-600 float-left' }}">
+                                        class=" mb-2 w-2/3 text-white py-1 px-2 rounded-lg overflow-hidden {{ $message->user_id === auth()->user()->id ? 'text-right bg-blue-600 float-right' : 'text-left bg-gray-600 float-left' }}">
                                         <div class="py-2">{{ $message->message }}</div>
                                         <div class="text-sm flex justify-between">
                                             <span>

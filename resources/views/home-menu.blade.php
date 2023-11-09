@@ -47,9 +47,9 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-2 pb-1 border-t border-gray-200">
 
-            <div class="mt-3 space-y-1">
+            <div class="mt-1 space-y-1">
                 <!-- Account Management -->
                 @if (Route::has('login'))
                     @auth
@@ -58,6 +58,7 @@
                         </x-responsive-nav-link>
                     @else
                         <x-responsive-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            <x-icon name="arrow-right-on-rectangle" class="h-6 w-5 float-left" />
                             {{ __('Login') }}
                         </x-responsive-nav-link>
                         @if (Route::has('register'))

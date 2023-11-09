@@ -10,7 +10,7 @@ class NavigateMenu extends NavigationMenu
         [
             'name' => 'users',
             'value' => 'Users',
-            'icon' => 'user',
+            'icon' => 'user-group',
             'role' => 'view-user'
         ],
         [
@@ -61,43 +61,43 @@ class NavigateMenu extends NavigationMenu
         [
             'name' => 'edokis',
             'value' => 'Edoki',
-            'icon' => 'rectangle-stack',
+            'icon' => 'adjustments-horizontal',
             'role' => 'view-schema'
         ],
         [
             'name' => 'emad-edeens',
             'value' => 'EmadEdeen',
-            'icon' => 'rectangle-stack',
+            'icon' => 'adjustments-vertical',
             'role' => 'view-schema'
         ],
         [
             'name' => 'devices',
             'value' => 'Devices',
-            'icon' => 'rectangle-stack',
+            'icon' => 'computer-desktop',
             'role' => 'view-device'
         ],
         [
             'name' => 'switchs',
             'value' => 'Switchs',
-            'icon' => 'rectangle-stack',
+            'icon' => 'server-stack',
             'role' => 'view-switch'
         ],
         [
             'name' => 'patchs',
             'value' => 'Patchs',
-            'icon' => 'rectangle-stack',
+            'icon' => 'server',
             'role' => 'view-patch'
         ],
         [
             'name' => 'ips',
             'value' => 'IPs',
-            'icon' => 'rectangle-stack',
+            'icon' => 'document-chart-bar',
             'role' => 'view-ip'
         ],
         [
             'name' => 'points',
             'value' => 'Points',
-            'icon' => 'rectangle-stack',
+            'icon' => 'server',
             'role' => 'view-point'
         ],
     ];

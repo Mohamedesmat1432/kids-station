@@ -100,7 +100,7 @@
                 </x-slot>
                 <x-slot name="tbody">
                     @forelse ($companies as $company)
-                        <tr wire:key="company-{{ $company->id }}">
+                        <tr wire:key="company-{{ $company->id }}" class="odd:bg-gray-100">
                             @can('bulk-delete-company')
                                 <td class="p-2 border">
                                     <x-checkbox wire:model.live="form.checkbox_arr" value="{{ $company->id }}" />
