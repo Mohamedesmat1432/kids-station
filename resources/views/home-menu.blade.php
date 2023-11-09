@@ -63,6 +63,7 @@
                         </x-responsive-nav-link>
                         @if (Route::has('register'))
                             <x-responsive-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
+                                <x-icon name="plus" class="h-6 w-5 float-left" />
                                 {{ __('Register') }}
                             </x-responsive-nav-link>
                         @endif
