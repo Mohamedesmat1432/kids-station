@@ -188,7 +188,7 @@
                 </x-slot>
             </x-table>
 
-            <x-paginate :data-links="$edoki->links()" />
+            <x-paginate :data-links="$edokis->links()" />
         </div>
     </div>
 </div>

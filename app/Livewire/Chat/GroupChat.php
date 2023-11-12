@@ -35,10 +35,13 @@ class GroupChat extends Component
     public function render()
     {
         $json = json_decode(file_get_contents(public_path() .'/json/emojis.json'));
+        $messages = Chat::with('user')->get();
+        $count_messages = Chat::count();
         
         return view('livewire.chat.group-chat', [
-            'messages' => Chat::with('user')->get(),
-            'json' => $json
+            'messages' => $messages,
+            'json' => $json,
+            'count_messages' => $count_messages
         ]);
     }
 }
