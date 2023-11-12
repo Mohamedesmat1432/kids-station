@@ -16,24 +16,31 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #7296f8;
+    background: #adbcff;
     border-radius: 4px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #2563EB;
+    background: #7296f8;
     border-radius: 4px;
     cursor: pointer;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #305fe1;
+    background: #7296f8;
 }
 
-select:focus option:checked {
-    background-color: #2563EB;
+select option:checked,
+select option[multiple]:checked {
+    background-color: #3d76f3;
     color: white;
     font-weight: bold;
+    padding: 5px;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+tbody tr:nth-child(odd){
+    background-color: #F3F4F6;
 }

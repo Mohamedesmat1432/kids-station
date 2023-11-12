@@ -74,19 +74,7 @@
                 </x-slot>
             </x-table>
 
-            <div class="mt-4">
-                <div>
-                    <x-label for="page_element" value="{{ __('Per Page') }}" />
-                    <x-select class="ml-2 py-1" wire:model.live="page_element">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </x-select>
-                </div>
-                {{ $roles->links() }}
-            </div>
+            <x-paginate :data-links="$roles->links()" />
         </div>
     </div>
-
 </div>
