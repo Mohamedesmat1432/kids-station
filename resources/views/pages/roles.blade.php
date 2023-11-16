@@ -15,5 +15,5 @@
                 @livewire('role.list-role')
             </div>
         </div>
-    </div>s
+    </div>
 </x-app-layout>

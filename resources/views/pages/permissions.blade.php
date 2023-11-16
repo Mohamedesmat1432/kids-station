@@ -15,5 +15,5 @@
                 @livewire('permission.list-permission')
             </div>
         </div>
-    </div>s
+    </div>
 </x-app-layout>

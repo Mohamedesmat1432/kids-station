@@ -40,6 +40,7 @@
         <main>
             @auth
                 @livewire('chat.group-chat')
+                {{-- @livewire('chat.private-chat') --}}
             @endauth
 
             <x-notify />

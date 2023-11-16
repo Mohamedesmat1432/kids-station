@@ -15,5 +15,5 @@
                 @livewire('user.list-user')
             </div>
         </div>
-    </div>s
+    </div>
 </x-app-layout>

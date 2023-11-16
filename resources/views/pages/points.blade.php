@@ -15,5 +15,5 @@
                 @livewire('point.list-point')
             </div>
         </div>
-    </div>s
+    </div>
 </x-app-layout>
