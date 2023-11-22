@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable();
             $table->text('message');
             $table->integer('reciever_id')->nullable();
-            $table->boolean('group_chat')->default(true);
+            $table->boolean('group_chat')->default(false);
             $table->timestamps();
         });
     }
