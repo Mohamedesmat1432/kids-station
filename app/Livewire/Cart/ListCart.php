@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class ListCart extends Component
 {
-    use  CartTrait;
+    use CartTrait;
 
     #[On('add-to-cart')]
     #[On('update-cart')]
@@ -16,7 +16,7 @@ class ListCart extends Component
     #[On('remove-all-cart')]
     public function render()
     {
-        $this->cartItems = \Cart::getContent()->sortKeys()->toArray();
+        $this->cartItems = $this->cartData();
 
         return view('livewire.cart.list-cart');
     }
