@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        {{ __('Confirm Password') }}
+        {{ __('site.confirm_password') }}
     </x-slot>
 
     <x-authentication-card>
@@ -18,13 +18,13 @@
             @csrf
 
             <div>
-                <x-label for="password" value="{{ __('Password') }}" />
+                <x-label for="password" value="{{ __('site.password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" autofocus />
             </div>
 
-            <div class="flex justify-end mt-4">
-                <x-auth-indigo-button class="ml-4">
-                    {{ __('Confirm') }}
+            <div class="flex justify-between mt-4">
+                <x-auth-indigo-button>
+                    {{ __('site.confirm') }}
                 </x-auth-indigo-button>
             </div>
         </form>

@@ -3,6 +3,7 @@
 namespace App\Livewire\Permission;
 
 use App\Models\Permission;
+use App\Traits\PermissionTrait;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use Livewire\WithPagination;
 
 class ListPermission extends Component
 {
-    use WithPagination, SortSearchTrait;
+    use WithPagination, SortSearchTrait, PermissionTrait;
 
     #[On('create-permission')]
     #[On('update-permission')]

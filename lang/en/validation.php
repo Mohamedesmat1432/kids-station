@@ -180,6 +180,29 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'customer_name' => 'customet name',
+        'customer_phone' => 'customet phone',
+        'name' => 'name',
+        'offer_id' => 'offer',
+        'duration' => 'duration',
+        'status' => 'status',
+        'visitors.*.name' => 'visitor name',
+        'visitors.*.type_id' => 'visitor type',
+        'visitors.*.serial' => 'visitor serial',
+        'visitors.*.price' => 'visitor price',
+        'permission' => 'permission',
+        'email' => 'email',
+        'password' => 'password',
+        'role' => 'role',
+        'type_name_id' => 'name',
+        'price' => 'price',
+        'qty' => 'الكمية',
+        'description' => 'description',
+        'purchase_price' => 'purchase price',
+        'revenue_price' => 'revenue price',
+        'unit_id' => 'unit',
+        'category_id' => 'category',
+    ],
 
 ];

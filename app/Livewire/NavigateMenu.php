@@ -9,96 +9,84 @@ class NavigateMenu extends NavigationMenu
     public $responsive_links = [
         [
             'name' => 'users',
-            'value' => 'Users',
+            'value' => 'site.users',
             'icon' => 'user-group',
             'role' => 'view-user'
         ],
         [
             'name' => 'roles',
-            'value' => 'Roles',
+            'value' => 'site.roles',
             'icon' => 'lock-closed',
             'role' => 'view-role'
         ],
         [
             'name' => 'permissions',
-            'value' => 'Permissions',
+            'value' => 'site.permissions',
             'icon' => 'receipt-percent',
             'role' => 'view-permission'
         ],
         [
-            'name' => 'departments',
-            'value' => 'Departments',
-            'icon' => 'rectangle-stack',
-            'role' => 'view-department'
+            'name' => 'orders',
+            'value' => 'site.orders',
+            'icon' => 'briefcase',
+            'role' => 'view-order'
         ],
         [
-            'name' => 'companies',
-            'value' => 'Companies',
-            'icon' => 'receipt-percent',
-            'role' => 'home-modern'
-        ],
-        [
-            'name' => 'companies',
-            'value' => 'Companies',
-            'icon' => 'clipboard-document-check',
-            'role' => 'view-company'
-        ],
-        [
-            'name' => 'licenses',
-            'value' => 'Licenses',
-            'icon' => 'clipboard-document-check',
-            'role' => 'view-license'
-        ],
-        [
-            'name' => 'oranges',
-            'value' => 'Oranges',
-            'icon' => 'clipboard-document-check',
-            'role' => 'view-orange'
+            'name' => 'product.orders',
+            'value' => 'site.product_orders',
+            'icon' => 'briefcase',
+            'role' => 'view-product-order'
         ],
     ];
 
     public $dropdown_links = [
         [
-            'name' => 'edokis',
-            'value' => 'Edoki',
+            'name' => 'profile.show',
+            'value' => 'site.profile',
+            'icon' => 'user',
+            'role' => 'view-profile'
+        ],
+        [
+            'name' => 'categories',
+            'value' => 'site.categories',
+            'icon' => 'rectangle-group',
+            'role' => 'view-category'
+        ],
+        [
+            'name' => 'units',
+            'value' => 'site.units',
+            'icon' => 'currency-dollar',
+            'role' => 'view-unit'
+        ],
+        [
+            'name' => 'products',
+            'value' => 'site.products',
+            'icon' => 'table-cells',
+            'role' => 'view-product'
+        ],
+        [
+            'name' => 'shopping.cart',
+            'value' => 'site.shopping_cart',
+            'icon' => 'shopping-cart',
+            'role' => 'view-shopping-cart'
+        ],
+        [
+            'name' => 'type-names',
+            'value' => 'site.type_names',
+            'icon' => 'clipboard-document-list',
+            'role' => 'view-type-name'
+        ],
+        [
+            'name' => 'types',
+            'value' => 'site.types',
             'icon' => 'adjustments-horizontal',
-            'role' => 'view-schema'
+            'role' => 'view-type'
         ],
         [
-            'name' => 'emad-edeens',
-            'value' => 'EmadEdeen',
-            'icon' => 'adjustments-vertical',
-            'role' => 'view-schema'
-        ],
-        [
-            'name' => 'devices',
-            'value' => 'Devices',
-            'icon' => 'computer-desktop',
-            'role' => 'view-device'
-        ],
-        [
-            'name' => 'switchs',
-            'value' => 'Switchs',
-            'icon' => 'server-stack',
-            'role' => 'view-switch'
-        ],
-        [
-            'name' => 'patchs',
-            'value' => 'Patchs',
-            'icon' => 'server',
-            'role' => 'view-patch'
-        ],
-        [
-            'name' => 'ips',
-            'value' => 'IPs',
-            'icon' => 'document-chart-bar',
-            'role' => 'view-ip'
-        ],
-        [
-            'name' => 'points',
-            'value' => 'Points',
-            'icon' => 'server',
-            'role' => 'view-point'
+            'name' => 'offers',
+            'value' => 'site.offers',
+            'icon' => 'gift',
+            'role' => 'view-offer'
         ],
     ];
 

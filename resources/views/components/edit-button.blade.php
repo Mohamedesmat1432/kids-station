@@ -1,7 +1,7 @@
 @props(['permission', 'id'])
 
 @can($permission)
-    <x-indigo-button wire:click="$dispatch('edit-modal',{id:'{{ $id }}'})" wire:loading.attr="disabled">
+    <x-indigo-button wire:click.live="$dispatch('edit-modal',{id:'{{ $id }}'})" wire:loading.attr="disabled">
         <x-icon class="w-4 h-4" name="pencil-square" />
         {{-- {{ __('Edit') }} --}}
     </x-indigo-button>

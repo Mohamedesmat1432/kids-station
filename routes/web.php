@@ -1,8 +1,21 @@
 <?php
 
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\HomeController;
+use App\Livewire\Cart\ShoppingCart;
+use App\Livewire\Category\ListCategory;
+use App\Livewire\Dashboard\DashboardComponent;
+use App\Livewire\Offer\ListOffer;
+use App\Livewire\Order\ListOrder;
+use App\Livewire\Permission\ListPermission;
+use App\Livewire\Product\ListProduct;
+use App\Livewire\ProductOrder\ListProductOrder;
+use App\Livewire\Role\ListRole;
+use App\Livewire\Type\ListType;
+use App\Livewire\TypeName\ListTypeName;
+use App\Livewire\Unit\ListUnit;
+use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
-
+use Livewire\Livewire;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,29 +26,28 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
+});
 
-Route::get('/', [PagesController::class, 'home']);
+Route::get('/', [HomeController::class, 'home']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::controller(PagesController::class)->group(function () {
-        Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::get('/users', 'users')->name('users');
-        Route::get('/roles', 'roles')->name('roles');
-        Route::get('/permissions', 'permissions')->name('permissions');
-        Route::get('/departments', 'departments')->name('departments');
-        Route::get('/companies', 'companies')->name('companies');
-        Route::get('/licenses', 'licenses')->name('licenses');
-        Route::get('/oranges', 'oranges')->name('oranges');
-        Route::get('/devices', 'devices')->name('devices');
-        Route::get('/patchs', 'patchs')->name('patchs');
-        Route::get('/switchs', 'switchs')->name('switchs');
-        Route::get('/ips', 'ips')->name('ips');
-        Route::get('/edokis', 'edokis')->name('edokis');
-        Route::get('/emad-edeens', 'emadEdeens')->name('emad-edeens');
-        Route::get('/points', 'points')->name('points');
-    });
+    Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
+    Route::get('/users', ListUser::class)->name('users');
+    Route::get('/roles', ListRole::class)->name('roles');
+    Route::get('/permissions', ListPermission::class)->name('permissions');
+    Route::get('/types', ListType::class)->name('types');
+    Route::get('/type-names', ListTypeName::class)->name('type-names');
+    Route::get('/offers', ListOffer::class)->name('offers');
+    Route::get('/orders', ListOrder::class)->name('orders');
+    Route::get('/categories', ListCategory::class)->name('categories');
+    Route::get('/units', ListUnit::class)->name('units');
+    Route::get('/products', ListProduct::class)->name('products');
+    Route::get('/shopping-cart', ShoppingCart::class)->name('shopping.cart');
+    Route::get('/product-orders', ListProductOrder::class)->name('product.orders');
 });

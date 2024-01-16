@@ -83,7 +83,9 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ar',
+
+    'direction' => 'rtl',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,7 +174,8 @@ return [
         App\Providers\JetstreamServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -190,6 +193,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Helper'    => App\Helpers\Helper::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ])->toArray(),
 
 ];

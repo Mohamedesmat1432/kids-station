@@ -2,18 +2,14 @@
 
 namespace App\Livewire\Permission;
 
-use App\Livewire\Forms\PermissionForm;
-use App\Traits\WithNotify;
+use App\Traits\PermissionTrait;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DeletePermission extends Component
 {
-    use WithNotify;
-
-    public PermissionForm $form;
-
+    use PermissionTrait;
     public $delete_modal = false;
 
     #[Locked]
@@ -29,9 +25,10 @@ class DeletePermission extends Component
 
     public function delete()
     {
-        $this->form->delete($this->id);
+        $this->authorize('delete-permission');
+        $this->deletePermission($this->id);
         $this->dispatch('delete-permission');
-        $this->successNotify(__('Permission deleted successfully'));
+        $this->successNotify(__('site.permission_deleted'));
         $this->delete_modal = false;
     }
 

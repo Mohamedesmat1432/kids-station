@@ -2,30 +2,27 @@
 
 namespace App\Livewire\Permission;
 
-use App\Livewire\Forms\PermissionForm;
-use App\Traits\WithNotify;
+use App\Traits\PermissionTrait;
 use Livewire\Component;
 
 class CreatePermission extends Component
 {
-    use WithNotify;
-
-    public PermissionForm $form;
-
+    use PermissionTrait;
     public $create_modal = false;
 
     public function createModal()
     {
-        $this->form->reset();
+        $this->reset();
         $this->resetValidation();
         $this->create_modal = true;
     }
 
     public function save()
     {
-        $this->form->store();
+        $this->authorize('create-permission');
+        $this->storePermission();
         $this->dispatch('create-permission');
-        $this->successNotify(__('Permission created successfully'));
+        $this->successNotify(__('site.permission_created'));
         $this->create_modal = false;
     }
 

@@ -2,32 +2,29 @@
 
 namespace App\Livewire\Role;
 
-use App\Livewire\Forms\RoleForm;
 use App\Models\Permission;
-use App\Traits\WithNotify;
+use App\Traits\RoleTrait;
 use Livewire\Component;
 
 class CreateRole extends Component
 {
-    use WithNotify;
-
-    public RoleForm $form;
-
+    use RoleTrait;
     public $create_modal = false;
 
     public function createModal()
     {
-        $this->form->reset();
+        $this->reset();
         $this->resetValidation();
         $this->create_modal = true;
     }
 
     public function save()
     {
-        $this->form->store();
+        $this->authorize('create-role');
+        $this->storeRole();
         $this->dispatch('create-role');
         $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('Role created successfully'));
+        $this->successNotify(__('site.role_created'));
         $this->create_modal = false;
     }
 
@@ -35,7 +32,7 @@ class CreateRole extends Component
     {
         $permissions = Permission::pluck('name', 'id');
 
-        return view('livewire.role.create-role',[
+        return view('livewire.role.create-role', [
             'permissions' => $permissions
         ]);
     }

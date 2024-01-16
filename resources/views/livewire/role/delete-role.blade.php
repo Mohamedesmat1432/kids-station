@@ -1,21 +1,20 @@
 <div>
-    <x-dialog-modal-danger wire:model.live="delete_modal" submit="delete" method="DELETE">
+    <x-dialog-modal-danger wire:model="delete_modal" submit="delete" method="DELETE">
         <x-slot name="title">
-            {{ __('Delete Role') }}
+            {{ __('site.delete_role') }}
         </x-slot>
 
         <x-slot name="content">
-            {{ __('Are you sure you want to delete ') . $name }} ?
+            {{ __('site.are_you_sure_to_want_delete') . $name }} .
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$set('delete_modal',false)" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-secondary-button>
-
-            <x-danger-button class="ml-3" type="submit" wire:loading.attr="disabled">
-                {{ __('Delete Role') }}
+            <x-danger-button type="submit" wire:loading.attr="disabled">
+                {{ __('site.delete_role') }}
             </x-danger-button>
+            <x-secondary-button class="mx-2" wire:click="$set('delete_modal',false)" wire:loading.attr="disabled">
+                {{ __('site.cancel') }}
+            </x-secondary-button>
         </x-slot>
     </x-dialog-modal-danger>
 </div>

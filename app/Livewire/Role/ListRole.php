@@ -3,6 +3,7 @@
 namespace App\Livewire\Role;
 
 use App\Models\Role;
+use App\Traits\RoleTrait;
 use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -10,7 +11,7 @@ use Livewire\WithPagination;
 
 class ListRole extends Component
 {
-    use WithPagination, SortSearchTrait;
+    use WithPagination, SortSearchTrait, RoleTrait;
 
     #[On('create-role')]
     #[On('update-role')]

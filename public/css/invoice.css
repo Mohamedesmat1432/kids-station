@@ -1,0 +1,46 @@
+body{
+    width: 80%;
+    margin: auto;
+
+}
+
+#print_invioce {
+    display: grid;
+    grid-column: 1;
+    gap: 5;
+}
+
+.header-invoice {
+    padding: 5px;
+    text-align: center;
+    background-color: rgb(231, 228, 228);
+    font-weight: bold;
+}
+
+.row-invoice {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.table-header {
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+    border-collapse: collapse;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table th,table td {
+    border: 1px solid gray;
+    padding: 5px;
+}

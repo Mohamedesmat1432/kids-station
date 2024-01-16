@@ -2,18 +2,14 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
-use App\Traits\WithNotify;
+use App\Traits\UserTrait;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DeleteUser extends Component
 {
-    use WithNotify;
-
-    public UserForm $form;
-
+    use UserTrait;
     public $delete_modal = false;
 
     #[Locked]
@@ -29,7 +25,8 @@ class DeleteUser extends Component
 
     public function delete()
     {
-        $this->form->delete($this->id);
+        $this->authorize('delete-user');
+        $this->deleteUser($this->id);
         $this->dispatch('delete-user');
         $this->successNotify(__('User deleted successfully'));
         $this->delete_modal = false;

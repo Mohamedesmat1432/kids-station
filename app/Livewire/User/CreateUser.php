@@ -2,39 +2,36 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\Role;
-use App\Traits\WithNotify;
+use App\Traits\UserTrait;
 use Livewire\Component;
 
 class CreateUser extends Component
 {
-    use WithNotify;
-
-    public UserForm $form;
-
+    use UserTrait;
     public $create_modal = false;
 
     public function createModal()
     {
-        $this->form->reset();
+        $this->reset();
         $this->resetValidation();
         $this->create_modal = true;
     }
 
     public function save()
     {
-        $this->form->store();
+        $this->authorize('create-user');
+        $this->storeUser();
         $this->dispatch('create-user');
-        $this->successNotify(__('User created successfully'));
+        $this->successNotify(__('site.user_created'));
         $this->create_modal = false;
     }
 
     public function render()
     {
-        $roles = Role::pluck('name','id');
+        $roles = Role::pluck('name', 'id');
 
-        return view('livewire.user.create-user',[
+        return view('livewire.user.create-user', [
             'roles' => $roles
         ]);
     }

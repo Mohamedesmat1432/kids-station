@@ -11,9 +11,9 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('site.dashboard') }}
                     </x-nav-link>
 
                     @foreach ($responsive_links as $link)
@@ -30,7 +30,7 @@
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="ml-3 relative">
-                        <x-dropdown align="right" width="60">
+                        <x-dropdown align="{{ __('site.right') }}" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
                                     <button type="button"
@@ -85,7 +85,7 @@
 
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="{{ __('site.right') }}" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button
@@ -112,18 +112,13 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('site.manage_account') }}
                             </div>
-
-                            <x-dropdown-link wire:navigate href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
-                                <x-icon name="user" class="h-5 w-5 float-left" />
-                            </x-dropdown-link>
 
                             @foreach ($dropdown_links as $link)
                                 @can($link['role'])
                                     <x-dropdown-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                                        <x-icon name="{{ $link['icon'] }}" class="w-5 h-5 float-left" />
+                                        <x-icon name="{{ $link['icon'] }}" class="w-5 h-5 float-{{ __('site.left') }}" />
                                         {{ __($link['value']) }}
                                     </x-dropdown-link>
                                 @endcan
@@ -142,8 +137,8 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                    <x-icon name="arrow-left-on-rectangle" class="h-5 w-5 float-left" />
-                                    {{ __('Log Out') }}
+                                    <x-icon name="arrow-left-on-rectangle" class="h-5 w-5 float-{{ __('site.left') }}" />
+                                    {{ __('site.logout') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -188,19 +183,14 @@
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    <x-icon name="chart-bar-square" class="h-5 w-5 float-left" />
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                
-                <x-responsive-nav-link wire:navigate href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    <x-icon name="user" class="h-5 w-5 float-left" />
-                    {{ __('Profile') }}
+                    <x-icon name="chart-bar-square" class="h-5 w-5 float-{{ __('site.left') }}" />
+                    {{ __('site.dashboard') }}
                 </x-responsive-nav-link>
 
                 @foreach ($responsive_links as $link)
                     @can($link['role'])
                         <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-left" />
+                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-{{ __('site.left') }}" />
                             {{ __($link['value']) }}
                         </x-responsive-nav-link>
                     @endcan
@@ -209,7 +199,7 @@
                 @foreach ($dropdown_links as $link)
                     @can($link['role'])
                         <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-left" />
+                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-{{ __('site.left') }}" />
                             {{ __($link['value']) }}
                         </x-responsive-nav-link>
                     @endcan
@@ -226,8 +216,8 @@
                     @csrf
 
                     <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                        <x-icon name="arrow-left-on-rectangle" class="h-5 w-5 float-left" />
-                        {{ __('Log Out') }}
+                        <x-icon name="arrow-left-on-rectangle" class="h-5 w-5 float-{{ __('site.left') }}" />
+                        {{ __('site.logout') }}
                     </x-responsive-nav-link>
                 </form>
 

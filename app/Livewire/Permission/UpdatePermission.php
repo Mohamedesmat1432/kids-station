@@ -2,34 +2,30 @@
 
 namespace App\Livewire\Permission;
 
-use App\Livewire\Forms\PermissionForm;
-use App\Models\Permission;
-use App\Traits\WithNotify;
+use App\Traits\PermissionTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class UpdatePermission extends Component
 {
-    use WithNotify;
-
-    public PermissionForm $form;
-
+    use PermissionTrait;
     public $edit_modal = false;
 
     #[On('edit-modal')]
-    public function confirmEdit(Permission $id)
+    public function confirmEdit($id)
     {
-        $this->form->reset();
+        $this->reset();
         $this->resetValidation();
-        $this->form->setPermission($id);
+        $this->setPermission($id);
         $this->edit_modal = true;
     }
 
     public function save()
     {
-        $this->form->update();
+        $this->authorize('edit-permission');
+        $this->updatePermission();
         $this->dispatch('update-permission');
-        $this->successNotify(__('Permission updated successfully'));
+        $this->successNotify(__('site.permission_updated'));
         $this->edit_modal = false;
     }
 

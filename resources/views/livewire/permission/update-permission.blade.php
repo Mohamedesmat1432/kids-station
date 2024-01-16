@@ -1,25 +1,25 @@
 <div>
-    <x-dialog-modal wire:model.live="edit_modal" submit="save()" method="PATCH">
+    <x-dialog-modal wire:model="edit_modal" submit="save()" method="PATCH">
         <x-slot name="title">
-            {{ __('Update Permission') }}
+            {{ __('site.update_permission') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
-                    placeholder="{{ __('Enter permission name') }}" autocomplete="on" />
-                <x-input-error for="form.name" class="mt-2" />
+                <x-label for="name" value="{{ __('site.name') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="name"
+                    placeholder="{{ __('site.name') }}" autocomplete="on" />
+                <x-input-error for="name" class="mt-2" />
             </div>
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$set('edit_modal',false)" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-secondary-button>
-            <x-indigo-button class="ml-3" type="submit" wire:loading.attr="disabled">
-                {{ __('Save Permission') }}
+            <x-indigo-button type="submit" wire:loading.attr="disabled">
+                {{ __('site.save') }}
             </x-indigo-button>
+            <x-secondary-button class="mx-2" wire:click="$set('edit_modal',false)" wire:loading.attr="disabled">
+                {{ __('site.cancel') }}
+            </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
 </div>

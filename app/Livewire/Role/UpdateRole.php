@@ -2,36 +2,32 @@
 
 namespace App\Livewire\Role;
 
-use App\Livewire\Forms\RoleForm;
 use App\Models\Permission;
-use App\Models\Role;
-use App\Traits\WithNotify;
+use App\Traits\RoleTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class UpdateRole extends Component
 {
-    use WithNotify;
-
-    public RoleForm $form;
-
+    use RoleTrait;
     public $edit_modal = false;
 
     #[On('edit-modal')]
-    public function confirmEdit(Role $id)
+    public function confirmEdit($id)
     {
-        $this->form->reset();
+        $this->reset();
         $this->resetValidation();
-        $this->form->setRole($id);
+        $this->setRole($id);
         $this->edit_modal = true;
     }
 
     public function save()
     {
-        $this->form->update();
+        $this->authorize('edit-role');
+        $this->updateRole();
         $this->dispatch('update-role');
         $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('Role updated successfully'));
+        $this->successNotify(__('site.role_updated'));
         $this->edit_modal = false;
     }
 
@@ -39,7 +35,7 @@ class UpdateRole extends Component
     {
         $permissions = Permission::pluck('name', 'id');
 
-        return view('livewire.role.update-role',[
+        return view('livewire.role.update-role', [
             'permissions' => $permissions
         ]);
     }

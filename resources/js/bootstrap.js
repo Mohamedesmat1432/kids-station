@@ -11,8 +11,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import Toastify from 'toastify-js';
 window.Toastify = Toastify;
 
-import Quill from 'quill';
-window.Quill = Quill;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

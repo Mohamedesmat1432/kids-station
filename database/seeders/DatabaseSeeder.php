@@ -19,12 +19,6 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            CompanySeeder::class,
-            DepartmentSeeder::class,
-            LicenseSeeder::class,
-            PatchSeeder::class,
-            // SwitchSeeder::class,
-            IpSeeder::class,
         ]);
     }
 }

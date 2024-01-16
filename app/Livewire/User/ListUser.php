@@ -4,14 +4,15 @@ namespace App\Livewire\User;
 
 use App\Models\User;
 use App\Traits\SortSearchTrait;
+use App\Traits\UserTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class ListUser extends Component
 {
-    use WithPagination, SortSearchTrait;
-
+    use WithPagination, SortSearchTrait, UserTrait;
+    
     #[On('create-user')]
     #[On('update-user')]
     #[On('delete-user')]

@@ -1,48 +1,48 @@
 <div>
     <x-create-button permission="create-user" />
 
-    <x-dialog-modal wire:model.live="create_modal" submit="save()" method="POST">
+    <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
         <x-slot name="title">
-            {{ __('Create New User') }}
+            {{ __('site.create_new_user') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="col-span-6 sm:col-span-4">
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input type="text" class="mt-1 block w-full" wire:model="form.name"
-                    placeholder="{{ __('Enter user name') }}" autocomplete="username" />
-                <x-input-error for="form.name" class="mt-2" />
+                <x-label for="name" value="{{ __('site.name') }}" />
+                <x-input type="text" class="mt-1 block w-full" wire:model="name" placeholder="{{ __('site.name') }}"
+                    autocomplete="username" />
+                <x-input-error for="name" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input type="email" class="mt-1 block w-full" wire:model="form.email"
-                    placeholder="{{ __('Enter user email') }}" autocomplete="form.email" />
-                <x-input-error for="form.email" class="mt-2" />
+                <x-label for="email" value="{{ __('site.email') }}" />
+                <x-input type="email" class="mt-1 block w-full" wire:model="email"
+                    placeholder="{{ __('site.email') }}" autocomplete="email" />
+                <x-input-error for="email" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="role" value="{{ __('Roles') }}" />
-                <x-select class="mt-1 block w-full" wire:model="form.role" multiple>
+                <x-label for="role" value="{{ __('site.roles') }}" />
+                <x-select class="mt-1 block w-full" wire:model="role" multiple>
                     @foreach ($roles as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                     @endforeach
                 </x-select>
-                <x-input-error for="form.role" class="mt-2" />
+                <x-input-error for="role" class="mt-2" />
             </div>
             <div class="col-span-6 sm:col-span-4 mt-3">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input type="password" class="mt-1 block w-full" wire:model="form.password"
-                    placeholder="{{ __('Enter user password') }}" autocomplete="current-password" />
-                <x-input-error for="form.password" class="mt-2" />
+                <x-label for="password" value="{{ __('site.password') }}" />
+                <x-input type="password" class="mt-1 block w-full" wire:model="password"
+                    placeholder="{{ __('site.password') }}" autocomplete="current-password" />
+                <x-input-error for="password" class="mt-2" />
             </div>
         </x-slot>
 
         <x-slot name="footer">
-            <x-secondary-button wire:click="$set('create_modal',false)" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-secondary-button>
-            <x-indigo-button class="ml-3" type="submit" wire:loading.attr="disabled">
-                {{ __('Save User') }}
+            <x-indigo-button type="submit" wire:loading.attr="disabled">
+                {{ __('site.save') }}
             </x-indigo-button>
+            <x-secondary-button class="mx-2" wire:click="$set('create_modal',false)" wire:loading.attr="disabled">
+                {{ __('site.cancel') }}
+            </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
 </div>
