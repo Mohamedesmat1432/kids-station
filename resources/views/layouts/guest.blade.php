@@ -9,18 +9,17 @@
     <title>{{ $title ?? 'Laravel' }}</title>
 
     {{-- Fonts EN--}}
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
     {{-- Fonts AR--}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap" rel="stylesheet">
+    {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> --}}
+    <link href="{{asset('css/font-cairo.css')}}" rel="stylesheet">
+    <link href="{{asset('css/site.css')}}" rel="stylesheet">
 
-    <!-- Scripts -->
     @vite('resources/js/app.js')
 
-    <!-- Styles -->
-    @livewireStyles
+    <livewire:styles />
 </head>
 
 <body>
@@ -28,7 +27,7 @@
         {{ $slot }}
     </div>
 
-    @livewireScripts
+    <livewire:scripts />
 </body>
 
 </html>

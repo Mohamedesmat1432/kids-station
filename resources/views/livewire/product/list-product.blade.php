@@ -2,7 +2,9 @@
     <x-page-content page-name="{{ __('site.products') }}">
 
         <livewire:product.update-product />
+
         <livewire:product.show-product />
+        
         <livewire:product.delete-product />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">

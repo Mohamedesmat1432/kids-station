@@ -12,8 +12,8 @@
                 <div class="grid md:grid-cols-1 md:gap-4">
                     <div class="relative z-0 w-full group invoice-one">
                         <div class="mb-3 flex justify-between row-invoice">
-                            <b>{{ __('site.id') }}:</b>
-                            {{ $this->product_order_id ?? '' }}
+                            <b>{{ __('site.number') }}:</b>
+                            {{ $this->number ?? '' }}
                         </div>
                         <div class="mb-3 flex justify-between row-invoice">
                             <b>{{ __('site.casher_name') }}:</b>
@@ -29,9 +29,6 @@
                         </div>
                     </div>
                     <div class="relative z-0 w-full group invoice-two">
-                        <div class="mb-3 text-center table-header">
-                            <b>{{ __('site.products') }}</b>
-                        </div>
                         <table class="w-full text-center mb-3 bg-white">
                             <thead class="font-bold">
                                 <tr>
@@ -112,7 +109,7 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}"><head>
                     <link rel='stylesheet' href='{{ asset('css/invoice.css') }}'/>
                     </head><body onload='window.print(); window.close();'>
-                        <h1 class='header-invoice'>{{ __('site.invoice_product_title') }}</h1>`);
+                        <h1 class='header-invoice'>{{ __('site.invoice_title') }}</h1>`);
                     winPrint.document.write(prtContent.innerHTML);
                     winPrint.document.write('</body></html>');
                     winPrint.document.close();

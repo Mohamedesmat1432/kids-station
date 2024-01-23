@@ -13,7 +13,7 @@ trait ProductTrait
     public $name;
     public $image;
     public $description;
-    public $qty;
+    public $qty = 1;
     public $purchase_price;
     public $price;
     public $revenue_price;
@@ -53,7 +53,7 @@ trait ProductTrait
         $this->revenue_price = floatval($this->price) - floatval($this->purchase_price);
     }
 
-    public function quantity(){
+    public function changeQuantity(){
         if($this->unit_id){
             $this->qty *= Unit::findOrFail($this->unit_id)->qty;
         }
@@ -70,12 +70,14 @@ trait ProductTrait
     {
         $validated = $this->validate();
         $this->product->update($validated);
+        $this->reset();
     }
 
     public function deleteProduct($id)
     {
         $product = Product::findOrFail($id);
         $product->delete();
+        $this->reset();
     }
 
     public function checkboxAll()
@@ -94,5 +96,6 @@ trait ProductTrait
     {
         $products = Product::whereIn('id', $this->checkbox_arr);
         $products->delete();
+        $this->reset();
     }
 }

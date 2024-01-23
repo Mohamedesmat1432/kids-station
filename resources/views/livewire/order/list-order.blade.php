@@ -2,7 +2,9 @@
     <x-page-content page-name="{{ __('site.orders') }}">
 
         <livewire:order.attach-order />
+
         <livewire:order.show-order />
+        
         <livewire:order.delete-order />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">

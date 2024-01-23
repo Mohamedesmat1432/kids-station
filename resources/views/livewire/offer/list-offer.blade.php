@@ -25,7 +25,7 @@
 
                     @can('import-export-offer')
                         <div class="mt-3 flex">
-                            <livewire:offer.bulk-import-export-offer />
+                            <livewire:offer.import-export-offer />
                         </div>
                     @endcan
 

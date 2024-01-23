@@ -174,5 +174,5 @@ return [
     'no_data_found' => 'No data founded',
     'date_order' => 'Order Date',
     'invoice_product_title' => 'Products Invoice',
-
+    'kids_orders' => 'Kids Order',
 ];

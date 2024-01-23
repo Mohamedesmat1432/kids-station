@@ -33,7 +33,7 @@ trait CartTrait
                     'attributes' => []
                 ]);
                 $this->dispatch('add-to-cart');
-                $this->successNotify(__('site.add_to_cart'));
+                $this->successNotify(__('site.add_to_cart_message'));
             }
 
        } else {
@@ -45,14 +45,14 @@ trait CartTrait
     {
         Cart::remove($id);
         $this->dispatch('remove-from-cart');
-        $this->successNotify(__('site.remove_from_cart'));
+        $this->successNotify(__('site.remove_from_cart_message'));
     }
 
     public function clearAllCart()
     {
         Cart::clear();
         $this->dispatch('remove-all-cart');
-        $this->successNotify(__('site.remove_all_cart'));
+        $this->successNotify(__('site.remove_all_cart_message'));
     }
 
     public function createOrder()

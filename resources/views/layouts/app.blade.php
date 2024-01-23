@@ -7,26 +7,24 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Laravel' }}</title>
+    {{-- Fonts EN --}}
+    {{-- <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
+    {{-- Fonts AR --}}
+    <link href="{{ asset('css/font-cairo.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
-    {{-- Fonts EN--}}
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    {{-- Fonts AR--}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400&display=swap" rel="stylesheet">
-    
-    <!-- Scripts -->
     @vite('resources/js/app.js')
 
-    @livewireStyles
+    <livewire:styles />
 </head>
 
 <body>
 
     <div class="font-sans antialiased min-h-screen bg-gray-100">
         @auth
-            @livewire('navigate-menu')
+            <livewire:navigate-menu />
+            <livewire:chat.group-chat />
         @else
             @include('home-menu')
         @endauth
@@ -42,11 +40,6 @@
 
         <!-- Page Content -->
         <main>
-            @auth
-                @livewire('chat.group-chat')
-                {{-- @livewire('chat.private-chat') --}}
-            @endauth
-
             <x-notify />
 
             {{ $slot }}
@@ -55,7 +48,7 @@
 
     @stack('modals')
 
-    @livewireScripts
+    <livewire:scripts />
 </body>
 
 </html>

@@ -83,7 +83,7 @@
                                         <td class="p-2 border">
                                             <x-indigo-button wire:click="addToCart({{ $product }})">
                                                 {{-- {{ __('add_to_cart') }} --}}
-                                                <x-icon name="shopping-cart" class="w-4 h-4" />
+                                                <x-icon name="shopping-cart" class="w-4 h-4 font-bold" />
                                             </x-indigo-button>
                                         </td>
                                     </tr>
