@@ -11,10 +11,10 @@
     {{-- <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
     {{-- Fonts AR --}}
+    @vite('resources/js/app.js')
     <link href="{{ asset('css/font-cairo.css') }}" rel="stylesheet">
     <link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
-    @vite('resources/js/app.js')
 
     <livewire:styles />
 </head>

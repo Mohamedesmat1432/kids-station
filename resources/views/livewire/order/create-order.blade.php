@@ -52,7 +52,8 @@
                                 <option value="">{{ __('site.type') }}</option>
                                 @foreach ($unique_types as $type)
                                     <option value="{{ $type->id }}">
-                                        {{ $type->typeName->name }}/{{ $type->duration }}</option>
+                                        {{ $type->typeName->name }}
+                                    </option>
                                 @endforeach
                             </x-select>
                             <x-input-error for="visitors.{{ $key }}.type_id" class="mt-2" />

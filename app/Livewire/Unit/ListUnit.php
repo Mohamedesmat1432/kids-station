@@ -22,6 +22,8 @@ class ListUnit extends Component
     #[On('create-unit')]
     #[On('update-unit')]
     #[On('delete-unit')]
+    #[On('import-unit')]
+    #[On('export-unit')]
     #[On('bulk-delete-unit')]
     public function render()
     {

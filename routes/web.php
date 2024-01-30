@@ -37,6 +37,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    Livewire::setUpdateRoute(function ($handle) {
+        return Route::post('/livewire/update', $handle);
+    });
+    
     Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     Route::get('/users', ListUser::class)->name('users');
     Route::get('/roles', ListRole::class)->name('roles');

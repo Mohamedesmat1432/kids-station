@@ -22,6 +22,8 @@ class ListCategory extends Component
     #[On('create-category')]
     #[On('update-category')]
     #[On('delete-category')]
+    #[On('import-category')]
+    #[On('export-category')]
     #[On('bulk-delete-category')]
     public function render()
     {
