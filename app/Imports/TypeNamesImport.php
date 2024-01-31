@@ -3,10 +3,15 @@
 namespace App\Imports;
 
 use App\Models\TypeName;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class TypeNamesImport implements ToModel
+class TypeNamesImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmptyRows
 {
+    use Importable;
     /**
     * @param array $row
     *
@@ -15,7 +20,14 @@ class TypeNamesImport implements ToModel
     public function model(array $row)
     {
         return new TypeName([
-            //
+            'name' => $row['name'],
         ]);
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'string','unique:type_names,name'],
+        ];
     }
 }

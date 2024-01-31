@@ -2,14 +2,13 @@
 
 namespace App\Livewire\Cart;
 
+use App\Models\Product;
 use App\Traits\CartTrait;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Cart;
 
 class UpdateCart extends Component
 {
-    protected $listeners = ['updateCart'=> '$refresh'];
     use CartTrait;
 
     public function mount($item)
@@ -21,14 +20,18 @@ class UpdateCart extends Component
 
     public function updateCart()
     {
-        Cart::update($this->cartItems['id'], [
-            'quantity' => [
-                'relative' => false,
-                'value' => $this->quantity
-            ]
-        ]);
+        if ($this->quantity < Product::findOrFail($this->cartItems['id'])->qty) {
+            Cart::update($this->cartItems['id'], [
+                'quantity' => [
+                    'relative' => false,
+                    'value' => $this->quantity,
+                ],
+            ]);
 
-        $this->dispatch('update-cart');
+            $this->dispatch('update-cart');
+        } else {
+            $this->successNotify(__('site.qty_bigger_than_product'));
+        }
     }
 
     public function render()

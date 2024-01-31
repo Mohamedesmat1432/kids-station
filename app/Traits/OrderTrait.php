@@ -25,11 +25,8 @@ trait OrderTrait
     public $last_total = 0;
     public $start_date;
     public $end_date;
+    public $status;
     public $checkbox_arr = [];
-
-    public $arr = [];
-    public $steps;
-    public $type;
 
     protected function rules()
     {
@@ -42,7 +39,7 @@ trait OrderTrait
             'visitors.*.type_id' => 'required|numeric|exists:types,id',
             'visitors.*.serial' => 'required|string|min:2|max:20',
             'visitors.*.price' => 'required|numeric',
-            // 'status' => 'required|boolean',
+            // 'status' => 'required|in:inprogress,completed,completed_audit',
         ];
     }
 

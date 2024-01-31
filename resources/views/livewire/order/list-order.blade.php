@@ -156,6 +156,14 @@
                                     <x-sort-icon sort_field="end_date" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button class="flex justify-center" wire:click="sortByField('status')">
+                                        {{ __('site.status') }}
+                                    </button>
+                                    <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
                             <td class="px-4 py-2 border" colspan="3">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
@@ -230,6 +238,9 @@
                                 </td>
                                 <td class="p-2 border">
                                     {{ App\Helpers\Helper::formatHours($order->end_date) }}
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $order->status }}
                                 </td>
                                 <td class="p-2 border">
                                     <x-show-button permission="show-order" id="{{ $order->id }}" />

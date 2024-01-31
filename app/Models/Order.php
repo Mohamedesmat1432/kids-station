@@ -27,6 +27,7 @@ class Order extends Model
         'last_total',
         'start_date',
         'end_date',
+        'status',
     ];
 
     protected function visitors(): Attribute
@@ -50,6 +51,6 @@ class Order extends Model
 
     public function Type(): BelongsTo
     {
-        return $this->belongsTo(Type::class,'visitors->type_id');
+        return $this->belongsTo(Type::class,'visitors["type_id"]');
     }
 }

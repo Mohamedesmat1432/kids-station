@@ -11,9 +11,8 @@ trait ProductOrderTrait
     public $casher_name;
     public $products;
     public $total;
+    public $status;
     public $created_at;
-
-
 
     public function setProductOrder($id)
     {
@@ -23,6 +22,7 @@ trait ProductOrderTrait
         $this->casher_name = $this->product_order->user->name;
         $this->products = $this->product_order->products;
         $this->total = $this->product_order->total;
+        $this->status = $this->product_order->status;
         $this->created_at = $this->product_order->created_at;
     }
 }

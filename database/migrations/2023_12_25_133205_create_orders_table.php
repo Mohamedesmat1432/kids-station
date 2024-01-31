@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,6 +25,7 @@ return new class extends Migration
             $table->decimal('last_total')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->enum('status', ['inprogress', 'completed', 'completed_audit'])->default('inprogress');
             $table->timestamps();
         });
     }

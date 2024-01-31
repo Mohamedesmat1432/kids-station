@@ -18,6 +18,7 @@ class ProductOrder extends Model
         'user_id',
         'products',
         'total',
+        'status',
     ];
 
     protected function products(): Attribute

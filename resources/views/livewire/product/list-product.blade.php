@@ -4,7 +4,7 @@
         <livewire:product.update-product />
 
         <livewire:product.show-product />
-        
+
         <livewire:product.delete-product />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
@@ -23,15 +23,14 @@
                             <x-input order="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+                        @can('import-export-product')
+                            <div>
+                                <livewire:product.import-export-product />
+                            </div>
+                        @endcan
                     </div>
 
-                    @can('import-export-order')
-                        <div class="mt-3 flex">
-                            <livewire:product.import-export-product />
-                        </div>
-                    @endcan
-
-                    @can('bulk-delete-order')
+                    @can('bulk-delete-product')
                         <td class="px-4 py-2 border">
                             <div class="mt-3">
                                 <x-bulk-delete-button />
@@ -45,7 +44,7 @@
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-order')
+                            @can('bulk-delete-product')
                                 <td class="px-4 py-2 border">
                                     <div class="text-center">
                                         <x-checkbox wire:click="checkboxAll" />
@@ -135,13 +134,13 @@
                     <x-slot name="tbody">
                         @forelse ($products as $product)
                             <tr wire:key="product-{{ $product->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-order')
+                                @can('bulk-delete-product')
                                     <td class="p-2 border">
                                         <x-checkbox wire:model.live="checkbox_arr" value="{{ $product->id }}" />
                                     </td>
                                 @endcan
                                 <td class="p-2 border">
-                                    {{ $loop->index +1 }}
+                                    {{ $loop->index + 1 }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $product->name }}
