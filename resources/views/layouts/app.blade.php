@@ -10,11 +10,12 @@
     {{-- Fonts EN --}}
     {{-- <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
-    {{-- Fonts AR --}}
-    @vite('resources/js/app.js')
-    <link href="{{ asset('css/font-cairo.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/site.css') }}" rel="stylesheet">
 
+    {{-- Fonts AR --}}
+    <link href="{{ asset('css/site.css') }}" rel="stylesheet" />
+    <script src="{{ asset('js/site.js') }}"></script>
+
+    @vite('resources/js/app.js')
 
     <livewire:styles />
 </head>
@@ -33,7 +34,15 @@
         @if (isset($header))
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                    <div>{{ $header }}</div>
+                    <div>
+                        <button onclick="openFullscreen()">
+                            <x-icon name="arrows-pointing-out" class="text-xl" />
+                        </button>
+                        {{-- <button onclick="closeFullscreen()">
+                            <x-icon name="arrows-pointing-in" class="text-xl" />
+                        </button> --}}
+                    </div>
                 </div>
             </header>
         @endif
