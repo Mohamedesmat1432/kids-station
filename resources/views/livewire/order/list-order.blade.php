@@ -1,5 +1,4 @@
 <div>
-    @use('App\Models\Type')
     <x-page-content page-name="{{ __('site.orders') }}">
 
         <livewire:order.attach-order />
