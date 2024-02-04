@@ -199,4 +199,12 @@ return [
     'types_imported' => 'Types imported successfully',
     'types_exported' => 'Types exported successfully',
     'qty_bigger_than_product' => 'This quantity is bigger than product quantity',
+    'daily_expenses' => 'Daily Expenses',
+    'create_new_daily_expense' => 'Create New Daily Expense',
+    'update_daily_expense' => 'Update Daily Expense',
+    'daily_expense_created' => 'Daily expense created successfully',
+    'daily_expense_updated' =>  'Daily expense updated successfully',
+    'daily_expense_deleted' =>  'Daily expense deleted successfully',
+    'daily_expense_delete_all' =>  'Daily expense deleted all successfully',
+    'data' => 'Data'
 ];

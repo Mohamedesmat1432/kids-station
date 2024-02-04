@@ -1,10 +1,11 @@
 <div>
+    @use('App\Models\Type')
     <x-page-content page-name="{{ __('site.orders') }}">
 
         <livewire:order.attach-order />
 
         <livewire:order.show-order />
-        
+
         <livewire:order.delete-order />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
@@ -70,10 +71,10 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('casher_name')">
+                                    <button wire:click="sortByField('user_id')">
                                         {{ __('site.casher_name') }}
                                     </button>
-                                    <x-sort-icon sort_field="casher_name" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
@@ -187,7 +188,7 @@
                                     {{ $order->number }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ $order->casher_name }}
+                                    {{ $order->user->name ?? '' }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->customer_name }}
@@ -213,7 +214,8 @@
                                                     <td> {{ $loop->iteration }}</td>
                                                     <td> {{ $visitor['name'] }}</td>
                                                     <td> {{ $visitor['serial'] }}</td>
-                                                    <td>{{ App\Models\Type::find($visitor['type_id'])->TypeName->name ?? '' }}
+                                                    <td>
+                                                        {{ App\Models\Type::find($visitor['type_id'])->TypeName->name ?? '' }}
                                                     </td>
                                                     <td> {{ $visitor['price'] }}</td>
                                                 </tr>
@@ -231,13 +233,13 @@
                                     {{ $order->remianing ?? 0 }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ App\Helpers\Helper::formatDate($order->created_at) }}
+                                    {{ \Helper::formatDate($order->created_at) }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ App\Helpers\Helper::formatHours($order->start_date) }}
+                                    {{ \Helper::formatHours($order->start_date) }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ App\Helpers\Helper::formatHours($order->end_date) }}
+                                    {{ \Helper::formatHours($order->end_date) }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->status }}
@@ -255,7 +257,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12" class="p-2 border text-center">
+                                <td colspan="16" class="p-2 border text-center">
                                     {{ __('site.no_data_found') }}
                                 </td>
                             </tr>

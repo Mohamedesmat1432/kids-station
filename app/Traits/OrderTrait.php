@@ -13,7 +13,7 @@ trait OrderTrait
     public ?Order $order;
     public $order_id;
     public $number;
-    public $casher_name;
+    public $user_id;
     public $customer_name;
     public $customer_phone;
     public $duration;
@@ -43,12 +43,13 @@ trait OrderTrait
         ];
     }
 
-    public function refreshNewVisitor(){
+    public function refreshNewVisitor()
+    {
         $this->visitors = $this->visitors->map(function ($visitor) {
             $visitor['type_id'] = '';
             $visitor['price'] = number_format(0, 2);
             $this->total += $visitor['price'];
-            
+
             return $visitor;
         });
     }
@@ -56,7 +57,6 @@ trait OrderTrait
     public function refreshVisitors()
     {
         if ($this->duration < $this->order->duration) {
-            
             $this->duration = $this->order->duration;
             $this->errorNotify(__('site.failed_duration'));
         } else {
@@ -65,22 +65,22 @@ trait OrderTrait
             $this->visitors = $this->visitors->map(function ($visitor) {
                 if ($visitor) {
                     $unique_types = Type::whereIn('duration', [$this->duration, 0])
-                        ->orderBy('price', 'ASC')->get();
-                    
+                        ->orderBy('price', 'ASC')
+                        ->get();
+
                     $type_id = Type::find($visitor['type_id'])->typeName->name;
-                    
+
                     foreach ($unique_types as $type) {
                         if ($type->typeName->name === $type_id && $type->duration === $this->duration && $type->duration !== 0) {
-                            $visitor['type_id'] =  $type->id;
+                            $visitor['type_id'] = $type->id;
                             $visitor['price'] = $type->price;
                         }
                     }
-                    
                 } else {
                     $visitor['type_id'] = '';
                     $visitor['price'] = number_format(0, 2);
                 }
-                
+
                 $this->total += $visitor['price'];
                 return $visitor;
             });
@@ -117,7 +117,7 @@ trait OrderTrait
         $this->order = Order::findOrFail($id);
         $this->order_id = $this->order->id;
         $this->number = $this->order->number;
-        $this->casher_name = $this->order->casher_name;
+        $this->user_id = $this->order->user_id;
         $this->customer_name = $this->order->customer_name;
         $this->customer_phone = $this->order->customer_phone;
         $this->duration = $this->order->duration;
@@ -125,26 +125,26 @@ trait OrderTrait
         $this->total = $this->order->total;
         $this->start_date = $this->order->start_date;
         $this->end_date = $this->order->end_date;
-        $this->offer_id = $this->order->offer_id;
+        $this->offer_id = $this->order->offer_id ?? null;
         $this->last_number = $this->order->last_number ?? '';
         $this->last_total = $this->order->last_total ?? 0;
         $this->remianing = $this->order->remianing ?? 0;
-        // $this->status =  $this->order->status;
+        $this->status = $this->order->status;
     }
 
     public function showOrder($id)
     {
-        $this->order = Order::findOrFail($id);
+        $this->order = Order::with('offer')->findOrFail($id);
     }
-    
+
     public function storeOrder()
     {
         $validated = $this->validate();
-        $validated['number'] =   '#' . random_int(1000000, 9999999);
-        $validated['casher_name'] = auth()->user()->name;
+        $validated['number'] = '#' . random_int(1000000, 9999999);
+        $validated['user_id'] = auth()->user()->id;
         $validated['start_date'] = Carbon::now();
         $validated['end_date'] = Carbon::now()->addHours($this->duration);
-        $validated['offer_id'] = $this->offer_id;
+        $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
         Order::create($validated);
         $this->reset();
@@ -154,14 +154,14 @@ trait OrderTrait
     public function attachOrder()
     {
         $validated = $this->validate();
-        $validated['number'] =   '#' . random_int(1000000, 9999999);
-        $validated['casher_name'] = auth()->user()->name;
+        $validated['number'] = '#' . random_int(1000000, 9999999);
+        $validated['user_id'] = auth()->user()->id;
         $validated['start_date'] = Carbon::now();
         $validated['end_date'] = Carbon::now()->addHours($this->duration);
-        $validated['last_number'] =  $this->order->number;
+        $validated['last_number'] = $this->order->number;
         $validated['last_total'] = $this->order->total;
         $validated['remianing'] = $this->total - $this->order->total;
-        $validated['offer_id'] = $this->offer_id;
+        $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
         Order::create($validated);
         $this->reset();
@@ -176,16 +176,12 @@ trait OrderTrait
 
     public function add()
     {
-        $this->visitors->push([
-            'name' => '', 'type_id' => '', 'serial' => '', 'price' => 0
-        ]);
+        $this->visitors->push(['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]);
     }
 
     public function fillRow()
     {
-        $this->visitors = collect([
-            ['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]
-        ]);
+        $this->visitors = collect([['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]]);
     }
 
     public function deleteOrder($id)

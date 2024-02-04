@@ -49,7 +49,8 @@
                                 <x-input type="hidden" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.type_id" />
                                 <x-input type="text" class="mt-1 block w-full"
-                                    value="{{ App\Models\Type::find($visitor['type_id'])->typeName->name ?? '' }}" />
+                                    value="{{ App\Models\Type::find($visitor['type_id'])->typeName->name ?? '' }}"
+                                    disabled />
                                 <x-input-error for="visitors.{{ $key }}.type_id" class="mt-2" />
                             </div>
                             <div class="relative z-0 w-full mb-5 group">

@@ -13,12 +13,12 @@ class DeleteProduct extends Component
     public $delete_modal = false;
 
     #[Locked]
-    public $product_id, $name;
+    public $id, $name;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)
     {
-        $this->product_id = $id;
+        $this->id = $id;
         $this->name = $name;
         $this->delete_modal = true;
     }
@@ -26,7 +26,7 @@ class DeleteProduct extends Component
     public function delete()
     {
         $this->authorize('delete-product');
-        $this->deleteProduct($this->product_id);
+        $this->deleteProduct($this->id);
         $this->dispatch('delete-product');
         $this->successNotify(__('site.product_deleted'));
         $this->reset();

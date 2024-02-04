@@ -75,4 +75,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chat::class, 'user_id');
     }
+
+    public function Orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function ProductOrders(): HasMany
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
+    
+    public function DailyExpenses(): HasMany
+    {
+        return $this->hasMany(DailyExpense::class);
+    }
+    
 }

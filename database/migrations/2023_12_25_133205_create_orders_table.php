@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +14,11 @@ return new class extends Migration {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->string('casher_name');
+            $table->foreignId('user_id')->nullable();
+            $table->foreignId('offer_id')->nullable();
             $table->string('customer_name');
             $table->string('customer_phone');
             $table->string('duration');
-            $table->foreignId('offer_id')->nullable();
             $table->json('visitors');
             $table->decimal('total');
             $table->decimal('remianing')->nullable();

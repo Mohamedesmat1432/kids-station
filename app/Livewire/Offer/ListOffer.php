@@ -31,14 +31,14 @@ class ListOffer extends Component
 
         $offers = Offer::when($this->search, function ($query) {
             return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('price', 'like', '%' . $this->search . '%');
+                $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
             });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+        })
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
 
         return view('livewire.offer.list-offer', [
-            'offers' => $offers
+            'offers' => $offers,
         ]);
     }
 }

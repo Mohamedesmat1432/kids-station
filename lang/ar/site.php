@@ -202,4 +202,13 @@ return [
     'types_imported' => 'تم استرداد اﻷنواع بنجاح',
     'types_exported' => 'تم تصدير اﻷنواع بنجاح',
     'qty_bigger_than_product' => 'هذه الكمية اكبر من الكمية الموجودة',
+    'daily_expenses' => 'المصروفات اليومية',
+    'create_new_daily_expense' => 'انشاء مصروف يومي',
+    'update_daily_expense' => 'تحديث المصروف اليومي',
+    'delete_daily_expense' => 'حذف المصروف اليومي',
+    'daily_expense_created' => 'تم انشاء المصروف اليومي بنجاح',
+    'daily_expense_updated' =>  'تم تحديث المصروف اليومي بنجاح',
+    'daily_expense_deleted' =>  'تم حذف المصروف اليومي بنجاح',
+    'daily_expense_delete_all' =>  'تم حذف المصروفات اليومية بنجاح',
+    'data' => 'البيانات'
 ];

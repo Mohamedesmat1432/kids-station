@@ -15,7 +15,7 @@ class Order extends Model
 
     protected $fillable = [
         'number',
-        'casher_name',
+        'user_id',
         'customer_name',
         'customer_phone',
         'duration',
@@ -43,6 +43,11 @@ class Order extends Model
         'end_date' => 'datetime: H:i',
         // 'visitors' => 'array'
     ];
+
+    public function User() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function Offer(): BelongsTo
     {

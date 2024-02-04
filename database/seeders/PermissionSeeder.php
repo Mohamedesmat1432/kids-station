@@ -59,7 +59,7 @@ class PermissionSeeder extends Seeder
             'import-export-offer',
             'view-order',
             'create-order',
-            'edit-order',
+            'attach-order',
             'delete-order',
             'show-order',
             'bulk-delete-order',
@@ -93,8 +93,15 @@ class PermissionSeeder extends Seeder
             'bulk-delete-product',
             'import-export-product',
             'view-shopping-cart',
-            'add-more-visitor',
-            'remove-visitor'
+            'view-daily-expense',
+            'create-daily-expense',
+            'edit-daily-expense',
+            'delete-daily-expense',
+            'show-daily-expense',
+            'bulk-delete-daily-expense',
+            'import-export-daily-expense',
+            // 'add-more-visitor',
+            // 'remove-visitor'
         ];
 
         foreach ($permissions as $permission) {

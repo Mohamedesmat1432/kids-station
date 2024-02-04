@@ -25,7 +25,7 @@
                             @endif
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.casher_name') }}:</b>
-                                {{ $this->order->casher_name }}
+                                {{ $this->order->user->name }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.customer_name') }}:</b>
@@ -109,13 +109,13 @@
                                 <b>{{ __('site.total') }} :</b>
                                 {{ $this->order->total ?? 0 }} {{ __('site.EGP') }}
                             </div>
-                            @if ($this->order->last_total ?? 0)
+                            @if ($this->order->last_total)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.last_total') }}:</b>
                                     {{ $this->order->last_total ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
-                            @if ($this->order->offer_id ?? 0)
+                            @if ($this->order->offer_id)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.discount') }}:</b>
                                     -{{ $this->order->offer->price ?? 0 }} {{ __('site.EGP') }}
@@ -143,13 +143,13 @@
             </x-slot>
         </x-dialog-modal>
     @endif
-    
+
     @push('scripts')
-    <script>
-        function printInvoice() {
-            var prtContent = document.getElementById('print_invoice');
-            var winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-            winPrint.document.write(`
+        <script>
+            function printInvoice() {
+                var prtContent = document.getElementById('print_invoice');
+                var winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                winPrint.document.write(`
             <!DOCTYPE html>
             <html lang='{{ str_replace('_', '-', app()->getLocale()) }}' dir='{{ config('app.direction') }}'>
             <meta charset="utf-8">
@@ -161,11 +161,11 @@
             <body onload='window.print(); window.close();'>
             <h1 class='header-invoice'>{{ __('site.invoice_title') }}</h1>
         `);
-            winPrint.document.write(prtContent.innerHTML);
-            winPrint.document.write('</body></html>');
-            winPrint.document.close();
-            winPrint.focus();
-        }
-    </script>
+                winPrint.document.write(prtContent.innerHTML);
+                winPrint.document.write('</body></html>');
+                winPrint.document.close();
+                winPrint.focus();
+            }
+        </script>
     @endpush
 </div>

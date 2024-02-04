@@ -32,7 +32,7 @@ class TypesImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
         return [
             'type_name_id' => ['required', 'numeric', 'exists:type_names,id'],
             'price' => ['required', 'numeric'],
-            'duration' => ['required', 'duration'],
+            'duration' => ['required', 'numeric'],
             'status' => ['required', 'boolean'],
         ];
     }

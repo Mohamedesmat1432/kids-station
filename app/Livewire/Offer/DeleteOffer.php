@@ -13,12 +13,12 @@ class DeleteOffer extends Component
     public $delete_modal = false;
 
     #[Locked]
-    public $offer_id, $name;
+    public $id, $name;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)
     {
-        $this->offer_id = $id;
+        $this->id = $id;
         $this->name = $name;
         $this->delete_modal = true;
     }
@@ -26,7 +26,7 @@ class DeleteOffer extends Component
     public function delete()
     {
         $this->authorize('delete-offer');
-        $this->deleteOffer($this->offer_id);
+        $this->deleteOffer($this->id);
         $this->dispatch('delete-offer');
         $this->successNotify(__('site.offer_deleted'));
         $this->reset();

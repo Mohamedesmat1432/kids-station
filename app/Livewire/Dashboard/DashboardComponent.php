@@ -93,7 +93,7 @@ class DashboardComponent extends Component
                 'count' => Product::count()
             ],
             [
-                'name' => 'type-names',
+                'name' => 'type.names',
                 'value' => __('site.type_names'),
                 'icon' => 'clipboard-document-list',
                 'role' => 'view-type-name',

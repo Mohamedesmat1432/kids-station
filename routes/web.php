@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Livewire\Cart\ShoppingCart;
 use App\Livewire\Category\ListCategory;
+use App\Livewire\DailyExpense\ListDailyExpense;
 use App\Livewire\Dashboard\DashboardComponent;
 use App\Livewire\Offer\ListOffer;
 use App\Livewire\Order\ListOrder;
@@ -46,7 +47,7 @@ Route::middleware([
     Route::get('/roles', ListRole::class)->name('roles');
     Route::get('/permissions', ListPermission::class)->name('permissions');
     Route::get('/types', ListType::class)->name('types');
-    Route::get('/type-names', ListTypeName::class)->name('type-names');
+    Route::get('/type-names', ListTypeName::class)->name('type.names');
     Route::get('/offers', ListOffer::class)->name('offers');
     Route::get('/orders', ListOrder::class)->name('orders');
     Route::get('/categories', ListCategory::class)->name('categories');
@@ -54,4 +55,5 @@ Route::middleware([
     Route::get('/products', ListProduct::class)->name('products');
     Route::get('/shopping-cart', ShoppingCart::class)->name('shopping.cart');
     Route::get('/product-orders', ListProductOrder::class)->name('product.orders');
+    Route::get('/daily-expenses', ListDailyExpense::class)->name('daily.expenses');
 });

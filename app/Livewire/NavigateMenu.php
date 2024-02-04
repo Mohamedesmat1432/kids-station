@@ -76,7 +76,7 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-product'
             ],
             [
-                'name' => 'type-names',
+                'name' => 'type.names',
                 'value' => 'site.type_names',
                 'icon' => 'clipboard-document-list',
                 'role' => 'view-type-name'
@@ -92,6 +92,12 @@ class NavigateMenu extends NavigationMenu
                 'value' => 'site.offers',
                 'icon' => 'gift',
                 'role' => 'view-offer'
+            ],
+            [
+                'name' => 'daily.expenses',
+                'value' => 'site.daily_expenses',
+                'icon' => 'arrow-up-right',
+                'role' => 'view-daily-expense'
             ],
         ];
     }
