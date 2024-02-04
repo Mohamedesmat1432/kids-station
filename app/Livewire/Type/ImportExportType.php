@@ -30,7 +30,7 @@ class ImportExportType extends Component
         try {
             $this->import_modal = false;
             $this->dispatch('import-type-name');
-            $this->successNotify(__('site.type_names_imported'));
+            $this->successNotify(__('site.types_imported'));
             return $import->import($this->file);
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
@@ -49,8 +49,8 @@ class ImportExportType extends Component
         try {
             $this->export_modal = false;
             $this->dispatch('export-type-name');
-            $this->successNotify(__('site.type_names_exported'));
-            return (new TypesExport($this->search))->download('type_names.' . $this->extension);
+            $this->successNotify(__('site.types_exported'));
+            return (new TypesExport($this->search))->download('types.' . $this->extension);
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
         }

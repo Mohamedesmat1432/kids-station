@@ -95,7 +95,6 @@ class PermissionSeeder extends Seeder
             'view-shopping-cart',
             'add-more-visitor',
             'remove-visitor'
-            
         ];
 
         foreach ($permissions as $permission) {

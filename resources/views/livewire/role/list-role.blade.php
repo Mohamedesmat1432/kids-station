@@ -26,15 +26,15 @@
                     <x-slot name="thead">
                         <tr>
                             <td class="px-4 py-2 border">
-                                <div class="flex items-center">
-                                    <button class="flex items-center" wire:click="sortByField('id')">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('id')">
                                         {{ __('site.id') }}
                                     </button>
                                     <x-sort-icon sort_field="id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
-                                <div class="flex items-center">
+                                <div class="flex justify-center">
                                     <button wire:click="sortByField('name')">
                                         {{ __('site.name') }}
                                     </button>
@@ -42,7 +42,7 @@
                                 </div>
                             </td>
                             <td class="px-4 py-2 border" colspan="2">
-                                <div class="flex items-center">
+                                <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
                             </td>
@@ -52,7 +52,7 @@
                         @forelse ($roles as $role)
                             <tr wire:key="role-{{ $role->id }}" class="odd:bg-gray-100">
                                 <td class="p-2 border">
-                                    {{ $loop->index + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $role->name }}

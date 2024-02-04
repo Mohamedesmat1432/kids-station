@@ -66,7 +66,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('created_at')">
+                                    <button wire:click="sortByField('created_at')">
                                         {{ __('site.date_today') }}
                                     </button>
                                     <x-sort-icon sort_field="created_at" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -74,7 +74,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('created_at')">
+                                    <button wire:click="sortByField('created_at')">
                                         {{ __('site.date_order') }}
                                     </button>
                                     <x-sort-icon sort_field="created_at" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -92,7 +92,7 @@
                         @forelse ($product_orders as $product_order)
                             <tr wire:key="product-{{ $product_order->id }}" class="odd:bg-gray-100">
                                 <td class="p-2 border">
-                                    {{ $loop->index + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $product_order->number }}

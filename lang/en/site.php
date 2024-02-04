@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'dashboard' => 'Dashboard',
     'wellcome_to_dashboard' => 'Wellcome to dashboard',
     'users' => 'Users',
@@ -97,7 +96,7 @@ return [
     'manage_account' => 'Manage Account',
     'last_total' => 'Last Total Order',
     'remianing' => 'Remianing',
-    'password' => 'password',
+    'password' => 'password', 
     'order_created' => 'Order created successfully',
     'order_updated' => 'Order attach to current order created successfully',
     'order_deleted' => 'Order deleted successfully',
@@ -183,6 +182,8 @@ return [
     'export_products' => 'ُExport Products',
     'import_type_names' => 'Import Type Names',
     'export_type_names' => 'ُExport Type Names',
+    'import_types' => 'Import Types',
+    'export_types' => 'ُExport Types',
     'export' => 'ُExport',
     'import' => 'Import',
     'extension' => 'Extensions',
@@ -195,5 +196,7 @@ return [
     'products_exported' => 'Products exported successfully',
     'type_names_imported' => 'Type names imported successfully',
     'type_names_exported' => 'Type names exported successfully',
+    'types_imported' => 'Types imported successfully',
+    'types_exported' => 'Types exported successfully',
     'qty_bigger_than_product' => 'This quantity is bigger than product quantity',
 ];

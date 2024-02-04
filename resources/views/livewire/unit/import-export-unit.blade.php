@@ -9,7 +9,7 @@
     </x-danger-button>
 
     @if ($this->import_modal)
-        <x-dialog-modal wire:model.live="import_modal" submit="import()" method="POST">
+        <x-dialog-modal wire:model="import_modal" submit="import()" method="POST">
             <x-slot name="title">
                 {{ __('site.import_units') }}
             </x-slot>
@@ -35,7 +35,7 @@
     @endif
     
     @if ($this->export_modal)
-        <x-dialog-modal wire:model.live="export_modal" submit="export()" method="POST">
+        <x-dialog-modal wire:model="export_modal" submit="export()" method="POST">
             <x-slot name="title">
                 {{ __('site.export_units') }}
             </x-slot>

@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Laravel' }}</title>
-    
+
     {{-- Fonts EN --}}
     {{-- <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
@@ -29,9 +29,11 @@
         @auth
             <livewire:navigate-menu />
             <livewire:chat.group-chat />
-        @else
-            @include('home-menu')
         @endauth
+
+        @guest
+            @include('home-menu')
+        @endguest
 
         <!-- Page Heading -->
         @if (isset($header))

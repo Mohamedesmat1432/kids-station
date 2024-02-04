@@ -23,7 +23,7 @@
                 @forelse ($cartItems as $item)
                     <tr wire:key="cart-{{ $item['id'] }}" class="odd:bg-gray-100">
                         <td class="p-2">
-                            {{ $loop->index + 1 }}
+                            {{ $loop->iteration }}
                         </td>
                         {{--  <td class="p-2">
                 <a href="#">

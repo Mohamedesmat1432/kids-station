@@ -94,7 +94,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('duration')">
+                                    <button wire:click="sortByField('duration')">
                                         {{ __('site.duration') }}
                                     </button>
                                     <x-sort-icon sort_field="duration" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -102,7 +102,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('visitors')">
+                                    <button wire:click="sortByField('visitors')">
                                         {{ __('site.visitors') }}
                                     </button>
                                     <x-sort-icon sort_field="visitors" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -110,7 +110,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('total')">
+                                    <button wire:click="sortByField('total')">
                                         {{ __('site.total') }}
                                     </button>
                                     <x-sort-icon sort_field="total" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -118,7 +118,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('last_total')">
+                                    <button wire:click="sortByField('last_total')">
                                         {{ __('site.last_total') }}
                                     </button>
                                     <x-sort-icon sort_field="last_total" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -126,7 +126,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('remianing')">
+                                    <button wire:click="sortByField('remianing')">
                                         {{ __('site.remianing') }}
                                     </button>
                                     <x-sort-icon sort_field="remianing" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -134,7 +134,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('created_at')">
+                                    <button wire:click="sortByField('created_at')">
                                         {{ __('site.date_today') }}
                                     </button>
                                     <x-sort-icon sort_field="created_at" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -142,7 +142,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('start_date')">
+                                    <button wire:click="sortByField('start_date')">
                                         {{ __('site.start_date') }}
                                     </button>
                                     <x-sort-icon sort_field="start_date" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -150,7 +150,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('end_date')">
+                                    <button wire:click="sortByField('end_date')">
                                         {{ __('site.end_date') }}
                                     </button>
                                     <x-sort-icon sort_field="end_date" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -158,7 +158,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('status')">
+                                    <button wire:click="sortByField('status')">
                                         {{ __('site.status') }}
                                     </button>
                                     <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -181,7 +181,7 @@
                                     </td>
                                 @endcan
                                 <td class="p-2 border">
-                                    {{ $loop->index + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->number }}
@@ -210,7 +210,7 @@
                                         <tbody>
                                             @foreach ($order->visitors as $visitor)
                                                 <tr>
-                                                    <td> {{ $loop->index + 1 }}</td>
+                                                    <td> {{ $loop->iteration }}</td>
                                                     <td> {{ $visitor['name'] }}</td>
                                                     <td> {{ $visitor['serial'] }}</td>
                                                     <td>{{ App\Models\Type::find($visitor['type_id'])->TypeName->name ?? '' }}

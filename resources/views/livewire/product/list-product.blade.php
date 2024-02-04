@@ -93,7 +93,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('revenue_price')">
+                                    <button wire:click="sortByField('revenue_price')">
                                         {{ __('site.revenue_price') }}
                                     </button>
                                     <x-sort-icon sort_field="revenue_price" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -101,7 +101,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('qty')">
+                                    <button wire:click="sortByField('qty')">
                                         {{ __('site.qty') }}
                                     </button>
                                     <x-sort-icon sort_field="qty" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -109,7 +109,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('unit_id')">
+                                    <button wire:click="sortByField('unit_id')">
                                         {{ __('site.unit_id') }}
                                     </button>
                                     <x-sort-icon sort_field="unit_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -117,7 +117,7 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button class="flex justify-center" wire:click="sortByField('category_id')">
+                                    <button wire:click="sortByField('category_id')">
                                         {{ __('site.category_id') }}
                                     </button>
                                     <x-sort-icon sort_field="category_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
@@ -140,7 +140,7 @@
                                     </td>
                                 @endcan
                                 <td class="p-2 border">
-                                    {{ $loop->index + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $product->name }}

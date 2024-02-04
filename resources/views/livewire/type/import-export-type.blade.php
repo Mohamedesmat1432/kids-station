@@ -11,7 +11,7 @@
     @if ($this->import_modal)
         <x-dialog-modal wire:model="import_modal" submit="import()" method="POST">
             <x-slot name="title">
-                {{ __('site.import_type') }}
+                {{ __('site.import_types') }}
             </x-slot>
 
             <x-slot name="content">
@@ -37,7 +37,7 @@
     @if ($this->export_modal)
         <x-dialog-modal wire:model="export_modal" submit="export()" method="POST">
             <x-slot name="title">
-                {{ __('site.export_type') }}
+                {{ __('site.export_types') }}
             </x-slot>
 
             <x-slot name="content">
