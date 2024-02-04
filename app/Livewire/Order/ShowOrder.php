@@ -15,7 +15,7 @@ class ShowOrder extends Component
     public function showModal($id)
     {
         $this->authorize('show-order');
-        $this->setOrder($id);
+        $this->showOrder($id);
         $this->show_modal = true;
     }
 

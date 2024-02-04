@@ -13,21 +13,23 @@ class TypeNamesImport implements ToModel, WithHeadingRow, WithValidation, SkipsE
 {
     use Importable;
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+     * @param array $row
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
     public function model(array $row)
     {
         return new TypeName([
             'name' => $row['name'],
+            'status' => $row['status'],
         ]);
     }
 
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string','unique:type_names,name'],
+            'name' => ['required', 'string', 'unique:type_names,name'],
+            'status' => ['required', 'boolean'],
         ];
     }
 }

@@ -15,8 +15,8 @@ class TypeNamesExport implements FromCollection, WithHeadings, WithStyles, Shoul
     use Exportable;
 
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
 
     protected $search = '';
 
@@ -28,7 +28,7 @@ class TypeNamesExport implements FromCollection, WithHeadings, WithStyles, Shoul
     public function styles(Worksheet $sheet)
     {
         return [
-            1    => [
+            1 => [
                 'font' => ['bold' => true],
                 'color' => ['#FFFF00' => true],
             ],
@@ -37,15 +37,13 @@ class TypeNamesExport implements FromCollection, WithHeadings, WithStyles, Shoul
 
     public function collection()
     {
-        return TypeName::select('id', 'name')
-            ->where('name', 'like', '%' . $this->search . '%')->get();
+        return TypeName::select('id', 'name', 'status')
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->get();
     }
 
     public function headings(): array
     {
-        return [
-            'ID',
-            'Name',
-        ];
+        return ['ID', 'Name', 'Status'];
     }
 }

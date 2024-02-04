@@ -11,7 +11,6 @@ use Livewire\WithFileUploads;
 class ImportExportTypeName extends Component
 {
     use WithNotify, WithFileUploads;
-
     public $file;
     public $import_modal = false;
     public $export_modal = false;

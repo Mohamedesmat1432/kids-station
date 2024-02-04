@@ -125,13 +125,18 @@ trait OrderTrait
         $this->total = $this->order->total;
         $this->start_date = $this->order->start_date;
         $this->end_date = $this->order->end_date;
-        $this->offer_id = $this->order->offer_id ?? null;
+        $this->offer_id = $this->order->offer_id;
         $this->last_number = $this->order->last_number ?? '';
         $this->last_total = $this->order->last_total ?? 0;
         $this->remianing = $this->order->remianing ?? 0;
         // $this->status =  $this->order->status;
     }
 
+    public function showOrder($id)
+    {
+        $this->order = Order::findOrFail($id);
+    }
+    
     public function storeOrder()
     {
         $validated = $this->validate();
@@ -156,7 +161,7 @@ trait OrderTrait
         $validated['last_number'] =  $this->order->number;
         $validated['last_total'] = $this->order->total;
         $validated['remianing'] = $this->total - $this->order->total;
-        $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
+        $validated['offer_id'] = $this->offer_id;
         $validated['total'] = $this->total;
         Order::create($validated);
         $this->reset();

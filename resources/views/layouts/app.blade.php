@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Laravel' }}</title>
+    
     {{-- Fonts EN --}}
     {{-- <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
@@ -14,6 +15,8 @@
     {{-- Fonts AR --}}
     <link href="{{ asset('css/site.css') }}" rel="stylesheet" />
     <script src="{{ asset('js/site.js') }}"></script>
+
+    @stack('styles')
 
     @vite('resources/js/app.js')
 
@@ -33,7 +36,7 @@
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
                     <div>{{ $header }}</div>
                     <div>
                         <button onclick="openFullscreen()">
@@ -56,6 +59,8 @@
     </div>
 
     @stack('modals')
+
+    @stack('scripts')
 
     <livewire:scripts />
 </body>
