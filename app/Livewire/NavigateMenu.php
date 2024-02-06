@@ -99,6 +99,12 @@ class NavigateMenu extends NavigationMenu
                 'icon' => 'arrow-up-right',
                 'role' => 'view-daily-expense'
             ],
+            [
+                'name' => 'daily.expenses.product',
+                'value' => 'site.daily_expenses_product',
+                'icon' => 'arrow-up-right',
+                'role' => 'view-daily-expense-product'
+            ],
         ];
     }
 

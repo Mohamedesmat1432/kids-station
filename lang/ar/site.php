@@ -210,5 +210,7 @@ return [
     'daily_expense_updated' =>  'تم تحديث المصروف اليومي بنجاح',
     'daily_expense_deleted' =>  'تم حذف المصروف اليومي بنجاح',
     'daily_expense_delete_all' =>  'تم حذف المصروفات اليومية بنجاح',
-    'data' => 'البيانات'
+    'bulk_delete_daily_expense' => 'حذف المصروفات اليومية',
+    'data' => 'البيانات',
+    'daily_expenses_product' => 'المصرفات اليومية للمنتجات',
 ];

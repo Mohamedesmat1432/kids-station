@@ -12,10 +12,7 @@ class TypeName extends Model
 
     protected $table = 'type_names';
 
-    protected $fillable = [
-        'name',
-        'status',
-    ];
+    protected $fillable = ['name', 'status'];
 
     public function Types(): HasMany
     {

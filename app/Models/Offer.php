@@ -11,18 +11,13 @@ class Offer extends Model
     use HasFactory;
 
     protected $table = 'offers';
-    
-    protected $fillable = [
-        'name',
-        'price',
-        'status'
-    ];
+
+    protected $fillable = ['name', 'price', 'status'];
 
     protected function scopeActive($query)
     {
         return $query->where('status', true);
     }
-
 
     public function Orders(): HasMany
     {

@@ -12,13 +12,8 @@ class Type extends Model
     use HasFactory;
 
     protected $table = 'types';
-    
-    protected $fillable = [
-        'type_name_id',
-        'price',
-        'duration',
-        'status'
-    ];
+
+    protected $fillable = ['type_name_id', 'price', 'duration', 'status'];
 
     public function TypeName(): BelongsTo
     {
@@ -27,7 +22,7 @@ class Type extends Model
 
     public function Orders(): HasMany
     {
-        return $this->hasMany(Order::class,'visitors->type_id');
+        return $this->hasMany(Order::class, 'visitors->type_id');
     }
 
     protected function scopeActive($query)

@@ -20,7 +20,7 @@
                             </div>
                             <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="price" value="{{ __('site.price') }}" />
-                                <x-input type="number" class="mt-1 block w-full" 
+                                <x-input type="number" class="mt-1 block w-full"
                                     wire:model="data.{{ $key }}.price" placeholder="{{ __('site.price') }}" />
                                 <x-input-error for="data.{{ $key }}.price" class="mt-2" />
                             </div>

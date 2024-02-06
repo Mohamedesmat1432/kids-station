@@ -12,12 +12,9 @@ class Unit extends Model
 
     protected $table = 'units';
 
-    protected $fillable = [
-        'name',
-        'qty',
-    ];
+    protected $fillable = ['name', 'qty'];
 
-    public function Products() :HasMany
+    public function Products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

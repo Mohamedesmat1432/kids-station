@@ -1,16 +1,14 @@
 <div>
-    <x-create-button permission="create-daily-expense" />
-
-    @if ($this->create_modal)
-        <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
+    @if ($this->edit_modal)
+        <x-dialog-modal wire:model="edit_modal" submit="save()" method="POST">
             <x-slot name="title">
-                {{ __('site.create_new_daily_expense') }}
+                {{ __('site.update_daily_expense') }}
             </x-slot>
 
             <x-slot name="content">
                 @if ($data)
                     @foreach ($data as $key => $item)
-                        <div class="grid md:grid-cols-3 md:gap-5">
+                        <div class="grid md:grid-cols-3 md:gap-3">
                             <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="name" value="{{ __('site.name') }}" />
                                 <x-input type="text" class="mt-1 block w-full"
@@ -20,7 +18,7 @@
                             </div>
                             <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="price" value="{{ __('site.price') }}" />
-                                <x-input type="number" class="mt-1 block w-full" 
+                                <x-input type="number" class="mt-1 block w-full"
                                     wire:model="data.{{ $key }}.price" placeholder="{{ __('site.price') }}" />
                                 <x-input-error for="data.{{ $key }}.price" class="mt-2" />
                             </div>
@@ -47,7 +45,7 @@
                 <x-indigo-button type="submit" wire:loading.attr="disabled">
                     {{ __('site.save') }}
                 </x-indigo-button>
-                <x-secondary-button class="mx-2" wire:click="$set('create_modal',false)" wire:loading.attr="disabled">
+                <x-secondary-button class="mx-2" wire:click="$set('edit_modal',false)" wire:loading.attr="disabled">
                     {{ __('site.cancel') }}
                 </x-secondary-button>
             </x-slot>

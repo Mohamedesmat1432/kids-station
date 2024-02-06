@@ -11,19 +11,14 @@ class DailyExpense extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'data'
-    ];
+    protected $fillable = ['user_id', 'data', 'total'];
 
     protected function data(): Attribute
     {
-        return Attribute::make(
-            get: fn ($value) => json_decode($value, true),
-            set: fn ($value) => json_encode($value),
-        );
+        return Attribute::make(get: fn($value) => json_decode($value, true), set: fn($value) => json_encode($value));
     }
-    public function User() : BelongsTo
+    
+    public function User(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

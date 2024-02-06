@@ -1,19 +1,19 @@
 <div>
-    <x-page-content page-name="{{ __('site.daily_expenses') }}">
+    <x-page-content page-name="{{ __('site.daily_expenses_product') }}">
 
-        <livewire:daily-expense.update-daily-expense />
+        <livewire:daily-expense-product.update-daily-expense-product />
 
-        <livewire:daily-expense.show-daily-expense />
+        <livewire:daily-expense-product.show-daily-expense-product />
 
-        <livewire:daily-expense.delete-daily-expense />
+        <livewire:daily-expense-product.delete-daily-expense-product />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
             <div class="flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
-                    {{ __('site.daily_expenses') }}
+                    {{ __('site.daily_expenses_product') }}
                 </h1>
-                <livewire:daily-expense.create-daily-expense />
+                <livewire:daily-expense-product.create-daily-expense-product />
             </div>
 
             <div class="mt-6 text-gray-500 leading-relaxed">
@@ -25,18 +25,18 @@
                         </div>
                     </div>
 
-                    @can('import-export-daily-expense')
+                    @can('import-export-daily-expense-product')
                         <div class="mt-3 flex">
-                            <livewire:daily-expense.import-export-daily-expense />
+                            <livewire:daily-expense-product.import-export-daily-expense-product />
                         </div>
                     @endcan
 
-                    @can('bulk-delete-daily-expense')
+                    @can('bulk-delete-daily-expense-product')
                         <td class="px-4 py-2 border">
                             <div class="mt-3">
                                 <x-bulk-delete-button />
 
-                                <livewire:daily-expense.bulk-delete-daily-expense />
+                                <livewire:daily-expense-product.bulk-delete-daily-expense-product />
                             </div>
                         </td>
                     @endcan
@@ -45,7 +45,7 @@
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-daily-expense')
+                            @can('bulk-delete-daily-expense-product')
                                 <td class="px-4 py-2 border">
                                     <div class="text-center">
                                         <x-checkbox wire:click="checkboxAll" />
@@ -110,8 +110,8 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($daily_expenses as $daily_expense)
-                            <tr wire:key="daily-expense-{{ $daily_expense->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-daily-expense')
+                            <tr wire:key="daily-expense-product-{{ $daily_expense->id }}" class="odd:bg-gray-100">
+                                @can('bulk-delete-daily-expense-product')
                                     <td class="p-2 border">
                                         <x-checkbox wire:model.live="checkbox_arr" value="{{ $daily_expense->id }}" />
                                     </td>
@@ -151,11 +151,12 @@
                                     {{ \Helper::formatHours($daily_expense->updated_at) }}
                                 </td>
                                 <td class="p-2 border">
-                                    <x-edit-button permission="edit-daily-expense" id="{{ $daily_expense->id }}" />
+                                    <x-edit-button permission="edit-daily-expense-product"
+                                        id="{{ $daily_expense->id }}" />
                                 </td>
                                 <td class="p-2 border">
-                                    <x-delete-button permission="delete-daily-expense" id="{{ $daily_expense->id }}"
-                                        name="" />
+                                    <x-delete-button permission="delete-daily-expense-product"
+                                        id="{{ $daily_expense->id }}" name="" />
                                 </td>
                             </tr>
                         @empty

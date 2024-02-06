@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Livewire\Cart\ShoppingCart;
 use App\Livewire\Category\ListCategory;
 use App\Livewire\DailyExpense\ListDailyExpense;
+use App\Livewire\DailyExpenseProduct\ListDailyExpenseProduct;
 use App\Livewire\Dashboard\DashboardComponent;
 use App\Livewire\Offer\ListOffer;
 use App\Livewire\Order\ListOrder;
@@ -56,4 +57,5 @@ Route::middleware([
     Route::get('/shopping-cart', ShoppingCart::class)->name('shopping.cart');
     Route::get('/product-orders', ListProductOrder::class)->name('product.orders');
     Route::get('/daily-expenses', ListDailyExpense::class)->name('daily.expenses');
+    Route::get('/daily-expenses-product', ListDailyExpenseProduct::class)->name('daily.expenses.product');
 });

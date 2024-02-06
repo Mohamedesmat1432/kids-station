@@ -206,5 +206,7 @@ return [
     'daily_expense_updated' =>  'Daily expense updated successfully',
     'daily_expense_deleted' =>  'Daily expense deleted successfully',
     'daily_expense_delete_all' =>  'Daily expense deleted all successfully',
-    'data' => 'Data'
+    'bulk_delete_daily_expense' => 'Bulk Delete Daily Expenses',
+    'data' => 'Data',
+    'daily_expenses_product' => 'Daily Expense Products',
 ];

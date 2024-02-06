@@ -28,23 +28,14 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
+    protected $hidden = ['password', 'remember_token', 'two_factor_recovery_codes', 'two_factor_secret'];
 
     /**
      * The attributes that should be cast.
@@ -60,15 +51,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $appends = [
-        'profile_photo_url',
-    ];
+    protected $appends = ['profile_photo_url'];
 
     protected function name(): Attribute
     {
-        return Attribute::make(
-            get: fn (string $value) => ucwords($value),
-        );
+        return Attribute::make(get: fn(string $value) => ucwords($value));
     }
 
     public function Messages(): HasMany
@@ -85,10 +72,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(ProductOrder::class);
     }
-    
+
     public function DailyExpenses(): HasMany
     {
         return $this->hasMany(DailyExpense::class);
     }
-    
+
+    public function DailyExpenseProducts(): HasMany
+    {
+        return $this->hasMany(DailyExpenseProduct::class);
+    }
 }

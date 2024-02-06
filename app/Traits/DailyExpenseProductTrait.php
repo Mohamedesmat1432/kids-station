@@ -2,12 +2,12 @@
 
 namespace App\Traits;
 
-use App\Models\DailyExpense;
+use App\Models\DailyExpenseProduct;
 
-trait DailyExpenseTrait
+trait DailyExpenseProductTrait
 {
     use WithNotify;
-    public ?DailyExpense $daily_expense;
+    public ?DailyExpenseProduct $daily_expense;
     public $daily_expense_id;
     public $user_id;
     public $data;
@@ -39,7 +39,9 @@ trait DailyExpenseTrait
 
     public function totalPriceData($data)
     {
-        return collect($data)->pluck('price')->sum();
+        return collect($data)
+            ->pluck('price')
+            ->sum();
     }
 
     public function storeDailyExpense()
@@ -47,14 +49,14 @@ trait DailyExpenseTrait
         $validated = $this->validate();
         $validated['user_id'] = auth()->user()->id;
         $validated['total'] = $this->totalPriceData($this->data);
-        DailyExpense::create($validated);
+        DailyExpenseProduct::create($validated);
         $this->reset();
         $this->fillRow();
     }
 
     public function setDailyExpense($id)
     {
-        $this->daily_expense = DailyExpense::findOrFail($id);
+        $this->daily_expense = DailyExpenseProduct::findOrFail($id);
         $this->daily_expense_id = $this->daily_expense->id;
         $this->user_id = $this->daily_expense->user_id;
         $this->data = collect($this->daily_expense->data);
@@ -72,13 +74,13 @@ trait DailyExpenseTrait
 
     public function deleteDailyExpense($id)
     {
-        $daily_expense = DailyExpense::findOrFail($id);
+        $daily_expense = DailyExpenseProduct::findOrFail($id);
         $daily_expense->delete();
     }
 
     public function checkboxAll()
     {
-        $data = DailyExpense::pluck('id')->toArray();
+        $data = DailyExpenseProduct::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
 
         if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
@@ -90,7 +92,7 @@ trait DailyExpenseTrait
 
     public function bulkDeleteDailyExpense()
     {
-        $daily_expenses = DailyExpense::whereIn('id', $this->checkbox_arr);
+        $daily_expenses = DailyExpenseProduct::whereIn('id', $this->checkbox_arr);
         $daily_expenses->delete();
     }
 }
