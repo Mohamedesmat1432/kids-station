@@ -28,9 +28,10 @@ use Livewire\Livewire;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Livewire::setUpdateRoute(function ($handle) {
-//     return Route::post('/livewire/update', $handle);
-// });
+
+Livewire::setUpdateRoute(function ($handle) {
+    return Route::post('/livewire/update', $handle);
+});
 
 Route::get('/', [HomeController::class, 'home']);
 

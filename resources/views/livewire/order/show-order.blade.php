@@ -149,18 +149,16 @@
             function printInvoice() {
                 var prtContent = document.getElementById('print_invoice');
                 var winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-                winPrint.document.write(`
-            <!DOCTYPE html>
-            <html lang='{{ str_replace('_', '-', app()->getLocale()) }}' dir='{{ config('app.direction') }}'>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="csrf-token" content="{{ csrf_token() }}">
-            <head>
-            <link rel='stylesheet' href='{{ asset('css/invoice.css') }}'/>
-            </head>
-            <body onload='window.print(); window.close();'>
-            <h1 class='header-invoice'>{{ __('site.invoice_title') }}</h1>
-        `);
+                winPrint.document.write(`<!DOCTYPE html>
+                <html lang='{{ str_replace('_', '-', app()->getLocale()) }}' dir='{{ config('app.direction') }}'>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+                <head>
+                <link rel='stylesheet' href='{{ asset('css/invoice.css') }}'/>
+                </head>
+                <body onload='window.print(); window.close();'>
+                <h1 class='header-invoice'>{{ __('site.invoice_title') }}</h1>`);
                 winPrint.document.write(prtContent.innerHTML);
                 winPrint.document.write('</body></html>');
                 winPrint.document.close();

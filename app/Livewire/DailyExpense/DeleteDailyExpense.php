@@ -32,6 +32,7 @@ class DeleteDailyExpense extends Component
         $this->reset();
         $this->delete_modal = false;
     }
+    
     public function render()
     {
         return view('livewire.daily-expense.delete-daily-expense');

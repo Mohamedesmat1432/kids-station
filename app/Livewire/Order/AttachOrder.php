@@ -28,13 +28,18 @@ class AttachOrder extends Component
         $this->AttachOrder();
         $this->dispatch('attach-order');
         $this->successNotify(__('site.order_updated'));
-        $this->edit_modal = false;
+        $this->attach_modal = false;
     }
 
     public function render()
     {
-        $type_durations = Type::distinct()->whereNot('duration',0)->pluck('duration');
-        $offers = Offer::active()->get();
+        $type_durations = cache()->remember('type_durations', 1, function () {
+            return Type::active()->distinct()->whereNot('duration', 0)->pluck('duration');
+        });
+
+        $offers = cache()->remember('offres', 1, function () {
+            return Offer::active()->get();
+        });
 
         return view('livewire.order.attach-order', [
             'type_durations' => $type_durations,

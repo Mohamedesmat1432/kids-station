@@ -7,6 +7,9 @@
         @endhasrole
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
             <div class="mt-5">
+                @foreach ($this->totalOrdersByMonth() as $order)
+                    {{ $order->total - $order->last_total }} {{ $order->months }} <br>
+                @endforeach
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                     @foreach ($dashboard_links as $link)
                         @can($link['role'])
@@ -17,6 +20,7 @@
                                         <div class="text-center">
                                             <div>{{ $link['value'] }}</div>
                                             <div>{{ $link['count'] }}</div>
+                                            <div>{{ $link['total'] ?? 0 }} {{ __('site.EGP') }}</div>
                                         </div>
                                     </div>
                                 </div>

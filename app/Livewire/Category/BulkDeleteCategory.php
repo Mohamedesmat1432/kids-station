@@ -23,7 +23,7 @@ class BulkDeleteCategory extends Component
     public function delete()
     {
         $this->authorize('bulk-delete-category');
-        $this->bulkDeleteTypeName();
+        $this->bulkDeleteCategory();
         $this->dispatch('bulk-delete-category');
         $this->dispatch('bulk-delete-clear');
         $this->successNotify(__('site.category_delete_all'));

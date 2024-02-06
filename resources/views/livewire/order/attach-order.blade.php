@@ -24,7 +24,7 @@
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
                         <x-label for="duration" value="{{ __('site.duration') }}" />
-                        <x-select wire:change="refreshVisitors" class="mt-1 block w-full" wire:model="duration">
+                        <x-select wire:change="refreshAttachVisitors" class="mt-1 block w-full" wire:model="duration">
                             <option value="">{{ __('site.duration') }}</option>
                             @foreach ($type_durations as $duration)
                                 <option value="{{ $duration }}">{{ $duration }}</option>
@@ -102,7 +102,7 @@
                     <div class="grid md:grid-cols-2 md:gap-4">
                         <div class="relative z-0 w-full mb-5 group">
                             <x-label for="offer_id" value="{{ __('site.offer') }}" />
-                            <x-select wire:change="discount" class="mt-1 block w-full" wire:model="offer_id">
+                            <x-select wire:change="totalVisitors" class="mt-1 block w-full" wire:model="offer_id">
                                 <option value="{{ null }}">{{ __('site.offer') }}</option>
                                 @foreach ($offers as $offer)
                                     <option value="{{ $offer->id }}">
@@ -126,9 +126,16 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-indigo-button type="submit" wire:loading.attr="disabled">
-                    {{ __('site.save') }}
-                </x-indigo-button>
+                @if ($this->order->duration !== $this->duration)
+                    <x-indigo-button type="submit" wire:loading.attr="disabled">
+                        {{ __('site.save') }}
+                    </x-indigo-button>
+                @else
+                    <x-indigo-button disabled class="cursor-not-allowed opacity-60">
+                        {{ __('site.save') }}
+                    </x-indigo-button>
+                @endif
+
                 <x-secondary-button class="mx-2" wire:click="$set('attach_modal',false)"
                     wire:loading.attr="disabled">
                     {{ __('site.cancel') }}

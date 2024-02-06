@@ -226,10 +226,10 @@
                                     {{ $order->total }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ $order->last_total ?? 0 }}
+                                    {{ $order->last_total ?? '' }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ $order->remianing ?? 0 }}
+                                    {{ $order->remianing ?? '' }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ \Helper::formatDate($order->created_at) }}

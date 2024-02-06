@@ -4,6 +4,7 @@ namespace App\Livewire\Cart;
 
 use App\Models\Product;
 use App\Traits\CartTrait;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Cart;
 

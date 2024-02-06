@@ -54,10 +54,10 @@ trait OrderTrait
         });
     }
 
-    public function refreshVisitors()
+    public function refreshAttachVisitors()
     {
         if ($this->duration < $this->order->duration) {
-            $this->duration = $this->order->duration;
+            $this->setOrder($this->order->id);
             $this->errorNotify(__('site.failed_duration'));
         } else {
             $this->total = number_format(0, 2);
@@ -84,6 +84,10 @@ trait OrderTrait
                 $this->total += $visitor['price'];
                 return $visitor;
             });
+
+            if ($this->offer_id) {
+                $this->total -= Offer::findOrFail($this->offer_id)->price;
+            }
         }
     }
 
@@ -102,11 +106,7 @@ trait OrderTrait
                 return $visitor;
             });
         }
-    }
 
-    public function discount()
-    {
-        $this->totalVisitors();
         if ($this->offer_id) {
             $this->total -= Offer::findOrFail($this->offer_id)->price;
         }

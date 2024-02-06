@@ -22,7 +22,7 @@ class Type extends Model
 
     public function Orders(): HasMany
     {
-        return $this->hasMany(Order::class, 'visitors->type_id');
+        return $this->hasMany(Order::class, 'visitors');
     }
 
     protected function scopeActive($query)

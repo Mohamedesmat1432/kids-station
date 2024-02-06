@@ -38,6 +38,6 @@ class Order extends Model
 
     public function Type(): BelongsTo
     {
-        return $this->belongsTo(Type::class, 'visitors["type_id"]');
+        return $this->belongsTo(Type::class, 'visitors');
     }
 }

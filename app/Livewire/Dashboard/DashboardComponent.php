@@ -14,6 +14,7 @@ use App\Models\TypeName;
 use App\Models\Unit;
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class DashboardComponent extends Component
 {
@@ -54,7 +55,8 @@ class DashboardComponent extends Component
                 'role' => 'view-order',
                 'bg' => 'bg-green-500',
                 'hover' => 'bg-green-600',
-                'count' => Order::count()
+                'count' => Order::count(),
+                'total' => Order::sum('total') - Order::sum('last_total'),
             ],
             [
                 'name' => 'product.orders',
@@ -117,9 +119,22 @@ class DashboardComponent extends Component
                 'role' => 'view-offer',
                 'bg' => 'bg-yellow-500',
                 'hover' => 'bg-yellow-600',
-                'count' => Offer::count()
+                'count' => Offer::count(),
             ],
         ];
+    }
+
+    public static function totalOrdersByMonth(){
+        $orders = Order::select(
+            DB::raw('sum(total) as total'),
+            DB::raw('sum(last_total) as last_total'),
+            DB::raw("DATE_FORMAT(created_at,'%M %Y') as months")
+        )
+            // ->where("created_at", ">", \Carbon\Carbon::now()->subMonths(6))
+            ->groupBy('months')
+            ->get();
+
+        return $orders;
     }
     
     public function render()

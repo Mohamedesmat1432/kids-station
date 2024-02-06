@@ -29,15 +29,26 @@ class ListOrder extends Component
     {
         $this->authorize('view-order');
 
-        $orders = Order::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('number', 'like', '%' . $this->search . '%')
-                    ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-                    ->orWhere('visitors', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $orders = cache()->remember('orders', 1, function () {
+            return  Order::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('number', 'like', '%' . $this->search . '%')
+                        ->orWhere('customer_name', 'like', '%' . $this->search . '%')
+                        ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
+                        ->orWhere('visitors', 'like', '%' . $this->search . '%');
+                });
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+        // $orders = Order::when($this->search, function ($query) {
+        //     return $query->where(function ($query) {
+        //         $query->where('number', 'like', '%' . $this->search . '%')
+        //             ->orWhere('customer_name', 'like', '%' . $this->search . '%')
+        //             ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
+        //             ->orWhere('visitors', 'like', '%' . $this->search . '%');
+        //     });
+        // })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+        //     ->paginate($this->page_element);
 
         return view('livewire.order.list-order', [
             'orders' => $orders
