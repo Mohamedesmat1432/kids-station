@@ -213,4 +213,5 @@ return [
     'bulk_delete_daily_expense' => 'حذف المصروفات اليومية',
     'data' => 'البيانات',
     'daily_expenses_product' => 'المصرفات اليومية للمنتجات',
+    'months' => 'الشهور'
 ];

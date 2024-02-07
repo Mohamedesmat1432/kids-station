@@ -29,14 +29,18 @@ class ListUnit extends Component
     {
         $this->authorize('view-unit');
 
-        $units = Unit::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
+        $units = cache()->remember('units', 1, function () {
+            return Unit::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
 
         return view('livewire.unit.list-unit', [
-            'units' => $units
+            'units' => $units,
         ]);
     }
 }

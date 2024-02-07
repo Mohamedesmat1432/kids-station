@@ -26,4 +26,9 @@ class Helper
     {
         return Carbon::parse($date)->timezone("Africa/Cairo")->isoFormat("Y-m-d h:mm a");
     }
+
+    public static function formatDateMonths($date)
+    {
+        return Carbon::parse($date)->timezone("Africa/Cairo")->translatedFormat('F Y');
+    }
 }

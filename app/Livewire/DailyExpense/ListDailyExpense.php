@@ -29,13 +29,14 @@ class ListDailyExpense extends Component
     {
         $this->authorize('view-daily-expense');
 
-        $daily_expenses = DailyExpense::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('data', 'like', '%' . $this->search . '%');
-            });
-        })
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $daily_expenses = cache()->remember('daily_expenses', 1, function () {
+            return DailyExpense::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('data', 'like', '%' . $this->search . '%');
+                });
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
 
         return view('livewire.daily-expense.list-daily-expense', [
             'daily_expenses' => $daily_expenses,

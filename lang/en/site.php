@@ -209,4 +209,5 @@ return [
     'bulk_delete_daily_expense' => 'Bulk Delete Daily Expenses',
     'data' => 'Data',
     'daily_expenses_product' => 'Daily Expense Products',
+    'months' => 'Months'
 ];

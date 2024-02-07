@@ -29,14 +29,18 @@ class ListCategory extends Component
     {
         $this->authorize('view-category');
 
-        $categories = Category::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')->paginate($this->page_element);
+        $categories = cache()->remember('categories', 1, function () {
+            return Category::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
 
         return view('livewire.category.list-category', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 }

@@ -29,13 +29,15 @@ class ListOffer extends Component
     {
         $this->authorize('view-offer');
 
-        $offers = Offer::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
-            });
-        })
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $offers = cache()->remember('offers', 1, function () {
+            return Offer::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
 
         return view('livewire.offer.list-offer', [
             'offers' => $offers,

@@ -29,15 +29,18 @@ class ListType extends Component
     {
         $this->authorize('view-type');
 
-        $types = Type::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('price', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $types = cache()->remember('types', 1, function () {
+            return Type::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
 
         return view('livewire.type.list-type', [
-            'types' => $types
+            'types' => $types,
         ]);
     }
 }

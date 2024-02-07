@@ -29,15 +29,18 @@ class ListTypeName extends Component
     {
         $this->authorize('view-type-name');
 
-        $type_names = TypeName::when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
+        $type_names = cache()->remember('type_names', 1, function () {
+            return TypeName::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+        
         return view('livewire.type-name.list-type-name', [
-            'type_names' => $type_names
+            'type_names' => $type_names,
         ]);
     }
 }
