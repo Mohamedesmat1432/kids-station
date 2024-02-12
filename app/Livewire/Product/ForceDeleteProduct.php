@@ -7,33 +7,33 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class DeleteProduct extends Component
+class ForceDeleteProduct extends Component
 {
     use ProductTrait;
 
     #[Locked]
     public $id, $name;
 
-    #[On('delete-modal')]
+    #[On('force-delete-modal')]
     public function confirmDelete($id, $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->delete_modal = true;
+        $this->force_delete_modal = true;
     }
 
     public function delete()
     {
-        $this->authorize('delete-product');
-        $this->deleteProduct($this->id);
-        $this->dispatch('delete-product');
+        $this->authorize('force-delete-product');
+        $this->forceDeleteProduct($this->id);
+        $this->dispatch('force-delete-product');
         $this->successNotify(__('site.product_deleted'));
         $this->reset();
-        $this->delete_modal = false;
+        $this->force_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.product.delete-product');
+        return view('livewire.product.force-delete-product');
     }
 }

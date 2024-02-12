@@ -4,10 +4,17 @@ namespace App\Traits;
 
 use App\Models\Product;
 use App\Models\Unit;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 trait ProductTrait
 {
     use WithNotify;
+    use ModalTrait;
+    use SortSearchTrait;
+    use WithPagination;
+    use WithFileUploads;
+    
     public ?Product $product;
     public $product_id;
     public $name;
@@ -20,6 +27,8 @@ trait ProductTrait
     public $unit_id;
     public $category_id;
     public $checkbox_arr = [];
+    public $file;
+    public $extension = 'xlsx';
 
     protected function rules()
     {
@@ -33,6 +42,22 @@ trait ProductTrait
             'unit_id' => 'required|exists:units,id',
             'category_id' => 'required|exists:categories,id',
         ];
+    }
+
+    public function productList()
+    {
+        return cache()->remember('products', 1, function () {
+            $products = $this->trashed ? Product::onlyTrashed() : new Product();
+
+            return $products->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
     }
 
     public function setProduct($id)
@@ -80,6 +105,18 @@ trait ProductTrait
         $this->reset();
     }
 
+    public function restoreProduct($id)
+    {
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->restore();
+    }
+
+    public function forceDeleteProduct($id)
+    {
+        $product = Product::onlyTrashed()->findOrFail($id);
+        $product->forceDelete();
+    }
+
     public function checkboxAll()
     {
         $data = Product::pluck('id')->toArray();
@@ -97,5 +134,23 @@ trait ProductTrait
         $products = Product::whereIn('id', $this->checkbox_arr);
         $products->delete();
         $this->reset();
+    }
+
+    public function forceCheckboxAll()
+    {
+        $data = Product::onlyTrashed()->pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function forceBulkDeleteProduct()
+    {
+        $products = Product::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $products->forceDelete();
     }
 }

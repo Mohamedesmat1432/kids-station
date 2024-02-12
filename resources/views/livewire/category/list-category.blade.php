@@ -26,14 +26,15 @@
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
 
-
                         <div class="inline-flex rounded-md shadow-sm">
-                            <x-button wire:click.live="$set('trashed',false)" class="rounded-r-md rounded-l-none">
-                               {{ __('site.list')}}
-                            </x-button>
-                            <x-button wire:click.live="$set('trashed',true)" class="rounded-l-md rounded-r-none">
-                                {{ __('site.trashed')}}
-                            </x-button>
+                            <x-indigo-button wire:click.live.debounce.500ms="$set('trashed',false)"
+                                class="rounded-r-md rounded-l-none">
+                                {{ __('site.list') }}
+                            </x-indigo-button>
+                            <x-danger-button wire:click.live.debounce.500ms="$set('trashed',true)"
+                                class="rounded-l-md rounded-r-none">
+                                {{ __('site.trashed') }}
+                            </x-danger-button>
                         </div>
 
                         @can('import-export-category')

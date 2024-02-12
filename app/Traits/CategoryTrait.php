@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Category;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 trait CategoryTrait
@@ -11,6 +12,7 @@ trait CategoryTrait
     use SortSearchTrait;
     use WithPagination;
     use ModalTrait;
+    use WithFileUploads;
     
     public ?Category $category;
     public $category_id;
@@ -90,6 +92,12 @@ trait CategoryTrait
         }
     }
 
+    public function bulkDeleteCategory()
+    {
+        $categories = Category::whereIn('id', $this->checkbox_arr);
+        $categories->delete();
+    }
+
     public function forceCheckboxAll()
     {
         $data = Category::onlyTrashed()->pluck('id')->toArray();
@@ -100,12 +108,6 @@ trait CategoryTrait
         } else {
             $this->checkbox_arr = [];
         }
-    }
-
-    public function bulkDeleteCategory()
-    {
-        $categories = Category::whereIn('id', $this->checkbox_arr);
-        $categories->delete();
     }
 
     public function forceBulkDeleteCategory()
