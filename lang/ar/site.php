@@ -213,5 +213,14 @@ return [
     'bulk_delete_daily_expense' => 'حذف المصروفات اليومية',
     'data' => 'البيانات',
     'daily_expenses_product' => 'المصرفات اليومية للمنتجات',
-    'months' => 'الشهور'
+    'months' => 'الشهور',
+    'trashed' => 'المحذوفات',
+    'list' => 'القائمة',
+    'restore_category' => 'استرجاع القسم',
+    'are_you_sure_to_want_restore' => 'هل انت متأكد من استرجاع ',
+    'force_delete_category' => 'حذف القسم نهائيا',
+    'force_bulk_delete_category' => 'حذف اﻷقسام نهائيا',
+    'edit' => 'تعديل',
+    'force_delete' => 'حذف نهائيا',
+    'restore' => 'استرجاع',
 ];

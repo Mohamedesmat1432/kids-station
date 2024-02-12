@@ -4,17 +4,21 @@ namespace App\Livewire\Category;
 
 use App\Models\Category;
 use App\Traits\CategoryTrait;
-use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ListCategory extends Component
 {
-    use WithPagination, SortSearchTrait, CategoryTrait;
+    use CategoryTrait;
 
     #[On('bulk-delete-clear')]
     public function checkboxClear()
+    {
+        $this->checkbox_arr = [];
+    }
+
+    #[On('force-bulk-delete-clear')]
+    public function forceCheckboxClear()
     {
         $this->checkbox_arr = [];
     }
@@ -25,19 +29,13 @@ class ListCategory extends Component
     #[On('import-category')]
     #[On('export-category')]
     #[On('bulk-delete-category')]
+    #[On('force-bulk-delete-category')]
+    #[On('force-delete-category')]
+    #[On('restore-category')]
     public function render()
     {
         $this->authorize('view-category');
-
-        $categories = cache()->remember('categories', 1, function () {
-            return Category::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        $categories = $this->categoryList();
 
         return view('livewire.category.list-category', [
             'categories' => $categories,

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->decimal('revenue_price');
             $table->foreignId('unit_id')->nullable();
             $table->foreignId('category_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

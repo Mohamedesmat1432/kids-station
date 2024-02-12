@@ -8,8 +8,7 @@ use Livewire\Component;
 class CreateCategory extends Component
 {
     use CategoryTrait;
-    public $create_modal = false;
-
+    
     public function createModal()
     {
         $this->reset();

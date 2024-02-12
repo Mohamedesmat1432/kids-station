@@ -11,6 +11,6 @@ trait WithNotify
 
     public function errorNotify($message, $style = 'danger')
     {
-        $this->dispatch('notify',  style: $style, message: $message);
+        $this->dispatch('notify', style: $style, message: $message);
     }
 }

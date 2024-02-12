@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name')->unique();
             $table->bigInteger('qty');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

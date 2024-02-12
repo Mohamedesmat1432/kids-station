@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->decimal('price');
             $table->string('duration');
             $table->boolean('status')->default(true);
+            $table->softDeletes();
             $table->index('type_name_id');
             $table->timestamps();
         });

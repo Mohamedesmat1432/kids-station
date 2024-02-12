@@ -209,5 +209,14 @@ return [
     'bulk_delete_daily_expense' => 'Bulk Delete Daily Expenses',
     'data' => 'Data',
     'daily_expenses_product' => 'Daily Expense Products',
-    'months' => 'Months'
+    'months' => 'Months',
+    'trashed' => 'Trashed',
+    'list' => 'List',
+    'restore_category' => 'Restore Category',
+    'are_you_sure_to_want_restore' => 'Are you sure to want restore ',
+    'force_delete_category' => 'Force Delete Category',
+    'force_bulk_delete_category' => 'Force Bulk Delete Category',
+    'edit' => 'Edit',
+    'force_delete' => 'Force Delete',
+    'restore' => 'Restore',
 ];

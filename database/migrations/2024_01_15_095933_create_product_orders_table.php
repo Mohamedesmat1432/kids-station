@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->json('products')->nullable();
             $table->decimal('total');
             $table->enum('status', ['inprogress', 'completed', 'completed_audit'])->default('inprogress');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

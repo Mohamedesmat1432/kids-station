@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->nullable();
             $table->json('data');
             $table->decimal('total');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

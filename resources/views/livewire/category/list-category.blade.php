@@ -5,6 +5,10 @@
 
         <livewire:category.delete-category />
 
+        <livewire:category.restore-category />
+
+        <livewire:category.force-delete-category />
+
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
             <div class="flex justify-between">
@@ -21,6 +25,17 @@
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+
+
+                        <div class="inline-flex rounded-md shadow-sm">
+                            <x-button wire:click.live="$set('trashed',false)" class="rounded-r-md rounded-l-none">
+                               {{ __('site.list')}}
+                            </x-button>
+                            <x-button wire:click.live="$set('trashed',true)" class="rounded-l-md rounded-r-none">
+                                {{ __('site.trashed')}}
+                            </x-button>
+                        </div>
+
                         @can('import-export-category')
                             <div>
                                 <livewire:category.import-export-category />
@@ -28,28 +43,50 @@
                         @endcan
                     </div>
 
+                    @if ($this->trashed)
+                        @can('force-bulk-delete-category')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-force-bulk-delete-button />
 
-                    @can('bulk-delete-category')
-                        <td class="px-4 py-2 border">
-                            <div class="mt-3">
-                                <x-bulk-delete-button />
+                                    <livewire:category.force-bulk-delete-category />
+                                </div>
+                            </td>
+                        @endcan
+                    @else
+                        @can('bulk-delete-category')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-bulk-delete-button />
 
-                                <livewire:category.bulk-delete-category />
-                            </div>
-                        </td>
-                    @endcan
+                                    <livewire:category.bulk-delete-category />
+                                </div>
+                            </td>
+                        @endcan
+                    @endif
+
                 </div>
 
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-category')
-                                <td class="px-4 py-2 border">
-                                    <div class="text-center">
-                                        <x-checkbox wire:click="checkboxAll" />
-                                    </div>
-                                </td>
-                            @endcan
+                            @if ($this->trashed)
+                                @can('force-bulk-delete-category')
+                                    <td class="px-4 py-2 border">
+                                        <div class="text-center">
+                                            <x-checkbox wire:click="forceCheckboxAll" />
+                                        </div>
+                                    </td>
+                                @endcan
+                            @else
+                                @can('bulk-delete-category')
+                                    <td class="px-4 py-2 border">
+                                        <div class="text-center">
+                                            <x-checkbox wire:click="checkboxAll" />
+                                        </div>
+                                    </td>
+                                @endcan
+                            @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
@@ -75,25 +112,44 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($categories as $category)
-                            <tr wire:key="type-{{ $category->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-category')
-                                    <td class="p-2 border">
-                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
-                                    </td>
-                                @endcan
+                            <tr wire:key="category-{{ $category->id }}" class="odd:bg-gray-100">
+                                @if ($this->trashed)
+                                    @can('force-bulk-delete-category')
+                                        <td class="p-2 border">
+                                            <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-category')
+                                        <td class="p-2 border">
+                                            <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
+                                        </td>
+                                    @endcan
+                                @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $category->name }}
                                 </td>
-                                <td class="p-2 border">
-                                    <x-edit-button permission="edit-category" id="{{ $category->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-category" id="{{ $category->id }}"
-                                        name="{{ $category->name }}" />
-                                </td>
+                                @if ($this->trashed)
+                                    <td class="p-2 border">
+                                        <x-restore-button permission="restore-category" id="{{ $category->id }}"
+                                            name="{{ $category->name }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-force-delete-button permission="force-delete-category"
+                                            id="{{ $category->id }}" name="{{ $category->name }}" />
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <x-edit-button permission="edit-category" id="{{ $category->id }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-delete-button permission="delete-category" id="{{ $category->id }}"
+                                            name="{{ $category->name }}" />
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

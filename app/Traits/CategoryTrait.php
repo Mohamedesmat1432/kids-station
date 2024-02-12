@@ -3,20 +3,41 @@
 namespace App\Traits;
 
 use App\Models\Category;
+use Livewire\WithPagination;
 
 trait CategoryTrait
 {
     use WithNotify;
+    use SortSearchTrait;
+    use WithPagination;
+    use ModalTrait;
+    
     public ?Category $category;
     public $category_id;
     public $name;
     public $checkbox_arr = [];
+    public $file;
+    public $extension = 'xlsx';
 
     protected function rules()
     {
         return [
             'name' => 'required|string|min:2|unique:categories,name,' . $this->category_id,
         ];
+    }
+
+    public function categoryList()
+    {
+        return cache()->remember('categories', 1, function () {
+            $categories = $this->trashed ? Category::onlyTrashed() : new Category();
+
+            return $categories->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
     }
 
     public function setCategory($id)
@@ -45,9 +66,33 @@ trait CategoryTrait
         $category->delete();
     }
 
+    public function restoreCategory($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+    }
+
+    public function forceDeleteCategory($id)
+    {
+        $category = Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+    }
+
     public function checkboxAll()
     {
         $data = Category::pluck('id')->toArray();
+        $checkbox_count = count($this->checkbox_arr);
+
+        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+            $this->checkbox_arr = $data;
+        } else {
+            $this->checkbox_arr = [];
+        }
+    }
+
+    public function forceCheckboxAll()
+    {
+        $data = Category::onlyTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
 
         if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
@@ -61,5 +106,11 @@ trait CategoryTrait
     {
         $categories = Category::whereIn('id', $this->checkbox_arr);
         $categories->delete();
+    }
+
+    public function forceBulkDeleteCategory()
+    {
+        $categories = Category::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $categories->forceDelete();
     }
 }

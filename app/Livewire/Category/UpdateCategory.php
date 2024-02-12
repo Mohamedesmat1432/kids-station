@@ -9,7 +9,6 @@ use Livewire\Component;
 class UpdateCategory extends Component
 {
     use CategoryTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

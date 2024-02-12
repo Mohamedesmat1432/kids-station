@@ -4,19 +4,14 @@ namespace App\Livewire\Category;
 
 use App\Exports\CategorysExport;
 use App\Imports\CategorysImport;
+use App\Traits\CategoryTrait;
 use App\Traits\WithNotify;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ImportExportCategory extends Component
 {
-    use WithNotify, WithFileUploads;
-
-    public $file;
-    public $import_modal = false;
-    public $export_modal = false;
-    public $extension = 'xlsx';
-    public $search = '';
+    use CategoryTrait;
 
     public function importModal()
     {
