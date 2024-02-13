@@ -225,4 +225,6 @@ return [
     'results' => 'results',
     'of' => 'of',
     'to' => 'to',
+    'attach' => 'Attach',
+    'details' => 'Details',
 ];
