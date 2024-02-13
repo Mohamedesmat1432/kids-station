@@ -13,7 +13,7 @@ trait CategoryTrait
     use WithPagination;
     use ModalTrait;
     use WithFileUploads;
-    
+
     public ?Category $category;
     public $category_id;
     public $name;
@@ -34,10 +34,11 @@ trait CategoryTrait
             $categories = $this->trashed ? Category::onlyTrashed() : new Category();
 
             return $categories->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                    return $query->where(function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%');
+                    });
+                })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
     }
@@ -82,10 +83,12 @@ trait CategoryTrait
 
     public function checkboxAll()
     {
-        $data = Category::pluck('id')->toArray();
+        $categories_trashed = Category::onlyTrashed()->pluck('id')->toArray();
+        $categories = Category::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $categories_trashed : $categories;
 
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+        if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
@@ -96,18 +99,6 @@ trait CategoryTrait
     {
         $categories = Category::whereIn('id', $this->checkbox_arr);
         $categories->delete();
-    }
-
-    public function forceCheckboxAll()
-    {
-        $data = Category::onlyTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function forceBulkDeleteCategory()

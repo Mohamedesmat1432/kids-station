@@ -2,7 +2,12 @@
     <x-page-content page-name="{{ __('site.units') }}">
 
         <livewire:unit.update-unit />
+
+        <livewire:unit.restore-unit />
+
         <livewire:unit.delete-unit />
+
+        <livewire:unit.force-delete-unit />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
@@ -20,6 +25,9 @@
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+
+                        <x-trash-group-button />
+
                         @can('import-export-unit')
                             <div>
                                 <livewire:unit.import-export-unit />
@@ -27,27 +35,51 @@
                         @endcan
                     </div>
 
-                    @can('bulk-delete-unit')
-                        <td class="px-4 py-2 border">
-                            <div class="mt-3">
-                                <x-bulk-delete-button />
+                    @if ($trashed)
+                        @can('force-bulk-delete-unit')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-force-bulk-delete-button />
 
-                                <livewire:unit.bulk-delete-unit />
-                            </div>
-                        </td>
-                    @endcan
+                                    <livewire:unit.force-bulk-delete-unit />
+                                </div>
+                            </td>
+                        @endcan
+                    @else
+                        @can('bulk-delete-unit')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-bulk-delete-button />
+
+                                    <livewire:unit.bulk-delete-unit />
+                                </div>
+                            </td>
+                        @endcan
+                    @endif
                 </div>
 
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-unit')
-                                <td class="px-4 py-2 border">
-                                    <div class="text-center">
-                                        <x-checkbox wire:click="checkboxAll" />
-                                    </div>
-                                </td>
-                            @endcan
+                            @if (count($units) > 1)
+                                @if ($trashed)
+                                    @can('force-bulk-delete-unit')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-unit')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @endif
+                            @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
@@ -82,11 +114,21 @@
                     <x-slot name="tbody">
                         @forelse ($units as $unit)
                             <tr wire:key="type-{{ $unit->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-unit')
-                                    <td class="p-2 border">
-                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $unit->id }}" />
-                                    </td>
-                                @endcan
+                                @if (count($units) > 1)
+                                    @if ($this->trashed)
+                                        @can('force-bulk-delete-unit')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $unit->id }}" />
+                                            </td>
+                                        @endcan
+                                    @else
+                                        @can('bulk-delete-unit')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $unit->id }}" />
+                                            </td>
+                                        @endcan
+                                    @endif
+                                @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
                                 </td>
@@ -96,13 +138,25 @@
                                 <td class="p-2 border">
                                     {{ $unit->qty }}
                                 </td>
-                                <td class="p-2 border">
-                                    <x-edit-button permission="edit-unit" id="{{ $unit->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-unit" id="{{ $unit->id }}"
-                                        name="{{ $unit->name }}" />
-                                </td>
+                                @if ($this->trashed)
+                                    <td class="p-2 border">
+                                        <x-restore-button permission="restore-unit" id="{{ $unit->id }}"
+                                            name="{{ $unit->name }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-force-delete-button permission="force-delete-unit" id="{{ $unit->id }}"
+                                            name="{{ $unit->name }}" />
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <x-edit-button permission="edit-unit" id="{{ $unit->id }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-delete-button permission="delete-unit" id="{{ $unit->id }}"
+                                            name="{{ $unit->name }}" />
+                                    </td>
+                                @endif
+
                             </tr>
                         @empty
                             <tr>
@@ -113,8 +167,9 @@
                         @endforelse
                     </x-slot>
                 </x-table>
-
-                <x-paginate :data-links="$units->links()" />
+                @if ($units->hasPages())
+                    <x-paginate :data-links="$units->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

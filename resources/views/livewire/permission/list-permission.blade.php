@@ -75,7 +75,9 @@
                     </x-slot>
                 </x-table>
 
-                <x-paginate :data-links="$permissions->links()" />
+                @if ($permissions->hasPages())
+                    <x-paginate :data-links="$permissions->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

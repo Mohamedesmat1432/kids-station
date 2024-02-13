@@ -94,6 +94,8 @@ return [
     'casher_name' => 'اسم الكاشير',
     'left' => 'right',
     'right' => 'left',
+    'l' => 'r',
+    'r' => 'l',
     'logout' => 'تسجيل خروج',
     'manage_account' => 'ادارة الحساب',
     'last_total' => 'اجمالي الطلب السابق',
@@ -223,4 +225,8 @@ return [
     'edit' => 'تعديل',
     'force_delete' => 'حذف نهائيا',
     'restore' => 'استرجاع',
+    'showing' => 'عرض',
+    'results' => 'الصفحة',
+    'of' => 'من',
+    'to' => 'الي',
 ];

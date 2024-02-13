@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeleteUnit extends Component
 {
     use UnitTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;

@@ -264,7 +264,9 @@
                     </x-slot>
                 </x-table>
 
-                <x-paginate :data-links="$orders->links()" />
+                @if ($orders->hasPages())
+                    <x-paginate :data-links="$orders->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

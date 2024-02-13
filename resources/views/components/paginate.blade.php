@@ -1,6 +1,5 @@
 @props(['dataLinks' => null])
 
-@if ($this->page_element > 10)
 <div class="paginate">
     <div class="mt-4">
         {{-- <x-label for="page_element" value="{{ __('Per Page') }}" /> --}}
@@ -15,4 +14,3 @@
         {!! $dataLinks !!}
     </div>
 </div>
-@endif

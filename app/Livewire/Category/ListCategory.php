@@ -12,13 +12,8 @@ class ListCategory extends Component
     use CategoryTrait;
 
     #[On('bulk-delete-clear')]
-    public function checkboxClear()
-    {
-        $this->checkbox_arr = [];
-    }
-
     #[On('force-bulk-delete-clear')]
-    public function forceCheckboxClear()
+    public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }

@@ -3,10 +3,16 @@
 namespace App\Traits;
 
 use App\Models\Type;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 trait TypeTrait
 {
     use WithNotify;
+    use SortSearchTrait;
+    use WithPagination;
+    use ModalTrait;
+    use WithFileUploads;
     public ?Type $type;
     public $type_id;
     public $type_name_id;
@@ -14,6 +20,8 @@ trait TypeTrait
     public $duration;
     public $status;
     public $checkbox_arr = [];
+    public $file;
+    public $extension = 'xlsx';
 
     protected function rules()
     {
@@ -31,8 +39,8 @@ trait TypeTrait
         $this->type_id = $this->type->id;
         $this->type_name_id = $this->type->type_name_id;
         $this->price = $this->type->price;
-        $this->duration =  $this->type->duration;
-        $this->status =  $this->type->status;
+        $this->duration = $this->type->duration;
+        $this->status = $this->type->status;
     }
 
     public function storeType()
@@ -56,10 +64,12 @@ trait TypeTrait
 
     public function checkboxAll()
     {
-        $data = Type::pluck('id')->toArray();
+        $types_trashed = Type::onlyTrashed()->pluck('id')->toArray();
+        $types = Type::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $types_trashed : $types;
 
-        if ($checkbox_count < 1 || $checkbox_count < count($data)) {
+        if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
@@ -70,5 +80,38 @@ trait TypeTrait
     {
         $types = Type::whereIn('id', $this->checkbox_arr);
         $types->delete();
+    }
+
+    public function typeList()
+    {
+        return cache()->remember('types', 1, function () {
+            $types = $this->trashed ? Type::onlyTrashed() : new Type();
+            
+            return $types->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+    }
+
+    public function restoreType($id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+        $type->restore();
+    }
+
+    public function forceDeleteType($id)
+    {
+        $type = Type::onlyTrashed()->findOrFail($id);
+        $type->forceDelete();
+    }
+
+    public function forceBulkDeleteType()
+    {
+        $types = Type::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $types->forceDelete();
     }
 }

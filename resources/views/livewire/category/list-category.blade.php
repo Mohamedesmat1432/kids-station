@@ -26,16 +26,7 @@
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
 
-                        <div class="inline-flex rounded-md shadow-sm">
-                            <x-indigo-button wire:click.live.debounce.500ms="$set('trashed',false)"
-                                class="rounded-r-md rounded-l-none">
-                                {{ __('site.list') }}
-                            </x-indigo-button>
-                            <x-danger-button wire:click.live.debounce.500ms="$set('trashed',true)"
-                                class="rounded-l-md rounded-r-none">
-                                {{ __('site.trashed') }}
-                            </x-danger-button>
-                        </div>
+                        <x-trash-group-button />
 
                         @can('import-export-category')
                             <div>
@@ -44,7 +35,7 @@
                         @endcan
                     </div>
 
-                    @if ($this->trashed)
+                    @if ($trashed)
                         @can('force-bulk-delete-category')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -71,22 +62,24 @@
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @if ($this->trashed)
-                                @can('force-bulk-delete-category')
-                                    <td class="px-4 py-2 border">
-                                        <div class="text-center">
-                                            <x-checkbox wire:click="forceCheckboxAll" />
-                                        </div>
-                                    </td>
-                                @endcan
-                            @else
-                                @can('bulk-delete-category')
-                                    <td class="px-4 py-2 border">
-                                        <div class="text-center">
-                                            <x-checkbox wire:click="checkboxAll" />
-                                        </div>
-                                    </td>
-                                @endcan
+                            @if (count($categories) > 1)
+                                @if ($trashed)
+                                    @can('force-bulk-delete-category')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-category')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @endif
                             @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
@@ -114,18 +107,20 @@
                     <x-slot name="tbody">
                         @forelse ($categories as $category)
                             <tr wire:key="category-{{ $category->id }}" class="odd:bg-gray-100">
-                                @if ($this->trashed)
-                                    @can('force-bulk-delete-category')
-                                        <td class="p-2 border">
-                                            <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
-                                        </td>
-                                    @endcan
-                                @else
-                                    @can('bulk-delete-category')
-                                        <td class="p-2 border">
-                                            <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
-                                        </td>
-                                    @endcan
+                                @if (count($categories) > 1)
+                                    @if ($trashed)
+                                        @can('force-bulk-delete-category')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
+                                            </td>
+                                        @endcan
+                                    @else
+                                        @can('bulk-delete-category')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $category->id }}" />
+                                            </td>
+                                        @endcan
+                                    @endif
                                 @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
@@ -133,7 +128,7 @@
                                 <td class="p-2 border">
                                     {{ $category->name }}
                                 </td>
-                                @if ($this->trashed)
+                                @if ($trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-category" id="{{ $category->id }}"
                                             name="{{ $category->name }}" />
@@ -161,8 +156,10 @@
                         @endforelse
                     </x-slot>
                 </x-table>
-
-                <x-paginate :data-links="$categories->links()" />
+                
+                @if ($categories->hasPages())
+                    <x-paginate :data-links="$categories->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

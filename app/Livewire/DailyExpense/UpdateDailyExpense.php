@@ -9,7 +9,6 @@ use Livewire\Component;
 class UpdateDailyExpense extends Component
 {
     use DailyExpenseTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

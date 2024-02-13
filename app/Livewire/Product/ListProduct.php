@@ -11,17 +11,12 @@ class ListProduct extends Component
     use ProductTrait;
 
     #[On('bulk-delete-clear')]
+    #[On('force-bulk-delete-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('force-bulk-delete-clear')]
-    public function forceCheckboxClear()
-    {
-        $this->checkbox_arr = [];
-    }
-    
     #[On('create-product')]
     #[On('update-product')]
     #[On('delete-product')]

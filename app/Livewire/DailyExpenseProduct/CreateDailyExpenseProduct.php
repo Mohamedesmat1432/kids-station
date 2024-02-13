@@ -8,7 +8,6 @@ use Livewire\Component;
 class CreateDailyExpenseProduct extends Component
 {
     use DailyExpenseProductTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

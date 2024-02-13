@@ -14,7 +14,7 @@ trait ProductTrait
     use SortSearchTrait;
     use WithPagination;
     use WithFileUploads;
-    
+
     public ?Product $product;
     public $product_id;
     public $name;
@@ -49,12 +49,12 @@ trait ProductTrait
         return cache()->remember('products', 1, function () {
             $products = $this->trashed ? Product::onlyTrashed() : new Product();
 
-            return $products->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('price', 'like', '%' . $this->search . '%');
-                });
-            })
+            return $products
+                ->when($this->search, function ($query) {
+                    return $query->where(function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
+                    });
+                })
                 ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
@@ -74,12 +74,14 @@ trait ProductTrait
         $this->category_id = $this->product->category_id;
     }
 
-    public function revenuePrice(){
+    public function revenuePrice()
+    {
         $this->revenue_price = floatval($this->price) - floatval($this->purchase_price);
     }
 
-    public function changeQuantity(){
-        if($this->unit_id){
+    public function changeQuantity()
+    {
+        if ($this->unit_id) {
             $this->qty *= Unit::findOrFail($this->unit_id)->qty;
         }
     }
@@ -119,10 +121,12 @@ trait ProductTrait
 
     public function checkboxAll()
     {
-        $data = Product::pluck('id')->toArray();
+        $products_trashed = Product::onlyTrashed()->pluck('id')->toArray();
+        $products = Product::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $products_trashed : $products;
 
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+        if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
@@ -134,18 +138,6 @@ trait ProductTrait
         $products = Product::whereIn('id', $this->checkbox_arr);
         $products->delete();
         $this->reset();
-    }
-
-    public function forceCheckboxAll()
-    {
-        $data = Product::onlyTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function forceBulkDeleteProduct()

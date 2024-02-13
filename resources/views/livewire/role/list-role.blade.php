@@ -75,7 +75,9 @@
                     </x-slot>
                 </x-table>
 
-                <x-paginate :data-links="$roles->links()" />
+                @if ($roles->hasPages())
+                    <x-paginate :data-links="$roles->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

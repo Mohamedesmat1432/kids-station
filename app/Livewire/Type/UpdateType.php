@@ -10,7 +10,6 @@ use Livewire\Component;
 class UpdateType extends Component
 {
     use TypeTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

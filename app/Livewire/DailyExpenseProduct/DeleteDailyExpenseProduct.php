@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeleteDailyExpenseProduct extends Component
 {
     use DailyExpenseProductTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;

@@ -11,7 +11,6 @@ use Livewire\Component;
 class UpdateProduct extends Component
 {
     use ProductTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

@@ -2,7 +2,12 @@
     <x-page-content page-name="{{ __('site.type_names') }}">
 
         <livewire:type-name.update-type-name />
+
         <livewire:type-name.delete-type-name />
+
+        <livewire:type-name.restore-type-name />
+
+        <livewire:type-name.force-delete-type-name />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
@@ -20,6 +25,9 @@
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+
+                        <x-trash-group-button />
+
                         @can('import-export-type-name')
                             <div>
                                 <livewire:type-name.import-export-type-name />
@@ -27,28 +35,51 @@
                         @endcan
                     </div>
 
+                    @if ($trashed)
+                        @can('force-bulk-delete-type-name')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-force-bulk-delete-button />
 
-                    @can('bulk-delete-type-name')
-                        <td class="px-4 py-2 border">
-                            <div class="mt-3">
-                                <x-bulk-delete-button />
+                                    <livewire:type-name.force-bulk-delete-type-name />
+                                </div>
+                            </td>
+                        @endcan
+                    @else
+                        @can('bulk-delete-type-name')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-bulk-delete-button />
 
-                                <livewire:type-name.bulk-delete-type-name />
-                            </div>
-                        </td>
-                    @endcan
+                                    <livewire:type-name.bulk-delete-type-name />
+                                </div>
+                            </td>
+                        @endcan
+                    @endif
                 </div>
 
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-type-name')
-                                <td class="px-4 py-2 border">
-                                    <div class="text-center">
-                                        <x-checkbox wire:click="checkboxAll" />
-                                    </div>
-                                </td>
-                            @endcan
+                            @if (count($type_names) > 1)
+                                @if ($trashed)
+                                    @can('force-bulk-delete-type-name')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-type-name')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @endif
+                            @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
@@ -83,11 +114,21 @@
                     <x-slot name="tbody">
                         @forelse ($type_names as $type)
                             <tr wire:key="type-{{ $type->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-type-name')
-                                    <td class="p-2 border">
-                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $type->id }}" />
-                                    </td>
-                                @endcan
+                                @if (count($type_names) > 1)
+                                    @if ($trashed)
+                                        @can('force-bulk-delete-type-name')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $type->id }}" />
+                                            </td>
+                                        @endcan
+                                    @else
+                                        @can('bulk-delete-type-name')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $type->id }}" />
+                                            </td>
+                                        @endcan
+                                    @endif
+                                @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
                                 </td>
@@ -105,13 +146,24 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="p-2 border">
-                                    <x-edit-button permission="edit-type-name" id="{{ $type->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-type-name" id="{{ $type->id }}"
-                                        name="{{ $type->name }}" />
-                                </td>
+                                @if ($trashed)
+                                    <td class="p-2 border">
+                                        <x-restore-button permission="restore-type-name" id="{{ $type->id }}"
+                                            name="{{ $type->name }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-force-delete-button permission="force-delete-type-name" id="{{ $type->id }}"
+                                            name="{{ $type->name }}" />
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <x-edit-button permission="edit-type-name" id="{{ $type->id }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-delete-button permission="delete-type-name" id="{{ $type->id }}"
+                                            name="{{ $type->name }}" />
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
@@ -122,8 +174,11 @@
                         @endforelse
                     </x-slot>
                 </x-table>
+                
+                @if ($type_names->hasPages())
+                    <x-paginate :data-links="$type_names->links()" />
+                @endif
 
-                <x-paginate :data-links="$type_names->links()" />
             </div>
         </div>
     </x-page-content>

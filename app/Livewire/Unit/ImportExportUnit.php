@@ -4,19 +4,12 @@ namespace App\Livewire\Unit;
 
 use App\Exports\UnitsExport;
 use App\Imports\UnitsImport;
-use App\Traits\WithNotify;
+use App\Traits\UnitTrait;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class ImportExportUnit extends Component
 {
-    use WithNotify, WithFileUploads;
-
-    public $file = '';
-    public $import_modal = false;
-    public $export_modal = false;
-    public $extension = 'xlsx';
-    public $search = '';
+    use UnitTrait;
 
     public function importModal()
     {

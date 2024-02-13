@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeleteType extends Component
 {
     use TypeTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;

@@ -9,7 +9,6 @@ use Livewire\Component;
 class BulkDeleteDailyExpense extends Component
 {
     use DailyExpenseTrait;
-    public $bulk_delete_modal = false;
     public $count;
 
     #[On('bulk-delete-modal')]

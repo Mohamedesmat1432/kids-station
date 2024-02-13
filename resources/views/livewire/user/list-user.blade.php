@@ -98,7 +98,9 @@
                     </x-slot>
                 </x-table>
 
-                <x-paginate :data-links="$users->links()" />
+                @if ($users->hasPages())
+                    <x-paginate :data-links="$users->links()" />
+                @endif
             </div>
         </div>
     </x-page-content>

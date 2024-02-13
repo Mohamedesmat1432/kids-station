@@ -4,19 +4,14 @@ namespace App\Livewire\Product;
 
 use App\Exports\ProductsExport;
 use App\Imports\ProductsImport;
+use App\Traits\ProductTrait;
 use App\Traits\WithNotify;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class ImportExportProduct extends Component
 {
-    use WithNotify, WithFileUploads;
-
-    public $file;
-    public $import_modal = false;
-    public $export_modal = false;
-    public $extension = 'xlsx';
-    public $search = '';
+    use ProductTrait;
 
     public function importModal()
     {

@@ -10,7 +10,6 @@ use Livewire\Component;
 class CreateProduct extends Component
 {
     use ProductTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

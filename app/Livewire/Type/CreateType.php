@@ -9,7 +9,6 @@ use Livewire\Component;
 class CreateType extends Component
 {
     use TypeTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

@@ -11,9 +11,10 @@ use Livewire\WithPagination;
 
 class ListDailyExpense extends Component
 {
-    use WithPagination, SortSearchTrait, DailyExpenseTrait;
+    use DailyExpenseTrait;
 
     #[On('bulk-delete-clear')]
+    #[On('force-bulk-delete-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
@@ -24,19 +25,15 @@ class ListDailyExpense extends Component
     #[On('delete-daily-expense')]
     #[On('import-daily-expense')]
     #[On('export-daily-expense')]
+    #[On('restore-daily-expense')]
     #[On('bulk-delete-daily-expense')]
+    #[On('force-delete-daily-expense')]
+    #[On('force-bulk-delete-daily-expense')]
     public function render()
     {
         $this->authorize('view-daily-expense');
 
-        $daily_expenses = cache()->remember('daily_expenses', 1, function () {
-            return DailyExpense::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('data', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        $daily_expenses = $this->dailyExpenseList();
 
         return view('livewire.daily-expense.list-daily-expense', [
             'daily_expenses' => $daily_expenses,

@@ -8,7 +8,6 @@ use Livewire\Component;
 class CreateUnit extends Component
 {
     use UnitTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

@@ -9,9 +9,6 @@ trait SortSearchTrait
     #[Url('')]
     public $search = '';
 
-    // #[Url('')]
-    public $trashed = false;
-
     #[Url('')]
     public $filter = '';
 

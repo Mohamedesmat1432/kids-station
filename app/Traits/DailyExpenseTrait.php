@@ -3,10 +3,16 @@
 namespace App\Traits;
 
 use App\Models\DailyExpense;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 trait DailyExpenseTrait
 {
     use WithNotify;
+    use SortSearchTrait;
+    use WithPagination;
+    use ModalTrait;
+    use WithFileUploads;
     public ?DailyExpense $daily_expense;
     public $daily_expense_id;
     public $user_id;
@@ -78,10 +84,12 @@ trait DailyExpenseTrait
 
     public function checkboxAll()
     {
-        $data = DailyExpense::pluck('id')->toArray();
+        $daily_expenses_trashed = DailyExpense::onlyTrashed()->pluck('id')->toArray();
+        $daily_expenses = DailyExpense::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $daily_expenses_trashed : $daily_expenses;
 
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
+        if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
         } else {
             $this->checkbox_arr = [];
@@ -92,5 +100,38 @@ trait DailyExpenseTrait
     {
         $daily_expenses = DailyExpense::whereIn('id', $this->checkbox_arr);
         $daily_expenses->delete();
+    }
+
+    public function dailyExpenseList()
+    {
+        return cache()->remember('daily_expenses', 1, function () {
+            $daily_expenses = $this->trashed ? DailyExpense::onlyTrashed() : new DailyExpense();
+            
+            return $daily_expenses->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+    }
+
+    public function restoreDailyExpense($id)
+    {
+        $daily_expense = DailyExpense::onlyTrashed()->findOrFail($id);
+        $daily_expense->restore();
+    }
+
+    public function forceDeleteDailyExpense($id)
+    {
+        $daily_expense = DailyExpense::onlyTrashed()->findOrFail($id);
+        $daily_expense->forceDelete();
+    }
+
+    public function forceBulkDeleteDailyExpense()
+    {
+        $daily_expenses = DailyExpense::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $daily_expenses->forceDelete();
     }
 }

@@ -9,7 +9,6 @@ use Livewire\Component;
 class UpdateTypeName extends Component
 {
     use TypeNameTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

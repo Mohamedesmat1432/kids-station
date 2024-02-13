@@ -9,7 +9,6 @@ use Livewire\Component;
 class BulkDeleteUnit extends Component
 {
     use UnitTrait;
-    public $bulk_delete_modal = false;
     public $count;
 
     #[On('bulk-delete-modal')]
