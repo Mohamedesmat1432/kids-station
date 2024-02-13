@@ -11,9 +11,10 @@ use Livewire\WithPagination;
 
 class ListOffer extends Component
 {
-    use WithPagination, SortSearchTrait, OfferTrait;
+    use OfferTrait;
 
     #[On('bulk-delete-clear')]
+    #[On('force-bulk-delete-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
@@ -25,19 +26,14 @@ class ListOffer extends Component
     #[On('import-offer')]
     #[On('export-offer')]
     #[On('bulk-delete-offer')]
+    #[On('restore-offer')]
+    #[On('force-delete-offer')]
+    #[On('force-bulk-delete-offer')]
     public function render()
     {
         $this->authorize('view-offer');
 
-        $offers = cache()->remember('offers', 1, function () {
-            return Offer::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        $offers = $this->offerList();
 
         return view('livewire.offer.list-offer', [
             'offers' => $offers,

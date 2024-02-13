@@ -3,16 +3,24 @@
 namespace App\Traits;
 
 use App\Models\Offer;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 trait OfferTrait
 {
     use WithNotify;
+    use SortSearchTrait;
+    use WithFileUploads;
+    use WithPagination;
+    use ModalTrait;
     public ?Offer $offer;
     public $offer_id;
     public $name;
     public $price;
     public $status;
     public $checkbox_arr = [];
+    public $file;
+    public $extension = 'xlsx';
 
     protected function rules()
     {
@@ -67,5 +75,39 @@ trait OfferTrait
     {
         $offers = Offer::whereIn('id', $this->checkbox_arr);
         $offers->delete();
+    }
+
+    public function offerList()
+    {
+        return cache()->remember('offers', 1, function () {
+            $offers = $this->trashed ? Offer::onlyTrashed() : new Offer();
+            
+            return $offers->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('price', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+    }
+
+    public function restoreOffer($id)
+    {
+        $offer = Offer::onlyTrashed()->findOrFail($id);
+        $offer->restore();
+    }
+
+    public function forceDeleteOffer($id)
+    {
+        $offer = Offer::onlyTrashed()->findOrFail($id);
+        $offer->forceDelete();
+    }
+
+    public function forceBulkDeleteOffer()
+    {
+        $offers = Offer::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $offers->forceDelete();
     }
 }

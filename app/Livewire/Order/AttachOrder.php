@@ -11,7 +11,6 @@ use Livewire\Component;
 class AttachOrder extends Component
 {
     use OrderTrait;
-    public $attach_modal = false;
 
     #[On('attach-modal')]
     public function confirmAttach($id)

@@ -6,10 +6,16 @@ use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Type;
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 trait OrderTrait
 {
     use WithNotify;
+    use SortSearchTrait;
+    use WithFileUploads;
+    use WithPagination;
+    use ModalTrait;
     public ?Order $order;
     public $order_id;
     public $number;
@@ -27,6 +33,8 @@ trait OrderTrait
     public $end_date;
     public $status;
     public $checkbox_arr = [];
+    public $file;
+    public $extension = 'xlsx';
 
     protected function rules()
     {
@@ -206,5 +214,41 @@ trait OrderTrait
     {
         $orders = Order::whereIn('id', $this->checkbox_arr);
         $orders->delete();
+    }
+
+    public function orderList()
+    {
+        return cache()->remember('orders', 1, function () {
+            $orders = $this->trashed ? Order::onlyTrashed() : new Order();
+            
+            return $orders->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('number', 'like', '%' . $this->search . '%')
+                        ->orWhere('customer_name', 'like', '%' . $this->search . '%')
+                        ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
+                        ->orWhere('visitors', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
+    }
+
+    public function restoreOrder($id)
+    {
+        $order = Order::onlyTrashed()->findOrFail($id);
+        $order->restore();
+    }
+
+    public function forceDeleteOrder($id)
+    {
+        $order = Order::onlyTrashed()->findOrFail($id);
+        $order->forceDelete();
+    }
+
+    public function forceBulkDeleteOrder()
+    {
+        $orders = Order::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $orders->forceDelete();
     }
 }

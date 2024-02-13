@@ -27,7 +27,7 @@ class RestoreProduct extends Component
         $this->authorize('restore-product');
         $this->restoreProduct($this->id);
         $this->dispatch('restore-product');
-        $this->successNotify(__('site.product_deleted'));
+        $this->successNotify(__('site.product_restored'));
         $this->restore_modal = false;
     }
 

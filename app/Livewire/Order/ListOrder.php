@@ -11,9 +11,10 @@ use Livewire\WithPagination;
 
 class ListOrder extends Component
 {
-    use WithPagination, SortSearchTrait, OrderTrait;
+    use OrderTrait;
 
     #[On('bulk-delete-clear')]
+    #[On('force-bulk-delete-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
@@ -25,30 +26,14 @@ class ListOrder extends Component
     #[On('import-order')]
     #[On('export-order')]
     #[On('bulk-delete-order')]
+    #[On('restore-order')]
+    #[On('force-delete-order')]
+    #[On('force-bulk-delete-order')]
     public function render()
     {
         $this->authorize('view-order');
 
-        $orders = cache()->remember('orders', 1, function () {
-            return  Order::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('number', 'like', '%' . $this->search . '%')
-                        ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-                        ->orWhere('visitors', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
-        // $orders = Order::when($this->search, function ($query) {
-        //     return $query->where(function ($query) {
-        //         $query->where('number', 'like', '%' . $this->search . '%')
-        //             ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-        //             ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-        //             ->orWhere('visitors', 'like', '%' . $this->search . '%');
-        //     });
-        // })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-        //     ->paginate($this->page_element);
+        $orders = $this->orderList();
 
         return view('livewire.order.list-order', [
             'orders' => $orders

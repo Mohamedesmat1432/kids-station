@@ -10,7 +10,6 @@ use Livewire\Component;
 class CreateOrder extends Component
 {
     use OrderTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

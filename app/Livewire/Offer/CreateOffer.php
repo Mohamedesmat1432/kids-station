@@ -8,7 +8,6 @@ use Livewire\Component;
 class CreateOffer extends Component
 {
     use OfferTrait;
-    public $create_modal = false;
 
     public function createModal()
     {

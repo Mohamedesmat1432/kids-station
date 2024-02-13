@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\TypeName;
+namespace App\Livewire\Offer;
 
-use App\Traits\TypeNameTrait;
+use App\Traits\OfferTrait;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class RestoreTypeName extends Component
+class RestoreOffer extends Component
 {
-    use TypeNameTrait;
+    use OfferTrait;
 
     #[Locked]
     public $id, $name;
@@ -24,15 +24,15 @@ class RestoreTypeName extends Component
 
     public function restore()
     {
-        $this->authorize('restore-type-name');
-        $this->restoreTypeName($this->id);
-        $this->dispatch('restore-type-name');
-        $this->successNotify(__('site.type_restored'));
+        $this->authorize('restore-offer');
+        $this->restoreOffer($this->id);
+        $this->dispatch('restore-offer');
+        $this->successNotify(__('site.offer_restored'));
         $this->restore_modal = false;
     }
-
+    
     public function render()
     {
-        return view('livewire.type-name.restore-type-name');
+        return view('livewire.offer.restore-offer');
     }
 }

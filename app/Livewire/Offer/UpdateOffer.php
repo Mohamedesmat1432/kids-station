@@ -9,7 +9,6 @@ use Livewire\Component;
 class UpdateOffer extends Component
 {
     use OfferTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)

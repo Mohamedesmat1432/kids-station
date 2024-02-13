@@ -3,7 +3,11 @@
 
         <livewire:offer.update-offer />
 
+        <livewire:offer.restore-offer />
+
         <livewire:offer.delete-offer />
+        
+        <livewire:offer.force-delete-offer />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
@@ -21,35 +25,61 @@
                             <x-input offer="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+
+                        <x-trash-group-button />
+
+                        @can('import-export-offer')
+                            <div class="mt-3 flex">
+                                <livewire:offer.import-export-offer />
+                            </div>
+                        @endcan
                     </div>
 
-                    @can('import-export-offer')
-                        <div class="mt-3 flex">
-                            <livewire:offer.import-export-offer />
-                        </div>
-                    @endcan
+                    @if ($trashed)
+                        @can('force-bulk-delete-offer')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-force-bulk-delete-button />
 
-                    @can('bulk-delete-offer')
-                        <td class="px-4 py-2 border">
-                            <div class="mt-3">
-                                <x-bulk-delete-button />
+                                    <livewire:offer.force-bulk-delete-offer />
+                                </div>
+                            </td>
+                        @endcan
+                    @else
+                        @can('bulk-delete-offer')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-bulk-delete-button />
 
-                                <livewire:offer.bulk-delete-offer />
-                            </div>
-                        </td>
-                    @endcan
+                                    <livewire:offer.bulk-delete-offer />
+                                </div>
+                            </td>
+                        @endcan
+                    @endif
                 </div>
 
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            @can('bulk-delete-offer')
-                                <td class="px-4 py-2 border">
-                                    <div class="text-center">
-                                        <x-checkbox wire:click="checkboxAll" />
-                                    </div>
-                                </td>
-                            @endcan
+                            @if (count($offers) > 1)
+                                @if ($trashed)
+                                    @can('force-bulk-delete-offer')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-offer')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @endif
+                            @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
@@ -92,11 +122,21 @@
                     <x-slot name="tbody">
                         @forelse ($offers as $offer)
                             <tr wire:key="offer-{{ $offer->id }}" class="odd:bg-gray-100">
-                                @can('bulk-delete-offer')
-                                    <td class="p-2 border">
-                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $offer->id }}" />
-                                    </td>
-                                @endcan
+                                @if (count($offers) > 1)
+                                    @if ($trashed)
+                                        @can('force-bulk-delete-offer')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $offer->id }}" />
+                                            </td>
+                                        @endcan
+                                    @else
+                                        @can('bulk-delete-offer')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $offer->id }}" />
+                                            </td>
+                                        @endcan
+                                    @endif
+                                @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
                                 </td>
@@ -117,13 +157,24 @@
                                         </span>
                                     @endif
                                 </td>
-                                <td class="p-2 border">
-                                    <x-edit-button permission="edit-offer" id="{{ $offer->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-offer" id="{{ $offer->id }}"
-                                        name="{{ $offer->name }}" />
-                                </td>
+                                @if ($trashed)
+                                    <td class="p-2 border">
+                                        <x-restore-button permission="restore-offer" id="{{ $offer->id }}"
+                                            name="{{ $offer->name }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-force-delete-button permission="force-delete-offer" id="{{ $offer->id }}"
+                                            name="{{ $offer->name }}" />
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <x-edit-button permission="edit-offer" id="{{ $offer->id }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-delete-button permission="delete-offer" id="{{ $offer->id }}"
+                                            name="{{ $offer->name }}" />
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

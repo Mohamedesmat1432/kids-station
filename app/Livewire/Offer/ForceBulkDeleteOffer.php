@@ -6,31 +6,32 @@ use App\Traits\OfferTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class BulkDeleteOffer extends Component
+class ForceBulkDeleteOffer extends Component
 {
     use OfferTrait;
+
     public $count;
 
-    #[On('bulk-delete-modal')]
+    #[On('force-bulk-delete-modal')]
     public function confirmDelete($arr)
     {
         $this->checkbox_arr = json_decode($arr);
         $this->count = count($this->checkbox_arr);
-        $this->bulk_delete_modal = true;
+        $this->force_bulk_delete_modal = true;
     }
 
     public function delete()
     {
-        $this->authorize('bulk-delete-offer');
-        $this->bulkDeleteOffer();
-        $this->dispatch('bulk-delete-offer');
-        $this->dispatch('bulk-delete-clear');
+        $this->authorize('force-bulk-delete-offer');
+        $this->forceBulkDeleteOffer();
+        $this->dispatch('force-bulk-delete-offer');
+        $this->dispatch('force-bulk-delete-clear');
         $this->successNotify(__('site.offer_delete_all'));
-        $this->bulk_delete_modal = false;
+        $this->force_bulk_delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.offer.bulk-delete-offer');
+        return view('livewire.offer.force-bulk-delete-offer');
     }
 }
