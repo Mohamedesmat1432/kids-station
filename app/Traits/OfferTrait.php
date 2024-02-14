@@ -61,8 +61,10 @@ trait OfferTrait
 
     public function checkboxAll()
     {
-        $data = Offer::pluck('id')->toArray();
+        $offers_trashed = Offer::onlyTrashed()->pluck('id')->toArray();
+        $offers = Offer::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $offers_trashed : $offers;
 
         if ($checkbox_count < 1 || $checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

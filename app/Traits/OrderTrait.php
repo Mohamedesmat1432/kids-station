@@ -200,8 +200,10 @@ trait OrderTrait
 
     public function checkboxAll()
     {
-        $data = Order::pluck('id')->toArray();
+        $orders_trashed = Order::onlyTrashed()->pluck('id')->toArray();
+        $orders = Order::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
+        $data = $this->trashed ? $orders_trashed : $orders;
 
         if ($checkbox_count < 1 || $checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

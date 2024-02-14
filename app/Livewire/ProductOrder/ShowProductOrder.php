@@ -9,7 +9,6 @@ use Livewire\Component;
 class ShowProductOrder extends Component
 {
     use ProductOrderTrait;
-    public $show_modal = false;
 
     #[On('show-modal')]
     public function showModal($id)

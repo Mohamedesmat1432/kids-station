@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Order;
+namespace App\Livewire\ProductOrder;
 
-use App\Traits\OrderTrait;
+use App\Traits\ProductOrderTrait;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class DeleteOrder extends Component
+class DeleteProductOrder extends Component
 {
-    use OrderTrait;
+    use ProductOrderTrait;
 
     #[Locked]
     public $id, $name;
@@ -24,15 +24,15 @@ class DeleteOrder extends Component
 
     public function delete()
     {
-        $this->authorize('delete-order');
-        $this->deleteOrder($this->id);
-        $this->dispatch('delete-order');
-        $this->successNotify(__('site.order_deleted'));
+        $this->authorize('delete-product-order');
+        $this->deleteProductOrder($this->id);
+        $this->dispatch('delete-product-order');
+        $this->successNotify(__('site.product_order_deleted'));
         $this->delete_modal = false;
     }
 
     public function render()
     {
-        return view('livewire.order.delete-order');
+        return view('livewire.product-order.delete-product-order');
     }
 }

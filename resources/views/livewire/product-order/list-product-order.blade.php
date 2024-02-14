@@ -3,6 +3,12 @@
 
         <livewire:product-order.show-product-order />
 
+        <livewire:product-order.restore-product-order />
+
+        <livewire:product-order.delete-product-order />
+
+        <livewire:product-order.force-delete-product-order />
+
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
             <div class="flex justify-between">
@@ -18,12 +24,54 @@
                             <x-input order="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
+                        <x-trash-group-button />
                     </div>
+
+                    @if ($trashed)
+                        @can('force-bulk-delete-product-order')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-force-bulk-delete-button />
+
+                                    <livewire:product-order.force-bulk-delete-product-order />
+                                </div>
+                            </td>
+                        @endcan
+                    @else
+                        @can('bulk-delete-product-order')
+                            <td class="px-4 py-2 border">
+                                <div class="mt-3">
+                                    <x-bulk-delete-button />
+
+                                    <livewire:product-order.bulk-delete-product-order />
+                                </div>
+                            </td>
+                        @endcan
+                    @endif
                 </div>
 
                 <x-table>
                     <x-slot name="thead">
                         <tr>
+                            @if (count($product_orders) > 1)
+                                @if ($trashed)
+                                    @can('force-bulk-delete-product-order')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @else
+                                    @can('bulk-delete-product-order')
+                                        <td class="px-4 py-2 border">
+                                            <div class="text-center">
+                                                <x-checkbox wire:click="checkboxAll" />
+                                            </div>
+                                        </td>
+                                    @endcan
+                                @endif
+                            @endif
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
@@ -91,6 +139,23 @@
                     <x-slot name="tbody">
                         @forelse ($product_orders as $product_order)
                             <tr wire:key="product-{{ $product_order->id }}" class="odd:bg-gray-100">
+                                @if (count($product_orders) > 1)
+                                    @if ($trashed)
+                                        @can('force-bulk-delete-product-order')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr"
+                                                    value="{{ $product_order->id }}" />
+                                            </td>
+                                        @endcan
+                                    @else
+                                        @can('bulk-delete-product-order')
+                                            <td class="p-2 border">
+                                                <x-checkbox wire:model.live="checkbox_arr"
+                                                    value="{{ $product_order->id }}" />
+                                            </td>
+                                        @endcan
+                                    @endif
+                                @endif
                                 <td class="p-2 border">
                                     {{ $loop->iteration }}
                                 </td>
@@ -132,9 +197,27 @@
                                 <td class="p-2 border">
                                     {{ App\Helpers\Helper::formatHours($product_order->created_at) }}
                                 </td>
-                                <td class="p-2 border">
-                                    <x-show-button permission="show-product-order" id="{{ $product_order->id }}" />
-                                </td>
+                                @if ($trashed)
+                                    <td class="p-2 border">
+                                        <x-restore-button permission="restore-product-order"
+                                            id="{{ $product_order->id }}"
+                                            name="{{ $product_order->user->name ?? '' }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-force-delete-button permission="force-delete-product-order"
+                                            id="{{ $product_order->id }}"
+                                            name="{{ $product_order->user->name ?? '' }}" />
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <x-show-button permission="show-product-order" id="{{ $product_order->id }}" />
+                                    </td>
+                                    <td class="p-2 border">
+                                        <x-delete-button permission="delete-product-order"
+                                            id="{{ $product_order->id }}"
+                                            name="{{ $product_order->user->name ?? '' }}" />
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
