@@ -240,4 +240,9 @@ return [
     'force_product_order_deleted' => 'Product order force deleted successfully',
     'product_order_delete_all' => 'Product orders deleted all successfully',
     'force_product_order_delete_all' => 'Product orders force deleted all successfully',
+    'force_delete_offer' => 'Force Delete Offer',
+    'restore_offer' => 'Restore Offer',
+    'restore_daily_expense' => 'Restore Dialy Expense',
+    'force_delete_daily_expense' => 'Force Delete Dialy Expense',
+    'daily_expense_restored' => 'Daily expense restored successfully',
 ];

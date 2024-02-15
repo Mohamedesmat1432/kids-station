@@ -244,4 +244,9 @@ return [
     'force_product_order_deleted' => 'تم حذف طلب المنتج نهائيا بنجاح',
     'product_order_delete_all' => 'تم حذف طلبات المنتجات بنجاح',
     'force_product_order_delete_all' => 'تم حذف طلبات المنتجات بنجاح',
+    'force_delete_offer' => 'حذف العرض نهائيا',
+    'restore_offer' => 'استرجاع العرض',
+    'restore_daily_expense' => 'استرجاع المصروفات اليومية',
+    'force_delete_daily_expense' =>  'حذف المصروفات اليومية نهائيا',
+    'daily_expense_restored' => 'تم استرجاع المصروف اليومي بنجاح',
 ];
