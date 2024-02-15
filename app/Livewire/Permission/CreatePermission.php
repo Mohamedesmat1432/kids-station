@@ -8,7 +8,6 @@ use Livewire\Component;
 class CreatePermission extends Component
 {
     use PermissionTrait;
-    public $create_modal = false;
 
     public function createModal()
     {
@@ -21,7 +20,7 @@ class CreatePermission extends Component
     {
         $this->authorize('create-permission');
         $this->storePermission();
-        $this->dispatch('create-permission');
+        $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_created'));
         $this->create_modal = false;
     }

@@ -13,22 +13,13 @@ class ListDailyExpense extends Component
 {
     use DailyExpenseTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('create-daily-expense')]
-    #[On('update-daily-expense')]
-    #[On('delete-daily-expense')]
-    #[On('import-daily-expense')]
-    #[On('export-daily-expense')]
-    #[On('restore-daily-expense')]
-    #[On('bulk-delete-daily-expense')]
-    #[On('force-delete-daily-expense')]
-    #[On('force-bulk-delete-daily-expense')]
+    #[On('refresh-list-daily-expense')]
     public function render()
     {
         $this->authorize('view-daily-expense');

@@ -9,7 +9,6 @@ use Livewire\Component;
 class CreateUser extends Component
 {
     use UserTrait;
-    public $create_modal = false;
 
     public function createModal()
     {
@@ -22,7 +21,7 @@ class CreateUser extends Component
     {
         $this->authorize('create-user');
         $this->storeUser();
-        $this->dispatch('create-user');
+        $this->dispatch('refresh-list-user');
         $this->successNotify(__('site.user_created'));
         $this->create_modal = false;
     }

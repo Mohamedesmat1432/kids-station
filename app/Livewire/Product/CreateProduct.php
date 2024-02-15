@@ -22,7 +22,7 @@ class CreateProduct extends Component
     {
         $this->authorize('create-product');
         $this->storeProduct();
-        $this->dispatch('create-product');
+        $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_created'));
         $this->create_modal = false;
     }

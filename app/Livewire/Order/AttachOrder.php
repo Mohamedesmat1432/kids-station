@@ -25,7 +25,7 @@ class AttachOrder extends Component
     {
         $this->authorize('attach-order');
         $this->AttachOrder();
-        $this->dispatch('attach-order');
+        $this->dispatch('refresh-list-order');
         $this->successNotify(__('site.order_updated'));
         $this->attach_modal = false;
     }

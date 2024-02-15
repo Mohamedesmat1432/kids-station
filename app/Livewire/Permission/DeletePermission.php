@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeletePermission extends Component
 {
     use PermissionTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;
@@ -27,7 +26,7 @@ class DeletePermission extends Component
     {
         $this->authorize('delete-permission');
         $this->deletePermission($this->id);
-        $this->dispatch('delete-permission');
+        $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_deleted'));
         $this->delete_modal = false;
     }

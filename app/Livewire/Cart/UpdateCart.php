@@ -4,7 +4,6 @@ namespace App\Livewire\Cart;
 
 use App\Models\Product;
 use App\Traits\CartTrait;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Cart;
 
@@ -29,7 +28,7 @@ class UpdateCart extends Component
                 ],
             ]);
 
-            $this->dispatch('update-cart');
+            $this->dispatch('refresh-list-cart');
         } else {
             $this->successNotify(__('site.qty_bigger_than_product'));
         }

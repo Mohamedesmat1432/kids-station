@@ -10,7 +10,6 @@ use Livewire\Component;
 class UpdateUser extends Component
 {
     use UserTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)
@@ -25,8 +24,8 @@ class UpdateUser extends Component
     {
         $this->authorize('edit-user');
         $this->updateUser();
+        $this->dispatch('refresh-list-user');
         $this->dispatch('refresh-navigation-menu');
-        $this->dispatch('update-user');
         $this->successNotify(__('site.user_updated'));
         $this->edit_modal = false;
     }

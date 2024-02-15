@@ -11,22 +11,13 @@ class ListCategory extends Component
 {
     use CategoryTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('create-category')]
-    #[On('update-category')]
-    #[On('delete-category')]
-    #[On('import-category')]
-    #[On('export-category')]
-    #[On('bulk-delete-category')]
-    #[On('force-bulk-delete-category')]
-    #[On('force-delete-category')]
-    #[On('restore-category')]
+    #[On('refresh-list-category')]
     public function render()
     {
         $this->authorize('view-category');

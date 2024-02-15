@@ -23,8 +23,8 @@ class BulkDeleteDailyExpense extends Component
     {
         $this->authorize('bulk-delete-daily-expense');
         $this->bulkDeleteDailyExpense();
-        $this->dispatch('bulk-delete-daily-expense');
-        $this->dispatch('bulk-delete-clear');
+        $this->dispatch('refresh-list-daily-expense');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.daily_expense_delete_all'));
         $this->bulk_delete_modal = false;
     }

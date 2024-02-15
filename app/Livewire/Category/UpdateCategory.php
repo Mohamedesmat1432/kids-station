@@ -23,7 +23,7 @@ class UpdateCategory extends Component
     {
         $this->authorize('edit-category');
         $this->updateCategory();
-        $this->dispatch('update-category');
+        $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_updated'));
         $this->edit_modal = false;
     }

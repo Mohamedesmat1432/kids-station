@@ -21,7 +21,7 @@ class CreateDailyExpenseProduct extends Component
     {
         $this->authorize('create-daily-expense-product');
         $this->storeDailyExpense();
-        $this->dispatch('create-daily-expense-product');
+        $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_created'));
         $this->create_modal = false;
     }

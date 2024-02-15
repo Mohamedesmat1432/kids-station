@@ -26,7 +26,7 @@ class ForceDeleteDailyExpenseProduct extends Component
     {
         $this->authorize('force-delete-daily-expense-product');
         $this->forceDeleteDailyExpense($this->id);
-        $this->dispatch('force-delete-daily-expense-product');
+        $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_deleted'));
         $this->force_delete_modal = false;
     }

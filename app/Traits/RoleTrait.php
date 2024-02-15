@@ -3,10 +3,14 @@
 namespace App\Traits;
 
 use App\Models\Role;
+use Livewire\WithPagination;
 
 trait RoleTrait
 {
     use WithNotify;
+    use WithPagination;
+    use SortSearchTrait;
+    use ModalTrait;
     public ?Role $role;
     public $role_id;
     public $name;
@@ -17,7 +21,7 @@ trait RoleTrait
     {
         return [
             'name' => 'required|string|min:2|unique:roles,name,' . $this->role_id,
-            'permission' => 'required'
+            'permission' => 'required',
         ];
     }
 
@@ -66,5 +70,18 @@ trait RoleTrait
     {
         $roles = Role::whereIn('id', $this->checkbox_arr);
         $roles->delete();
+    }
+
+    public function roleList()
+    {
+        return cache()->remember('roles', 1, function () {
+            return Role::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
     }
 }

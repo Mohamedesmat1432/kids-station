@@ -24,7 +24,7 @@ class UpdateUnit extends Component
     {
         $this->authorize('edit-unit');
         $this->updateUnit();
-        $this->dispatch('update-unit');
+        $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_updated'));
         $this->edit_modal = false;
     }

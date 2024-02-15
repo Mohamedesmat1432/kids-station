@@ -27,7 +27,7 @@ class DeleteTypeName extends Component
     {
         $this->authorize('delete-type-name');
         $this->deleteTypeName($this->id);
-        $this->dispatch('delete-type-name');
+        $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_deleted'));
         $this->delete_modal = false;
     }

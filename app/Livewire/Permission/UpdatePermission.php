@@ -9,7 +9,6 @@ use Livewire\Component;
 class UpdatePermission extends Component
 {
     use PermissionTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)
@@ -24,7 +23,7 @@ class UpdatePermission extends Component
     {
         $this->authorize('edit-permission');
         $this->updatePermission();
-        $this->dispatch('update-permission');
+        $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_updated'));
         $this->edit_modal = false;
     }

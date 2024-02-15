@@ -23,8 +23,8 @@ class BulkDeleteOffer extends Component
     {
         $this->authorize('bulk-delete-offer');
         $this->bulkDeleteOffer();
-        $this->dispatch('bulk-delete-offer');
-        $this->dispatch('bulk-delete-clear');
+        $this->dispatch('refresh-list-offer');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.offer_delete_all'));
         $this->bulk_delete_modal = false;
     }

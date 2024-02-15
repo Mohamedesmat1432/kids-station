@@ -13,22 +13,13 @@ class ListOrder extends Component
 {
     use OrderTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('create-order')]
-    #[On('attach-order')]
-    #[On('delete-order')]
-    #[On('import-order')]
-    #[On('export-order')]
-    #[On('bulk-delete-order')]
-    #[On('restore-order')]
-    #[On('force-delete-order')]
-    #[On('force-bulk-delete-order')]
+    #[On('refresh-list-order')]
     public function render()
     {
         $this->authorize('view-order');

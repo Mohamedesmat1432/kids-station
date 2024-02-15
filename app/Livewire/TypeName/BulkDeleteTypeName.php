@@ -23,8 +23,8 @@ class BulkDeleteTypeName extends Component
     {
         $this->authorize('bulk-delete-type-name');
         $this->bulkDeleteTypeName();
-        $this->dispatch('bulk-delete-type-name');
-        $this->dispatch('bulk-delete-clear');
+        $this->dispatch('refresh-list-type-name');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.type_name_delete_all'));
         $this->bulk_delete_modal = false;
     }

@@ -21,7 +21,7 @@ class CreateType extends Component
     {
         $this->authorize('create-type');
         $this->storeType();
-        $this->dispatch('create-type');
+        $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_created'));
         $this->create_modal = false;
     }

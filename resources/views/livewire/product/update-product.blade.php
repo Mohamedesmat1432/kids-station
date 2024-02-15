@@ -38,7 +38,7 @@
                         <x-select wire:change="changeQuantity" class="mt-1 block w-full" wire:model="unit_id">
                             <option value="">{{ __('site.unit_id') }}</option>
                             @foreach ($units as $key => $val)
-                                <option value="{{ $key }}">{{ $val }}</option>
+                                <option value="{{ $key }}"jhdgbdjj>{{ $val }}</option>
                             @endforeach
                         </x-select>
                         <x-input-error for="unit_id" class="mt-2" />

@@ -25,7 +25,7 @@ class ImportExportProduct extends Component
         $this->validate(['file' => 'required|file|mimes:xlsx,xls,csv']);
         try {
             $this->import_modal = false;
-            $this->dispatch('import-product');
+            $this->dispatch('refresh-list-product');
             $this->successNotify(__('site.products_imported'));
             return $import->import($this->file);
         } catch (\Throwable $e) {
@@ -44,7 +44,7 @@ class ImportExportProduct extends Component
     {
         try {
             $this->export_modal = false;
-            $this->dispatch('export-product');
+            $this->dispatch('refresh-list-product');
             $this->successNotify(__('site.products_exported'));
             return (new ProductsExport($this->search))->download('products.' . $this->extension);
         } catch (\Throwable $e) {

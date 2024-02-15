@@ -3,10 +3,14 @@
 namespace App\Traits;
 
 use App\Models\Permission;
+use Livewire\WithPagination;
 
 trait PermissionTrait
 {
     use WithNotify;
+    use WithPagination;
+    use SortSearchTrait;
+    use ModalTrait;
     public ?Permission $permission;
     public $permission_id;
     public $name;
@@ -61,5 +65,18 @@ trait PermissionTrait
     {
         $permissions = Permission::whereIn('id', $this->checkbox_arr);
         $permissions->delete();
+    }
+
+    public function permissionList()
+    {
+        return cache()->remember('permissions', 1, function () {
+            return Permission::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
     }
 }

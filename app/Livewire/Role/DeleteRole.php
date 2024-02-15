@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeleteRole extends Component
 {
     use RoleTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;
@@ -27,7 +26,8 @@ class DeleteRole extends Component
     {
         $this->authorize('delete-role');
         $this->deleteRole($this->id);
-        $this->dispatch('delete-role');
+        $this->dispatch('refresh-list-role');
+        $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_deleted'));
         $this->delete_modal = false;
     }

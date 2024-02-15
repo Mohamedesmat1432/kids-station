@@ -26,7 +26,7 @@ class DeleteUnit extends Component
     {
         $this->authorize('delete-unit');
         $this->deleteUnit($this->id);
-        $this->dispatch('delete-unit');
+        $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_deleted'));
         $this->delete_modal = false;
     }

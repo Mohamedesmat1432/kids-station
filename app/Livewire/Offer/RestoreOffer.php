@@ -26,7 +26,7 @@ class RestoreOffer extends Component
     {
         $this->authorize('restore-offer');
         $this->restoreOffer($this->id);
-        $this->dispatch('restore-offer');
+        $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_restored'));
         $this->restore_modal = false;
     }

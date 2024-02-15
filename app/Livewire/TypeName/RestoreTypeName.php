@@ -26,7 +26,7 @@ class RestoreTypeName extends Component
     {
         $this->authorize('restore-type-name');
         $this->restoreTypeName($this->id);
-        $this->dispatch('restore-type-name');
+        $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_restored'));
         $this->restore_modal = false;
     }

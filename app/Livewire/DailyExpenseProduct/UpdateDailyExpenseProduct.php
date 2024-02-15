@@ -23,7 +23,7 @@ class UpdateDailyExpenseProduct extends Component
     {
         $this->authorize('edit-daily-expense-product');
         $this->updateDailyExpense();
-        $this->dispatch('update-daily-expense-product');
+        $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_updated'));
         $this->edit_modal = false;
     }

@@ -26,7 +26,7 @@ class RestoreType extends Component
     {
         $this->authorize('restore-type');
         $this->restoreType($this->id);
-        $this->dispatch('restore-type');
+        $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_restored'));
         $this->restore_modal = false;
     }

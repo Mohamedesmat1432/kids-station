@@ -23,8 +23,8 @@ class BulkDeleteOrder extends Component
     {
         $this->authorize('bulk-delete-order');
         $this->bulkDeleteOrder();
-        $this->dispatch('bulk-delete-order');
-        $this->dispatch('bulk-delete-clear');
+        $this->dispatch('refresh-list-order');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.order_delete_all'));
         $this->bulk_delete_modal = false;
     }

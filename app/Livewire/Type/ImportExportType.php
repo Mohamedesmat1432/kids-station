@@ -4,18 +4,12 @@ namespace App\Livewire\Type;
 
 use App\Exports\TypesExport;
 use App\Imports\TypesImport;
-use App\Traits\WithNotify;
+use App\Traits\TypeTrait;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class ImportExportType extends Component
 {
-    use WithNotify, WithFileUploads;
-    public $file;
-    public $import_modal = false;
-    public $export_modal = false;
-    public $extension = 'xlsx';
-    public $search = '';
+    use TypeTrait;
 
     public function importModal()
     {
@@ -29,7 +23,7 @@ class ImportExportType extends Component
         $this->validate(['file' => 'required|file|mimes:xlsx,xls,csv']);
         try {
             $this->import_modal = false;
-            $this->dispatch('import-type');
+            $this->dispatch('refresh-list-type');
             $this->successNotify(__('site.types_imported'));
             return $import->import($this->file);
         } catch (\Throwable $e) {
@@ -48,7 +42,7 @@ class ImportExportType extends Component
     {
         try {
             $this->export_modal = false;
-            $this->dispatch('export-type');
+            $this->dispatch('refresh-list-type');
             $this->successNotify(__('site.types_exported'));
             return (new TypesExport($this->search))->download('types.' . $this->extension);
         } catch (\Throwable $e) {

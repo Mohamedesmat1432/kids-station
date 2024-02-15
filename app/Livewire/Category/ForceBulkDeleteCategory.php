@@ -23,8 +23,8 @@ class ForceBulkDeleteCategory extends Component
     {
         $this->authorize('force-bulk-delete-category');
         $this->forceBulkDeleteCategory();
-        $this->dispatch('force-bulk-delete-category');
-        $this->dispatch('force-bulk-delete-clear');
+        $this->dispatch('refresh-list-category');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.category_delete_all'));
         $this->force_bulk_delete_modal = false;
     }

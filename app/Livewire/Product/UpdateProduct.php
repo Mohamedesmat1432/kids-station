@@ -25,7 +25,7 @@ class UpdateProduct extends Component
     {
         $this->authorize('edit-product');
         $this->updateProduct();
-        $this->dispatch('update-product');
+        $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_updated'));
         $this->edit_modal = false;
     }

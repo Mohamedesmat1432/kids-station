@@ -20,7 +20,7 @@ class CreateUnit extends Component
     {
         $this->authorize('create-unit');
         $this->storeUnit();
-        $this->dispatch('create-unit');
+        $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_created'));
         $this->create_modal = false;
     }

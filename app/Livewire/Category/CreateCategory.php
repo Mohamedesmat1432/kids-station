@@ -20,9 +20,9 @@ class CreateCategory extends Component
     {
         $this->authorize('create-category');
         $this->storeCategory();
-        $this->dispatch('create-category');
+        $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_created'));
-        // $this->create_modal = false;
+        $this->create_modal = false;
     }
 
     public function render()

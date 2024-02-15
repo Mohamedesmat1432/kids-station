@@ -10,7 +10,6 @@ use Livewire\Component;
 class DeleteUser extends Component
 {
     use UserTrait;
-    public $delete_modal = false;
 
     #[Locked]
     public $id, $name;
@@ -27,7 +26,8 @@ class DeleteUser extends Component
     {
         $this->authorize('delete-user');
         $this->deleteUser($this->id);
-        $this->dispatch('delete-user');
+        $this->dispatch('refresh-list-user');
+        $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('User deleted successfully'));
         $this->delete_modal = false;
     }

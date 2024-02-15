@@ -24,8 +24,8 @@ class ForceBulkDeleteProductOrder extends Component
     {
         $this->authorize('force-bulk-delete-product-order');
         $this->forceBulkDeleteOrder();
-        $this->dispatch('force-bulk-delete-product-order');
-        $this->dispatch('force-bulk-delete-clear');
+        $this->dispatch('refresh-list-product-order');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.product_order_delete_all'));
         $this->force_bulk_delete_modal = false;
     }

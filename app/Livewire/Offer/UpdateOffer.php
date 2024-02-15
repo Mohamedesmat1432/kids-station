@@ -23,7 +23,7 @@ class UpdateOffer extends Component
     {
         $this->authorize('edit-offer');
         $this->updateOffer();
-        $this->dispatch('update-offer');
+        $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_updated'));
         $this->edit_modal = false;
     }

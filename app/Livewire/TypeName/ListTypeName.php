@@ -2,33 +2,21 @@
 
 namespace App\Livewire\TypeName;
 
-use App\Models\TypeName;
-use App\Traits\SortSearchTrait;
 use App\Traits\TypeNameTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ListTypeName extends Component
 {
     use TypeNameTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('create-type-name')]
-    #[On('update-type-name')]
-    #[On('delete-type-name')]
-    #[On('import-type-name')]
-    #[On('export-type-name')]
-    #[On('bulk-delete-type-name')]
-    #[On('restore-type-name')]
-    #[On('force-delete-type-name')]
-    #[On('force-bulk-delete-type-name')]
+    #[On('refresh-list-type-name')]
     public function render()
     {
         $this->authorize('view-type-name');

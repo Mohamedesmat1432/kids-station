@@ -23,7 +23,7 @@ class CreateOrder extends Component
     {
         $this->authorize('create-order');
         $this->storeOrder();
-        $this->dispatch('create-order');
+        $this->dispatch('refresh-list-order');
         $this->successNotify(__('site.order_created'));
     }
 

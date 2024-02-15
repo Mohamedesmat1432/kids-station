@@ -21,7 +21,7 @@ class CreateDailyExpense extends Component
     {
         $this->authorize('create-daily-expense');
         $this->storeDailyExpense();
-        $this->dispatch('create-daily-expense');
+        $this->dispatch('refresh-list-daily-expense');
         $this->successNotify(__('site.daily_expense_created'));
         $this->create_modal = false;
     }

@@ -23,7 +23,7 @@ class ImportExportCategory extends Component
         $this->validate(['file' => 'required|file|mimes:xlsx,xls,csv']);
         try {
             $this->import_modal = false;
-            $this->dispatch('import-category');
+            $this->dispatch('refresh-list-category');
             $this->successNotify(__('site.categories_imported'));
             return $import->import($this->file);
         } catch (\Throwable $e) {
@@ -42,7 +42,7 @@ class ImportExportCategory extends Component
     {
         try {
             $this->export_modal = false;
-            $this->dispatch('export-category');
+            $this->dispatch('refresh-list-category');
             $this->successNotify(__('site.categories_exported'));
             return (new CategorysExport($this->search))->download('categories.' . $this->extension);
         } catch (\Throwable $e) {

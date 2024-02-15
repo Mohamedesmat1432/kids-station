@@ -23,7 +23,7 @@ class UpdateTypeName extends Component
     {
         $this->authorize('edit-type-name');
         $this->updateTypeName();
-        $this->dispatch('update-type-name');
+        $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_updated'));
         $this->edit_modal = false;
     }

@@ -9,7 +9,6 @@ use Livewire\Component;
 class CreateRole extends Component
 {
     use RoleTrait;
-    public $create_modal = false;
 
     public function createModal()
     {
@@ -22,7 +21,7 @@ class CreateRole extends Component
     {
         $this->authorize('create-role');
         $this->storeRole();
-        $this->dispatch('create-role');
+        $this->dispatch('refresh-list-role');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_created'));
         $this->create_modal = false;

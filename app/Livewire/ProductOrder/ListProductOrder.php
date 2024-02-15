@@ -10,18 +10,13 @@ class ListProductOrder extends Component
 {
     use ProductOrderTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
     
-    #[On('delete-product-order')]
-    #[On('bulk-delete-product-order')]
-    #[On('restore-product-order')]
-    #[On('force-delete-product-order')]
-    #[On('force-bulk-delete-product-order')]
+    #[On('refresh-list-product-order')]
     public function render()
     {
         $this->authorize('view-product-order');

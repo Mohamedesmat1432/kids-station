@@ -10,7 +10,6 @@ use Livewire\Component;
 class UpdateRole extends Component
 {
     use RoleTrait;
-    public $edit_modal = false;
 
     #[On('edit-modal')]
     public function confirmEdit($id)
@@ -25,7 +24,7 @@ class UpdateRole extends Component
     {
         $this->authorize('edit-role');
         $this->updateRole();
-        $this->dispatch('update-role');
+        $this->dispatch('refresh-list-role');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_updated'));
         $this->edit_modal = false;

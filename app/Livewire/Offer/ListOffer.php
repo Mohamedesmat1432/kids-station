@@ -13,22 +13,13 @@ class ListOffer extends Component
 {
     use OfferTrait;
 
-    #[On('bulk-delete-clear')]
-    #[On('force-bulk-delete-clear')]
+    #[On('checkbox-clear')]
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
     }
 
-    #[On('create-offer')]
-    #[On('update-offer')]
-    #[On('delete-offer')]
-    #[On('import-offer')]
-    #[On('export-offer')]
-    #[On('bulk-delete-offer')]
-    #[On('restore-offer')]
-    #[On('force-delete-offer')]
-    #[On('force-bulk-delete-offer')]
+    #[On('refresh-list-offer')]
     public function render()
     {
         $this->authorize('view-offer');

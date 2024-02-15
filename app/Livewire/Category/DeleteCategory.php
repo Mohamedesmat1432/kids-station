@@ -26,7 +26,7 @@ class DeleteCategory extends Component
     {
         $this->authorize('delete-category');
         $this->deleteCategory($this->id);
-        $this->dispatch('delete-category');
+        $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_deleted'));
         $this->delete_modal = false;
     }

@@ -24,7 +24,7 @@ class UpdateType extends Component
     {
         $this->authorize('edit-type');
         $this->updateType();
-        $this->dispatch('update-type');
+        $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_updated'));
         $this->edit_modal = false;
     }

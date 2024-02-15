@@ -26,7 +26,7 @@ class DeleteOffer extends Component
     {
         $this->authorize('delete-offer');
         $this->deleteOffer($this->id);
-        $this->dispatch('delete-offer');
+        $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_deleted'));
         $this->reset();
         $this->delete_modal = false;

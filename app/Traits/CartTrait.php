@@ -6,17 +6,33 @@ use Illumniate\Support\Sleep;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use Cart;
+use Livewire\WithPagination;
 
 
 trait CartTrait
 {
     use WithNotify;
+    use WithPagination;
+    use SortSearchTrait;
     public $cartItems = [];
     public $quantity = 1;
 
     public function cartData()
     {
         return Cart::getContent()->sortKeys()->toArray();
+    }
+
+    public function productList()
+    {
+        return cache()->remember('products', 1, function () {
+            return Product::when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('price', 'like', '%' . $this->search . '%');
+                });
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                ->paginate($this->page_element);
+        });
     }
 
     public function addToCart(Product $product)
@@ -34,7 +50,7 @@ trait CartTrait
                     'price' => $product->price,
                     'attributes' => [],
                 ]);
-                $this->dispatch('add-to-cart');
+                $this->dispatch('refresh-list-cart');
                 $this->successNotify(__('site.add_to_cart_message'));
             }
         } else {
@@ -45,14 +61,14 @@ trait CartTrait
     public function removeCart($id)
     {
         Cart::remove($id);
-        $this->dispatch('remove-from-cart');
+        $this->dispatch('refresh-list-cart');
         $this->successNotify(__('site.remove_from_cart_message'));
     }
 
     public function clearAllCart()
     {
         Cart::clear();
-        $this->dispatch('remove-all-cart');
+        $this->dispatch('refresh-list-cart');
         $this->successNotify(__('site.remove_all_cart_message'));
     }
 
@@ -71,8 +87,8 @@ trait CartTrait
         }
 
         Cart::clear();
-        $this->dispatch('remove-all-cart');
-        $this->dispatch('create-product-order');
+        $this->dispatch('refresh-list-cart');
+        $this->dispatch('refresh-list-product-order');
         $this->successNotify(__('site.order_created'));
         $this->redirect('/product-orders', navigate: true);
     }

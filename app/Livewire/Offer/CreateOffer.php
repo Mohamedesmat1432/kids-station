@@ -20,7 +20,7 @@ class CreateOffer extends Component
     {
         $this->authorize('create-offer');
         $this->storeOffer();
-        $this->dispatch('create-offer');
+        $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_created'));
         $this->create_modal = false;
     }

@@ -26,7 +26,7 @@ class ForceDeleteUnit extends Component
     {
         $this->authorize('force-delete-unit');
         $this->forceDeleteUnit($this->id);
-        $this->dispatch('force-delete-unit');
+        $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_deleted'));
         $this->force_delete_modal = false;
     }

@@ -23,8 +23,8 @@ class ForceBulkDeleteProduct extends Component
     {
         $this->authorize('force-bulk-delete-product');
         $this->bulkDeleteProduct();
-        $this->dispatch('force-bulk-delete-product');
-        $this->dispatch('force-bulk-delete-clear');
+        $this->dispatch('refresh-list-product');
+        $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.product_delete_all'));
         $this->force_bulk_delete_modal = false;
     }

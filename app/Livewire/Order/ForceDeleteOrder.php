@@ -26,7 +26,7 @@ class ForceDeleteOrder extends Component
     {
         $this->authorize('force-delete-order');
         $this->forceDeleteOrder($this->id);
-        $this->dispatch('force-delete-order');
+        $this->dispatch('refresh-list-order');
         $this->successNotify(__('site.order_deleted'));
         $this->force_delete_modal = false;
     }

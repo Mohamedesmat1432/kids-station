@@ -10,10 +10,7 @@ class ListCart extends Component
 {
     use CartTrait;
 
-    #[On('add-to-cart')]
-    #[On('update-cart')]
-    #[On('remove-from-cart')]
-    #[On('remove-all-cart')]
+    #[On('refresh-list-cart')]
     public function render()
     {
         $this->cartItems = $this->cartData();
