@@ -21,7 +21,7 @@
                 <div class="mt-3">
                     <div class="flex justify-between">
                         <div>
-                            <x-input order="search" wire:model.live.debounce.500ms="search"
+                            <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
                         <x-trash-group-button />

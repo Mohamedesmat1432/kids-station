@@ -6,6 +6,8 @@ use App\Livewire\Category\ListCategory;
 use App\Livewire\DailyExpense\ListDailyExpense;
 use App\Livewire\DailyExpenseProduct\ListDailyExpenseProduct;
 use App\Livewire\Dashboard\DashboardComponent;
+use App\Livewire\MoneySafe\ListMoneySafe;
+use App\Livewire\MoneySafeProduct\ListMoneySafeProduct;
 use App\Livewire\Offer\ListOffer;
 use App\Livewire\Order\ListOrder;
 use App\Livewire\Permission\ListPermission;
@@ -39,11 +41,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Livewire::setUpdateRoute(function ($handle) {
-        return Route::post('/livewire/update', $handle);
-    });
-    
+])->group(function () {    
     Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     Route::get('/users', ListUser::class)->name('users');
     Route::get('/roles', ListRole::class)->name('roles');
@@ -59,4 +57,6 @@ Route::middleware([
     Route::get('/product-orders', ListProductOrder::class)->name('product.orders');
     Route::get('/daily-expenses', ListDailyExpense::class)->name('daily.expenses');
     Route::get('/daily-expenses-product', ListDailyExpenseProduct::class)->name('daily.expenses.product');
+    Route::get('/money-safe', ListMoneySafe::class)->name('money.safe');
+    Route::get('/money-safe-product', ListMoneySafeProduct::class)->name('money.safe.product');
 });

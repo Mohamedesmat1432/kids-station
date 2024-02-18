@@ -12,7 +12,7 @@ class Chat extends Model
 
     protected $fillable = ['user_id', 'message', 'reciever_id', 'group_chat'];
 
-    public function User(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

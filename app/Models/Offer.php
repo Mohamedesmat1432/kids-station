@@ -21,7 +21,7 @@ class Offer extends Model
         return $query->where('status', true);
     }
 
-    public function Orders(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }

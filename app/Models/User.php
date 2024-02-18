@@ -30,6 +30,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+
     protected $fillable = ['name', 'email', 'password'];
 
     /**
@@ -60,27 +62,27 @@ class User extends Authenticatable
         return Attribute::make(get: fn(string $value) => ucwords($value));
     }
 
-    public function Messages(): HasMany
+    public function messages(): HasMany
     {
         return $this->hasMany(Chat::class, 'user_id');
     }
 
-    public function Orders(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
     }
 
-    public function ProductOrders(): HasMany
+    public function productOrders(): HasMany
     {
         return $this->hasMany(ProductOrder::class);
     }
 
-    public function DailyExpenses(): HasMany
+    public function dailyExpenses(): HasMany
     {
         return $this->hasMany(DailyExpense::class);
     }
 
-    public function DailyExpenseProducts(): HasMany
+    public function dailyExpenseProducts(): HasMany
     {
         return $this->hasMany(DailyExpenseProduct::class);
     }

@@ -249,4 +249,12 @@ return [
     'restore_daily_expense' => 'استرجاع المصروفات اليومية',
     'force_delete_daily_expense' =>  'حذف المصروفات اليومية نهائيا',
     'daily_expense_restored' => 'تم استرجاع المصروف اليومي بنجاح',
+    'date_now' => 'التاريخ',
+    'total_order' => 'اجمالي الطلبات',
+    'total_daily_expense' => 'اجمالي المصروفات',
+    'money_safes' => 'خزنة الاطفال',
+    'money_safe_products' => 'خزنة المنتجات',
+    'create_new_money_safe' => 'انشاء خزنة اطفال جديدة',
+    'create_new_money_safe_product' => 'انشاء خزنة منتجات جديدة',
+    'select_user' => 'أختر اسم الكاشير',
 ];

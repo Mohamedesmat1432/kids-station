@@ -17,12 +17,12 @@ class Type extends Model
 
     protected $fillable = ['type_name_id', 'price', 'duration', 'status'];
 
-    public function TypeName(): BelongsTo
+    public function typeName(): BelongsTo
     {
         return $this->belongsTo(TypeName::class);
     }
 
-    public function Orders(): HasMany
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class, 'visitors');
     }

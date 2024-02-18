@@ -245,4 +245,12 @@ return [
     'restore_daily_expense' => 'Restore Dialy Expense',
     'force_delete_daily_expense' => 'Force Delete Dialy Expense',
     'daily_expense_restored' => 'Daily expense restored successfully',
+    'date_now' => 'Date',
+    'total_order' => 'Total Orders',
+    'total_daily_expense' => 'Total Daily Expenses',
+    'money_safes' => 'Money Safes',
+    'money_safe_products' => 'Money Safe Products',
+    'create_new_money_safe' => 'Create New Money Safe',
+    'create_new_money_safe_product' => 'Create New Money Safe Product',
+    'select_user' => 'Select Casher Name',
 ];

@@ -16,7 +16,7 @@ class TypeName extends Model
 
     protected $fillable = ['name', 'status'];
 
-    public function Types(): HasMany
+    public function types(): HasMany
     {
         return $this->hasMany(Type::class);
     }

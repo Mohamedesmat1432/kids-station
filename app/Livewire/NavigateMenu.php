@@ -105,6 +105,18 @@ class NavigateMenu extends NavigationMenu
                 'icon' => 'arrow-up-right',
                 'role' => 'view-daily-expense-product'
             ],
+            [
+                'name' => 'money.safe',
+                'value' => 'site.money_safes',
+                'icon' => 'arrow-up-right',
+                'role' => 'view-money-safe'
+            ],
+            [
+                'name' => 'money.safe.product',
+                'value' => 'site.money_safe_products',
+                'icon' => 'arrow-up-right',
+                'role' => 'view-money-safe-product'
+            ],
         ];
     }
 
