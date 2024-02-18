@@ -19,7 +19,6 @@ use App\Livewire\TypeName\ListTypeName;
 use App\Livewire\Unit\ListUnit;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,18 +29,9 @@ use Livewire\Livewire;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Livewire::setUpdateRoute(function ($handle) {
-    return Route::post('/livewire/update', $handle);
-});
-
 Route::get('/', [HomeController::class, 'home']);
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {    
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     Route::get('/users', ListUser::class)->name('users');
     Route::get('/roles', ListRole::class)->name('roles');

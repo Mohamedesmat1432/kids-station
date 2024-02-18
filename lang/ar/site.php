@@ -257,4 +257,5 @@ return [
     'create_new_money_safe' => 'انشاء خزنة اطفال جديدة',
     'create_new_money_safe_product' => 'انشاء خزنة منتجات جديدة',
     'select_user' => 'أختر اسم الكاشير',
+    'lang' => 'اللغة',
 ];

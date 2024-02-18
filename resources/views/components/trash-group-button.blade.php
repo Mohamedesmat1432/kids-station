@@ -1,4 +1,5 @@
-<div class="inline-flex rounded-md shadow-sm">
+<div
+    class="inline-flex {{ LaravelLocalization::getCurrentLocale() === 'en' ? 'flex-row-reverse' : '' }} rounded-md shadow-sm">
     <x-indigo-button wire:click.live.debounce.500ms="$set('trashed',false)" aria-busy="page"
         class="rounded-r-md rounded-l-none {{ $this->trashed ? '' : 'opacity-60 cursor-default' }}">
         {{ __('site.list') }}

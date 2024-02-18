@@ -23,6 +23,8 @@
                             </x-nav-link>
                         @endcan
                     @endforeach
+
+                    <x-lang-dropdwon />
                 </div>
             </div>
 
@@ -137,7 +139,8 @@
                                 @csrf
 
                                 <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                    <x-icon name="arrow-left-on-rectangle" class="h-5 w-5 float-{{ __('site.left') }}" />
+                                    <x-icon name="arrow-left-on-rectangle"
+                                        class="h-5 w-5 float-{{ __('site.left') }}" />
                                     {{ __('site.logout') }}
                                 </x-dropdown-link>
                             </form>

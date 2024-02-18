@@ -26,6 +26,7 @@
                         @endif
                     @endauth
 
+                    <x-lang-dropdwon />
                 </div>
             </div>
 

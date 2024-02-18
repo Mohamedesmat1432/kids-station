@@ -29,7 +29,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="w-1/2 mr-5">
+            <div class="w-1/2 mx-5">
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.orders') }}
