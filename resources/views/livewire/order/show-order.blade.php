@@ -150,7 +150,7 @@
                 var prtContent = document.getElementById('print_invoice');
                 var winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
                 winPrint.document.write(`<!DOCTYPE html>
-                <html lang='{{ str_replace('_', '-', app()->getLocale()) }}' dir='{{ config('app.direction') }}'>
+                <html lang='{{ LaravelLocalization::getCurrentLocale() }}' dir='{{ LaravelLocalization::getCurrentLocaleDirection() }}'>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <meta name="csrf-token" content="{{ csrf_token() }}">
