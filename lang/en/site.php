@@ -255,4 +255,5 @@ return [
     'select_user' => 'Select Casher Name',
     'shopping_cart' => 'Shopping Cart',
     'lang' => 'Language',
+    'delete_all' => 'Delete All',
 ];

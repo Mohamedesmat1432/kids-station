@@ -2,6 +2,10 @@
     font-family: "Cairo", sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 @font-face {
     font-family: "Cairo";
     font-style: normal;
