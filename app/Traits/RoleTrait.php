@@ -37,7 +37,7 @@ trait RoleTrait
     {
         $validated = $this->validate();
         $role = Role::create($validated);
-        $role->syncPermissions($this->permission);
+        $role->givePermissionTo($this->permission);
         $this->reset();
     }
 

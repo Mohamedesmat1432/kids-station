@@ -19,6 +19,7 @@ use App\Livewire\TypeName\ListTypeName;
 use App\Livewire\Unit\ListUnit;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home']);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/user/profile',[UserProfileController::class,'show'])->name('profile.show');
     Route::get('/dashboard', DashboardComponent::class)->name('dashboard');
     Route::get('/users', ListUser::class)->name('users');
     Route::get('/roles', ListRole::class)->name('roles');
