@@ -159,7 +159,7 @@ class DashboardComponent extends Component
 
     public function totalDailyExpenseProductsByMonth()
     {
-        $daily_expenses_product = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("created_at as months"))
+        $daily_expenses_product = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
             ->groupBy('months')
             ->paginate($this->page_element);
 

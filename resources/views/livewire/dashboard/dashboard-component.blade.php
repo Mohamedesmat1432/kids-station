@@ -1,10 +1,8 @@
 <div>
     <x-page-content page-name="{{ __('site.dashboard') }}">
-        @hasrole('User|Super Admin|Admin|Casher Kids|Casher Products')
-            <h1 class="mt-6 p-2 text-2xl font-semibold text-gray-700 dark:text-white text-center">
-                {{ __('site.wellcome_to_dashboard') }} {{ auth()->user()->name }}
-            </h1>
-        @endhasrole
+        <h1 class="mt-6 p-2 text-2xl font-semibold text-gray-700 dark:text-white text-center">
+            {{ __('site.wellcome_to_dashboard') }} {{ auth()->user()->name ?? '' }}
+        </h1>
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 flex justify-between ">
             <div class="mt-4 w-1/2">

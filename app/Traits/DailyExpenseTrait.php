@@ -105,7 +105,11 @@ trait DailyExpenseTrait
     public function dailyExpenseList()
     {
         return cache()->remember('daily_expenses', 1, function () {
-            $daily_expenses = $this->trashed ? DailyExpense::onlyTrashed() : new DailyExpense();
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $daily_expenses = $this->trashed ? DailyExpense::onlyTrashed() : new DailyExpense();
+            } else {
+                $daily_expenses = $this->trashed ? auth()->user()->dailyExpenses()->onlyTrashed() : auth()->user()->dailyExpenses();
+            }
             
             return $daily_expenses->when($this->search, function ($query) {
                 return $query->where(function ($query) {

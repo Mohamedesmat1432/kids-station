@@ -108,13 +108,13 @@ class NavigateMenu extends NavigationMenu
             [
                 'name' => 'money.safe',
                 'value' => 'site.money_safes',
-                'icon' => 'arrow-up-right',
+                'icon' => 'banknotes',
                 'role' => 'view-money-safe'
             ],
             [
                 'name' => 'money.safe.product',
                 'value' => 'site.money_safe_products',
-                'icon' => 'arrow-up-right',
+                'icon' => 'banknotes',
                 'role' => 'view-money-safe-product'
             ],
         ];

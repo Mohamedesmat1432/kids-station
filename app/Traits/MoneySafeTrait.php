@@ -43,7 +43,13 @@ trait MoneySafeTrait
     public function moneySafeList()
     {
         return cache()->remember('money_safes', 1, function () {
-            return MoneySafe::when($this->search, function ($query) {
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $money_safes = new MoneySafe();
+            } else {
+                $money_safes = auth()->user()->moneySafes();
+            }
+            
+            return $money_safes->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('date_now', 'like', '%' . $this->search . '%');
                 });

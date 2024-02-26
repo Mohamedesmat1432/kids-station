@@ -221,7 +221,11 @@ trait OrderTrait
     public function orderList()
     {
         return cache()->remember('orders', 1, function () {
-            $orders = $this->trashed ? Order::onlyTrashed() : new Order();
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $orders = $this->trashed ? Order::onlyTrashed() : new Order();
+            } else {
+                $orders = $this->trashed ? auth()->user()->orders()->onlyTrashed() : auth()->user()->orders();
+            }
             
             return $orders->when($this->search, function ($query) {
                 return $query->where(function ($query) {
@@ -230,8 +234,7 @@ trait OrderTrait
                         ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
                         ->orWhere('visitors', 'like', '%' . $this->search . '%');
                 });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
     }
