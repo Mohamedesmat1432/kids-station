@@ -32,7 +32,7 @@ class DashboardComponent extends Component
                 'icon' => 'user-group',
                 'role' => 'view-user',
                 'bg' => 'bg-blue-500',
-                'hover' => 'bg-blue-600',
+                'hover' => 'hover:bg-blue-600',
                 'count' => User::count(),
             ],
             [
@@ -40,8 +40,8 @@ class DashboardComponent extends Component
                 'value' => __('site.roles'),
                 'icon' => 'lock-closed',
                 'role' => 'view-role',
-                'bg' => 'bg-gray-400',
-                'hover' => 'bg-gray-500',
+                'bg' => 'bg-gray-500',
+                'hover' => 'hover:bg-gray-600',
                 'count' => Role::count(),
             ],
             [
@@ -49,8 +49,8 @@ class DashboardComponent extends Component
                 'value' => __('site.permissions'),
                 'icon' => 'receipt-percent',
                 'role' => 'view-permission',
-                'bg' => 'bg-gray-500',
-                'hover' => 'bg-gray-600',
+                'bg' => 'bg-red-500',
+                'hover' => 'hover:bg-red-600',
                 'count' => Permission::count(),
             ],
             [
@@ -59,7 +59,7 @@ class DashboardComponent extends Component
                 'icon' => 'briefcase',
                 'role' => 'view-order',
                 'bg' => 'bg-green-500',
-                'hover' => 'bg-green-600',
+                'hover' => 'hover:bg-green-600',
                 'count' => Order::count(),
                 'total' => Order::sum('total') - Order::sum('last_total'),
             ],
@@ -68,8 +68,8 @@ class DashboardComponent extends Component
                 'value' => __('site.product_orders'),
                 'icon' => 'briefcase',
                 'role' => 'view-product-order',
-                'bg' => 'bg-gray-500',
-                'hover' => 'bg-gray-600',
+                'bg' => 'bg-blue-500',
+                'hover' => 'hover:bg-blue-600',
                 'count' => ProductOrder::count(),
                 'total' => ProductOrder::sum('total'),
             ],
@@ -79,7 +79,7 @@ class DashboardComponent extends Component
                 'icon' => 'rectangle-group',
                 'role' => 'view-category',
                 'bg' => 'bg-red-500',
-                'hover' => 'bg-red-600',
+                'hover' => 'hover:bg-red-600',
                 'count' => Category::count(),
             ],
             [
@@ -88,7 +88,7 @@ class DashboardComponent extends Component
                 'icon' => 'currency-dollar',
                 'role' => 'view-unit',
                 'bg' => 'bg-gray-500',
-                'hover' => 'bg-gray-600',
+                'hover' => 'hover:bg-gray-600',
                 'count' => Unit::count(),
             ],
             [
@@ -97,7 +97,7 @@ class DashboardComponent extends Component
                 'icon' => 'clipboard-document-check',
                 'role' => 'view-product',
                 'bg' => 'bg-green-500',
-                'hover' => 'bg-green-600',
+                'hover' => 'hover:bg-green-600',
                 'count' => Product::count(),
             ],
             [
@@ -106,7 +106,7 @@ class DashboardComponent extends Component
                 'icon' => 'clipboard-document-list',
                 'role' => 'view-type-name',
                 'bg' => 'bg-red-500',
-                'hover' => 'bg-red-600',
+                'hover' => 'hover:bg-red-600',
                 'count' => TypeName::count(),
             ],
             [
@@ -115,7 +115,7 @@ class DashboardComponent extends Component
                 'icon' => 'adjustments-horizontal',
                 'role' => 'view-type',
                 'bg' => 'bg-green-500',
-                'hover' => 'bg-green-600',
+                'hover' => 'hover:bg-green-600',
                 'count' => Type::count(),
             ],
             [
@@ -124,7 +124,7 @@ class DashboardComponent extends Component
                 'icon' => 'gift',
                 'role' => 'view-offer',
                 'bg' => 'bg-yellow-500',
-                'hover' => 'bg-yellow-600',
+                'hover' => 'hover:bg-yellow-600',
                 'count' => Offer::count(),
             ],
         ];
@@ -174,6 +174,7 @@ class DashboardComponent extends Component
             'product_orders_by_months' => $this->totalProductOrdersByMonth(),
             'daily_expenses' => $this->totalDailyExpensesByMonth(),
             'daily_expenses_product' => $this->totalDailyExpenseProductsByMonth(),
-        ]);
+        ])->layout('layouts.app');
+
     }
 }

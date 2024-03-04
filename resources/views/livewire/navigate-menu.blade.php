@@ -6,24 +6,22 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a wire:navigate href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <x-application-mark class="block h-8 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('site.dashboard') }}
-                    </x-nav-link>
-
                     @foreach ($responsive_links as $link)
                         @can($link['role'])
                             <x-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
+                                <x-icon name="{{ $link['icon'] }}" class="h-5 w-5" />
                                 {{ __($link['value']) }}
                             </x-nav-link>
                         @endcan
                     @endforeach
 
+                    <!-- Lang Dropdown -->
                     <x-lang-dropdwon />
                 </div>
             </div>
@@ -185,15 +183,10 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    <x-icon name="chart-bar-square" class="h-5 w-5 float-{{ __('site.left') }}" />
-                    {{ __('site.dashboard') }}
-                </x-responsive-nav-link>
-
                 @foreach ($responsive_links as $link)
                     @can($link['role'])
-                        <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-{{ __('site.left') }}" />
+                        <x-responsive-nav-link class="flex justify-between" wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
+                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5" />
                             {{ __($link['value']) }}
                         </x-responsive-nav-link>
                     @endcan
@@ -201,13 +194,22 @@
 
                 @foreach ($dropdown_links as $link)
                     @can($link['role'])
-                        <x-responsive-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
-                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5 float-{{ __('site.left') }}" />
+                        <x-responsive-nav-link class="flex justify-between" wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
+                            <x-icon name="{{ $link['icon'] }}" class="h-5 w-5" />
                             {{ __($link['value']) }}
                         </x-responsive-nav-link>
                     @endcan
                 @endforeach
-
+                <!-- Lang Dropdown -->
+                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    <x-responsive-nav-link class="flex justify-between" :active="$localeCode === LaravelLocalization::getCurrentLocale()" rel="alternate"
+                        hreflang="{{ $localeCode }}"
+                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        <img src="{{ asset('images/' . $localeCode . '.jpg') }}" alt="{{ $localeCode }}"
+                            class="w-5 h-5" />
+                        <span>{{ $properties['native'] }}</span>
+                    </x-responsive-nav-link>
+                @endforeach
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link wire:navigate href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
                         {{ __('API Tokens') }}

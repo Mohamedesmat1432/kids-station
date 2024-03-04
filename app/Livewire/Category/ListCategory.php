@@ -21,10 +21,9 @@ class ListCategory extends Component
     public function render()
     {
         $this->authorize('view-category');
-        $categories = $this->categoryList();
 
         return view('livewire.category.list-category', [
-            'categories' => $categories,
-        ]);
+            'categories' => $this->categoryList(),
+        ])->layout('layouts.app');
     }
 }

@@ -6,11 +6,13 @@
                 <caption class="text-lg font-bold">
                     {{$caption ?? ''}}
                 </caption>
+
                 <thead class="text-center font-bold">
-                    {{ $thead }}
+                    {{ $thead ?? ''}}
                 </thead>
+
                 <tbody class="text-center">
-                    {{ $tbody }}
+                    {{ $tbody ?? ''}}
                 </tbody>
             </table>
          </div>

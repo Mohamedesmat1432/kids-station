@@ -232,7 +232,8 @@ trait OrderTrait
                     $query->where('number', 'like', '%' . $this->search . '%')
                         ->orWhere('customer_name', 'like', '%' . $this->search . '%')
                         ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-                        ->orWhere('visitors', 'like', '%' . $this->search . '%');
+                        ->orWhere('visitors', 'like', '%' . $this->search . '%')
+                        ->orWhere('total', 'like', '%' . $this->search . '%');
                 });
             })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);

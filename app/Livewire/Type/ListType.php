@@ -21,10 +21,8 @@ class ListType extends Component
     {
         $this->authorize('view-type');
 
-        $types = $this->typeList();
-
         return view('livewire.type.list-type', [
-            'types' => $types,
-        ]);
+            'types' => $this->typeList(),
+        ])->layout('layouts.app');
     }
 }

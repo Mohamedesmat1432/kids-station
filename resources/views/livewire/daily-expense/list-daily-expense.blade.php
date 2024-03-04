@@ -22,16 +22,18 @@
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
-                    <div class="flex justify-between">
-                        <div>
+                    <div class="md:flex justify-between">
+                        <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
 
-                        <x-trash-group-button />
+                        <div class="mt-2">
+                            <x-trash-group-button />
+                        </div>
 
                         {{-- @can('import-export-daily-expense')
-                            <div class="mt-3 flex">
+                            <div class="mt-2">
                                 <livewire:daily-expense.import-export-daily-expense />
                             </div>
                         @endcan --}}

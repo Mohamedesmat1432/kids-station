@@ -16,10 +16,8 @@ class ListRole extends Component
     {
         $this->authorize('view-role');
 
-        $roles = $this->roleList();
-
         return view('livewire.role.list-role', [
-            'roles' => $roles,
-        ]);
+            'roles' => $this->roleList(),
+        ])->layout('layouts.app');
     }
 }

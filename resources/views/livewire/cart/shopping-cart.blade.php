@@ -97,7 +97,9 @@
                             </x-slot>
                         </x-table>
 
-                        <x-paginate :data-links="$products->links()" />
+                        @if ($products->hasPages())
+                            <x-paginate :data-links="$products->links()" />
+                        @endif
                     </div>
                 </div>
             </div>

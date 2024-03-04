@@ -19,12 +19,15 @@
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
-                    <div class="flex justify-between">
-                        <div>
+                    <div class="md:flex justify-between">
+                        <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
-                        <x-trash-group-button />
+                        
+                        <div class="mt-2">
+                            <x-trash-group-button />
+                        </div>
                     </div>
 
                     @if ($trashed)
@@ -96,14 +99,14 @@
                                     <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border">
+                            {{-- <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('products')">
                                         {{ __('site.products') }}
                                     </button>
                                     <x-sort-icon sort_field="products" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('total')">
@@ -165,7 +168,7 @@
                                 <td class="p-2 border">
                                     {{ $product_order->user->name ?? '' }}
                                 </td>
-                                <td class="w-1/2 p-2 border">
+                                {{-- <td class="w-1/2 p-2 border">
                                     <table class="text-center w-full">
                                         <thead>
                                             <th>#</th>
@@ -187,7 +190,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                </td>
+                                </td> --}}
                                 <td class="p-2 border">
                                     <b>{{ $product_order->total }} {{ __('site.EGP') }}</b>
                                 </td>

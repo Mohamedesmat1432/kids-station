@@ -1,15 +1,15 @@
 <div>
+    <livewire:product.update-product />
+
+    <livewire:product.show-product />
+
+    <livewire:product.restore-product />
+
+    <livewire:product.delete-product />
+
+    <livewire:product.force-delete-product />
+    
     <x-page-content page-name="{{ __('site.products') }}">
-
-        <livewire:product.update-product />
-
-        <livewire:product.show-product />
-
-        <livewire:product.restore-product />
-
-        <livewire:product.delete-product />
-
-        <livewire:product.force-delete-product />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
@@ -22,16 +22,18 @@
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
-                    <div class="flex justify-between">
-                        <div>
+                    <div class="md:flex justify-between">
+                        <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
 
-                        <x-trash-group-button />
+                        <div class="mt-2">
+                            <x-trash-group-button />
+                        </div>
 
                         @can('import-export-product')
-                            <div>
+                            <div class="mt-2">
                                 <livewire:product.import-export-product />
                             </div>
                         @endcan

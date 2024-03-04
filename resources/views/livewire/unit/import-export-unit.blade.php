@@ -1,5 +1,5 @@
 <div>
-    <x-indigo-button class="mr-2" wire:click="importModal()" wire:loading.attr="disabled">
+    <x-indigo-button wire:click="importModal()" wire:loading.attr="disabled">
         <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
         {{ __('site.import') }}
     </x-indigo-button>

@@ -21,10 +21,9 @@ class ListProduct extends Component
     {
         $this->authorize('view-product');
 
-        $products = $this->productList();
-
         return view('livewire.product.list-product', [
-            'products' => $products,
-        ]);
+            'products' => $this->productList(),
+        ])->layout('layouts.app');
+
     }
 }

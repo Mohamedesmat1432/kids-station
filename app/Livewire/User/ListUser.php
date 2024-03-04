@@ -16,10 +16,8 @@ class ListUser extends Component
     {
         $this->authorize('view-user');
 
-        $users = $this->userList();
-
         return view('livewire.user.list-user', [
-            'users' => $users,
-        ]);
+            'users' => $this->userList(),
+        ])->layout('layouts.app');
     }
 }

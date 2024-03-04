@@ -22,19 +22,21 @@
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
-                    <div class="flex justify-between">
-                        <div>
+                    <div class="md:flex justify-between">
+                        <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
 
-                        <x-trash-group-button />
+                        <div class="mt-2">
+                            <x-trash-group-button />
+                        </div>
 
-                        @can('import-export-order')
-                            <div class="mt-3 flex">
+                        {{-- @can('import-export-order')
+                            <div class="mt-2">
                                 <livewire:order.import-export-order />
                             </div>
-                        @endcan
+                        @endcan --}}
                     </div>
 
                     @if ($trashed)
@@ -98,14 +100,14 @@
                                     <x-sort-icon sort_field="number" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border">
+                            {{-- <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('user_id')">
                                         {{ __('site.casher_name') }}
                                     </button>
                                     <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('customer_name')">
@@ -130,14 +132,14 @@
                                     <x-sort-icon sort_field="duration" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border">
+                            {{-- <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('visitors')">
                                         {{ __('site.visitors') }}
                                     </button>
                                     <x-sort-icon sort_field="visitors" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('total')">
@@ -186,14 +188,14 @@
                                     <x-sort-icon sort_field="end_date" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border">
+                            {{-- <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('status')">
                                         {{ __('site.status') }}
                                     </button>
                                     <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-2 border" colspan="{{ $trashed ? 2 : 3 }}">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
@@ -226,9 +228,9 @@
                                 <td class="p-2 border">
                                     {{ $order->number }}
                                 </td>
-                                <td class="p-2 border">
+                                {{-- <td class="p-2 border">
                                     {{ $order->user->name ?? '' }}
-                                </td>
+                                </td> --}}
                                 <td class="p-2 border">
                                     {{ $order->customer_name }}
                                 </td>
@@ -238,7 +240,7 @@
                                 <td class="p-2 border">
                                     {{ $order->duration }}
                                 </td>
-                                <td class="w-1/2 p-2 border">
+                                {{-- <td class="w-1/2 p-2 border">
                                     <table class="text-center w-full">
                                         <thead>
                                             <th>#</th>
@@ -261,15 +263,15 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </td> --}}
+                                <td class="p-2 border">
+                                    {{ $order->total ?? '--'}}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ $order->total }}
+                                    {{ $order->last_total ?? '--' }}
                                 </td>
                                 <td class="p-2 border">
-                                    {{ $order->last_total ?? '' }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ $order->remianing ?? '' }}
+                                    {{ $order->remianing ?? '--' }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ \Helper::formatDate($order->created_at) }}
@@ -280,9 +282,9 @@
                                 <td class="p-2 border">
                                     {{ \Helper::formatHours($order->end_date) }}
                                 </td>
-                                <td class="p-2 border">
+                                {{-- <td class="p-2 border">
                                     {{ $order->status }}
-                                </td>
+                                </td> --}}
                                 @if ($trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-order" id="{{ $order->id }}"

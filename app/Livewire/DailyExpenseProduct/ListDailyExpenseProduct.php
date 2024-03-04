@@ -24,10 +24,8 @@ class ListDailyExpenseProduct extends Component
     {
         $this->authorize('view-daily-expense-product');
 
-        $daily_expenses = $this->dailyExpenseList();
-
         return view('livewire.daily-expense-product.list-daily-expense-product', [
-            'daily_expenses' => $daily_expenses,
-        ]);
+            'daily_expenses' => $this->dailyExpenseList(),
+        ])->layout('layouts.app');
     }
 }

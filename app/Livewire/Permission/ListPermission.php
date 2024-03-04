@@ -15,10 +15,9 @@ class ListPermission extends Component
     {
         $this->authorize('view-permission');
 
-        $permissions = $this->permissionList();
-
         return view('livewire.permission.list-permission', [
-            'permissions' => $permissions,
-        ]);
+            'permissions' => $this->permissionList(),
+        ])->layout('layouts.app');
+
     }
 }

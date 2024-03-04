@@ -21,10 +21,8 @@ class ListUnit extends Component
     {
         $this->authorize('view-unit');
 
-        $units = $this->unitList();
-
         return view('livewire.unit.list-unit', [
-            'units' => $units,
-        ]);
+            'units' => $this->unitList(),
+        ])->layout('layouts.app');
     }
 }

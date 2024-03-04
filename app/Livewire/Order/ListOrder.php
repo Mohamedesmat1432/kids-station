@@ -2,12 +2,9 @@
 
 namespace App\Livewire\Order;
 
-use App\Models\Order;
 use App\Traits\OrderTrait;
-use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ListOrder extends Component
 {
@@ -24,10 +21,8 @@ class ListOrder extends Component
     {
         $this->authorize('view-order');
 
-        $orders = $this->orderList();
-
         return view('livewire.order.list-order', [
-            'orders' => $orders
-        ]);
+            'orders' => $this->orderList(),
+        ])->layout('layouts.app');
     }
 }

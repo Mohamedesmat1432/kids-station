@@ -13,14 +13,12 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
 
     {{-- Fonts AR --}}
-    <link href="{{ asset('css/site.css') }}" rel="stylesheet" />
-    <script src="{{ asset('js/site.js') }}"></script>
 
     @stack('styles')
 
-    @vite('resources/js/app.js')
+    @livewireStyles
 
-    <livewire:styles />
+    @vite('resources/js/app.js')
 </head>
 
 <body>
@@ -28,12 +26,10 @@
     <div class="font-sans antialiased min-h-screen bg-gray-100">
         @auth
             <livewire:navigate-menu />
-            <livewire:chat.group-chat />
-        @endauth
-
-        @guest
+            {{-- <livewire:chat.group-chat /> --}}
+        @else
             @include('home-menu')
-        @endguest
+        @endauth
 
         <!-- Page Heading -->
         @if (isset($header))
@@ -41,9 +37,9 @@
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
                     <div>{{ $header }}</div>
                     <div>
-                        <button onclick="openFullscreen()">
+                        {{-- <button onclick="openFullscreen()">
                             <x-icon name="arrows-pointing-out" class="text-xl" />
-                        </button>
+                        </button> --}}
                         {{-- <button onclick="closeFullscreen()">
                             <x-icon name="arrows-pointing-in" class="text-xl" />
                         </button> --}}
@@ -62,9 +58,9 @@
 
     @stack('modals')
 
-    @stack('scripts')
+    @stack('scriptPage')
 
-    <livewire:scripts />
+    @livewireScripts
 </body>
 
 </html>

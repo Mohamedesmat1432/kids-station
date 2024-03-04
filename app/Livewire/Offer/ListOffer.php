@@ -2,12 +2,9 @@
 
 namespace App\Livewire\Offer;
 
-use App\Models\Offer;
 use App\Traits\OfferTrait;
-use App\Traits\SortSearchTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ListOffer extends Component
 {
@@ -24,10 +21,8 @@ class ListOffer extends Component
     {
         $this->authorize('view-offer');
 
-        $offers = $this->offerList();
-
         return view('livewire.offer.list-offer', [
-            'offers' => $offers,
-        ]);
+            'offers' => $this->offerList(),
+        ])->layout('layouts.app');
     }
 }

@@ -21,10 +21,8 @@ class ListTypeName extends Component
     {
         $this->authorize('view-type-name');
 
-        $type_names = $this->typeNameList();
-        
         return view('livewire.type-name.list-type-name', [
-            'type_names' => $type_names,
-        ]);
+            'type_names' => $this->typeNameList(),
+        ])->layout('layouts.app');
     }
 }

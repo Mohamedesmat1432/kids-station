@@ -144,7 +144,7 @@
         </x-dialog-modal>
     @endif
 
-    @push('scripts')
+    @push('scriptPage')
         <script>
             function printInvoice() {
                 var prtContent = document.getElementById('print_invoice');

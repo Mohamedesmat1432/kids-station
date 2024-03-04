@@ -26,6 +26,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::middleware(['web', 'localize', 'localeCookieRedirect', 'localeSessionRedirect', 'localeViewPath', 'localizationRedirect'])
+                ->prefix(LaravelLocalization::setLocale())
+                ->post('/livewire/update', $handle);
+        });
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
@@ -33,19 +39,13 @@ class RouteServiceProvider extends ServiceProvider
         $this->routes(function () {
             Route::middleware('api')->prefix('api')->group(base_path('routes/api.php'));
 
-            Route::middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
-                ->prefix(LaravelLocalization::setLocale())
-                ->group(base_path('routes/web.php'));
-
-            Route::middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
+            Route::middleware(['web', 'localize', 'localeCookieRedirect', 'localeSessionRedirect', 'localeViewPath', 'localizationRedirect'])
                 ->prefix(LaravelLocalization::setLocale())
                 ->group(base_path('vendor/laravel/fortify/routes/routes.php'));
 
-            Livewire::setUpdateRoute(function ($handle) {
-                return Route::post('/livewire/update', $handle)
-                    ->middleware(['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'])
-                    ->prefix(LaravelLocalization::setLocale());
-            });
+            Route::middleware(['web', 'localize', 'localeCookieRedirect', 'localeSessionRedirect', 'localeViewPath', 'localizationRedirect'])
+                ->prefix(LaravelLocalization::setLocale())
+                ->group(base_path('routes/web.php'));
         });
     }
 }

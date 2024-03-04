@@ -16,10 +16,8 @@ class ShoppingCart extends Component
     {
         $this->authorize('view-shopping-cart');
 
-        $products = $this->productList();
-
         return view('livewire.cart.shopping-cart', [
-            'products' => $products,
-        ]);
+            'products' => $this->productList(),
+        ])->layout('layouts.app');
     }
 }

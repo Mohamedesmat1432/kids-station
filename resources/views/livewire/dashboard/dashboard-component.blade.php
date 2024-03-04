@@ -4,8 +4,8 @@
             {{ __('site.wellcome_to_dashboard') }} {{ auth()->user()->name ?? '' }}
         </h1>
 
-        <div class="p-6 lg:p-8 bg-white border-b border-gray-200 flex justify-between ">
-            <div class="mt-4 w-1/2">
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-2 p-6 lg:p-8 bg-white border-b border-gray-200">
+            <div class="mt-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     @foreach ($dashboard_links as $link)
                         @can($link['role'])
@@ -27,7 +27,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="w-1/2 mx-5">
+            <div class="mx-5">
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.orders') }}

@@ -21,10 +21,8 @@ class ListProductOrder extends Component
     {
         $this->authorize('view-product-order');
 
-        $product_orders = $this->productOrderList();
-
         return view('livewire.product-order.list-product-order', [
-            'product_orders' => $product_orders,
-        ]);
+            'product_orders' => $this->productOrderList(),
+        ])->layout('layouts.app');
     }
 }

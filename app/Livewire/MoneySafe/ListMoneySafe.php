@@ -15,10 +15,8 @@ class ListMoneySafe extends Component
     {
         $this->authorize('view-money-safe');
 
-        $money_safes = $this->moneySafeList();
-
         return view('livewire.money-safe.list-money-safe', [
-            'money_safes' => $money_safes,
-        ]);
+            'money_safes' => $this->moneySafeList(),
+        ])->layout('layouts.app');
     }
 }
