@@ -169,6 +169,8 @@ return [
         'revenue_price' => 'العائد',
         'unit_id' => 'الوحدة',
         'category_id' => 'القسم',
+        'user_id' => 'اسم المستخدم',
+        'date_now' => 'التاريخ',
     ],
 
 ];

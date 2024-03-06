@@ -5,11 +5,14 @@
             <div class="">
                 <div
                     class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-2">
-                        <div class="flex justify-center">
-                            <x-application-logo />
+                    <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-2">
+                        <div class="relative">
+                            <img src="{{asset('images/bg_kids.jpg')}}" alt="">
+                            <h1 class="absolute top-1/3 right-2/4 text-4xl font-bold text-center">
+                                Welcome To <br> Kids Area
+                            </h1>
                         </div>
-
+{{-- 
                         <div>
                             <h1 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
                                 Social Housing & Mortgage Finance Fund :
@@ -43,7 +46,7 @@
                                 Guaranteeing the risks of non-payment for those dealing with real estate financing
                                 law.
                             </p>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>
@@ -66,7 +69,7 @@
             </div>
 
             <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0">
-                IT Managent System
+                Kids Area Managent System
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
-            <div class="flex justify-between">
+            <div class="md:flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
                     {{ __('site.money_safes') }}
                 </h1>
@@ -22,12 +22,35 @@
                 <div class="mt-3">
                     <div class="md:flex justify-between">
                         <div class="mt-2">
-                            <x-input type="search" wire:model.live.debounce.500ms="search"
-                                placeholder="{{ __('site.search') }}..." />
+                            <x-input type="date" wire:model.live.debounce.500ms="start_date"
+                                placeholder="{{ __('site.start_date') }}" />
+                                
+                            <x-input type="date" wire:model.live.debounce.500ms="end_date"
+                                placeholder="{{ __('site.end_date') }}" />
                         </div>
                     </div>
                 </div>
-
+                @forelse ($money_safes as $money_safe)
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mt-3" wire:key="money_safe-{{ $money_safe->id }}">
+                        <div class="bg-blue-500 hover:bg-blue-600 rounded p-3 text-white text-center text-2xl">
+                            <div>{{ __('site.casher_name') }}</div>
+                            <div>{{ $money_safe->user->name ?? '' }}</div>
+                            </div>
+                            <div class="bg-green-500 hover:bg-green-600 rounded p-3 text-white text-center text-2xl">
+                                <div>{{ __('site.total_order') }}</div>
+                                <div>{{ $money_safe->total_order }}</div>
+                            </div>
+                            <div class="bg-yellow-500 hover:bg-yellow-600 rounded p-3 text-white text-center text-2xl">
+                                <div>{{ __('site.total_daily_expense') }}</div>
+                                <div>{{ $money_safe->total_daily_expense }}</div>
+                            </div>
+                            <div class="bg-red-500 hover:bg-red-600 rounded p-3 text-white text-center text-2xl">
+                                <div>{{ __('site.total') }}</div>
+                                <div>{{ $money_safe->total }}</div>
+                            </div>
+                        </div>
+                    @empty
+                @endforelse
                 <x-table>
                     <x-slot name="thead">
                         <tr>

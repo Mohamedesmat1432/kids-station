@@ -200,6 +200,7 @@
                         </x-responsive-nav-link>
                     @endcan
                 @endforeach
+                
                 <!-- Lang Dropdown -->
                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     <x-responsive-nav-link class="flex justify-between" :active="$localeCode === LaravelLocalization::getCurrentLocale()" rel="alternate"
@@ -210,6 +211,7 @@
                         <span>{{ $properties['native'] }}</span>
                     </x-responsive-nav-link>
                 @endforeach
+
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-responsive-nav-link wire:navigate href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
                         {{ __('API Tokens') }}

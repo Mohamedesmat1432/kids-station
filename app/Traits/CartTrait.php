@@ -30,7 +30,8 @@ trait CartTrait
                     $query->where('name', 'like', '%' . $this->search . '%')
                         ->orWhere('price', 'like', '%' . $this->search . '%');
                 });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            })
+                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
     }

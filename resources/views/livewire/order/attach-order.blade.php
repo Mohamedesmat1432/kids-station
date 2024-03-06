@@ -116,7 +116,7 @@
                             <div class="relative z-0 w-full mb-5 group">
                                 <div class="font-bold text-center bg-gray-100 rounded mt-5 p-2">
                                     <span> {{ __('site.discount') }}:</span>
-                                    <span>-{{ App\Models\Offer::find($this->offer_id)->price }}
+                                    <span>{{ App\Models\Offer::find($this->offer_id)->price }}
                                         {{ __('site.EGP') }}</span>
                                 </div>
                             </div>

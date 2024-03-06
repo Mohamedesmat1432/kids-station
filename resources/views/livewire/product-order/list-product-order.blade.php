@@ -141,7 +141,7 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($product_orders as $product_order)
-                            <tr wire:key="product-{{ $product_order->id }}" class="odd:bg-gray-100">
+                            <tr wire:key="product-order-{{ $product_order->id }}" class="odd:bg-gray-100">
                                 @if (count($product_orders) > 1)
                                     @if ($trashed)
                                         @can('force-bulk-delete-product-order')

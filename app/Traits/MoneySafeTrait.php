@@ -19,6 +19,8 @@ trait MoneySafeTrait
     public ?MoneySafe $money_safe;
     public $user_id;
     public $date_now;
+    public $start_date;
+    public $end_date;
 
     protected function rules()
     {
@@ -43,17 +45,11 @@ trait MoneySafeTrait
     public function moneySafeList()
     {
         return cache()->remember('money_safes', 1, function () {
-            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $money_safes = new MoneySafe();
-            } else {
-                $money_safes = auth()->user()->moneySafes();
-            }
+            $money_safes = (auth()->user()->hasRole(['Super Admin', 'Admin'])) 
+                ? new MoneySafe() 
+                : auth()->user()->moneySafes();
             
-            return $money_safes->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('date_now', 'like', '%' . $this->search . '%');
-                });
-            })
+            return $money_safes->whereBetween('date_now',[$this->start_date,$this->end_date])
                 ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });

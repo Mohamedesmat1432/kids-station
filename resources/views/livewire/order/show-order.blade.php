@@ -118,7 +118,7 @@
                             @if ($this->order->offer_id)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.discount') }}:</b>
-                                    -{{ $this->order->offer->price ?? 0 }} {{ __('site.EGP') }}
+                                    {{ $this->order->offer->price ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
                             @if ($this->order->remianing ?? 0)

@@ -36,12 +36,11 @@ trait UnitTrait
 
             $units = $this->trashed ? Unit::onlyTrashed() : new Unit();
 
-            return $units
-                ->when($this->search, function ($query) {
-                    return $query->where(function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
-                })
+            return $units->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })
                 ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });

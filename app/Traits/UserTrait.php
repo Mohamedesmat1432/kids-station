@@ -92,6 +92,7 @@ trait UserTrait
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });
             })
+                ->orWhere('email', 'like', '%' . $this->search . '%')
                 ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });

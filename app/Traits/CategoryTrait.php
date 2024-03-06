@@ -34,11 +34,10 @@ trait CategoryTrait
             $categories = $this->trashed ? Category::onlyTrashed() : new Category();
 
             return $categories->when($this->search, function ($query) {
-                    return $query->where(function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    });
-                })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                });
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
     }

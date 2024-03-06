@@ -11,7 +11,7 @@
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
-            <div class="flex justify-between">
+            <div class="md:flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
                     {{ __('site.money_safe_products') }}
                 </h1>

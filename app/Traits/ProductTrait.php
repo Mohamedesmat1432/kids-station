@@ -49,12 +49,12 @@ trait ProductTrait
         return cache()->remember('products', 2, function () {
             $products = $this->trashed ? Product::onlyTrashed() : new Product();
 
-            return $products
-                ->when($this->search, function ($query) {
-                    return $query->where(function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%')->orWhere('price', 'like', '%' . $this->search . '%');
-                    });
-                })
+            return $products->when($this->search, function ($query) {
+                return $query->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('price', 'like', '%' . $this->search . '%');
+                });
+            })
                 ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });

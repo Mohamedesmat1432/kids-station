@@ -99,6 +99,13 @@ trait OrderTrait
         }
     }
 
+    public function discount()
+    {
+        if ($this->offer_id) {
+            $this->total -= Offer::findOrFail($this->offer_id)->price;
+        }
+    }
+
     public function totalVisitors()
     {
         $this->total = number_format(0, 2);
@@ -221,12 +228,10 @@ trait OrderTrait
     public function orderList()
     {
         return cache()->remember('orders', 1, function () {
-            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $orders = $this->trashed ? Order::onlyTrashed() : new Order();
-            } else {
-                $orders = $this->trashed ? auth()->user()->orders()->onlyTrashed() : auth()->user()->orders();
-            }
-            
+            (auth()->user()->hasRole(['Super Admin', 'Admin']))
+                ? $orders = $this->trashed ? Order::onlyTrashed() : new Order()
+                : $orders = $this->trashed ? auth()->user()->orders()->onlyTrashed() : auth()->user()->orders();
+                
             return $orders->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('number', 'like', '%' . $this->search . '%')
