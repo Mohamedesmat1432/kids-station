@@ -2,7 +2,6 @@
 
 namespace App\Traits;
 
-use Illumniate\Support\Sleep;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use Cart;
