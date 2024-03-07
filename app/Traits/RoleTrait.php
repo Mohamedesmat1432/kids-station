@@ -7,10 +7,8 @@ use Livewire\WithPagination;
 
 trait RoleTrait
 {
-    use WithNotify;
-    use WithPagination;
-    use SortSearchTrait;
-    use ModalTrait;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+
     public ?Role $role;
     public $role_id;
     public $name;

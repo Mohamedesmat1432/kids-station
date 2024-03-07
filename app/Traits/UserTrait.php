@@ -8,10 +8,8 @@ use Livewire\WithPagination;
 
 trait UserTrait
 {
-    use WithNotify;
-    use WithPagination;
-    use SortSearchTrait;
-    use ModalTrait;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+
     public ?User $user;
     public $user_id;
     public $name;

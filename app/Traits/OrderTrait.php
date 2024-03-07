@@ -11,11 +11,8 @@ use Livewire\WithPagination;
 
 trait OrderTrait
 {
-    use WithNotify;
-    use SortSearchTrait;
-    use WithFileUploads;
-    use WithPagination;
-    use ModalTrait;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
+
     public ?Order $order;
     public $order_id;
     public $number;

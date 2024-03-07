@@ -26,6 +26,7 @@
                         @endif
                     @endauth
 
+                    <!-- Lang Dropdown -->
                     <x-lang-dropdwon />
                 </div>
             </div>
@@ -62,21 +63,16 @@
                             <x-icon name="arrow-right-on-rectangle" class="h-6 w-5 float-left" />
                             {{ __('site.login') }}
                         </x-responsive-nav-link>
+
                         @if (Route::has('register'))
                             <x-responsive-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
                                 <x-icon name="plus" class="h-6 w-5 float-left" />
                                 {{ __('site.register') }}
                             </x-responsive-nav-link>
-                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <x-responsive-nav-link class="flex justify-between" :active="$localeCode === LaravelLocalization::getCurrentLocale()" rel="alternate"
-                                    hreflang="{{ $localeCode }}"
-                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                    <img src="{{ asset('images/' . $localeCode . '.jpg') }}" alt="{{ $localeCode }}"
-                                        class="w-5 h-5" />
-                                    <span>{{ $properties['native'] }}</span>
-                                </x-responsive-nav-link>
-                            @endforeach
                         @endif
+
+                        <!-- Lang Dropdown Responsive -->
+                        <x-lang-dropdwon-responsive />
                     @endauth
                 @endif
             </div>

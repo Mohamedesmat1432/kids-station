@@ -10,9 +10,14 @@
             <x-input-error for="user_id" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
-            <x-input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="mt-1 block w-full"
-                wire:model="date_now" placeholder="{{ __('site.date_now') }}" autocomplete="date_now" />
-            <x-input-error for="date_now" class="mt-2" />
+            <x-input type="date" class="mt-1 block w-full" wire:model="start_date"
+                placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
+            <x-input-error for="start_date" class="mt-2" />
+        </div>
+        <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
+            <x-input type="date" class="mt-1 block w-full" wire:model="end_date"
+                placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
+            <x-input-error for="end_date" class="mt-2" />
         </div>
         <div class="col-span-6 sm:col-span-4 mt-3">
             <x-indigo-button class="mt-1 block md:w-full" type="submit" wire:loading.attr="disabled">

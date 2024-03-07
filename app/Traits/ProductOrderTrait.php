@@ -6,10 +6,8 @@ use Livewire\WithPagination;
 
 trait ProductOrderTrait
 {
-    use WithNotify;
-    use ModalTrait;
-    use SortSearchTrait;
-    use WithPagination;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+
     public ?ProductOrder $product_order;
     public $product_order_id;
     public $number;

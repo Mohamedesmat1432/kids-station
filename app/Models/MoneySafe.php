@@ -12,15 +12,16 @@ class MoneySafe extends Model
 
     protected $table = 'money_safes';
 
-    protected $fillable = ['user_id', 'date_now', 'total_order', 'total_daily_expense', 'total'];
+    protected $fillable = ['user_id', 'start_date', 'end_date', 'total_order', 'total_daily_expense', 'total'];
 
     protected $casts = [
+        'start_date' => 'datetime: H:i',
+        'end_date' => 'datetime: H:i',
         'created_at' => 'datetime: H:i',
     ];
-    
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-
 }

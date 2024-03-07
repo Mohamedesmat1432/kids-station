@@ -73,7 +73,7 @@ class NavigateMenu extends NavigationMenu
                 'name' => 'daily.expenses',
                 'value' => 'site.daily_expenses',
                 'icon' => 'arrow-up-right',
-                'role' => 'view-daily-expense',
+                'role' => 'view-daily-expense-kids',
             ],
             [
                 'name' => 'daily.expenses.product',
@@ -85,7 +85,7 @@ class NavigateMenu extends NavigationMenu
                 'name' => 'money.safe',
                 'value' => 'site.money_safes',
                 'icon' => 'banknotes',
-                'role' => 'view-money-safe',
+                'role' => 'view-money-safe-kids',
             ],
             [
                 'name' => 'money.safe.product',
@@ -109,7 +109,7 @@ class NavigateMenu extends NavigationMenu
                 'name' => 'orders',
                 'value' => 'site.kids_orders',
                 'icon' => 'briefcase',
-                'role' => 'view-order',
+                'role' => 'view-order-kids',
             ],
             [
                 'name' => 'shopping.cart',

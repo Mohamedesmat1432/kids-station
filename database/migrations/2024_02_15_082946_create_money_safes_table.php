@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('money_safes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();
-            $table->dateTime('date_now');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
             $table->decimal('total_order');
             $table->decimal('total_daily_expense');
             $table->decimal('total');

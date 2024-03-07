@@ -23,9 +23,9 @@ class AttachOrder extends Component
 
     public function save()
     {
-        $this->authorize('attach-order');
+        $this->authorize('attach-order-kids');
         $this->AttachOrder();
-        $this->dispatch('refresh-list-order');
+        $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_updated'));
         $this->attach_modal = false;
     }

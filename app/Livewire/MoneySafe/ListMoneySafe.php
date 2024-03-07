@@ -10,10 +10,10 @@ class ListMoneySafe extends Component
 {
     use MoneySafeTrait;
 
-    #[On('refresh-list-money-safe')]
+    #[On('refresh-list-money-safe-kids')]
     public function render()
     {
-        $this->authorize('view-money-safe');
+        $this->authorize('view-money-safe-kids');
 
         return view('livewire.money-safe.list-money-safe', [
             'money_safes' => $this->moneySafeList(),

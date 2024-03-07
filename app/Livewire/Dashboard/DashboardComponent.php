@@ -57,7 +57,7 @@ class DashboardComponent extends Component
                 'name' => 'orders',
                 'value' => __('site.orders'),
                 'icon' => 'briefcase',
-                'role' => 'view-order',
+                'role' => 'view-order-kids',
                 'bg' => 'bg-green-500',
                 'hover' => 'hover:bg-green-600',
                 'count' => Order::count(),

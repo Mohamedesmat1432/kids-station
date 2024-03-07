@@ -7,10 +7,8 @@ use Livewire\WithPagination;
 
 trait PermissionTrait
 {
-    use WithNotify;
-    use WithPagination;
-    use SortSearchTrait;
-    use ModalTrait;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+
     public ?Permission $permission;
     public $permission_id;
     public $name;

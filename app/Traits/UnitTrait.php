@@ -8,11 +8,7 @@ use Livewire\WithPagination;
 
 trait UnitTrait
 {
-    use WithNotify;
-    use ModalTrait;
-    use SortSearchTrait;
-    use WithFileUploads;
-    use WithPagination;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
 
     public ?Unit $unit;
     public $unit_id;

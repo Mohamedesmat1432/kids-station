@@ -24,9 +24,9 @@ class DeleteDailyExpense extends Component
 
     public function delete()
     {
-        $this->authorize('delete-daily-expense');
+        $this->authorize('delete-daily-expense-kids');
         $this->deleteDailyExpense($this->id);
-        $this->dispatch('refresh-list-daily-expense');
+        $this->dispatch('refresh-list-daily-expense-kids');
         $this->successNotify(__('site.daily_expense_deleted'));
         $this->reset();
         $this->delete_modal = false;

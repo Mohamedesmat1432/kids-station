@@ -32,7 +32,7 @@
                             <x-trash-group-button />
                         </div>
 
-                        {{-- @can('import-export-order')
+                        {{-- @can('import-export-order-kids')
                             <div class="mt-2">
                                 <livewire:order.import-export-order />
                             </div>
@@ -40,7 +40,7 @@
                     </div>
 
                     @if ($trashed)
-                        @can('force-bulk-delete-order')
+                        @can('force-bulk-delete-order-kids')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
                                     <x-force-bulk-delete-button />
@@ -50,7 +50,7 @@
                             </td>
                         @endcan
                     @else
-                        @can('bulk-delete-order')
+                        @can('bulk-delete-order-kids')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
                                     <x-bulk-delete-button />
@@ -67,7 +67,7 @@
                         <tr>
                             @if (count($orders) > 1)
                                 @if ($trashed)
-                                    @can('force-bulk-delete-order')
+                                    @can('force-bulk-delete-order-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
                                                 <x-checkbox wire:click="checkboxAll" />
@@ -75,7 +75,7 @@
                                         </td>
                                     @endcan
                                 @else
-                                    @can('bulk-delete-order')
+                                    @can('bulk-delete-order-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
                                                 <x-checkbox wire:click="checkboxAll" />
@@ -209,13 +209,13 @@
                             <tr wire:key="order-{{ $order->id }}" class="odd:bg-gray-100">
                                 @if (count($orders) > 1)
                                     @if ($trashed)
-                                        @can('force-bulk-delete-order')
+                                        @can('force-bulk-delete-order-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr" value="{{ $order->id }}" />
                                             </td>
                                         @endcan
                                     @else
-                                        @can('bulk-delete-order')
+                                        @can('bulk-delete-order-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr" value="{{ $order->id }}" />
                                             </td>

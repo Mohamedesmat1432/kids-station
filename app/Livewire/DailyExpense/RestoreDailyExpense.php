@@ -24,9 +24,9 @@ class RestoreDailyExpense extends Component
 
     public function restore()
     {
-        $this->authorize('restore-daily-expense-product');
+        $this->authorize('restore-daily-expense-kids');
         $this->restoreDailyExpense($this->id);
-        $this->dispatch('refresh-list-daily-expense');
+        $this->dispatch('refresh-list-daily-expense-kids');
         $this->successNotify(__('site.daily_expense_restored'));
         $this->restore_modal = false;
     }

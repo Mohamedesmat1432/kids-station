@@ -8,11 +8,8 @@ use Livewire\WithPagination;
 
 trait OfferTrait
 {
-    use WithNotify;
-    use SortSearchTrait;
-    use WithFileUploads;
-    use WithPagination;
-    use ModalTrait;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
+
     public ?Offer $offer;
     public $offer_id;
     public $name;

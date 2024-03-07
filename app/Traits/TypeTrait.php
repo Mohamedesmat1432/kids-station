@@ -8,11 +8,8 @@ use Livewire\WithPagination;
 
 trait TypeTrait
 {
-    use WithNotify;
-    use SortSearchTrait;
-    use WithPagination;
-    use ModalTrait;
-    use WithFileUploads;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
+
     public ?Type $type;
     public $type_id;
     public $type_name_id;

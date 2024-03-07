@@ -16,10 +16,10 @@ class ListOrder extends Component
         $this->checkbox_arr = [];
     }
 
-    #[On('refresh-list-order')]
+    #[On('refresh-list-order-kids')]
     public function render()
     {
-        $this->authorize('view-order');
+        $this->authorize('view-order-kids');
 
         return view('livewire.order.list-order', [
             'orders' => $this->orderList(),

@@ -19,10 +19,10 @@ class ListDailyExpense extends Component
         $this->checkbox_arr = [];
     }
 
-    #[On('refresh-list-daily-expense')]
+    #[On('refresh-list-daily-expense-kids')]
     public function render()
     {
-        $this->authorize('view-daily-expense');
+        $this->authorize('view-daily-expense-kids');
 
         return view('livewire.daily-expense.list-daily-expense', [
             'daily_expenses' => $this->dailyExpenseList(),

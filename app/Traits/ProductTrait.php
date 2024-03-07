@@ -9,11 +9,7 @@ use Livewire\WithPagination;
 
 trait ProductTrait
 {
-    use WithNotify;
-    use ModalTrait;
-    use SortSearchTrait;
-    use WithPagination;
-    use WithFileUploads;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
 
     public ?Product $product;
     public $product_id;

@@ -8,11 +8,8 @@ use Livewire\WithPagination;
 
 trait DailyExpenseProductTrait
 {
-    use WithNotify;
-    use SortSearchTrait;
-    use WithPagination;
-    use ModalTrait;
-    use WithFileUploads;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
+
     public ?DailyExpenseProduct $daily_expense;
     public $daily_expense_id;
     public $user_id;

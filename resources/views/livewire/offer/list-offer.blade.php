@@ -30,11 +30,11 @@
                             <x-trash-group-button />
                         </div>
 
-                        @can('import-export-offer')
+                        {{-- @can('import-export-offer')
                             <div class="mt-2">
                                 <livewire:offer.import-export-offer />
                             </div>
-                        @endcan
+                        @endcan --}}
                     </div>
 
                     @if ($trashed)

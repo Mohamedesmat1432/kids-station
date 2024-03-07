@@ -21,9 +21,9 @@ class CreateOrder extends Component
 
     public function save()
     {
-        $this->authorize('create-order');
+        $this->authorize('create-order-kids');
         $this->storeOrder();
-        $this->dispatch('refresh-list-order');
+        $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_created'));
     }
 

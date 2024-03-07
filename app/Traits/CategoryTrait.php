@@ -8,11 +8,7 @@ use Livewire\WithPagination;
 
 trait CategoryTrait
 {
-    use WithNotify;
-    use SortSearchTrait;
-    use WithPagination;
-    use ModalTrait;
-    use WithFileUploads;
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
 
     public ?Category $category;
     public $category_id;

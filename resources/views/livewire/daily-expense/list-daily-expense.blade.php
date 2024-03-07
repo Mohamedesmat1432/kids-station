@@ -32,7 +32,7 @@
                             <x-trash-group-button />
                         </div>
 
-                        {{-- @can('import-export-daily-expense')
+                        {{-- @can('import-export-daily-expense-kids')
                             <div class="mt-2">
                                 <livewire:daily-expense.import-export-daily-expense />
                             </div>
@@ -41,7 +41,7 @@
 
                     @if (count($daily_expenses) > 1)
                         @if ($trashed)
-                            @can('force-bulk-delete-daily-expense')
+                            @can('force-bulk-delete-daily-expense-kids')
                                 <td class="px-4 py-2 border">
                                     <div class="mt-3">
                                         <x-force-bulk-delete-button />
@@ -51,7 +51,7 @@
                                 </td>
                             @endcan
                         @else
-                            @can('bulk-delete-daily-expense')
+                            @can('bulk-delete-daily-expense-kids')
                                 <td class="px-4 py-2 bo@elserder">
                                     <div class="mt-3">
                                         <x-bulk-delete-button />
@@ -69,7 +69,7 @@
                         <tr>
                             @if (count($daily_expenses) > 1)
                                 @if ($trashed)
-                                    @can('force-bulk-delete-daily-expense')
+                                    @can('force-bulk-delete-daily-expense-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
                                                 <x-checkbox wire:click="checkboxAll" />
@@ -77,7 +77,7 @@
                                         </td>
                                     @endcan
                                 @else
-                                    @can('bulk-delete-daily-expense')
+                                    @can('bulk-delete-daily-expense-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
                                                 <x-checkbox wire:click="checkboxAll" />
@@ -147,14 +147,14 @@
                             <tr wire:key="daily-expense-{{ $daily_expense->id }}" class="odd:bg-gray-100">
                                 @if (count($daily_expenses) > 1)
                                     @if ($trashed)
-                                        @can('force-bulk-delete-daily-expense')
+                                        @can('force-bulk-delete-daily-expense-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr"
                                                     value="{{ $daily_expense->id }}" />
                                             </td>
                                         @endcan
                                     @else
-                                        @can('bulk-delete-daily-expense')
+                                        @can('bulk-delete-daily-expense-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr"
                                                     value="{{ $daily_expense->id }}" />

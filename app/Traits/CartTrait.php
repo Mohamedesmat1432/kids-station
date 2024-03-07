@@ -10,9 +10,8 @@ use Livewire\WithPagination;
 
 trait CartTrait
 {
-    use WithNotify;
-    use WithPagination;
-    use SortSearchTrait;
+    use WithNotify, SortSearchTrait, WithPagination;
+
     public $cartItems = [];
     public $quantity = 1;
 

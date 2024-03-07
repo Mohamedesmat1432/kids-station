@@ -1,5 +1,5 @@
 <div>
-    <x-create-button permission="create-order" />
+    <x-create-button permission="create-order-kids" />
 
     @if ($this->create_modal)
         <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">

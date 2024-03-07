@@ -12,9 +12,9 @@ class CreateMoneySafe extends Component
 
     public function save()
     {
-        $this->authorize('create-money-safe');
+        $this->authorize('create-money-safe-kids');
         $this->storeMoneySafe();
-        $this->dispatch('refresh-list-money-safe');
+        $this->dispatch('refresh-list-money-safe-kids');
         $this->successNotify(__('site.money_safe_created'));
     }
     
