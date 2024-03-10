@@ -27,9 +27,8 @@ trait CategoryTrait
     public function categoryList()
     {
         return cache()->remember('categories', 1, function () {
-            $categories = $this->trashed ? Category::onlyTrashed() : new Category();
 
-            return $categories->when($this->search, function ($query) {
+            return Category::withTrashed($this->trashed)->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });

@@ -102,16 +102,15 @@ trait DailyExpenseProductTrait
     public function dailyExpenseList()
     {
         return cache()->remember('daily_expenses_product', 1, function () {
-            (auth()->user()->hasRole(['Super Admin', 'Admin']))
-                ? $daily_expenses = $this->trashed ? DailyExpenseProduct::onlyTrashed() : new DailyExpenseProduct()
-                : $daily_expenses = $this->trashed ? auth()->user()->dailyExpenseProducts()->onlyTrashed() : auth()->user()->dailyExpenseProducts();
+            $daily_expenses = (auth()->user()->hasRole(['Super Admin', 'Admin']))
+                ? DailyExpenseProduct::withTrashed($this->trashed)
+                : auth()->user()->dailyExpenseProducts()->withTrashed($this->trashed);
 
             return $daily_expenses->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('price', 'like', '%' . $this->search . '%');
                 });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
                 ->paginate($this->page_element);
         });
     }

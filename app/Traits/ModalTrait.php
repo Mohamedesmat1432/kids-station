@@ -15,6 +15,4 @@ trait ModalTrait
     public $force_bulk_delete_modal = false;
     public $import_modal = false;
     public $export_modal = false;
-    public $trashed = false;
-
 }

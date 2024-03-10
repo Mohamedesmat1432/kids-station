@@ -30,7 +30,7 @@ trait UnitTrait
     {
         return cache()->remember('units', 1, function () {
 
-            $units = $this->trashed ? Unit::onlyTrashed() : new Unit();
+            $units = $this->trashed ? Unit::onlyTrashed() : Unit::withoutTrashed();
 
             return $units->when($this->search, function ($query) {
                 return $query->where(function ($query) {

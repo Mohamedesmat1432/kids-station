@@ -225,9 +225,16 @@ trait OrderTrait
     public function orderList()
     {
         return cache()->remember('orders', 1, function () {
-            (auth()->user()->hasRole(['Super Admin', 'Admin']))
-                ? $orders = $this->trashed ? Order::onlyTrashed() : new Order()
-                : $orders = $this->trashed ? auth()->user()->orders()->onlyTrashed() : auth()->user()->orders();
+
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $orders = $this->trashed 
+                    ? Order::onlyTrashed() 
+                    : Order::withoutTrashed();
+            } else {
+                $orders = $this->trashed 
+                    ? auth()->user()->orders()->onlyTrashed() 
+                    : auth()->user()->orders()->withoutTrashed();
+            }
                 
             return $orders->when($this->search, function ($query) {
                 return $query->where(function ($query) {

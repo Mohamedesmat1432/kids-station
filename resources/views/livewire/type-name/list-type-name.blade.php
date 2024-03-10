@@ -37,7 +37,7 @@
                         @endcan
                     </div>
 
-                    @if ($trashed)
+                    @if ($this->trashed)
                         @can('force-bulk-delete-type-name')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -64,7 +64,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($type_names) > 1)
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     @can('force-bulk-delete-type-name')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
@@ -117,7 +117,7 @@
                         @forelse ($type_names as $type)
                             <tr wire:key="type-{{ $type->id }}" class="odd:bg-gray-100">
                                 @if (count($type_names) > 1)
-                                    @if ($trashed)
+                                    @if ($this->trashed)
                                         @can('force-bulk-delete-type-name')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr" value="{{ $type->id }}" />
@@ -148,7 +148,7 @@
                                         </span>
                                     @endif
                                 </td>
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-type-name" id="{{ $type->id }}"
                                             name="{{ $type->name }}" />

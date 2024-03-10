@@ -40,7 +40,7 @@
                     </div>
 
                     @if (count($daily_expenses) > 1)
-                        @if ($trashed)
+                        @if ($this->trashed)
                             @can('force-bulk-delete-daily-expense-kids')
                                 <td class="px-4 py-2 border">
                                     <div class="mt-3">
@@ -68,7 +68,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($daily_expenses) > 1)
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     @can('force-bulk-delete-daily-expense-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
@@ -146,7 +146,7 @@
                         @forelse ($daily_expenses as $daily_expense)
                             <tr wire:key="daily-expense-{{ $daily_expense->id }}" class="odd:bg-gray-100">
                                 @if (count($daily_expenses) > 1)
-                                    @if ($trashed)
+                                    @if ($this->trashed)
                                         @can('force-bulk-delete-daily-expense-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr"
@@ -196,7 +196,7 @@
                                 <td class="p-2 border">
                                     {{ \Helper::formatHours($daily_expense->updated_at) }}
                                 </td>
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-daily-expense"
                                             id="{{ $daily_expense->id }}" name="" />

@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    @if ($trashed)
+                    @if ($this->trashed)
                         @can('force-bulk-delete-product-order')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -57,7 +57,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($product_orders) > 1)
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     @can('force-bulk-delete-product-order')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
@@ -143,7 +143,7 @@
                         @forelse ($product_orders as $product_order)
                             <tr wire:key="product-order-{{ $product_order->id }}" class="odd:bg-gray-100">
                                 @if (count($product_orders) > 1)
-                                    @if ($trashed)
+                                    @if ($this->trashed)
                                         @can('force-bulk-delete-product-order')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr"
@@ -200,7 +200,7 @@
                                 <td class="p-2 border">
                                     {{ App\Helpers\Helper::formatHours($product_order->created_at) }}
                                 </td>
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-product-order"
                                             id="{{ $product_order->id }}"

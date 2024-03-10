@@ -39,14 +39,11 @@ trait MoneySafeProductTrait
     public function moneySafeProductList()
     {
         return cache()->remember('money_safe_products', 1, function () {
-            $money_safe_products = auth()
-                ->user()
-                ->hasRole(['Super Admin', 'Admin'])
+            $money_safe_products = auth()->user()->hasRole(['Super Admin', 'Admin'])
                 ? new MoneySafeProduct()
                 : auth()->user()->moneySafeProducts();
 
-            return $money_safe_products
-                ->when($this->search, function ($query) {
+            return $money_safe_products->when($this->search, function ($query) {
                     return $query->where(function ($query) {
                         $query->where('date_now', 'like', '%' . $this->search . '%');
                     });

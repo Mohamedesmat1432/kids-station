@@ -42,8 +42,8 @@ trait ProductTrait
 
     public function productList()
     {
-        return cache()->remember('products', 2, function () {
-            $products = $this->trashed ? Product::onlyTrashed() : new Product();
+        return cache()->remember('products', 1, function () {
+            $products = $this->trashed ? Product::onlyTrashed() : Product::withoutTrashed();
 
             return $products->when($this->search, function ($query) {
                 return $query->where(function ($query) {

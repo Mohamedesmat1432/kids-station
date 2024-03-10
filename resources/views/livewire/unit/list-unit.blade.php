@@ -37,7 +37,7 @@
                         @endcan
                     </div>
 
-                    @if ($trashed)
+                    @if ($this->trashed)
                         @can('force-bulk-delete-unit')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -64,7 +64,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($units) > 1)
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     @can('force-bulk-delete-unit')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">

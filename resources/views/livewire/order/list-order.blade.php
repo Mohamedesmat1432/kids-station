@@ -39,7 +39,7 @@
                         @endcan --}}
                     </div>
 
-                    @if ($trashed)
+                    @if ($this->trashed)
                         @can('force-bulk-delete-order-kids')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -66,7 +66,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($orders) > 1)
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     @can('force-bulk-delete-order-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
@@ -196,7 +196,7 @@
                                     <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td> --}}
-                            <td class="px-4 py-2 border" colspan="{{ $trashed ? 2 : 3 }}">
+                            <td class="px-4 py-2 border" colspan="{{ $this->trashed ? 2 : 3 }}">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -208,7 +208,7 @@
                         @forelse ($orders as $order)
                             <tr wire:key="order-{{ $order->id }}" class="odd:bg-gray-100">
                                 @if (count($orders) > 1)
-                                    @if ($trashed)
+                                    @if ($this->trashed)
                                         @can('force-bulk-delete-order-kids')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr" value="{{ $order->id }}" />
@@ -285,7 +285,7 @@
                                 {{-- <td class="p-2 border">
                                     {{ $order->status }}
                                 </td> --}}
-                                @if ($trashed)
+                                @if ($this->trashed)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-order" id="{{ $order->id }}"
                                             name="{{ $order->customer_name }}" />

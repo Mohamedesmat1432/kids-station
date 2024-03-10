@@ -29,7 +29,7 @@ trait TypeNameTrait
     public function typeNameList()
     {
         return cache()->remember('type_names', 1, function () {
-            $type_names = $this->trashed ? TypeName::onlyTrashed() : new TypeName();
+            $type_names = $this->trashed ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
             
             return $type_names->when($this->search, function ($query) {
                 return $query->where(function ($query) {

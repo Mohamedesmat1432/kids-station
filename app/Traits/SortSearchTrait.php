@@ -20,6 +20,9 @@ trait SortSearchTrait
 
     #[Url('')]
     public $page_element = 10;
+    
+    #[Url('')]
+    public $trashed = false;
 
     public function updatingPageElement()
     {
@@ -27,6 +30,11 @@ trait SortSearchTrait
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingTrashed()
     {
         $this->resetPage();
     }
