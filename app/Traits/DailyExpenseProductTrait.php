@@ -84,7 +84,7 @@ trait DailyExpenseProductTrait
         $daily_expenses_trashed = DailyExpenseProduct::onlyTrashed()->pluck('id')->toArray();
         $daily_expenses = DailyExpenseProduct::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $daily_expenses_trashed : $daily_expenses;
+        $data = $this->trash ? $daily_expenses_trashed : $daily_expenses;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -102,10 +102,16 @@ trait DailyExpenseProductTrait
     public function dailyExpenseList()
     {
         return cache()->remember('daily_expenses_product', 1, function () {
-            $daily_expenses = (auth()->user()->hasRole(['Super Admin', 'Admin']))
-                ? DailyExpenseProduct::withTrashed($this->trashed)
-                : auth()->user()->dailyExpenseProducts()->withTrashed($this->trashed);
-
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $daily_expenses = $this->trash 
+                    ? DailyExpenseProduct::onlyTrashed() 
+                    : DailyExpenseProduct::withoutTrashed();
+            } else {
+                $daily_expenses = $this->trash 
+                    ? auth()->user()->dailyExpenseProducts()->onlyTrashed() 
+                    : auth()->user()->dailyExpenseProducts()->withoutTrashed();
+            }
+            
             return $daily_expenses->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('price', 'like', '%' . $this->search . '%');

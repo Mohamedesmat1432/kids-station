@@ -207,7 +207,7 @@ trait OrderTrait
         $orders_trashed = Order::onlyTrashed()->pluck('id')->toArray();
         $orders = Order::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $orders_trashed : $orders;
+        $data = $this->trash ? $orders_trashed : $orders;
 
         if ($checkbox_count < 1 || $checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -227,11 +227,11 @@ trait OrderTrait
         return cache()->remember('orders', 1, function () {
 
             if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $orders = $this->trashed 
+                $orders = $this->trash 
                     ? Order::onlyTrashed() 
                     : Order::withoutTrashed();
             } else {
-                $orders = $this->trashed 
+                $orders = $this->trash 
                     ? auth()->user()->orders()->onlyTrashed() 
                     : auth()->user()->orders()->withoutTrashed();
             }

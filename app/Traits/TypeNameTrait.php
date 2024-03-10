@@ -29,7 +29,7 @@ trait TypeNameTrait
     public function typeNameList()
     {
         return cache()->remember('type_names', 1, function () {
-            $type_names = $this->trashed ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
+            $type_names = $this->trash ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
             
             return $type_names->when($this->search, function ($query) {
                 return $query->where(function ($query) {
@@ -73,7 +73,7 @@ trait TypeNameTrait
         $types_trashed = TypeName::onlyTrashed()->pluck('id')->toArray();
         $types = TypeName::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $types_trashed : $types;
+        $data = $this->trash ? $types_trashed : $types;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

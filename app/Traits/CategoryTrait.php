@@ -27,8 +27,9 @@ trait CategoryTrait
     public function categoryList()
     {
         return cache()->remember('categories', 1, function () {
+            $categories = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
 
-            return Category::withTrashed($this->trashed)->when($this->search, function ($query) {
+            return $categories->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('name', 'like', '%' . $this->search . '%');
                 });
@@ -80,7 +81,7 @@ trait CategoryTrait
         $categories_trashed = Category::onlyTrashed()->pluck('id')->toArray();
         $categories = Category::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $categories_trashed : $categories;
+        $data = $this->trash ? $categories_trashed : $categories;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

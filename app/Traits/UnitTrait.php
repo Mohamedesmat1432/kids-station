@@ -30,7 +30,7 @@ trait UnitTrait
     {
         return cache()->remember('units', 1, function () {
 
-            $units = $this->trashed ? Unit::onlyTrashed() : Unit::withoutTrashed();
+            $units = $this->trash ? Unit::onlyTrashed() : Unit::withoutTrashed();
 
             return $units->when($this->search, function ($query) {
                 return $query->where(function ($query) {
@@ -74,7 +74,7 @@ trait UnitTrait
         $units_trashed = Unit::onlyTrashed()->pluck('id')->toArray();
         $units = Unit::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $units_trashed : $units;
+        $data = $this->trash ? $units_trashed : $units;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

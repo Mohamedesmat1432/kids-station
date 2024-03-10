@@ -216,7 +216,7 @@ return [
     'data' => 'البيانات',
     'daily_expenses_product' => 'المصرفات اليومية للمنتجات',
     'months' => 'الشهور',
-    'trashed' => 'المحذوفات',
+    'trash' => 'المحذوفات',
     'list' => 'القائمة',
     'restore_category' => 'استرجاع القسم',
     'are_you_sure_to_want_restore' => 'هل انت متأكد من استرجاع ',

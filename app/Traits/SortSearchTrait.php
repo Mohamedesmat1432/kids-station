@@ -22,7 +22,7 @@ trait SortSearchTrait
     public $page_element = 10;
     
     #[Url('')]
-    public $trashed = false;
+    public $trash = false;
 
     public function updatingPageElement()
     {
@@ -34,7 +34,7 @@ trait SortSearchTrait
         $this->resetPage();
     }
 
-    public function updatingTrashed()
+    public function updatingTrash()
     {
         $this->resetPage();
     }

@@ -64,7 +64,7 @@ trait TypeTrait
         $types_trashed = Type::onlyTrashed()->pluck('id')->toArray();
         $types = Type::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $types_trashed : $types;
+        $data = $this->trash ? $types_trashed : $types;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -82,7 +82,7 @@ trait TypeTrait
     public function typeList()
     {
         return cache()->remember('types', 1, function () {
-            $types = $this->trashed ? Type::onlyTrashed() : Type::withoutTrashed();
+            $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
             
             return $types->when($this->search, function ($query) {
                 return $query->where(function ($query) {

@@ -84,7 +84,7 @@ trait DailyExpenseTrait
         $daily_expenses_trashed = DailyExpense::onlyTrashed()->pluck('id')->toArray();
         $daily_expenses = DailyExpense::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $daily_expenses_trashed : $daily_expenses;
+        $data = $this->trash ? $daily_expenses_trashed : $daily_expenses;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -102,10 +102,16 @@ trait DailyExpenseTrait
     public function dailyExpenseList()
     {
         return cache()->remember('daily_expenses', 1, function () {
-            $daily_expenses = (auth()->user()->hasRole(['Super Admin', 'Admin']))
-                ? DailyExpense::withTrashed($this->trashed)
-                : auth()->user()->dailyExpenses()->withTrashed($this->trashed);
-            
+            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+                $daily_expenses = $this->trash 
+                    ? DailyExpense::onlyTrashed() 
+                    : DailyExpense::withoutTrashed();
+            } else {
+                $daily_expenses = $this->trash 
+                    ? auth()->user()->dailyExpenses()->onlyTrashed() 
+                    : auth()->user()->dailyExpenses()->withoutTrashed();
+            }
+
             return $daily_expenses->when($this->search, function ($query) {
                 return $query->where(function ($query) {
                     $query->where('price', 'like', '%' . $this->search . '%');

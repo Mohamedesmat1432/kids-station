@@ -61,7 +61,7 @@ trait OfferTrait
         $offers_trashed = Offer::onlyTrashed()->pluck('id')->toArray();
         $offers = Offer::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $offers_trashed : $offers;
+        $data = $this->trash ? $offers_trashed : $offers;
 
         if ($checkbox_count < 1 || $checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -79,7 +79,7 @@ trait OfferTrait
     public function offerList()
     {
         return cache()->remember('offers', 1, function () {
-            $offers = $this->trashed ? Offer::onlyTrashed() : Offer::withoutTrashed();
+            $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
             
             return $offers->when($this->search, function ($query) {
                 return $query->where(function ($query) {

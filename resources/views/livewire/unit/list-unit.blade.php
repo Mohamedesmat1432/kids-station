@@ -37,7 +37,7 @@
                         @endcan
                     </div>
 
-                    @if ($this->trashed)
+                    @if ($this->trash)
                         @can('force-bulk-delete-unit')
                             <td class="px-4 py-2 border">
                                 <div class="mt-3">
@@ -64,7 +64,7 @@
                     <x-slot name="thead">
                         <tr>
                             @if (count($units) > 1)
-                                @if ($this->trashed)
+                                @if ($this->trash)
                                     @can('force-bulk-delete-unit')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
@@ -117,7 +117,7 @@
                         @forelse ($units as $unit)
                             <tr wire:key="type-{{ $unit->id }}" class="odd:bg-gray-100">
                                 @if (count($units) > 1)
-                                    @if ($this->trashed)
+                                    @if ($this->trash)
                                         @can('force-bulk-delete-unit')
                                             <td class="p-2 border">
                                                 <x-checkbox wire:model.live="checkbox_arr" value="{{ $unit->id }}" />
@@ -140,7 +140,7 @@
                                 <td class="p-2 border">
                                     {{ $unit->qty }}
                                 </td>
-                                @if ($this->trashed)
+                                @if ($this->trash)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-unit" id="{{ $unit->id }}"
                                             name="{{ $unit->name }}" />

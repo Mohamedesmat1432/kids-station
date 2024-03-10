@@ -43,7 +43,7 @@ trait ProductTrait
     public function productList()
     {
         return cache()->remember('products', 1, function () {
-            $products = $this->trashed ? Product::onlyTrashed() : Product::withoutTrashed();
+            $products = $this->trash ? Product::onlyTrashed() : Product::withoutTrashed();
 
             return $products->when($this->search, function ($query) {
                 return $query->where(function ($query) {
@@ -120,7 +120,7 @@ trait ProductTrait
         $products_trashed = Product::onlyTrashed()->pluck('id')->toArray();
         $products = Product::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $products_trashed : $products;
+        $data = $this->trash ? $products_trashed : $products;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;

@@ -41,7 +41,7 @@ trait ProductOrderTrait
         $product_orders_trashed = ProductOrder::onlyTrashed()->pluck('id')->toArray();
         $product_orders = ProductOrder::pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trashed ? $product_orders_trashed : $product_orders;
+        $data = $this->trash ? $product_orders_trashed : $product_orders;
 
         if ($checkbox_count < count($data)) {
             $this->checkbox_arr = $data;
@@ -60,11 +60,11 @@ trait ProductOrderTrait
     {
         return cache()->remember('product_orders', 1, function () {
             if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $product_orders = $this->trashed 
+                $product_orders = $this->trash 
                     ? ProductOrder::onlyTrashed() 
                     : ProductOrder::withoutTrashed();
             } else {
-                $product_orders = $this->trashed 
+                $product_orders = $this->trash 
                     ? auth()->user()->productOrders()->onlyTrashed() 
                     : auth()->user()->productOrders()->withoutTrashed();
             }

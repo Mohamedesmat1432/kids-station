@@ -213,7 +213,7 @@ return [
     'data' => 'Data',
     'daily_expenses_product' => 'Daily Expense Products',
     'months' => 'Months',
-    'trashed' => 'Trashed',
+    'trash' => 'Trash List',
     'list' => 'List',
     'restore_category' => 'Restore Category',
     'are_you_sure_to_want_restore' => 'Are you sure to want restore ',
