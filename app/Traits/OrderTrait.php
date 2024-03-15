@@ -224,29 +224,26 @@ trait OrderTrait
 
     public function orderList()
     {
-        return cache()->remember('orders', 1, function () {
-
-            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $orders = $this->trash 
-                    ? Order::onlyTrashed() 
-                    : Order::withoutTrashed();
-            } else {
-                $orders = $this->trash 
-                    ? auth()->user()->orders()->onlyTrashed() 
-                    : auth()->user()->orders()->withoutTrashed();
-            }
-                
-            return $orders->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('number', 'like', '%' . $this->search . '%')
-                        ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-                        ->orWhere('visitors', 'like', '%' . $this->search . '%')
-                        ->orWhere('total', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+            $orders = $this->trash 
+                ? Order::onlyTrashed() 
+                : Order::withoutTrashed();
+        } else {
+            $orders = $this->trash 
+                ? auth()->user()->orders()->onlyTrashed() 
+                : auth()->user()->orders()->withoutTrashed();
+        }
+            
+        return $orders->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('number', 'like', '%' . $this->search . '%')
+                    ->orWhere('customer_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
+                    ->orWhere('visitors', 'like', '%' . $this->search . '%')
+                    ->orWhere('total', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function restoreOrder($id)

@@ -78,17 +78,15 @@ trait OfferTrait
 
     public function offerList()
     {
-        return cache()->remember('offers', 1, function () {
-            $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
+        $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
             
-            return $offers->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('price', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return $offers->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('price', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function restoreOffer($id)

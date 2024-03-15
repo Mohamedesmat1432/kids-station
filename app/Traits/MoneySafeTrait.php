@@ -41,14 +41,12 @@ trait MoneySafeTrait
 
     public function moneySafeList()
     {
-        return cache()->remember('money_safes', 1, function () {
-            $money_safes = auth()->user()->hasRole(['Super Admin', 'Admin'])
-                ? new MoneySafe()
-                : auth()->user()->moneySafes();
+        $money_safes = auth()->user()->hasRole(['Super Admin', 'Admin'])
+            ? new MoneySafe()
+            : auth()->user()->moneySafes();
 
-            return $money_safes->whereBetween('created_at', [$this->start_date, $this->end_date])
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return $money_safes->whereBetween('created_at', [$this->start_date, $this->end_date])
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 }

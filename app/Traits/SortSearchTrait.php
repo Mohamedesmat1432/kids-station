@@ -7,22 +7,30 @@ use Livewire\Attributes\Url;
 trait SortSearchTrait
 {
     #[Url('')]
-    public $search = '';
+    public string $search = '';
 
     #[Url('')]
-    public $filter = '';
+    public string $filter = '';
 
     #[Url('')]
-    public $sort_by = 'id';
+    public string $sort_by = 'id';
 
     #[Url('')]
-    public $sort_asc = false;
+    public bool $sort_asc = false;
 
     #[Url('')]
-    public $page_element = 10;
+    public int $page_element = 10;
     
     #[Url('')]
-    public $trash = false;
+    public bool $trash = false;
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort_by) {
+            $this->sort_asc = !$this->sort_asc;
+        }
+        $this->sort_by = $field;
+    }
 
     public function updatingPageElement()
     {
@@ -42,13 +50,5 @@ trait SortSearchTrait
     public function updatingFilter()
     {
         $this->resetPage();
-    }
-
-    public function sortByField($field)
-    {
-        if ($field == $this->sort_by) {
-            $this->sort_asc = !$this->sort_asc;
-        }
-        $this->sort_by = $field;
     }
 }

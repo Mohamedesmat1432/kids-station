@@ -72,14 +72,11 @@ trait RoleTrait
 
     public function roleList()
     {
-        return cache()->remember('roles', 1, function () {
-            return Role::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return Role::when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 }

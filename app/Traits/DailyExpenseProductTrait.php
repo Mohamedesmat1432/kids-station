@@ -101,24 +101,22 @@ trait DailyExpenseProductTrait
 
     public function dailyExpenseList()
     {
-        return cache()->remember('daily_expenses_product', 1, function () {
-            if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-                $daily_expenses = $this->trash 
-                    ? DailyExpenseProduct::onlyTrashed() 
-                    : DailyExpenseProduct::withoutTrashed();
-            } else {
-                $daily_expenses = $this->trash 
-                    ? auth()->user()->dailyExpenseProducts()->onlyTrashed() 
-                    : auth()->user()->dailyExpenseProducts()->withoutTrashed();
-            }
-            
-            return $daily_expenses->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('price', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+            $daily_expenses = $this->trash 
+                ? DailyExpenseProduct::onlyTrashed() 
+                : DailyExpenseProduct::withoutTrashed();
+        } else {
+            $daily_expenses = $this->trash 
+                ? auth()->user()->dailyExpenseProducts()->onlyTrashed() 
+                : auth()->user()->dailyExpenseProducts()->withoutTrashed();
+        }
+        
+        return $daily_expenses->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('price', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function restoreDailyExpense($id)

@@ -28,18 +28,14 @@ trait UnitTrait
 
     public function unitList()
     {
-        return cache()->remember('units', 1, function () {
+        $units = $this->trash ? Unit::onlyTrashed() : Unit::withoutTrashed();
 
-            $units = $this->trash ? Unit::onlyTrashed() : Unit::withoutTrashed();
-
-            return $units->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return $units->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function setUnit($id)

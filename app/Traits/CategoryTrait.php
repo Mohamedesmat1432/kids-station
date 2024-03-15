@@ -26,16 +26,14 @@ trait CategoryTrait
 
     public function categoryList()
     {
-        return cache()->remember('categories', 1, function () {
-            $categories = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
+        $categories = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
 
-            return $categories->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
-                });
-            })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return $categories->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function setCategory($id)

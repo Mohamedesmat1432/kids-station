@@ -81,17 +81,14 @@ trait TypeTrait
 
     public function typeList()
     {
-        return cache()->remember('types', 1, function () {
-            $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
+        $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
             
-            return $types->when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('price', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return $types->when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('price', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function restoreType($id)
