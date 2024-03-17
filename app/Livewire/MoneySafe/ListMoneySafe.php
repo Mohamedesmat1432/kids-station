@@ -2,6 +2,7 @@
 
 namespace App\Livewire\MoneySafe;
 
+use App\Models\User;
 use App\Traits\MoneySafeTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -13,10 +14,8 @@ class ListMoneySafe extends Component
     #[On('refresh-list-money-safe-kids')]
     public function render()
     {
-        $this->authorize('view-money-safe-kids');
-
         return view('livewire.money-safe.list-money-safe', [
-            'money_safes' => $this->moneySafeList(),
+            'users' => User::get(['id','name'])
         ])->layout('layouts.app');
     }
 }

@@ -3,17 +3,19 @@
 namespace App\Traits;
 
 use App\Models\DailyExpenseProduct;
-use App\Models\MoneySafeProduct;
 use App\Models\ProductOrder;
-use Livewire\WithPagination;
+use App\Models\User;
 
 trait MoneySafeProductTrait
 {
-    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
-    public ?MoneySafeProduct $money_safe;
+    use WithNotify;
     public $user_id;
     public $start_date;
     public $end_date;
+    public $casher_name;
+    public $total_order;
+    public $total_daily_expense;
+    public $total;
 
     protected function rules()
     {
@@ -24,29 +26,25 @@ trait MoneySafeProductTrait
         ];
     }
 
-    public function storeMoneySafeProduct()
+    public function showMoneySafeProduct()
     {
-        $validated = $this->validate();
-        $product_orders = ProductOrder::where('user_id', '=', $this->user_id)->whereBetween('created_at', [$this->start_date, $this->end_date]);
-        $daily_expense_products = DailyExpenseProduct::where('user_id', $this->user_id)->whereBetween('created_at', [$this->start_date, $this->end_date]);
-        $validated['total_order'] = $product_orders->sum('total');
-        $validated['total_daily_expense'] = $daily_expense_products->sum('total');
-        $validated['total'] = $validated['total_order'] - $validated['total_daily_expense'];
-        MoneySafeProduct::create($validated);
-        $this->reset();
-    }
+        $this->validate();
 
-    public function moneySafeProductList()
-    {
-        $money_safe_products = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new MoneySafeProduct()
-            : auth()->user()->moneySafeProducts();
+        $product_orders = ProductOrder::where('user_id', $this->user_id)
+            ->whereDate('created_at', '>=', $this->start_date)
+            ->whereDate('created_at', '<=', $this->end_date);
 
-        return $money_safe_products->when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('date_now', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-        ->paginate($this->page_element);
+        $daily_expense_products = DailyExpenseProduct::where('user_id', $this->user_id)
+            ->whereDate('created_at', '>=', $this->start_date)
+            ->whereDate('created_at', '<=', $this->end_date);
+
+        $user = User::findOrFail($this->user_id);
+
+        $this->casher_name = $user->name;
+        $this->total_order = $product_orders->sum('total');
+        $this->total_daily_expense = $daily_expense_products->sum('total');
+        $this->total = $this->total_order - $this->total_daily_expense;
+
+        $this->dispatch('refresh-list-money-safe-product');
     }
 }

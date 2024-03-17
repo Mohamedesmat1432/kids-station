@@ -3,19 +3,20 @@
 namespace App\Traits;
 
 use App\Models\DailyExpense;
-use App\Models\MoneySafe;
 use App\Models\Order;
-use Carbon\Carbon;
-use Livewire\WithPagination;
+use App\Models\User;;
 
 trait MoneySafeTrait
 {
-    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+    use WithNotify;
 
-    public ?MoneySafe $money_safe;
     public $user_id;
     public $start_date;
     public $end_date;
+    public $casher_name;
+    public $total_order;
+    public $total_daily_expense;
+    public $total;
 
     protected function rules()
     {
@@ -26,27 +27,24 @@ trait MoneySafeTrait
         ];
     }
 
-    public function storeMoneySafe()
+    public function showMoneySafe()
     {
-        $validated = $this->validate();
-        $order = Order::where('user_id', '=', $this->user_id)->whereBetween('created_at', [$this->start_date, $this->end_date]);
-        $daily_expense = DailyExpense::where('user_id', $this->user_id)->whereBetween('created_at', [$this->start_date, $this->end_date]);
-        $validated['date_now'] = Carbon::now();
-        $validated['total_order'] = $order->sum('total') - $order->sum('last_total');
-        $validated['total_daily_expense'] = $daily_expense->sum('total');
-        $validated['total'] = $validated['total_order'] - $validated['total_daily_expense'];
-        MoneySafe::create($validated);
-        $this->reset();
-    }
+        $this->validate();
 
-    public function moneySafeList()
-    {
-        $money_safes = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new MoneySafe()
-            : auth()->user()->moneySafes();
+        $order = Order::where('user_id', $this->user_id)
+            ->whereDate('created_at', '>=', $this->start_date)
+            ->whereDate('created_at', '<=', $this->end_date);
 
-        return $money_safes->whereBetween('created_at', [$this->start_date, $this->end_date])
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $daily_expense = DailyExpense::where('user_id', $this->user_id)
+            ->whereDate('created_at', '>=', $this->start_date)
+            ->whereDate('created_at', '<=', $this->end_date);
+
+        $user = User::findOrFail($this->user_id);
+
+        $this->casher_name = $user->name;
+        $this->total_order = $order->sum('total') - $order->sum('last_total');
+        $this->total_daily_expense = $daily_expense->sum('total');
+        $this->total = $this->total_order - $this->total_daily_expense;
+        $this->dispatch('refresh-list-money-safe-kids');
     }
 }

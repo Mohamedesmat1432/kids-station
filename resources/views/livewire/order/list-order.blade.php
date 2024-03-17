@@ -287,22 +287,22 @@
                                 </td> --}}
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-order" id="{{ $order->id }}"
+                                        <x-restore-button permission="restore-order-kids" id="{{ $order->id }}"
                                             name="{{ $order->customer_name }}" />
                                     </td>
                                     <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-order"
+                                        <x-force-delete-button permission="force-delete-order-kids"
                                             id="{{ $order->id }}" name="{{ $order->customer_name }}" />
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-show-button permission="show-order" id="{{ $order->id }}" />
+                                        <x-show-button permission="show-order-kids" id="{{ $order->id }}" />
                                     </td>
                                     <td class="p-2 border">
-                                        <x-attach-button permission="attach-order" id="{{ $order->id }}" />
+                                        <x-attach-button permission="attach-order-kids" id="{{ $order->id }}" />
                                     </td>
                                     <td class="p-2 border">
-                                        <x-delete-button permission="delete-order" id="{{ $order->id }}"
+                                        <x-delete-button permission="delete-order-kids" id="{{ $order->id }}"
                                             name="{{ $order->customer_name }}" />
                                     </td>
                                 @endif

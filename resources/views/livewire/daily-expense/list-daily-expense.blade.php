@@ -198,19 +198,19 @@
                                 </td>
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-daily-expense"
+                                        <x-restore-button permission="restore-daily-expense-kids"
                                             id="{{ $daily_expense->id }}" name="" />
                                     </td>
                                     <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-daily-expense"
+                                        <x-force-delete-button permission="force-delete-daily-expense-kids"
                                             id="{{ $daily_expense->id }}" name="" />
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-edit-button permission="edit-daily-expense" id="{{ $daily_expense->id }}" />
+                                        <x-edit-button permission="edit-daily-expense-kids" id="{{ $daily_expense->id }}" />
                                     </td>
                                     <td class="p-2 border">
-                                        <x-delete-button permission="delete-daily-expense"
+                                        <x-delete-button permission="delete-daily-expense-kids"
                                             id="{{ $daily_expense->id }}" name="" />
                                     </td>
                                 @endif

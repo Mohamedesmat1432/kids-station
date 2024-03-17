@@ -1,129 +1,62 @@
 <div>
     <x-page-content page-name="{{ __('site.money_safe_products') }}">
 
-        {{-- <livewire:money-safe-product.update-money-safe-product />
-
-        <livewire:money-safe-product.restore-money-safe-product />
-
-        <livewire:money-safe-product.delete-money-safe-product />
-        
-        <livewire:money-safe-product.force-delete-money-safe-product /> --}}
-
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 
             <div class="md:flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
                     {{ __('site.money_safe_products') }}
                 </h1>
-                <livewire:money-safe-product.create-money-safe-product />
             </div>
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
                     <div class="md:flex justify-between">
                         <div class="mt-2">
-                            <x-input type="search" wire:model.live.debounce.500ms="search"
-                                placeholder="{{ __('site.search') }}..." />
+                            <form wire:submit="showMoneySafeProduct" class="md:flex">
+                                <div class="col-span-6 sm:col-span-4 mt-3">
+                                    <x-select class="mt-1 block w-full" wire:model="user_id">
+                                        <option value="">{{ __('site.select_user') }}</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </x-select>
+                                    <x-input-error for="user_id" class="mt-2" />
+                                </div>
+                                <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
+                                    <x-input type="date" class="mt-1 block w-full" wire:model="start_date"
+                                        placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
+                                    <x-input-error for="start_date" class="mt-2" />
+                                </div>
+                                <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
+                                    <x-input type="date" class="mt-1 block w-full" wire:model="end_date"
+                                        placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
+                                    <x-input-error for="end_date" class="mt-2" />
+                                </div>
+                                <div class="col-span-6 sm:col-span-4 mt-3">
+                                    <x-indigo-button class="mt-1 block md:w-full" type="submit" wire:loading.attr="disabled">
+                                        {{ __('site.show') }}
+                                    </x-indigo-button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
 
-                <x-table>
-                    <x-slot name="thead">
-                        <tr>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('id')">
-                                        {{ __('site.id') }}
-                                    </button>
-                                    <x-sort-icon sort_field="id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('user_id')">
-                                        {{ __('site.name') }}
-                                    </button>
-                                    <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('date_now')">
-                                        {{ __('site.date_now') }}
-                                    </button>
-                                    <x-sort-icon sort_field="date_now" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('total_order')">
-                                        {{ __('site.total_order') }}
-                                    </button>
-                                    <x-sort-icon sort_field="total_order" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('total_daily_expense')">
-                                        {{ __('site.total_daily_expense') }}
-                                    </button>
-                                    <x-sort-icon sort_field="total_daily_expense" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('total')">
-                                        {{ __('site.total') }}
-                                    </button>
-                                    <x-sort-icon sort_field="total" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                </div>
-                            </td>
-                            {{-- <td class="px-4 py-2 border" colspan="2">
-                                <div class="flex justify-center">
-                                    {{ __('site.action') }}
-                                </div>
-                            </td> --}}
-                        </tr>
-                    </x-slot>
-                    <x-slot name="tbody">
-                        @forelse ($money_safe_products as $money_safe)
-                            <tr wire:key="money_safe-product-{{ $money_safe->id }}" class="odd:bg-gray-100">
-                                <td class="p-2 border">
-                                    {{ $loop->iteration }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ $money_safe->user->name ?? '' }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ \Helper::formatDate($money_safe->date_now ?? '') }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ $money_safe->total_order }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ $money_safe->total_daily_expense }}
-                                </td>
-                                <td class="p-2 border">
-                                    {{ $money_safe->total }}
-                                </td>
-                                {{-- <td class="p-2 border">
-                                    xxx
-                                </td> --}}
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="12" class="p-2 border text-center">
-                                    {{ __('site.no_data_found') }}
-                                </td>
-                            </tr>
-                        @endforelse
-                    </x-slot>
-                </x-table>
-
-                @if ($money_safe_products->hasPages())
-                    <x-paginate :data-links="$money_safe_products->links()" />
-                @endif
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3">
+                    <div class="bg-green-500 hover:bg-green-600 rounded p-3 text-white text-center text-2xl">
+                        <div>{{ __('site.total_order') }}</div>
+                        <div>{{$this->total_order ?? '--'}}</div>
+                    </div>
+                    <div class="bg-yellow-500 hover:bg-yellow-600 rounded p-3 text-white text-center text-2xl">
+                        <div>{{ __('site.total_daily_expense') }}</div>
+                        <div>{{$this->total_daily_expense ?? '--'}}</div>
+                    </div>
+                    <div class="bg-red-500 hover:bg-red-600 rounded p-3 text-white text-center text-2xl">
+                        <div>{{ __('site.total') }}</div>
+                        <div>{{$this->total ?? '--'}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </x-page-content>

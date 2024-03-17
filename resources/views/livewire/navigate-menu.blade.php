@@ -29,7 +29,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Settings Dropdown -->
                 <div class="ml-3 relative">
-                    <x-dropdown align="{{ __('site.right') }}" width="48">
+                    <x-dropdown align="{{ __('site.right') }}" width="56">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button

@@ -25,4 +25,12 @@ class Product extends Model
     {
         return $this->belongsTo(Unit::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%')
+                ->orWhere('price', 'like', '%' . $search . '%');
+        });
+    }
 }

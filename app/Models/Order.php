@@ -36,4 +36,15 @@ class Order extends Model
     {
         return $this->belongsTo(Type::class, 'visitors');
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('number', 'like', '%' . $search . '%')
+            ->orWhere('customer_name', 'like', '%' . $search . '%')
+            ->orWhere('customer_phone', 'like', '%' . $search . '%')
+            ->orWhere('visitors', 'like', '%' . $search . '%')
+            ->orWhere('total', 'like', '%' . $search . '%');
+        });
+    }
 }

@@ -22,4 +22,11 @@ class DailyExpenseProduct extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('total', 'like', '%' . $search . '%');
+        });
+    }
 }

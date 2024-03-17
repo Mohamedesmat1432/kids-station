@@ -5,6 +5,8 @@ namespace App\Livewire\Dashboard;
 use App\Models\Category;
 use App\Models\DailyExpense;
 use App\Models\DailyExpenseProduct;
+use App\Models\MoneySafe;
+use App\Models\MoneySafeProduct;
 use App\Models\Offer;
 use App\Models\Order;
 use App\Models\Permission;
@@ -44,15 +46,15 @@ class DashboardComponent extends Component
                 'hover' => 'hover:bg-gray-600',
                 'count' => Role::count(),
             ],
-            [
-                'name' => 'permissions',
-                'value' => __('site.permissions'),
-                'icon' => 'receipt-percent',
-                'role' => 'view-permission',
-                'bg' => 'bg-red-500',
-                'hover' => 'hover:bg-red-600',
-                'count' => Permission::count(),
-            ],
+            // [
+            //     'name' => 'permissions',
+            //     'value' => __('site.permissions'),
+            //     'icon' => 'receipt-percent',
+            //     'role' => 'view-permission',
+            //     'bg' => 'bg-red-500',
+            //     'hover' => 'hover:bg-red-600',
+            //     'count' => Permission::count(),
+            // ],
             [
                 'name' => 'orders',
                 'value' => __('site.orders'),
@@ -72,6 +74,26 @@ class DashboardComponent extends Component
                 'hover' => 'hover:bg-blue-600',
                 'count' => ProductOrder::count(),
                 'total' => ProductOrder::sum('total'),
+            ],
+            [
+                'name' => 'daily.expenses',
+                'value' => __('site.daily_expenses'),
+                'icon' => 'briefcase',
+                'role' => 'view-daily-expense-kids',
+                'bg' => 'bg-blue-500',
+                'hover' => 'hover:bg-blue-600',
+                'count' => DailyExpense::count(),
+                'total' => DailyExpense::sum('total'),
+            ],
+            [
+                'name' => 'daily.expenses.product',
+                'value' => __('site.daily_expenses_product'),
+                'icon' => 'briefcase',
+                'role' => 'view-daily-expense-product',
+                'bg' => 'bg-blue-500',
+                'hover' => 'hover:bg-blue-600',
+                'count' => DailyExpenseProduct::count(),
+                'total' => DailyExpenseProduct::sum('total'),
             ],
             [
                 'name' => 'categories',
@@ -130,50 +152,26 @@ class DashboardComponent extends Component
         ];
     }
 
-    public function totalOrdersByMonth()
-    {
-        $orders = Order::select(DB::raw('sum(total) as total'), DB::raw('sum(last_total) as last_total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
-
-        return $orders;
-    }
-
-    public function totalProductOrdersByMonth()
-    {
-        $product_orders = ProductOrder::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
-
-        return $product_orders;
-    }
-
-    public function totalDailyExpensesByMonth()
-    {
-        $daily_expenses = DailyExpense::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
-
-        return $daily_expenses;
-    }
-
-    public function totalDailyExpenseProductsByMonth()
-    {
-        $daily_expenses_product = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
-
-        return $daily_expenses_product;
-    }
-
     public function render()
     {
+        $orders_by_months = Order::select(DB::raw('sum(total) as total'), DB::raw('sum(last_total) as last_total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
+
+        $product_orders_by_months = ProductOrder::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
+
+        $daily_expenses = DailyExpense::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
+
+        $daily_expenses_product = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
+
         return view('livewire.dashboard.dashboard-component', [
             'dashboard_links' => $this->dashboardLinks(),
-            'orders_by_months' => $this->totalOrdersByMonth(),
-            'product_orders_by_months' => $this->totalProductOrdersByMonth(),
-            'daily_expenses' => $this->totalDailyExpensesByMonth(),
-            'daily_expenses_product' => $this->totalDailyExpenseProductsByMonth(),
+            'orders_by_months' => $orders_by_months,
+            'product_orders_by_months' => $product_orders_by_months,
+            'daily_expenses' => $daily_expenses,
+            'daily_expenses_product' => $daily_expenses_product,
         ])->layout('layouts.app');
 
     }

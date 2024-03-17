@@ -6,39 +6,39 @@
             </x-slot>
 
             <x-slot name="content">
-                @if ($data)
-                    @foreach ($data as $key => $item)
-                        <div class="grid md:grid-cols-3 md:gap-3">
-                            <div class="relative z-0 w-full mb-5 group">
-                                <x-label for="name" value="{{ __('site.name') }}" />
-                                <x-input type="text" class="mt-1 block w-full"
-                                    wire:model="data.{{ $key }}.name" placeholder="{{ __('site.name') }}"
-                                    autocomplete="data.{{ $key }}.name" />
-                                <x-input-error for="data.{{ $key }}.name" class="mt-2" />
-                            </div>
-                            <div class="relative z-0 w-full mb-5 group">
-                                <x-label for="price" value="{{ __('site.price') }}" />
-                                <x-input type="number" class="mt-1 block w-full" 
-                                    wire:model="data.{{ $key }}.price" placeholder="{{ __('site.price') }}" />
-                                <x-input-error for="data.{{ $key }}.price" class="mt-2" />
-                            </div>
-                            @if ($loop->index !== 0)
-                                <div class="relative z-0 w-full mb-5 group mt-6">
-                                    <x-danger-button wire:click="remove({{ $key }})"
-                                        wire:loading.attr="disabled">
-                                        {{ __('site.remove') }}
-                                    </x-danger-button>
-                                </div>
-                            @else
-                                <div class="relative z-0 w-full mb-5 group mt-6">
-                                    <x-indigo-button wire:click="add" wire:loading.attr="disabled">
-                                        {{ __('site.add_more') }}
-                                    </x-indigo-button>
-                                </div>
-                            @endif
+                @forelse ($data as $key => $item)
+                    <div class="grid md:grid-cols-3 md:gap-5">
+                        <div class="relative z-0 w-full mb-5 group">
+                            <x-label for="name" value="{{ __('site.name') }}" />
+                            <x-input type="text" class="mt-1 block w-full" wire:model="data.{{ $key }}.name"
+                                placeholder="{{ __('site.name') }}" autocomplete="data.{{ $key }}.name" />
+                            <x-input-error for="data.{{ $key }}.name" class="mt-2" />
                         </div>
-                    @endforeach
-                @endif
+                        <div class="relative z-0 w-full mb-5 group">
+                            <x-label for="price" value="{{ __('site.price') }}" />
+                            <x-input type="number" class="mt-1 block w-full"
+                                wire:model="data.{{ $key }}.price" placeholder="{{ __('site.price') }}" />
+                            <x-input-error for="data.{{ $key }}.price" class="mt-2" />
+                        </div>
+                        @if ($loop->index !== 0)
+                            <div class="relative z-0 w-full mb-5 group mt-6">
+                                <x-danger-button wire:click="remove({{ $key }})" wire:loading.attr="disabled">
+                                    {{ __('site.remove') }}
+                                </x-danger-button>
+                            </div>
+                        @else
+                            <div class="relative z-0 w-full mb-5 group mt-6">
+                                <x-indigo-button wire:click="add" wire:loading.attr="disabled">
+                                    {{ __('site.add_more') }}
+                                </x-indigo-button>
+                            </div>
+                        @endif
+                    </div>
+                @empty
+                    <div class="relative z-0 w-full mb-5 group">
+                        {{ __('site.no_data_found') }}
+                    </div>
+                @endforelse
             </x-slot>
 
             <x-slot name="footer">

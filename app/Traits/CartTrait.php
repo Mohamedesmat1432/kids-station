@@ -12,26 +12,23 @@ trait CartTrait
 {
     use WithNotify, SortSearchTrait, WithPagination;
 
-    public $cartItems = [];
-    public $quantity = 1;
+    public array $cartItems = [];
+    public int $quantity = 1;
 
     public function cartData()
     {
-        return Cart::getContent()->sortKeys()->toArray();
+        $this->cartItems = Cart::getContent()->sortKeys()->toArray();
     }
 
     public function productList()
     {
-        return cache()->remember('products', 1, function () {
-            return Product::when($this->search, function ($query) {
-                return $query->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('price', 'like', '%' . $this->search . '%');
-                });
-            })
-                ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-                ->paginate($this->page_element);
-        });
+        return Product::when($this->search, function ($query) {
+            return $query->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('price', 'like', '%' . $this->search . '%');
+            });
+        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
     }
 
     public function addToCart(Product $product)

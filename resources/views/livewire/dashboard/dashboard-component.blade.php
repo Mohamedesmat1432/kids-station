@@ -6,7 +6,7 @@
 
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2 p-6 lg:p-8 bg-white border-b border-gray-200">
             <div class="mt-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     @foreach ($dashboard_links as $link)
                         @can($link['role'])
                             <a wire:navigate href="{{ route($link['name']) }}">
@@ -28,6 +28,8 @@
                 </div>
             </div>
             <div class="mx-5">
+
+                {{-- orders --}}
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.orders') }}
@@ -83,6 +85,7 @@
                     </x-slot>
                 </x-table>
 
+                {{-- product_orders --}}
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.product_orders') }}
@@ -138,6 +141,7 @@
                     </x-slot>
                 </x-table>
 
+                {{-- daily_expenses --}}
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.daily_expenses') }}
@@ -193,6 +197,7 @@
                     </x-slot>
                 </x-table>
 
+                {{-- daily_expenses_product --}}
                 <x-table>
                     <x-slot name="caption">
                         {{ __('site.daily_expenses_product') }}

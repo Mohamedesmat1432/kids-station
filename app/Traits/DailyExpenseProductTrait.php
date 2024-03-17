@@ -111,12 +111,8 @@ trait DailyExpenseProductTrait
                 : auth()->user()->dailyExpenseProducts()->withoutTrashed();
         }
         
-        return $daily_expenses->when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('price', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        return $daily_expenses->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
     }
 
     public function restoreDailyExpense($id)

@@ -234,16 +234,8 @@ trait OrderTrait
                 : auth()->user()->orders()->withoutTrashed();
         }
             
-        return $orders->when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('number', 'like', '%' . $this->search . '%')
-                    ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
-                    ->orWhere('visitors', 'like', '%' . $this->search . '%')
-                    ->orWhere('total', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        return $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
     }
 
     public function restoreOrder($id)

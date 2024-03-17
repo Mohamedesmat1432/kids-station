@@ -30,12 +30,8 @@ trait TypeNameTrait
     {
         $type_names = $this->trash ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
             
-        return $type_names->when($this->search, function ($query) {
-            return $query->where(function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            });
-        })->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        return $type_names->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
     }
 
     public function setTypeName($id)

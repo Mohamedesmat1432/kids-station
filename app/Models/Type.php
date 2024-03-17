@@ -31,4 +31,11 @@ class Type extends Model
     {
         return $query->where('status', true);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('price', 'like', '%' . $search . '%');
+        });
+    }
 }

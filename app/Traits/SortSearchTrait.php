@@ -21,8 +21,13 @@ trait SortSearchTrait
     #[Url('')]
     public int $page_element = 10;
     
-    #[Url('')]
     public bool $trash = false;
+
+    #[Url('')]
+    public $start_date_search = '';
+
+    #[Url('')]
+    public $end_date_search = '';
 
     public function sortByField($field)
     {
@@ -42,9 +47,20 @@ trait SortSearchTrait
         $this->resetPage();
     }
 
+    public function updatingStartDateSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingEndDateSearch()
+    {
+        $this->resetPage();
+    }
+
     public function updatingTrash()
     {
         $this->resetPage();
+        $this->reset();  
     }
 
     public function updatingFilter()

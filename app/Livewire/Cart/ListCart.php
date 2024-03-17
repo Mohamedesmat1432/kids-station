@@ -13,7 +13,7 @@ class ListCart extends Component
     #[On('refresh-list-cart')]
     public function render()
     {
-        $this->cartItems = $this->cartData();
+        $this->cartData();
 
         return view('livewire.cart.list-cart');
     }

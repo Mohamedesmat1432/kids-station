@@ -25,4 +25,11 @@ class TypeName extends Model
     {
         return $query->where('status', true);
     }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        });
+    }
 }

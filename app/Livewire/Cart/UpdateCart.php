@@ -4,6 +4,7 @@ namespace App\Livewire\Cart;
 
 use App\Models\Product;
 use App\Traits\CartTrait;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Cart;
 
@@ -34,6 +35,11 @@ class UpdateCart extends Component
         }
     }
 
+    #[On('refresh-list-cart')]
+    public function refresh()
+    {
+        $this->resetPage();
+        }
     public function render()
     {
         return view('livewire.cart.update-cart');

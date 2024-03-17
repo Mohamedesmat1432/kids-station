@@ -16,12 +16,6 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-profile',
             ],
             [
-                'name' => 'users',
-                'value' => 'site.users',
-                'icon' => 'user-group',
-                'role' => 'view-user',
-            ],
-            [
                 'name' => 'roles',
                 'value' => 'site.roles',
                 'icon' => 'lock-closed',
@@ -76,16 +70,16 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-daily-expense-kids',
             ],
             [
-                'name' => 'daily.expenses.product',
-                'value' => 'site.daily_expenses_product',
-                'icon' => 'arrow-up-right',
-                'role' => 'view-daily-expense-product',
-            ],
-            [
                 'name' => 'money.safe',
                 'value' => 'site.money_safes',
                 'icon' => 'banknotes',
                 'role' => 'view-money-safe-kids',
+            ],
+            [
+                'name' => 'daily.expenses.product',
+                'value' => 'site.daily_expenses_product',
+                'icon' => 'arrow-up-right',
+                'role' => 'view-daily-expense-product',
             ],
             [
                 'name' => 'money.safe.product',
@@ -104,6 +98,12 @@ class NavigateMenu extends NavigationMenu
                 'value' => 'site.dashboard',
                 'icon' => 'chart-bar-square',
                 'role' => 'view-dashboard',
+            ],
+            [
+                'name' => 'users',
+                'value' => 'site.users',
+                'icon' => 'user-group',
+                'role' => 'view-user',
             ],
             [
                 'name' => 'orders',

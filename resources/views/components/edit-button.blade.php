@@ -1,6 +1,6 @@
 @props(['permission', 'id'])
 
-<span x-data="{ tooltip: false }" x-on:mouseover="tooltip = true" x-on:mouseleave="tooltip = false" class="relative">
+<span x-cloak x-data="{ tooltip: false }" x-on:mouseover="tooltip = true" x-on:mouseleave="tooltip = false" class="relative">
     
     <div x-show="tooltip" class="absolute bg-gray-500 rounded-md bottom-8 z-10 text-white px-2">
         {{ __('site.edit') }}
