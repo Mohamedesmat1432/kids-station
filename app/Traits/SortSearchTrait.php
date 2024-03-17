@@ -23,12 +23,6 @@ trait SortSearchTrait
     
     public bool $trash = false;
 
-    #[Url('')]
-    public $start_date_search = '';
-
-    #[Url('')]
-    public $end_date_search = '';
-
     public function sortByField($field)
     {
         if ($field == $this->sort_by) {
@@ -43,16 +37,6 @@ trait SortSearchTrait
     }
 
     public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingStartDateSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingEndDateSearch()
     {
         $this->resetPage();
     }
