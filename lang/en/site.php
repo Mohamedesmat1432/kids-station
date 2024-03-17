@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'create' => 'Create',
+    'show' => 'Show',
+    'edit' => 'Edit',
+    'update' => 'Update',
+    'delete' => 'Delete',
     'dashboard' => 'Dashboard',
     'wellcome_to_dashboard' => 'Wellcome to dashboard',
     'users' => 'Users',
@@ -35,9 +40,6 @@ return [
     'total' => 'Total',
     'serial' => 'Serial',
     'are_you_sure_to_want_delete' => 'Are you sure to want delete ',
-    'create' => 'Create',
-    'update' => 'Update',
-    'delete' => 'Delete',
     'create_new_offer' => 'Create New Offer',
     'update_offer' => 'Update Offer',
     'delete_offer' => 'Delete Offer',
@@ -219,7 +221,6 @@ return [
     'are_you_sure_to_want_restore' => 'Are you sure to want restore ',
     'force_delete_category' => 'Force Delete Category',
     'force_bulk_delete_category' => 'Force Bulk Delete Category',
-    'edit' => 'Edit',
     'force_delete' => 'Force Delete',
     'restore' => 'Restore',
     'showing' => 'Showing',

@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'create' => 'انشاء',
+    'show' => 'عرض',
+    'edit' => 'تعديل',
+    'update' => 'تحديث',
+    'delete' => 'حذف',
     'dashboard' => 'لوحة التحكم',
     'wellcome_to_dashboard' => 'مرحبا بك في لوحة التحكم ',
     'users' => 'المستخدمين',
@@ -36,9 +41,6 @@ return [
     'total' => 'الاجمالي',
     'serial' => 'الاسورة',
     'are_you_sure_to_want_delete' => 'هل انت متأكد من حذف ',
-    'create' => 'انشاء',
-    'update' => 'تحديث',
-    'delete' => 'حذف',
     'create_new_offer' => 'انشاء عرض جديد',
     'update_offer' => 'تحديث العرض',
     'delete_offer' => 'حذف العرض',
@@ -222,7 +224,6 @@ return [
     'are_you_sure_to_want_restore' => 'هل انت متأكد من استرجاع ',
     'force_delete_category' => 'حذف القسم نهائيا',
     'force_bulk_delete_category' => 'حذف اﻷقسام نهائيا',
-    'edit' => 'تعديل',
     'force_delete' => 'حذف نهائيا',
     'restore' => 'استرجاع',
     'showing' => 'عرض',
