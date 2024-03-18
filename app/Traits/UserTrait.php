@@ -44,24 +44,38 @@ trait UserTrait
 
     public function storeUser()
     {
+        $this->authorize('create-user');
         $validated = $this->validate();
         $validated['password'] = Hash::make($this->password);
         $user = User::create($validated);
         $user->syncRoles($this->role);
         $this->reset();
+        $this->dispatch('refresh-list-user');
+        $this->successNotify(__('site.user_created'));
+        $this->create_modal = false;
     }
 
     public function updateUser()
     {
+        $this->authorize('edit-user');
         $validated = $this->validate();
         $this->user->syncRoles($this->role);
         $this->user->update($validated);
+        $this->dispatch('refresh-list-user');
+        $this->dispatch('refresh-navigation-menu');
+        $this->successNotify(__('site.user_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteUser($id)
     {
+        $this->authorize('delete-user');
         $user = User::findOrFail($id);
         $user->delete();
+        $this->dispatch('refresh-list-user');
+        $this->dispatch('refresh-navigation-menu');
+        $this->successNotify(__('User deleted successfully'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
@@ -84,6 +98,8 @@ trait UserTrait
 
     public function userList()
     {
+        $this->authorize('view-user');
+
         return User::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->search($this->search)->paginate($this->page_element);
     }

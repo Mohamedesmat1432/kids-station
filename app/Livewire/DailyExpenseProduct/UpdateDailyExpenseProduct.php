@@ -21,11 +21,7 @@ class UpdateDailyExpenseProduct extends Component
 
     public function save()
     {
-        $this->authorize('edit-daily-expense-product');
         $this->updateDailyExpense();
-        $this->dispatch('refresh-list-daily-expense-product');
-        $this->successNotify(__('site.daily_expense_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

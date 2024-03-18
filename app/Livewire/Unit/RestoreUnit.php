@@ -24,11 +24,7 @@ class RestoreUnit extends Component
 
     public function restore()
     {
-        $this->authorize('restore-unit');
         $this->restoreUnit($this->id);
-        $this->dispatch('refresh-list-unit');
-        $this->successNotify(__('site.unit_restored'));
-        $this->restore_modal = false;
     }
 
     public function render()

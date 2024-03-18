@@ -14,8 +14,6 @@ class ListUser extends Component
     #[On('refresh-list-user')]
     public function render()
     {
-        $this->authorize('view-user');
-
         return view('livewire.user.list-user', [
             'users' => $this->userList(),
         ])->layout('layouts.app');

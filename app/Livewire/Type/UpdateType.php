@@ -22,11 +22,7 @@ class UpdateType extends Component
 
     public function save()
     {
-        $this->authorize('edit-type');
         $this->updateType();
-        $this->dispatch('refresh-list-type');
-        $this->successNotify(__('site.type_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

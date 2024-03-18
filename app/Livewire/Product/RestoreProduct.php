@@ -24,11 +24,7 @@ class RestoreProduct extends Component
 
     public function restore()
     {
-        $this->authorize('restore-product');
         $this->restoreProduct($this->id);
-        $this->dispatch('refresh-list-product');
-        $this->successNotify(__('site.product_restored'));
-        $this->restore_modal = false;
     }
 
     public function render()

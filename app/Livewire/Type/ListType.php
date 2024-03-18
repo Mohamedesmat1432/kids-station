@@ -19,8 +19,6 @@ class ListType extends Component
     #[On('refresh-list-type')]
     public function render()
     {
-        $this->authorize('view-type');
-
         return view('livewire.type.list-type', [
             'types' => $this->typeList(),
         ])->layout('layouts.app');

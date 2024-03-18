@@ -30,7 +30,7 @@ trait OfferTrait
 
     public function setOffer($id)
     {
-        $this->offer = Offer::findOrFail($id);
+        $this->offer = Offer::withoutTrashed()->findOrFail($id);
         $this->offer_id = $this->offer->id;
         $this->name = $this->offer->name;
         $this->price = $this->offer->price;
@@ -39,27 +39,39 @@ trait OfferTrait
 
     public function storeOffer()
     {
+        $this->authorize('create-offer');
         $validated = $this->validate();
         Offer::create($validated);
         $this->reset();
+        $this->dispatch('refresh-list-offer');
+        $this->successNotify(__('site.offer_created'));
+        $this->create_modal = false;
     }
 
     public function updateOffer()
     {
+        $this->authorize('edit-offer');
         $validated = $this->validate();
         $this->offer->update($validated);
+        $this->dispatch('refresh-list-offer');
+        $this->successNotify(__('site.offer_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteOffer($id)
     {
-        $offer = Offer::findOrFail($id);
+        $this->authorize('delete-offer');
+        $offer = Offer::withoutTrashed()->findOrFail($id);
         $offer->delete();
+        $this->dispatch('refresh-list-offer');
+        $this->successNotify(__('site.offer_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $offers_trashed = Offer::onlyTrashed()->pluck('id')->toArray();
-        $offers = Offer::pluck('id')->toArray();
+        $offers = Offer::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $offers_trashed : $offers;
 
@@ -70,14 +82,21 @@ trait OfferTrait
         }
     }
 
-    public function bulkDeleteOffer()
+    public function bulkDeleteOffer($arr)
     {
-        $offers = Offer::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-offer');
+        $offers = Offer::withoutTrashed()->whereIn('id', $arr);
         $offers->delete();
+        $this->dispatch('refresh-list-offer');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.offer_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
     public function offerList()
     {
+        $this->authorize('view-offer');
+
         $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
             
         return $offers->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
@@ -86,19 +105,32 @@ trait OfferTrait
 
     public function restoreOffer($id)
     {
+        $this->authorize('restore-offer');
         $offer = Offer::onlyTrashed()->findOrFail($id);
         $offer->restore();
+        $this->dispatch('refresh-list-offer');
+        $this->successNotify(__('site.offer_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteOffer($id)
     {
+        $this->authorize('force-delete-offer');
         $offer = Offer::onlyTrashed()->findOrFail($id);
         $offer->forceDelete();
+        $this->dispatch('refresh-list-offer');
+        $this->successNotify(__('site.offer_deleted'));
+        $this->force_delete_modal = false;
     }
 
-    public function forceBulkDeleteOffer()
+    public function forceBulkDeleteOffer($arr)
     {
-        $offers = Offer::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-offer');
+        $offers = Offer::onlyTrashed()->whereIn('id', $arr);
         $offers->forceDelete();
+        $this->dispatch('refresh-list-offer');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.offer_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

@@ -19,11 +19,7 @@ class CreateUser extends Component
 
     public function save()
     {
-        $this->authorize('create-user');
         $this->storeUser();
-        $this->dispatch('refresh-list-user');
-        $this->successNotify(__('site.user_created'));
-        $this->create_modal = false;
     }
 
     public function render()

@@ -19,11 +19,7 @@ class CreateDailyExpense extends Component
 
     public function save()
     {
-        $this->authorize('create-daily-expense-kids');
         $this->storeDailyExpense();
-        $this->dispatch('refresh-list-daily-expense-kids');
-        $this->successNotify(__('site.daily_expense_created'));
-        $this->create_modal = false;
     }
 
     public function render()

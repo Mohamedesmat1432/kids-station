@@ -24,11 +24,7 @@ class RestoreTypeName extends Component
 
     public function restore()
     {
-        $this->authorize('restore-type-name');
         $this->restoreTypeName($this->id);
-        $this->dispatch('refresh-list-type-name');
-        $this->successNotify(__('site.type_restored'));
-        $this->restore_modal = false;
     }
 
     public function render()

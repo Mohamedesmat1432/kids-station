@@ -22,11 +22,7 @@ class UpdateUnit extends Component
 
     public function save()
     {
-        $this->authorize('edit-unit');
         $this->updateUnit();
-        $this->dispatch('refresh-list-unit');
-        $this->successNotify(__('site.unit_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

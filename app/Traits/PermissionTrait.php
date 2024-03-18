@@ -30,21 +30,33 @@ trait PermissionTrait
 
     public function storePermission()
     {
+        $this->authorize('create-permission');
         $validated = $this->validate();
         Permission::create($validated);
         $this->reset();
+        $this->dispatch('refresh-list-permission');
+        $this->successNotify(__('site.permission_created'));
+        $this->create_modal = false;
     }
 
     public function updatePermission()
     {
+        $this->authorize('edit-permission');
         $validated = $this->validate();
         $this->permission->update($validated);
+        $this->dispatch('refresh-list-permission');
+        $this->successNotify(__('site.permission_updated'));
+        $this->edit_modal = false;
     }
 
     public function deletePermission($id)
     {
+        $this->authorize('delete-permission');
         $permission = Permission::findOrFail($id);
         $permission->delete();
+        $this->dispatch('refresh-list-permission');
+        $this->successNotify(__('site.permission_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
@@ -59,14 +71,16 @@ trait PermissionTrait
         }
     }
 
-    public function bulkDeletePermission()
+    public function bulkDeletePermission($arr)
     {
-        $permissions = Permission::whereIn('id', $this->checkbox_arr);
+        $permissions = Permission::whereIn('id', $arr);
         $permissions->delete();
     }
 
     public function permissionList()
     {
+        $this->authorize('view-permission');
+
         return Permission::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->search($this->search)->paginate($this->page_element);
     }

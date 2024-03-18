@@ -21,12 +21,7 @@ class BulkDeleteDailyExpenseProduct extends Component
 
     public function delete()
     {
-        $this->authorize('bulk-delete-daily-expense-product');
-        $this->bulkDeleteDailyExpense();
-        $this->dispatch('refresh-list-daily-expense-product');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.daily_expense_delete_all'));
-        $this->bulk_delete_modal = false;
+        $this->bulkDeleteDailyExpense($this->checkbox_arr);
     }
 
     public function render()

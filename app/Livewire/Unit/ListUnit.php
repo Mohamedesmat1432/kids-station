@@ -19,8 +19,6 @@ class ListUnit extends Component
     #[On('refresh-list-unit')]
     public function render()
     {
-        $this->authorize('view-unit');
-
         return view('livewire.unit.list-unit', [
             'units' => $this->unitList(),
         ])->layout('layouts.app');

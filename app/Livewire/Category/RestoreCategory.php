@@ -24,13 +24,8 @@ class RestoreCategory extends Component
 
     public function restore()
     {
-        $this->authorize('restore-category');
         $this->restoreCategory($this->id);
-        $this->dispatch('refresh-list-category');
-        $this->successNotify(__('site.category_restored'));
-        $this->restore_modal = false;
     }
-
 
     public function render()
     {

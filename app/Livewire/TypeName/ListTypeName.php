@@ -19,8 +19,6 @@ class ListTypeName extends Component
     #[On('refresh-list-type-name')]
     public function render()
     {
-        $this->authorize('view-type-name');
-
         return view('livewire.type-name.list-type-name', [
             'type_names' => $this->typeNameList(),
         ])->layout('layouts.app');

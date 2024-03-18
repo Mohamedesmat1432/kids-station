@@ -18,11 +18,7 @@ class CreateUnit extends Component
 
     public function save()
     {
-        $this->authorize('create-unit');
         $this->storeUnit();
-        $this->dispatch('refresh-list-unit');
-        $this->successNotify(__('site.unit_created'));
-        $this->create_modal = false;
     }
 
     public function render()

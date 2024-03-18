@@ -22,12 +22,7 @@ class UpdateUser extends Component
 
     public function save()
     {
-        $this->authorize('edit-user');
         $this->updateUser();
-        $this->dispatch('refresh-list-user');
-        $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('site.user_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

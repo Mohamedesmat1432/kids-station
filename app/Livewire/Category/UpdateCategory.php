@@ -21,11 +21,7 @@ class UpdateCategory extends Component
 
     public function save()
     {
-        $this->authorize('edit-category');
         $this->updateCategory();
-        $this->dispatch('refresh-list-category');
-        $this->successNotify(__('site.category_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

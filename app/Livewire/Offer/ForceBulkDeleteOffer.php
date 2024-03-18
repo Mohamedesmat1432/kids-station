@@ -22,12 +22,7 @@ class ForceBulkDeleteOffer extends Component
 
     public function delete()
     {
-        $this->authorize('force-bulk-delete-offer');
-        $this->forceBulkDeleteOffer();
-        $this->dispatch('refresh-list-offer');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.offer_delete_all'));
-        $this->force_bulk_delete_modal = false;
+        $this->forceBulkDeleteOffer($this->checkbox_arr);
     }
 
     public function render()

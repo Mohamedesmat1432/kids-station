@@ -21,11 +21,7 @@ class UpdatePermission extends Component
 
     public function save()
     {
-        $this->authorize('edit-permission');
         $this->updatePermission();
-        $this->dispatch('refresh-list-permission');
-        $this->successNotify(__('site.permission_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

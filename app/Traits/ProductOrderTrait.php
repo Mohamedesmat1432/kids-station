@@ -20,7 +20,7 @@ trait ProductOrderTrait
 
     public function setProductOrder($id)
     {
-        $this->product_order = ProductOrder::findOrFail($id);
+        $this->product_order = ProductOrder::withoutTrashed()->findOrFail($id);
         $this->product_order_id = $this->product_order->id;
         $this->number = $this->product_order->number;
         $this->casher_name = $this->product_order->user->name;
@@ -32,14 +32,18 @@ trait ProductOrderTrait
 
     public function deleteProductOrder($id)
     {
-        $product_order = ProductOrder::findOrFail($id);
+        $this->authorize('delete-product-order');
+        $product_order = ProductOrder::withoutTrashed()->findOrFail($id);
         $product_order->delete();
+        $this->dispatch('refresh-list-product-order');
+        $this->successNotify(__('site.product_order_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $product_orders_trashed = ProductOrder::onlyTrashed()->pluck('id')->toArray();
-        $product_orders = ProductOrder::pluck('id')->toArray();
+        $product_orders = ProductOrder::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $product_orders_trashed : $product_orders;
 
@@ -50,14 +54,21 @@ trait ProductOrderTrait
         }
     }
 
-    public function bulkDeleteProductOrder()
+    public function bulkDeleteProductOrder($arr)
     {
-        $product_orders = ProductOrder::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-product-order');
+        $product_orders = ProductOrder::withoutTrashed()->whereIn('id', $arr);
         $product_orders->delete();
+        $this->dispatch('refresh-list-product-order');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.product_order_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
     public function productOrderList()
     {
+        $this->authorize('view-product-order');
+
         if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
             $product_orders = $this->trash 
                 ? ProductOrder::onlyTrashed() 
@@ -74,19 +85,32 @@ trait ProductOrderTrait
 
     public function restoreProductOrder($id)
     {
+        $this->authorize('restore-product-order');
         $product_orders = ProductOrder::onlyTrashed()->findOrFail($id);
         $product_orders->restore();
+        $this->dispatch('refresh-list-product-order');
+        $this->successNotify(__('site.product_order_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteProductOrder($id)
     {
+        $this->authorize('force-delete-product-order');
         $product_orders = ProductOrder::onlyTrashed()->findOrFail($id);
         $product_orders->forceDelete();
+        $this->dispatch('refresh-list-product-order');
+        $this->successNotify(__('site.product_order_deleted'));
+        $this->force_delete_modal = false;
     }
 
-    public function forceBulkDeleteProductOrder()
+    public function forceBulkDeleteProductOrder($arr)
     {
-        $product_orders = ProductOrder::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-product-order');
+        $product_orders = ProductOrder::onlyTrashed()->whereIn('id', $arr);
         $product_orders->forceDelete();
+        $this->dispatch('refresh-list-product-order');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.product_order_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

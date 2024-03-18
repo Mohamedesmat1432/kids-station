@@ -47,17 +47,20 @@ trait DailyExpenseProductTrait
 
     public function storeDailyExpense()
     {
+        $this->authorize('create-daily-expense-product');
         $validated = $this->validate();
         $validated['user_id'] = auth()->user()->id;
         $validated['total'] = $this->totalPriceData($this->data);
         DailyExpenseProduct::create($validated);
         $this->reset();
-        $this->fillRow();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->successNotify(__('site.daily_expense_created'));
+        $this->create_modal = false;
     }
 
     public function setDailyExpense($id)
     {
-        $this->daily_expense = DailyExpenseProduct::findOrFail($id);
+        $this->daily_expense = DailyExpenseProduct::withoutTrashed()->findOrFail($id);
         $this->daily_expense_id = $this->daily_expense->id;
         $this->user_id = $this->daily_expense->user_id;
         $this->data = collect($this->daily_expense->data);
@@ -66,23 +69,30 @@ trait DailyExpenseProductTrait
 
     public function updateDailyExpense()
     {
+        $this->authorize('edit-daily-expense-product');
         $validated = $this->validate();
         $validated['user_id'] = auth()->user()->id;
         $validated['total'] = $this->totalPriceData($this->data);
         $this->daily_expense->update($validated);
-        $this->fillRow();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->successNotify(__('site.daily_expense_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteDailyExpense($id)
     {
-        $daily_expense = DailyExpenseProduct::findOrFail($id);
+        $this->authorize('delete-daily-expense-product');
+        $daily_expense = DailyExpenseProduct::withoutTrashed()->findOrFail($id);
         $daily_expense->delete();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->successNotify(__('site.daily_expense_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $daily_expenses_trashed = DailyExpenseProduct::onlyTrashed()->pluck('id')->toArray();
-        $daily_expenses = DailyExpenseProduct::pluck('id')->toArray();
+        $daily_expenses = DailyExpenseProduct::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $daily_expenses_trashed : $daily_expenses;
 
@@ -93,14 +103,21 @@ trait DailyExpenseProductTrait
         }
     }
 
-    public function bulkDeleteDailyExpense()
+    public function bulkDeleteDailyExpense($arr)
     {
-        $daily_expenses = DailyExpenseProduct::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-daily-expense-product');
+        $daily_expenses = DailyExpenseProduct::withoutTrashed()->whereIn('id', $arr);
         $daily_expenses->delete();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.daily_expense_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
     public function dailyExpenseList()
     {
+        $this->authorize('view-daily-expense-product');
+
         if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
             $daily_expenses = $this->trash 
                 ? DailyExpenseProduct::onlyTrashed() 
@@ -117,19 +134,32 @@ trait DailyExpenseProductTrait
 
     public function restoreDailyExpense($id)
     {
+        $this->authorize('restore-daily-expense-product');
         $daily_expense = DailyExpenseProduct::onlyTrashed()->findOrFail($id);
         $daily_expense->restore();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->successNotify(__('site.daily_expense_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteDailyExpense($id)
     {
+        $this->authorize('force-delete-daily-expense-product');
         $daily_expense = DailyExpenseProduct::onlyTrashed()->findOrFail($id);
         $daily_expense->forceDelete();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->successNotify(__('site.daily_expense_deleted'));
+        $this->force_delete_modal = false;
     }
 
-    public function forceBulkDeleteDailyExpense()
+    public function forceBulkDeleteDailyExpense($arr)
     {
-        $daily_expenses = DailyExpenseProduct::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-daily-expense-product');
+        $daily_expenses = DailyExpenseProduct::onlyTrashed()->whereIn('id', $arr);
         $daily_expenses->forceDelete();
+        $this->dispatch('refresh-list-daily-expense-product');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.daily_expense_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

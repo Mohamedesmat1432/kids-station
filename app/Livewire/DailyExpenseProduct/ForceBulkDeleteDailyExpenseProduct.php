@@ -22,12 +22,7 @@ class ForceBulkDeleteDailyExpenseProduct extends Component
 
     public function delete()
     {
-        $this->authorize('force-bulk-delete-daily-expense-product');
-        $this->forceBulkDeleteDailyExpense();
-        $this->dispatch('refresh-list-daily-expense-product');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.daily_expense_delete_all'));
-        $this->force_bulk_delete_modal = false;
+        $this->forceBulkDeleteDailyExpense($this->checkbox_arr);
     }
 
     public function render()

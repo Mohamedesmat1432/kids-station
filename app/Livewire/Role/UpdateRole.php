@@ -22,12 +22,7 @@ class UpdateRole extends Component
 
     public function save()
     {
-        $this->authorize('edit-role');
         $this->updateRole();
-        $this->dispatch('refresh-list-role');
-        $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('site.role_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

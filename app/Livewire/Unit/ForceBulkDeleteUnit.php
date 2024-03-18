@@ -21,12 +21,7 @@ class ForceBulkDeleteUnit extends Component
 
     public function delete()
     {
-        $this->authorize('force-bulk-delete-unit');
-        $this->forceBulkDeleteUnit();
-        $this->dispatch('refresh-list-unit');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.unit_delete_all'));
-        $this->force_bulk_delete_modal = false;
+        $this->forceBulkDeleteUnit($this->checkbox_arr);
     }
 
     public function render()

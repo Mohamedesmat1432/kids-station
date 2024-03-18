@@ -24,12 +24,7 @@ class DeleteRole extends Component
 
     public function delete()
     {
-        $this->authorize('delete-role');
         $this->deleteRole($this->id);
-        $this->dispatch('refresh-list-role');
-        $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('site.role_deleted'));
-        $this->delete_modal = false;
     }
 
     public function render()

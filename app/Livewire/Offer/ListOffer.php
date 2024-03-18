@@ -19,8 +19,6 @@ class ListOffer extends Component
     #[On('refresh-list-offer')]
     public function render()
     {
-        $this->authorize('view-offer');
-
         return view('livewire.offer.list-offer', [
             'offers' => $this->offerList(),
         ])->layout('layouts.app');

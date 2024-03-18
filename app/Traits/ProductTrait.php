@@ -42,6 +42,8 @@ trait ProductTrait
 
     public function productList()
     {
+        $this->authorize('view-product');
+
         $products = $this->trash ? Product::onlyTrashed() : Product::withoutTrashed();
 
         return $products->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
@@ -50,7 +52,7 @@ trait ProductTrait
 
     public function setProduct($id)
     {
-        $this->product = Product::findOrFail($id);
+        $this->product = Product::withoutTrashed()->findOrFail($id);
         $this->product_id = $this->product->id;
         $this->name = $this->product->name;
         $this->description = $this->product->description;
@@ -76,41 +78,61 @@ trait ProductTrait
 
     public function storeProduct()
     {
+        $this->authorize('create-product');
         $validated = $this->validate();
         Product::create($validated);
         $this->reset();
+        $this->dispatch('refresh-list-product');
+        $this->successNotify(__('site.product_created'));
+        $this->create_modal = false;
     }
 
     public function updateProduct()
     {
+        $this->authorize('edit-product');
         $validated = $this->validate();
         $this->product->update($validated);
-        $this->reset();
+        $this->dispatch('refresh-list-product');
+        $this->successNotify(__('site.product_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteProduct($id)
     {
-        $product = Product::findOrFail($id);
+        $this->authorize('delete-product');
+        $product = Product::withoutTrashed()->findOrFail($id);
         $product->delete();
         $this->reset();
+        $this->dispatch('refresh-list-product');
+        $this->successNotify(__('site.product_deleted'));
+        $this->delete_modal = false;
     }
 
     public function restoreProduct($id)
     {
+        $this->authorize('restore-product');
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->restore();
+        $this->dispatch('refresh-list-product');
+        $this->successNotify(__('site.product_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteProduct($id)
     {
+        $this->authorize('force-delete-product');
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->forceDelete();
+        $this->dispatch('refresh-list-product');
+        $this->successNotify(__('site.product_deleted'));
+        $this->reset();
+        $this->force_delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $products_trashed = Product::onlyTrashed()->pluck('id')->toArray();
-        $products = Product::pluck('id')->toArray();
+        $products = Product::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $products_trashed : $products;
 
@@ -121,16 +143,26 @@ trait ProductTrait
         }
     }
 
-    public function bulkDeleteProduct()
+    public function bulkDeleteProduct($arr)
     {
-        $products = Product::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-product');
+        $products = Product::withoutTrashed()->whereIn('id', $arr);
         $products->delete();
         $this->reset();
+        $this->dispatch('refresh-list-product');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.product_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
-    public function forceBulkDeleteProduct()
+    public function forceBulkDeleteProduct($arr)
     {
-        $products = Product::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-product');
+        $products = Product::onlyTrashed()->whereIn('id', $arr);
         $products->forceDelete();
+        $this->dispatch('refresh-list-product');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.product_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

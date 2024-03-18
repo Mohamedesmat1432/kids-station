@@ -22,12 +22,7 @@ class ForceBulkDeleteTypeName extends Component
 
     public function delete()
     {
-        $this->authorize('force-bulk-delete-type-name');
-        $this->forceBulkDeleteTypeName();
-        $this->dispatch('refresh-list-type-name');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.type_delete_all'));
-        $this->force_bulk_delete_modal = false;
+        $this->forceBulkDeleteTypeName($this->checkbox_arr);
     }
 
     public function render()

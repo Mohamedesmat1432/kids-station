@@ -13,8 +13,6 @@ class ListPermission extends Component
     #[On('refresh-list-permission')]
     public function render()
     {
-        $this->authorize('view-permission');
-
         return view('livewire.permission.list-permission', [
             'permissions' => $this->permissionList(),
         ])->layout('layouts.app');

@@ -24,11 +24,7 @@ class ForceDeleteTypeName extends Component
 
     public function delete()
     {
-        $this->authorize('force-delete-type-name');
         $this->forceDeleteTypeName($this->id);
-        $this->dispatch('refresh-list-type-name');
-        $this->successNotify(__('site.type_name_deleted'));
-        $this->force_delete_modal = false;
     }
 
     public function render()

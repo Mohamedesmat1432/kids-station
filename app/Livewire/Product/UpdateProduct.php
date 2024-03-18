@@ -23,11 +23,7 @@ class UpdateProduct extends Component
 
     public function save()
     {
-        $this->authorize('edit-product');
         $this->updateProduct();
-        $this->dispatch('refresh-list-product');
-        $this->successNotify(__('site.product_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

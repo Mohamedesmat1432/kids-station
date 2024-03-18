@@ -14,8 +14,6 @@ class ListRole extends Component
     #[On('refresh-list-role')]
     public function render()
     {
-        $this->authorize('view-role');
-
         return view('livewire.role.list-role', [
             'roles' => $this->roleList(),
         ])->layout('layouts.app');

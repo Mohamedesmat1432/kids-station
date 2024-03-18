@@ -19,8 +19,6 @@ class ListOrder extends Component
     #[On('refresh-list-order-kids')]
     public function render()
     {
-        $this->authorize('view-order-kids');
-
         return view('livewire.order.list-order', [
             'orders' => $this->orderList(),
         ])->layout('layouts.app');

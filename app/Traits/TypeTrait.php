@@ -32,7 +32,7 @@ trait TypeTrait
 
     public function setType($id)
     {
-        $this->type = Type::findOrFail($id);
+        $this->type = Type::withoutTrashed()->findOrFail($id);
         $this->type_id = $this->type->id;
         $this->type_name_id = $this->type->type_name_id;
         $this->price = $this->type->price;
@@ -42,27 +42,39 @@ trait TypeTrait
 
     public function storeType()
     {
+        $this->authorize('create-type');
         $validated = $this->validate();
         Type::create($validated);
         $this->reset();
+        $this->dispatch('refresh-list-type');
+        $this->successNotify(__('site.type_created'));
+        $this->create_modal = false;
     }
 
     public function updateType()
     {
+        $this->authorize('edit-type');
         $validated = $this->validate();
         $this->type->update($validated);
+        $this->dispatch('refresh-list-type');
+        $this->successNotify(__('site.type_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteType($id)
     {
-        $type = Type::findOrFail($id);
+        $this->authorize('delete-type');
+        $type = Type::withoutTrashed()->findOrFail($id);
         $type->delete();
+        $this->dispatch('refresh-list-type');
+        $this->successNotify(__('site.type_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $types_trashed = Type::onlyTrashed()->pluck('id')->toArray();
-        $types = Type::pluck('id')->toArray();
+        $types = Type::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $types_trashed : $types;
 
@@ -73,14 +85,21 @@ trait TypeTrait
         }
     }
 
-    public function bulkDeleteType()
+    public function bulkDeleteType($arr)
     {
-        $types = Type::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-type');
+        $types = Type::withoutTrashed()->whereIn('id', $arr);
         $types->delete();
+        $this->dispatch('refresh-list-type');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.type_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
     public function typeList()
     {
+        $this->authorize('view-type');
+
         $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
             
         return $types->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
@@ -89,19 +108,32 @@ trait TypeTrait
 
     public function restoreType($id)
     {
+        $this->authorize('restore-type');
         $type = Type::onlyTrashed()->findOrFail($id);
         $type->restore();
+        $this->dispatch('refresh-list-type');
+        $this->successNotify(__('site.type_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteType($id)
     {
+        $this->authorize('force-delete-type');
         $type = Type::onlyTrashed()->findOrFail($id);
         $type->forceDelete();
+        $this->dispatch('refresh-list-type');
+        $this->successNotify(__('site.type_deleted'));
+        $this->force_delete_modal = false;
     }
 
-    public function forceBulkDeleteType()
+    public function forceBulkDeleteType($arr)
     {
-        $types = Type::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-type');
+        $types = Type::onlyTrashed()->whereIn('id', $arr);
         $types->forceDelete();
+        $this->dispatch('refresh-list-type');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.type_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

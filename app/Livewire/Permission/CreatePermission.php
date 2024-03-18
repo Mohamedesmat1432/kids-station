@@ -18,11 +18,7 @@ class CreatePermission extends Component
 
     public function save()
     {
-        $this->authorize('create-permission');
         $this->storePermission();
-        $this->dispatch('refresh-list-permission');
-        $this->successNotify(__('site.permission_created'));
-        $this->create_modal = false;
     }
 
     public function render()

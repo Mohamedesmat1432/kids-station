@@ -24,12 +24,7 @@ class DeleteUser extends Component
 
     public function delete()
     {
-        $this->authorize('delete-user');
         $this->deleteUser($this->id);
-        $this->dispatch('refresh-list-user');
-        $this->dispatch('refresh-navigation-menu');
-        $this->successNotify(__('User deleted successfully'));
-        $this->delete_modal = false;
     }
 
     public function render()

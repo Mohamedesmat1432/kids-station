@@ -18,11 +18,7 @@ class CreateCategory extends Component
 
     public function save()
     {
-        $this->authorize('create-category');
         $this->storeCategory();
-        $this->dispatch('refresh-list-category');
-        $this->successNotify(__('site.category_created'));
-        $this->create_modal = false;
     }
 
     public function render()

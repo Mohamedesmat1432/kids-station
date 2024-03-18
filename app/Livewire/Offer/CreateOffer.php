@@ -18,11 +18,7 @@ class CreateOffer extends Component
 
     public function save()
     {
-        $this->authorize('create-offer');
         $this->storeOffer();
-        $this->dispatch('refresh-list-offer');
-        $this->successNotify(__('site.offer_created'));
-        $this->create_modal = false;
     }
 
     public function render()

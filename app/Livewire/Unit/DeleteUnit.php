@@ -24,11 +24,7 @@ class DeleteUnit extends Component
 
     public function delete()
     {
-        $this->authorize('delete-unit');
         $this->deleteUnit($this->id);
-        $this->dispatch('refresh-list-unit');
-        $this->successNotify(__('site.unit_deleted'));
-        $this->delete_modal = false;
     }
 
     public function render()

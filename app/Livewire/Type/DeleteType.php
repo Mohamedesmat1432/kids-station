@@ -24,11 +24,7 @@ class DeleteType extends Component
 
     public function delete()
     {
-        $this->authorize('delete-type');
         $this->deleteType($this->id);
-        $this->dispatch('refresh-list-type');
-        $this->successNotify(__('site.type_deleted'));
-        $this->delete_modal = false;
     }
 
     public function render()

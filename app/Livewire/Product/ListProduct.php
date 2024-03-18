@@ -19,8 +19,6 @@ class ListProduct extends Component
     #[On('refresh-list-product')]
     public function render()
     {
-        $this->authorize('view-product');
-
         return view('livewire.product.list-product', [
             'products' => $this->productList(),
         ])->layout('layouts.app');

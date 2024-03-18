@@ -19,11 +19,7 @@ class CreateDailyExpenseProduct extends Component
 
     public function save()
     {
-        $this->authorize('create-daily-expense-product');
         $this->storeDailyExpense();
-        $this->dispatch('refresh-list-daily-expense-product');
-        $this->successNotify(__('site.daily_expense_created'));
-        $this->create_modal = false;
     }
 
     public function render()

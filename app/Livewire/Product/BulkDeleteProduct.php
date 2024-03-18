@@ -21,12 +21,7 @@ class BulkDeleteProduct extends Component
 
     public function delete()
     {
-        $this->authorize('bulk-delete-product');
-        $this->bulkDeleteProduct();
-        $this->dispatch('refresh-list-product');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.product_delete_all'));
-        $this->bulk_delete_modal = false;
+        $this->bulkDeleteProduct($this->checkbox_arr);
     }
 
     public function render()

@@ -19,11 +19,7 @@ class CreateTypeName extends Component
 
     public function save()
     {
-        $this->authorize('create-type-name');
         $this->storeTypeName();
-        $this->dispatch('refresh-list-type-name');
-        $this->successNotify(__('site.type_name_created'));
-        $this->create_modal = false;
     }
 
     public function render()

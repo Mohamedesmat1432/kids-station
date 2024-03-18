@@ -21,11 +21,7 @@ class UpdateOffer extends Component
 
     public function save()
     {
-        $this->authorize('edit-offer');
         $this->updateOffer();
-        $this->dispatch('refresh-list-offer');
-        $this->successNotify(__('site.offer_updated'));
-        $this->edit_modal = false;
     }
 
     public function render()

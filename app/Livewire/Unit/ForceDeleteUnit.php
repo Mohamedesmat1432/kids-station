@@ -24,11 +24,7 @@ class ForceDeleteUnit extends Component
 
     public function delete()
     {
-        $this->authorize('force-delete-unit');
         $this->forceDeleteUnit($this->id);
-        $this->dispatch('refresh-list-unit');
-        $this->successNotify(__('site.unit_deleted'));
-        $this->force_delete_modal = false;
     }
 
     public function render()

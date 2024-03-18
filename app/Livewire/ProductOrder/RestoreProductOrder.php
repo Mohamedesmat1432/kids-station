@@ -24,11 +24,7 @@ class RestoreProductOrder extends Component
 
     public function restore()
     {
-        $this->authorize('restore-product-order');
         $this->restoreProductOrder($this->id);
-        $this->dispatch('refresh-list-product-order');
-        $this->successNotify(__('site.product_order_restored'));
-        $this->restore_modal = false;
     }
 
     public function render()

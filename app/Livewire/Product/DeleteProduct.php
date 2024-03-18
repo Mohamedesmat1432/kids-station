@@ -24,12 +24,7 @@ class DeleteProduct extends Component
 
     public function delete()
     {
-        $this->authorize('delete-product');
         $this->deleteProduct($this->id);
-        $this->dispatch('refresh-list-product');
-        $this->successNotify(__('site.product_deleted'));
-        $this->reset();
-        $this->delete_modal = false;
     }
 
     public function render()

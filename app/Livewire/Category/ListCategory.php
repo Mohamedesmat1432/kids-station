@@ -20,8 +20,6 @@ class ListCategory extends Component
     #[On('refresh-list-category')]
     public function render()
     {
-        $this->authorize('view-category');
-
         return view('livewire.category.list-category', [
             'categories' => $this->categoryList(),
         ])->layout('layouts.app');

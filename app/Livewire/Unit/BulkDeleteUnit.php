@@ -21,12 +21,7 @@ class BulkDeleteUnit extends Component
 
     public function delete()
     {
-        $this->authorize('bulk-delete-unit');
-        $this->bulkDeleteTypeName();
-        $this->dispatch('refresh-list-unit');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.unit_delete_all'));
-        $this->bulk_delete_modal = false;
+        $this->bulkDeleteUnit($this->checkbox_arr);
     }
 
     public function render()

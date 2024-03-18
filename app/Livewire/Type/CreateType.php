@@ -19,11 +19,7 @@ class CreateType extends Component
 
     public function save()
     {
-        $this->authorize('create-type');
         $this->storeType();
-        $this->dispatch('refresh-list-type');
-        $this->successNotify(__('site.type_created'));
-        $this->create_modal = false;
     }
 
     public function render()

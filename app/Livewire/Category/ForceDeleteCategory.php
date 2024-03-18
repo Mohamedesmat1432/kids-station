@@ -24,11 +24,7 @@ class ForceDeleteCategory extends Component
 
     public function delete()
     {
-        $this->authorize('force-delete-category');
         $this->forceDeleteCategory($this->id);
-        $this->dispatch('refresh-list-category');
-        $this->successNotify(__('site.category_deleted'));
-        $this->force_delete_modal = false;
     }
 
     public function render()

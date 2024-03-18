@@ -24,11 +24,7 @@ class DeleteProductOrder extends Component
 
     public function delete()
     {
-        $this->authorize('delete-product-order');
         $this->deleteProductOrder($this->id);
-        $this->dispatch('refresh-list-product-order');
-        $this->successNotify(__('site.product_order_deleted'));
-        $this->delete_modal = false;
     }
 
     public function render()

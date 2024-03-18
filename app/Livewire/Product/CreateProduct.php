@@ -20,11 +20,7 @@ class CreateProduct extends Component
 
     public function save()
     {
-        $this->authorize('create-product');
         $this->storeProduct();
-        $this->dispatch('refresh-list-product');
-        $this->successNotify(__('site.product_created'));
-        $this->create_modal = false;
     }
     public function render()
     {

@@ -26,6 +26,8 @@ trait CategoryTrait
 
     public function categoryList()
     {
+        $this->authorize('view-category');
+
         $categories = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
 
         return $categories->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
@@ -34,46 +36,66 @@ trait CategoryTrait
 
     public function setCategory($id)
     {
-        $this->category = Category::findOrFail($id);
+        $this->category = Category::withoutTrashed()->findOrFail($id);
         $this->category_id = $this->category->id;
         $this->name = $this->category->name;
     }
 
     public function storeCategory()
     {
+        $this->authorize('create-category');
         $validated = $this->validate();
         Category::create($validated);
         $this->reset();
+        $this->dispatch('refresh-list-category');
+        $this->successNotify(__('site.category_created'));
+        $this->create_modal = false;
     }
 
     public function updateCategory()
     {
+        $this->authorize('edit-category');
         $validated = $this->validate();
         $this->category->update($validated);
+        $this->dispatch('refresh-list-category');
+        $this->successNotify(__('site.category_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteCategory($id)
     {
-        $category = Category::findOrFail($id);
+        $this->authorize('delete-category');
+        $category = Category::withoutTrashed()->findOrFail($id);
         $category->delete();
+        $this->dispatch('refresh-list-category');
+        $this->successNotify(__('site.category_deleted'));
+        $this->delete_modal = false;
     }
 
     public function restoreCategory($id)
     {
+        $this->authorize('restore-category');
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->restore();
+        $this->dispatch('refresh-list-category');
+        $this->successNotify(__('site.category_restored'));
+        $this->restore_modal = false;
     }
 
     public function forceDeleteCategory($id)
     {
+        $this->authorize('force-delete-category');
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->forceDelete();
+        $this->dispatch('refresh-list-category');
+        $this->successNotify(__('site.category_deleted'));
+        $this->force_delete_modal = false;
     }
 
     public function checkboxAll()
     {
         $categories_trashed = Category::onlyTrashed()->pluck('id')->toArray();
-        $categories = Category::pluck('id')->toArray();
+        $categories = Category::withoutTrashed()->pluck('id')->toArray();
         $checkbox_count = count($this->checkbox_arr);
         $data = $this->trash ? $categories_trashed : $categories;
 
@@ -84,15 +106,25 @@ trait CategoryTrait
         }
     }
 
-    public function bulkDeleteCategory()
+    public function bulkDeleteCategory($arr)
     {
-        $categories = Category::whereIn('id', $this->checkbox_arr);
+        $this->authorize('bulk-delete-category');
+        $categories = Category::withoutTrashed()->whereIn('id', $arr);
         $categories->delete();
+        $this->dispatch('refresh-list-category');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.category_delete_all'));
+        $this->bulk_delete_modal = false;
     }
 
-    public function forceBulkDeleteCategory()
+    public function forceBulkDeleteCategory($arr)
     {
-        $categories = Category::onlyTrashed()->whereIn('id', $this->checkbox_arr);
+        $this->authorize('force-bulk-delete-category');
+        $categories = Category::onlyTrashed()->whereIn('id', $arr);
         $categories->forceDelete();
+        $this->dispatch('refresh-list-category');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.category_delete_all'));
+        $this->force_bulk_delete_modal = false;
     }
 }

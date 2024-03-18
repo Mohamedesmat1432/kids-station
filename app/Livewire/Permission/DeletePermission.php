@@ -24,11 +24,7 @@ class DeletePermission extends Component
 
     public function delete()
     {
-        $this->authorize('delete-permission');
         $this->deletePermission($this->id);
-        $this->dispatch('refresh-list-permission');
-        $this->successNotify(__('site.permission_deleted'));
-        $this->delete_modal = false;
     }
 
     public function render()

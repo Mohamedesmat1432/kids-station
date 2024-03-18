@@ -24,11 +24,7 @@ class ForceDeleteProductOrder extends Component
 
     public function delete()
     {
-        $this->authorize('force-delete-product-order');
         $this->forceDeleteProductOrder($this->id);
-        $this->dispatch('refresh-list-product-order');
-        $this->successNotify(__('site.product_order_deleted'));
-        $this->force_delete_modal = false;
     }
 
     public function render()

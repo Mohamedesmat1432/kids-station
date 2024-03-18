@@ -33,23 +33,38 @@ trait RoleTrait
 
     public function storeRole()
     {
+        $this->authorize('create-role');
         $validated = $this->validate();
         $role = Role::create($validated);
         $role->givePermissionTo($this->permission);
         $this->reset();
+        $this->dispatch('refresh-list-role');
+        $this->dispatch('refresh-navigation-menu');
+        $this->successNotify(__('site.role_created'));
+        $this->create_modal = false;
     }
 
     public function updateRole()
     {
+        $this->authorize('edit-role');
         $validated = $this->validate();
         $this->role->update($validated);
         $this->role->syncPermissions($this->permission);
+        $this->dispatch('refresh-list-role');
+        $this->dispatch('refresh-navigation-menu');
+        $this->successNotify(__('site.role_updated'));
+        $this->edit_modal = false;
     }
 
     public function deleteRole($id)
     {
+        $this->authorize('delete-role');
         $role = Role::findOrFail($id);
         $role->delete();
+        $this->dispatch('refresh-list-role');
+        $this->dispatch('refresh-navigation-menu');
+        $this->successNotify(__('site.role_deleted'));
+        $this->delete_modal = false;
     }
 
     public function checkboxAll()
@@ -72,6 +87,8 @@ trait RoleTrait
 
     public function roleList()
     {
+        $this->authorize('view-role');
+
         return Role::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->search($this->search)->paginate($this->page_element);
     }

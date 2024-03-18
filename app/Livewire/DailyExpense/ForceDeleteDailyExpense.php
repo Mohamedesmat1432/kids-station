@@ -24,11 +24,7 @@ class ForceDeleteDailyExpense extends Component
 
     public function delete()
     {
-        $this->authorize('force-delete-daily-expense-kids');
         $this->forceDeleteDailyExpense($this->id);
-        $this->dispatch('refresh-list-daily-expense-kids');
-        $this->successNotify(__('site.daily_expense_deleted'));
-        $this->force_delete_modal = false;
     }
     public function render()
     {
