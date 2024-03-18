@@ -163,8 +163,10 @@ trait OrderTrait
         $validated['total'] = $this->total;
         Order::create($validated);
         $this->reset();
+        $this->fillRow();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_created'));
+        $this->create_modal = false;    
     }
 
     public function attachOrder()
@@ -182,6 +184,7 @@ trait OrderTrait
         $validated['total'] = $this->total;
         Order::create($validated);
         $this->reset();
+        $this->fillRow();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_updated'));
         $this->attach_modal = false;    
