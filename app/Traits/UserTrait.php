@@ -90,12 +90,6 @@ trait UserTrait
         }
     }
 
-    public function bulkDeleteUser()
-    {
-        $users = User::whereIn('id', $this->checkbox_arr);
-        $users->delete();
-    }
-
     public function userList()
     {
         $this->authorize('view-user');
