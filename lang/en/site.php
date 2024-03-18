@@ -300,6 +300,12 @@ return [
     'code' => 'Code',
     'setup_key' => 'Setup Key',
     'confirm_security' => 'For your security, please confirm your password to continue.',
-    'close_money_safe' => 'Close Money SaFe',
-
+    'close_money_safe' => 'Close Money Safe',
+    'type_restored' => 'تم استرجاع النوع بنجاح',
+    'type_name_restored' => 'Type name has been restored successfully',
+    'unit_restored' => 'Unit has been restored successfully',
+    'category_restored' => 'Category has been restored successfully',
+    'product_restored' => 'Product has been restored successfully',
+    'order_restored' => 'Order has been restored successfully',
+    'offer_restored' => 'Offer has been restored successfully',
 ];

@@ -106,7 +106,7 @@ trait TypeNameTrait
         $type_name = TypeName::onlyTrashed()->findOrFail($id);
         $type_name->restore();
         $this->dispatch('refresh-list-type-name');
-        $this->successNotify(__('site.type_restored'));
+        $this->successNotify(__('site.type_name_restored'));
         $this->restore_modal = false;
     }
 
@@ -127,7 +127,7 @@ trait TypeNameTrait
         $type_names->forceDelete();
         $this->dispatch('refresh-list-type-name');
         $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.type_delete_all'));
+        $this->successNotify(__('site.type_name_delete_all'));
         $this->force_bulk_delete_modal = false;
     }
 }
