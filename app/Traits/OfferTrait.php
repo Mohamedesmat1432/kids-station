@@ -93,16 +93,6 @@ trait OfferTrait
         $this->bulk_delete_modal = false;
     }
 
-    public function offerList()
-    {
-        $this->authorize('view-offer');
-
-        $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
-            
-        return $offers->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function restoreOffer($id)
     {
         $this->authorize('restore-offer');

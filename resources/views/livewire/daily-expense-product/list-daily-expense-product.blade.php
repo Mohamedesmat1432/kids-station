@@ -168,7 +168,7 @@
                                 <td class="p-2 border">
                                     {{ $daily_expense->user->name ?? '' }}
                                 </td>
-                                <td class="w-1/2 p-2 border">
+                                <td class="p-2 border">
                                     <table class="text-center w-full">
                                         <thead>
                                             <th>#</th>

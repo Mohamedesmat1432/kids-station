@@ -26,16 +26,6 @@ trait TypeNameTrait
         ];
     }
 
-    public function typeNameList()
-    {
-        $this->authorize('view-type-name');
-
-        $type_names = $this->trash ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
-            
-        return $type_names->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function setTypeName($id)
     {
         $this->type_name = TypeName::withoutTrashed()->findOrFail($id);

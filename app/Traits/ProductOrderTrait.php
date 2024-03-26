@@ -65,24 +65,6 @@ trait ProductOrderTrait
         $this->bulk_delete_modal = false;
     }
 
-    public function productOrderList()
-    {
-        $this->authorize('view-product-order');
-
-        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-            $product_orders = $this->trash 
-                ? ProductOrder::onlyTrashed() 
-                : ProductOrder::withoutTrashed();
-        } else {
-            $product_orders = $this->trash 
-                ? auth()->user()->productOrders()->onlyTrashed() 
-                : auth()->user()->productOrders()->withoutTrashed();
-        }
-        
-        return $product_orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function restoreProductOrder($id)
     {
         $this->authorize('restore-product-order');

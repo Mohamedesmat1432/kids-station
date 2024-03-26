@@ -114,24 +114,6 @@ trait DailyExpenseTrait
         $this->bulk_delete_modal = false;
     }
 
-    public function dailyExpenseList()
-    {
-        $this->authorize('view-daily-expense-kids');
-
-        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-            $daily_expenses = $this->trash 
-                ? DailyExpense::onlyTrashed() 
-                : DailyExpense::withoutTrashed();
-        } else {
-            $daily_expenses = $this->trash 
-                ? auth()->user()->dailyExpenses()->onlyTrashed() 
-                : auth()->user()->dailyExpenses()->withoutTrashed();
-        }
-
-        return $daily_expenses->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function restoreDailyExpense($id)
     {
         $this->authorize('restore-daily-expense-kids');

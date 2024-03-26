@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Type;
 
+use App\Models\Type;
 use App\Traits\TypeTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,8 +20,15 @@ class ListType extends Component
     #[On('refresh-list-type')]
     public function render()
     {
+        $this->authorize('view-type');
+
+        $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
+            
+        $types = $types->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+
         return view('livewire.type.list-type', [
-            'types' => $this->typeList(),
-        ])->layout('layouts.app');
+            'types' => $types,
+        ]);
     }
 }

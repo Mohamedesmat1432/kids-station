@@ -40,16 +40,6 @@ trait ProductTrait
         ];
     }
 
-    public function productList()
-    {
-        $this->authorize('view-product');
-
-        $products = $this->trash ? Product::onlyTrashed() : Product::withoutTrashed();
-
-        return $products->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function setProduct($id)
     {
         $this->product = Product::withoutTrashed()->findOrFail($id);

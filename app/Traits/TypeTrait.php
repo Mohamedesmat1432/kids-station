@@ -96,16 +96,6 @@ trait TypeTrait
         $this->bulk_delete_modal = false;
     }
 
-    public function typeList()
-    {
-        $this->authorize('view-type');
-
-        $types = $this->trash ? Type::onlyTrashed() : Type::withoutTrashed();
-            
-        return $types->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function restoreType($id)
     {
         $this->authorize('restore-type');

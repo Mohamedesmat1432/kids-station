@@ -20,8 +20,15 @@ class ListCategory extends Component
     #[On('refresh-list-category')]
     public function render()
     {
+        $this->authorize('view-category');
+
+        $category = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
+
+        $categories = $category->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+
         return view('livewire.category.list-category', [
-            'categories' => $this->categoryList(),
-        ])->layout('layouts.app');
+            'categories' => $categories,
+        ]);
     }
 }

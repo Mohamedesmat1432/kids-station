@@ -89,12 +89,4 @@ trait UserTrait
             $this->checkbox_arr = [];
         }
     }
-
-    public function userList()
-    {
-        $this->authorize('view-user');
-
-        return User::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
 }

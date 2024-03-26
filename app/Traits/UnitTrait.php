@@ -26,16 +26,6 @@ trait UnitTrait
         ];
     }
 
-    public function unitList()
-    {
-        $this->authorize('view-unit');
-
-        $units = $this->trash ? Unit::onlyTrashed() : Unit::withoutTrashed();
-
-        return $units->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function setUnit($id)
     {
         $this->unit = Unit::withoutTrashed()->findOrFail($id);

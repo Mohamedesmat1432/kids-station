@@ -11,7 +11,7 @@
 
             <x-slot name="footer">
                 <x-danger-button type="submit" wire:loading.attr="disabled">
-                    {{ __('site.delete_daily_expense') }}
+                    {{ __('site.bulk_delete_daily_expense') }}
                 </x-danger-button>
                 <x-secondary-button class="mx-2" wire:click="$set('bulk_delete_modal',false)"
                     wire:loading.attr="disabled">

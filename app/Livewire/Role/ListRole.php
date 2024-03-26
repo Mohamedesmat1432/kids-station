@@ -14,8 +14,13 @@ class ListRole extends Component
     #[On('refresh-list-role')]
     public function render()
     {
+        $this->authorize('view-role');
+
+        $roles =  Role::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+
         return view('livewire.role.list-role', [
-            'roles' => $this->roleList(),
-        ])->layout('layouts.app');
+            'roles' => $roles,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Offer;
 
+use App\Models\Offer;
 use App\Traits\OfferTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,8 +20,15 @@ class ListOffer extends Component
     #[On('refresh-list-offer')]
     public function render()
     {
+        $this->authorize('view-offer');
+
+        $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
+            
+        $offers = $offers->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+            
         return view('livewire.offer.list-offer', [
-            'offers' => $this->offerList(),
-        ])->layout('layouts.app');
+            'offers' => $offers,
+        ]);
     }
 }

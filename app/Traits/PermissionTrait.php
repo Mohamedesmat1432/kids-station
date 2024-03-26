@@ -76,12 +76,4 @@ trait PermissionTrait
         $permissions = Permission::whereIn('id', $arr);
         $permissions->delete();
     }
-
-    public function permissionList()
-    {
-        $this->authorize('view-permission');
-
-        return Permission::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
 }

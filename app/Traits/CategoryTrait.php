@@ -24,23 +24,6 @@ trait CategoryTrait
         ];
     }
 
-    public function categoryList()
-    {
-        $this->authorize('view-category');
-
-        $categories = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
-
-        return $categories->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
-    public function setCategory($id)
-    {
-        $this->category = Category::withoutTrashed()->findOrFail($id);
-        $this->category_id = $this->category->id;
-        $this->name = $this->category->name;
-    }
-
     public function storeCategory()
     {
         $this->authorize('create-category');
@@ -50,6 +33,14 @@ trait CategoryTrait
         $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_created'));
         $this->create_modal = false;
+    }
+
+
+    public function setCategory($id)
+    {
+        $this->category = Category::withoutTrashed()->findOrFail($id);
+        $this->category_id = $this->category->id;
+        $this->name = $this->category->name;
     }
 
     public function updateCategory()

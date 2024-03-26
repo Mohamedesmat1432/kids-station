@@ -16,6 +16,6 @@ class ListMoneySafeProduct extends Component
     {
         return view('livewire.money-safe-product.list-money-safe-product', [
             'users' => User::get(['id','name'])
-        ])->layout('layouts.app');
+        ]);
     }
 }

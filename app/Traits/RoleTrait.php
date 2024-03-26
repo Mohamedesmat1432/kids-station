@@ -84,12 +84,4 @@ trait RoleTrait
         $roles = Role::whereIn('id', $this->checkbox_arr);
         $roles->delete();
     }
-
-    public function roleList()
-    {
-        $this->authorize('view-role');
-
-        return Role::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Models\Order;
 use App\Traits\OrderTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,8 +20,23 @@ class ListOrder extends Component
     #[On('refresh-list-order-kids')]
     public function render()
     {
+        $this->authorize('view-order-kids');
+
+        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
+            $orders = $this->trash 
+                ? Order::onlyTrashed() 
+                : Order::withoutTrashed();
+        } else {
+            $orders = $this->trash 
+                ? auth()->user()->orders()->onlyTrashed() 
+                : auth()->user()->orders()->withoutTrashed();
+        }
+            
+        $orders = $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+
         return view('livewire.order.list-order', [
-            'orders' => $this->orderList(),
-        ])->layout('layouts.app');
+            'orders' => $orders,
+        ]);
     }
 }

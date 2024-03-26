@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TypeName;
 
+use App\Models\TypeName;
 use App\Traits\TypeNameTrait;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -19,8 +20,15 @@ class ListTypeName extends Component
     #[On('refresh-list-type-name')]
     public function render()
     {
+        $this->authorize('view-type-name');
+
+        $type_names = $this->trash ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
+            
+        $type_names = $type_names->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->search($this->search)->paginate($this->page_element);
+
         return view('livewire.type-name.list-type-name', [
-            'type_names' => $this->typeNameList(),
-        ])->layout('layouts.app');
+            'type_names' => $type_names,
+        ]);
     }
 }

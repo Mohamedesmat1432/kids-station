@@ -16,6 +16,6 @@ class ListMoneySafe extends Component
     {
         return view('livewire.money-safe.list-money-safe', [
             'users' => User::get(['id','name'])
-        ])->layout('layouts.app');
+        ]);
     }
 }

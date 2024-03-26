@@ -241,24 +241,6 @@ trait OrderTrait
         $this->bulk_delete_modal = false;
     }
 
-    public function orderList()
-    {
-        $this->authorize('view-order-kids');
-
-        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-            $orders = $this->trash 
-                ? Order::onlyTrashed() 
-                : Order::withoutTrashed();
-        } else {
-            $orders = $this->trash 
-                ? auth()->user()->orders()->onlyTrashed() 
-                : auth()->user()->orders()->withoutTrashed();
-        }
-            
-        return $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
-    }
-
     public function restoreOrder($id)
     {
         $this->authorize('restore-order-kids');

@@ -17,7 +17,7 @@
     </div>
 
     <div
-        class="flex flex-row {{ app()->getLocale() === 'en' ? 'justify-end' : 'justify-start' }} px-6 py-4 bg-gray-100 text-right">
+        class="flex px-6 py-4 bg-gray-100 text-right">
         {{ $footer }}
     </div>
     @if ($submit)

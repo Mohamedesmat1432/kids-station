@@ -14,11 +14,11 @@
                                     <div class="flex text-2xl justify-between">
                                         <div class="text-center">
                                             <x-icon class="w-12 h-12 text-center" name="{{ $link['icon'] }}" />
-                                            <div>{{ $link['count'] }}</div>
+                                            <div class="mt-3">{{ $link['count'] }}</div>
                                         </div>
                                         <div class="text-center">
                                             <div>{{ $link['value'] }}</div>
-                                            <div>{{ $link['total'] ?? 0 }} {{ __('site.EGP') }}</div>
+                                            <div class="mt-3">{{ $link['total']}}</div>
                                         </div>
                                     </div>
                                 </div>

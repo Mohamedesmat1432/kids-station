@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Traits;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 
 trait ModalTrait
 {
+    #[Locked]
+    public $modal_id, $modal_name;
+
     public $create_modal = false;
     public $edit_modal = false;
     public $show_modal = false;
