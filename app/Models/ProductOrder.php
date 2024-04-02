@@ -32,4 +32,11 @@ class ProductOrder extends Model
                 ->orWhere('products', 'like', '%' . $search . '%');
         });
     }
+
+    public function scopeSearchDate($query, $date)
+    {
+        return $query->where(function ($query) use ($date) {
+            $query->where('created_at', 'like', '%' . $date . '%');
+        });
+    }
 }

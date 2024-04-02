@@ -29,4 +29,11 @@ class DailyExpenseProduct extends Model
             $query->where('total', 'like', '%' . $search . '%');
         });
     }
+
+    public function scopeSearchDate($query, $date)
+    {
+        return $query->where(function ($query) use ($date) {
+            $query->where('created_at', 'like', '%' . $date . '%');
+        });
+    }
 }

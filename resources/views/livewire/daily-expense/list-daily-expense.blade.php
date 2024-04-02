@@ -26,6 +26,9 @@
                         <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
+
+                            <x-input type="date" wire:model.live.debounce.500ms="date"
+                                placeholder="{{ __('site.date') }}..." />
                         </div>
 
                         <div class="mt-2">
@@ -207,7 +210,8 @@
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-edit-button permission="edit-daily-expense-kids" id="{{ $daily_expense->id }}" />
+                                        <x-edit-button permission="edit-daily-expense-kids"
+                                            id="{{ $daily_expense->id }}" />
                                     </td>
                                     <td class="p-2 border">
                                         <x-delete-button permission="delete-daily-expense-kids"

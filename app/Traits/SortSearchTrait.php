@@ -10,6 +10,9 @@ trait SortSearchTrait
     public string $search = '';
 
     #[Url('')]
+    public string $date = '';
+
+    #[Url('')]
     public string $filter = '';
 
     #[Url('')]
@@ -37,6 +40,11 @@ trait SortSearchTrait
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingDate()
     {
         $this->resetPage();
     }

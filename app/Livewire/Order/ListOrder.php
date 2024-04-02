@@ -33,7 +33,7 @@ class ListOrder extends Component
         }
             
         $orders = $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+            ->search($this->search)->searchDate($this->date)->paginate($this->page_element);
 
         return view('livewire.order.list-order', [
             'orders' => $orders,

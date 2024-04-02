@@ -26,6 +26,9 @@
                         <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
+
+                            <x-input type="date" wire:model.live.debounce.500ms="date"
+                                placeholder="{{ __('site.date') }}..." />
                         </div>
 
                         <div class="mt-2">
@@ -225,7 +228,7 @@
                         @endforelse
                     </x-slot>
                 </x-table>
-                
+
                 @if ($daily_expenses->hasPages())
                     <x-paginate :data-links="$daily_expenses->links()" />
                 @endif

@@ -105,6 +105,12 @@
                                     @endif
                                 </tbody>
                             </table>
+                            @if ($this->order->offer_id)
+                                <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
+                                    <b>{{ __('site.discount') }}: {{ $this->order->offer->name ?? 0 }}</b>
+                                    {{ $this->order->offer->price ?? 0 }}  {{ __('site.EGP') }}
+                                </div>
+                            @endif
                             <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                 <b>{{ __('site.total') }} :</b>
                                 {{ $this->order->total ?? 0 }} {{ __('site.EGP') }}
@@ -113,12 +119,6 @@
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.last_total') }}:</b>
                                     {{ $this->order->last_total ?? 0 }} {{ __('site.EGP') }}
-                                </div>
-                            @endif
-                            @if ($this->order->offer_id)
-                                <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
-                                    <b>{{ __('site.discount') }}:</b>
-                                    {{ $this->order->offer->price ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
                             @if ($this->order->remianing ?? 0)

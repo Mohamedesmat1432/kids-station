@@ -26,6 +26,9 @@
                         <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
+
+                            <x-input type="date" wire:model.live.debounce.500ms="date"
+                                placeholder="{{ __('site.date') }}..." />
                         </div>
 
                         <div class="mt-2">
@@ -265,7 +268,7 @@
                                     </table>
                                 </td> --}}
                                 <td class="p-2 border">
-                                    {{ $order->total ?? '--'}}
+                                    {{ $order->total ?? '--' }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->last_total ?? '--' }}
