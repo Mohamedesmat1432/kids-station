@@ -44,6 +44,7 @@ trait PermissionTrait
         $this->authorize('edit-permission');
         $validated = $this->validate();
         $this->permission->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_updated'));
         $this->edit_modal = false;
@@ -54,6 +55,7 @@ trait PermissionTrait
         $this->authorize('delete-permission');
         $permission = Permission::findOrFail($id);
         $permission->delete();
+        $this->reset();
         $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_deleted'));
         $this->delete_modal = false;
@@ -75,5 +77,6 @@ trait PermissionTrait
     {
         $permissions = Permission::whereIn('id', $arr);
         $permissions->delete();
+        $this->reset();
     }
 }

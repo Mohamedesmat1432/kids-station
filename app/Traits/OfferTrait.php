@@ -53,6 +53,7 @@ trait OfferTrait
         $this->authorize('edit-offer');
         $validated = $this->validate();
         $this->offer->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_updated'));
         $this->edit_modal = false;
@@ -63,6 +64,7 @@ trait OfferTrait
         $this->authorize('delete-offer');
         $offer = Offer::withoutTrashed()->findOrFail($id);
         $offer->delete();
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_deleted'));
         $this->delete_modal = false;
@@ -87,6 +89,7 @@ trait OfferTrait
         $this->authorize('bulk-delete-offer');
         $offers = Offer::withoutTrashed()->whereIn('id', $arr);
         $offers->delete();
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.offer_delete_all'));
@@ -98,6 +101,7 @@ trait OfferTrait
         $this->authorize('restore-offer');
         $offer = Offer::onlyTrashed()->findOrFail($id);
         $offer->restore();
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_restored'));
         $this->restore_modal = false;
@@ -108,6 +112,7 @@ trait OfferTrait
         $this->authorize('force-delete-offer');
         $offer = Offer::onlyTrashed()->findOrFail($id);
         $offer->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_deleted'));
         $this->force_delete_modal = false;
@@ -118,6 +123,7 @@ trait OfferTrait
         $this->authorize('force-bulk-delete-offer');
         $offers = Offer::onlyTrashed()->whereIn('id', $arr);
         $offers->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-offer');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.offer_delete_all'));

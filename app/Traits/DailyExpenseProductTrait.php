@@ -74,6 +74,7 @@ trait DailyExpenseProductTrait
         $validated['user_id'] = auth()->user()->id;
         $validated['total'] = $this->totalPriceData($this->data);
         $this->daily_expense->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_updated'));
         $this->edit_modal = false;
@@ -84,6 +85,7 @@ trait DailyExpenseProductTrait
         $this->authorize('delete-daily-expense-product');
         $daily_expense = DailyExpenseProduct::withoutTrashed()->findOrFail($id);
         $daily_expense->delete();
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_deleted'));
         $this->delete_modal = false;
@@ -108,6 +110,7 @@ trait DailyExpenseProductTrait
         $this->authorize('bulk-delete-daily-expense-product');
         $daily_expenses = DailyExpenseProduct::withoutTrashed()->whereIn('id', $arr);
         $daily_expenses->delete();
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.daily_expense_delete_all'));
@@ -119,6 +122,7 @@ trait DailyExpenseProductTrait
         $this->authorize('restore-daily-expense-product');
         $daily_expense = DailyExpenseProduct::onlyTrashed()->findOrFail($id);
         $daily_expense->restore();
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_restored'));
         $this->restore_modal = false;
@@ -129,6 +133,7 @@ trait DailyExpenseProductTrait
         $this->authorize('force-delete-daily-expense-product');
         $daily_expense = DailyExpenseProduct::onlyTrashed()->findOrFail($id);
         $daily_expense->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->successNotify(__('site.daily_expense_deleted'));
         $this->force_delete_modal = false;
@@ -139,6 +144,7 @@ trait DailyExpenseProductTrait
         $this->authorize('force-bulk-delete-daily-expense-product');
         $daily_expenses = DailyExpenseProduct::onlyTrashed()->whereIn('id', $arr);
         $daily_expenses->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-daily-expense-product');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.daily_expense_delete_all'));

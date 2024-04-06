@@ -48,6 +48,13 @@ trait OrderTrait
         ];
     }
 
+    public function discount()
+    {
+        if ($this->offer_id) {
+            $this->total -= Offer::findOrFail($this->offer_id)->price;
+        }
+    }
+
     public function refreshNewVisitor()
     {
         $this->visitors = $this->visitors->map(function ($visitor) {
@@ -90,16 +97,7 @@ trait OrderTrait
                 return $visitor;
             });
 
-            if ($this->offer_id) {
-                $this->total -= Offer::findOrFail($this->offer_id)->price;
-            }
-        }
-    }
-
-    public function discount()
-    {
-        if ($this->offer_id) {
-            $this->total -= Offer::findOrFail($this->offer_id)->price;
+            $this->discount();
         }
     }
 
@@ -119,9 +117,7 @@ trait OrderTrait
             });
         }
 
-        if ($this->offer_id) {
-            $this->total -= Offer::findOrFail($this->offer_id)->price;
-        }
+        $this->discount();
     }
 
     public function setOrder($id)
@@ -211,6 +207,7 @@ trait OrderTrait
         $this->authorize('delete-order-kids');
         $order = Order::withoutTrashed()->findOrFail($id);
         $order->delete();
+        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_deleted'));
         $this->delete_modal = false;
@@ -235,6 +232,7 @@ trait OrderTrait
         $this->authorize('bulk-delete-order-kids');
         $orders = Order::withoutTrashed()->whereIn('id', $arr);
         $orders->delete();
+        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.order_delete_all'));
@@ -246,6 +244,7 @@ trait OrderTrait
         $this->authorize('restore-order-kids');
         $order = Order::onlyTrashed()->findOrFail($id);
         $order->restore();
+        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_restored'));
         $this->restore_modal = false;
@@ -256,6 +255,7 @@ trait OrderTrait
         $this->authorize('force-delete-order-kids');
         $order = Order::onlyTrashed()->findOrFail($id);
         $order->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_deleted'));
         $this->force_delete_modal = false;
@@ -266,6 +266,7 @@ trait OrderTrait
         $this->authorize('force-bulk-delete-order-kids');
         $orders = Order::onlyTrashed()->whereIn('id', $arr);
         $orders->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.order_delete_all'));

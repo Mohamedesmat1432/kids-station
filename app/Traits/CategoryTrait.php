@@ -48,6 +48,7 @@ trait CategoryTrait
         $this->authorize('edit-category');
         $validated = $this->validate();
         $this->category->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_updated'));
         $this->edit_modal = false;
@@ -58,6 +59,7 @@ trait CategoryTrait
         $this->authorize('delete-category');
         $category = Category::withoutTrashed()->findOrFail($id);
         $category->delete();
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_deleted'));
         $this->delete_modal = false;
@@ -68,6 +70,7 @@ trait CategoryTrait
         $this->authorize('restore-category');
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->restore();
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_restored'));
         $this->restore_modal = false;
@@ -78,6 +81,7 @@ trait CategoryTrait
         $this->authorize('force-delete-category');
         $category = Category::onlyTrashed()->findOrFail($id);
         $category->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->successNotify(__('site.category_deleted'));
         $this->force_delete_modal = false;
@@ -102,6 +106,7 @@ trait CategoryTrait
         $this->authorize('bulk-delete-category');
         $categories = Category::withoutTrashed()->whereIn('id', $arr);
         $categories->delete();
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.category_delete_all'));
@@ -113,6 +118,7 @@ trait CategoryTrait
         $this->authorize('force-bulk-delete-category');
         $categories = Category::onlyTrashed()->whereIn('id', $arr);
         $categories->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-category');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.category_delete_all'));

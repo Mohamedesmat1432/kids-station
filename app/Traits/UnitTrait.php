@@ -50,6 +50,7 @@ trait UnitTrait
         $this->authorize('edit-unit');
         $validated = $this->validate();
         $this->unit->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_updated'));
         $this->edit_modal = false;
@@ -60,6 +61,7 @@ trait UnitTrait
         $this->authorize('delete-unit');
         $unit = Unit::withoutTrashed()->findOrFail($id);
         $unit->delete();
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_deleted'));
         $this->delete_modal = false;
@@ -84,6 +86,7 @@ trait UnitTrait
         $this->authorize('bulk-delete-unit');
         $units = Unit::withoutTrashed()->whereIn('id', $arr);
         $units->delete();
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.unit_delete_all'));
@@ -95,6 +98,7 @@ trait UnitTrait
         $this->authorize('restore-unit');
         $unit = Unit::onlyTrashed()->findOrFail($id);
         $unit->restore();
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_restored'));
         $this->restore_modal = false;
@@ -105,6 +109,7 @@ trait UnitTrait
         $this->authorize('force-delete-unit');
         $unit = Unit::onlyTrashed()->findOrFail($id);
         $unit->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->successNotify(__('site.unit_deleted'));
         $this->force_delete_modal = false;
@@ -115,6 +120,7 @@ trait UnitTrait
         $this->authorize('force-bulk-delete-unit');
         $units = Unit::onlyTrashed()->whereIn('id', $arr);
         $units->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-unit');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.unit_delete_all'));

@@ -82,6 +82,7 @@ trait ProductTrait
         $this->authorize('edit-product');
         $validated = $this->validate();
         $this->product->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_updated'));
         $this->edit_modal = false;
@@ -103,6 +104,7 @@ trait ProductTrait
         $this->authorize('restore-product');
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->restore();
+        $this->reset();
         $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_restored'));
         $this->restore_modal = false;
@@ -113,9 +115,9 @@ trait ProductTrait
         $this->authorize('force-delete-product');
         $product = Product::onlyTrashed()->findOrFail($id);
         $product->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_deleted'));
-        $this->reset();
         $this->force_delete_modal = false;
     }
 
@@ -150,6 +152,7 @@ trait ProductTrait
         $this->authorize('force-bulk-delete-product');
         $products = Product::onlyTrashed()->whereIn('id', $arr);
         $products->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-product');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.product_delete_all'));

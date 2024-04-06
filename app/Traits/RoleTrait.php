@@ -50,6 +50,7 @@ trait RoleTrait
         $validated = $this->validate();
         $this->role->update($validated);
         $this->role->syncPermissions($this->permission);
+        $this->reset();
         $this->dispatch('refresh-list-role');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_updated'));
@@ -61,6 +62,7 @@ trait RoleTrait
         $this->authorize('delete-role');
         $role = Role::findOrFail($id);
         $role->delete();
+        $this->reset();
         $this->dispatch('refresh-list-role');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_deleted'));
@@ -83,5 +85,6 @@ trait RoleTrait
     {
         $roles = Role::whereIn('id', $this->checkbox_arr);
         $roles->delete();
+        $this->reset();
     }
 }

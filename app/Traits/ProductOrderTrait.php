@@ -35,6 +35,7 @@ trait ProductOrderTrait
         $this->authorize('delete-product-order');
         $product_order = ProductOrder::withoutTrashed()->findOrFail($id);
         $product_order->delete();
+        $this->reset();
         $this->dispatch('refresh-list-product-order');
         $this->successNotify(__('site.product_order_deleted'));
         $this->delete_modal = false;
@@ -59,6 +60,7 @@ trait ProductOrderTrait
         $this->authorize('bulk-delete-product-order');
         $product_orders = ProductOrder::withoutTrashed()->whereIn('id', $arr);
         $product_orders->delete();
+        $this->reset();
         $this->dispatch('refresh-list-product-order');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.product_order_delete_all'));
@@ -70,6 +72,7 @@ trait ProductOrderTrait
         $this->authorize('restore-product-order');
         $product_orders = ProductOrder::onlyTrashed()->findOrFail($id);
         $product_orders->restore();
+        $this->reset();
         $this->dispatch('refresh-list-product-order');
         $this->successNotify(__('site.product_order_restored'));
         $this->restore_modal = false;
@@ -80,6 +83,7 @@ trait ProductOrderTrait
         $this->authorize('force-delete-product-order');
         $product_orders = ProductOrder::onlyTrashed()->findOrFail($id);
         $product_orders->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-product-order');
         $this->successNotify(__('site.product_order_deleted'));
         $this->force_delete_modal = false;
@@ -90,6 +94,7 @@ trait ProductOrderTrait
         $this->authorize('force-bulk-delete-product-order');
         $product_orders = ProductOrder::onlyTrashed()->whereIn('id', $arr);
         $product_orders->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-product-order');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.product_order_delete_all'));

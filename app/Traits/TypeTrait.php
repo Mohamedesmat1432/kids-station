@@ -56,6 +56,7 @@ trait TypeTrait
         $this->authorize('edit-type');
         $validated = $this->validate();
         $this->type->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_updated'));
         $this->edit_modal = false;
@@ -66,6 +67,7 @@ trait TypeTrait
         $this->authorize('delete-type');
         $type = Type::withoutTrashed()->findOrFail($id);
         $type->delete();
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_deleted'));
         $this->delete_modal = false;
@@ -90,6 +92,7 @@ trait TypeTrait
         $this->authorize('bulk-delete-type');
         $types = Type::withoutTrashed()->whereIn('id', $arr);
         $types->delete();
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.type_delete_all'));
@@ -101,6 +104,7 @@ trait TypeTrait
         $this->authorize('restore-type');
         $type = Type::onlyTrashed()->findOrFail($id);
         $type->restore();
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_restored'));
         $this->restore_modal = false;
@@ -111,6 +115,7 @@ trait TypeTrait
         $this->authorize('force-delete-type');
         $type = Type::onlyTrashed()->findOrFail($id);
         $type->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_deleted'));
         $this->force_delete_modal = false;
@@ -121,6 +126,7 @@ trait TypeTrait
         $this->authorize('force-bulk-delete-type');
         $types = Type::onlyTrashed()->whereIn('id', $arr);
         $types->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-type');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.type_delete_all'));

@@ -50,6 +50,7 @@ trait TypeNameTrait
         $this->authorize('edit-type-name');
         $validated = $this->validate();
         $this->type_name->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_updated'));
         $this->edit_modal = false;
@@ -60,6 +61,7 @@ trait TypeNameTrait
         $this->authorize('delete-type-name');
         $type_name = TypeName::withoutTrashed()->findOrFail($id);
         $type_name->delete();
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_deleted'));
         $this->delete_modal = false;
@@ -84,6 +86,7 @@ trait TypeNameTrait
         $this->authorize('bulk-delete-type-name');
         $type_names = TypeName::withoutTrashed()->whereIn('id', $arr);
         $type_names->delete();
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.type_name_delete_all'));
@@ -95,6 +98,7 @@ trait TypeNameTrait
         $this->authorize('restore-type-name');
         $type_name = TypeName::onlyTrashed()->findOrFail($id);
         $type_name->restore();
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_restored'));
         $this->restore_modal = false;
@@ -105,6 +109,7 @@ trait TypeNameTrait
         $this->authorize('force-delete-type-name');
         $type_name = TypeName::onlyTrashed()->findOrFail($id);
         $type_name->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_deleted'));
         $this->force_delete_modal = false;
@@ -115,6 +120,7 @@ trait TypeNameTrait
         $this->authorize('force-bulk-delete-type-name');
         $type_names = TypeName::onlyTrashed()->whereIn('id', $arr);
         $type_names->forceDelete();
+        $this->reset();
         $this->dispatch('refresh-list-type-name');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.type_delete_all'));

@@ -61,6 +61,7 @@ trait UserTrait
         $validated = $this->validate();
         $this->user->syncRoles($this->role);
         $this->user->update($validated);
+        $this->reset();
         $this->dispatch('refresh-list-user');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.user_updated'));
@@ -72,6 +73,7 @@ trait UserTrait
         $this->authorize('delete-user');
         $user = User::findOrFail($id);
         $user->delete();
+        $this->reset();
         $this->dispatch('refresh-list-user');
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('User deleted successfully'));
