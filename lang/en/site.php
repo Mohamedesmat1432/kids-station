@@ -11,7 +11,7 @@ return [
     'users' => 'Users',
     'types' => 'Types',
     'type_names' => 'Type Names',
-    'orders' => '،Order Kids',
+    'orders' => 'Order Kids',
     'offers' => 'Offers',
     'roles' => 'Roles',
     'products' => 'Products',
@@ -303,5 +303,6 @@ return [
     'setup_key' => 'Setup Key',
     'confirm_security' => 'For your security, please confirm your password to continue.',
     'close_money_safe' => 'Close Money SaFe',
-
+    'wellcome' => 'Wellcome',
+    'tooo' => 'To',
 ];

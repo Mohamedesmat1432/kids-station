@@ -94,12 +94,6 @@ class NavigateMenu extends NavigationMenu
     {
         return [
             [
-                'name' => 'dashboard',
-                'value' => 'site.dashboard',
-                'icon' => 'chart-bar-square',
-                'role' => 'view-dashboard',
-            ],
-            [
                 'name' => 'users',
                 'value' => 'site.users',
                 'icon' => 'user-group',

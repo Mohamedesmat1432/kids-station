@@ -15,7 +15,6 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             'view-profile',
-            'view-dashboard',
             'view-user',
             'create-user',
             'edit-user',
@@ -140,6 +139,7 @@ class PermissionSeeder extends Seeder
             'restore-daily-expense-product',
             'view-money-safe-kids',
             'view-money-safe-product',
+            'view-trash-group-button'
             // 'add-more-visitor',
             // 'remove-visitor'
         ];

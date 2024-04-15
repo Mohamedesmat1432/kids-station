@@ -2,52 +2,14 @@
     class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
     <div class="max-w-7xl mx-auto p-6 lg:p-8">
         <div class="mt-2">
-            <div class="">
-                <div
-                    class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                    <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-2">
-                        <div class="relative">
-                            <img src="{{asset('images/bg_kids.jpg')}}" alt="">
-                            <h1 class="absolute top-1/3 right-2/4 text-4xl font-bold text-center">
-                                Welcome To <br> Kids Area
-                            </h1>
-                        </div>
-{{-- 
-                        <div>
-                            <h1 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                Social Housing & Mortgage Finance Fund :
-                            </h1>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                The Social Housing and Real Estate Finance Support Fund is an Egyptian government
-                                body affiliated with the Ministry of Housing, Utilities and Urban Communities. It
-                                was established by Law No. 93 of 2018, as a result of the merger of the Social
-                                Housing Finance Fund and the Real Estate Finance Activity Guarantee and Support
-                                Fund. The Fund was established for the purpose of undertaking real estate financing
-                                affairs as well as creating and offering housing units. Social security for low and
-                                middle income classes .
-                            </p>
-                            <h1 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
-                                Objectives Of Social Housing :
-                            </h1>
-
-                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                According to the law, the Fund’s objectives are as follows:
-
-                                Financing, managing, constructing, selling and renting housing units for the social
-                                housing program, and the services and commercial and professional activities
-                                necessary for these units.
-                                Providing plots of land for construction with a maximum size of 400 square meters,
-                                and housing units with a maximum size of 120 square meters, for middle-income
-                                people, as well as making land available to the private sector to create housing
-                                units for the social housing program.
-                                Supporting real estate financing activity in the field of selling, using or renting
-                                homes.
-                                Guaranteeing the risks of non-payment for those dealing with real estate financing
-                                law.
-                            </p>
-                        </div> --}}
-
+            <div
+                class="scale-100  bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-2">
+                    <div class="relative">
+                        <h1 class="absolute top-12 left-1/2 transform -translate-x-1/2 text-8xl font-bold text-center">
+                            {{ __('site.wellcome') }} {{ __('site.tooo') }}
+                        </h1>
+                        <img src="{{ asset('images/kids_logo.jpeg') }}" alt="">
                     </div>
                 </div>
             </div>

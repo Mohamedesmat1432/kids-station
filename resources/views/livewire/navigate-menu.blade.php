@@ -12,6 +12,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link class="flex" wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        <x-icon name="chart-bar-square" class="h-5 w-5" />
+                        {{ __('site.dashboard') }}
+                    </x-nav-link>
+
                     @foreach ($responsive_links as $link)
                         @can($link['role'])
                             <x-nav-link wire:navigate href="{{ route($link['name']) }}" :active="request()->routeIs($link['name'])">
@@ -121,6 +126,11 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
+                <x-responsive-nav-link class="flex" wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    <x-icon name="chart-bar-square" class="h-5 w-5" />
+                    {{ __('site.dashboard') }}
+                </x-responsive-nav-link>
+
                 @foreach ($responsive_links as $link)
                     @can($link['role'])
                         <x-responsive-nav-link class="flex" wire:navigate href="{{ route($link['name']) }}"
@@ -148,7 +158,8 @@
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <x-responsive-nav-link class="flex" href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                    <x-responsive-nav-link class="flex" href="{{ route('logout') }}"
+                        @click.prevent="$root.submit();">
                         <x-icon name="arrow-left-on-rectangle" class="h-5 w-5" />
                         {{ __('site.logout') }}
                     </x-responsive-nav-link>

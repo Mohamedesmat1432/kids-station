@@ -87,16 +87,6 @@ class User extends Authenticatable
         return $this->hasMany(DailyExpenseProduct::class);
     }
 
-    public function moneySafes(): HasMany
-    {
-        return $this->hasMany(MoneySafe::class);
-    }
-
-    public function moneySafeProducts(): HasMany
-    {
-        return $this->hasMany(MoneySafeProduct::class);
-    }
-
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
