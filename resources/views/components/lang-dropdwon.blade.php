@@ -6,7 +6,7 @@
         <span>{{ __('site.lang') }} </span>
     </span>
     <!-- Dropdown list -->
-    <div x-show="langMenu" class="absolute right-0 top-10 py-2 mt-5 rounded-md shadow-xl w-36 bg-white">
+    <div x-show="langMenu" class="absolute z-50 right-0 top-10 py-2 mt-5 rounded-md shadow-xl w-36 bg-white">
         @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
             <a class="flex justify-between px-4 py-2 text-sm hover:bg-blue-400 hover:text-white {{ $localeCode === LaravelLocalization::getCurrentLocale() ? 'bg-blue-500 text-white font-bold' : '' }}"
                 rel="alternate" hreflang="{{ $localeCode }}"
