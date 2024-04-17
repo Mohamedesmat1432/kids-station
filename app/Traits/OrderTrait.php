@@ -157,9 +157,10 @@ trait OrderTrait
         $validated['end_date'] = Carbon::now()->addHours($this->duration);
         $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
-        Order::create($validated);
+        $order = Order::create($validated);
         $this->reset();
         $this->fillRow();
+        $this->dispatch('print-create-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_created'));
         $this->create_modal = false;    
@@ -178,9 +179,10 @@ trait OrderTrait
         $validated['remianing'] = $this->total - $this->order->total;
         $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
-        Order::create($validated);
+        $order = Order::create($validated);
         $this->reset();
         $this->fillRow();
+        $this->dispatch('print-attach-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_updated'));
         $this->attach_modal = false;    

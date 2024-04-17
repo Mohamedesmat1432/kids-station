@@ -325,5 +325,24 @@
                 @endif
             </div>
         </div>
+
+        @push('scriptPage')
+            <script src="{{ asset('js/invoice.js') }}"></script>
+
+            <script>
+                let lang = '{{ LaravelLocalization::getCurrentLocale() }}';
+                
+                document.addEventListener('print-create-order-kids', (event) => {
+                    let id = event.detail.id;
+                    printOrderKids(id, lang);
+                });
+
+                document.addEventListener('print-attach-order-kids', (event) => {
+                    let id = event.detail.id;
+                    printOrderKids(id, lang);
+                });
+            </script>
+        @endpush
+
     </x-page-content>
 </div>

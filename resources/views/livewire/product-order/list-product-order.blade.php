@@ -240,5 +240,10 @@
                 @endif
             </div>
         </div>
+
+        @push('scriptPage')
+            <script src="{{ asset('js/invoice.js') }}"></script>
+        @endpush
+
     </x-page-content>
 </div>

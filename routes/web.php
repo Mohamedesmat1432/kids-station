@@ -18,6 +18,8 @@ use App\Livewire\Type\ListType;
 use App\Livewire\TypeName\ListTypeName;
 use App\Livewire\Unit\ListUnit;
 use App\Livewire\User\ListUser;
+use App\Models\Order;
+use App\Models\ProductOrder;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 /*
@@ -51,4 +53,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/daily-expenses-product', ListDailyExpenseProduct::class)->name('daily.expenses.product');
     Route::get('/money-safe', ListMoneySafe::class)->name('money.safe');
     Route::get('/money-safe-product', ListMoneySafeProduct::class)->name('money.safe.product');
+
+    Route::get('/invoice-kids/{id}', function ($id) {
+        $order = Order::findOrFail($id);
+        return view('pages.invoice-kids', ['order' => $order]);
+    })->name('invoice.kids');
+
+    Route::get('/invoice-product/{id}', function ($id) {
+        $product_order = ProductOrder::findOrFail($id);
+        return view('pages.invoice-product', ['product_order' => $product_order]);
+    })->name('invoice.product');
 });

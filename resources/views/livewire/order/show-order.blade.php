@@ -1,55 +1,54 @@
 <div>
     @if ($this->show_modal)
-
         <x-dialog-modal wire:model="show_modal">
             <x-slot name="title">
                 <div class="flex justify-between row-invoice">
                     <div>{{ __('site.order_details') }}</div>
-                    <div>{{ __('site.total') }} : {{ number_format($this->order->total, 2) }} {{ __('site.EGP') }}</div>
+                    <div>{{ __('site.total') }} : {{ number_format($order->total, 2) }} {{ __('site.EGP') }}</div>
                 </div>
             </x-slot>
 
             <x-slot name="content">
-                <div class="w-full" id="print_invoice">
+                <div class="w-full">
                     <div class="grid md:grid-cols-1 md:gap-4">
                         <div class="relative z-0 w-full group invoice-one">
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.number') }}:</b>
-                                {{ $this->order->number }}
+                                {{ $order->number }}
                             </div>
-                            @if ($this->order->last_number)
+                            @if ($order->last_number)
                                 <div class="mb-3 flex justify-between row-invoice">
                                     <b>{{ __('site.last_number') }}:</b>
-                                    {{ $this->order->last_number }}
+                                    {{ $order->last_number }}
                                 </div>
                             @endif
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.casher_name') }}:</b>
-                                {{ $this->order->user->name }}
+                                {{ $order->user->name }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.customer_name') }}:</b>
-                                {{ $this->order->customer_name }}
+                                {{ $order->customer_name }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.customer_phone') }}:</b>
-                                {{ $this->order->customer_phone }}
+                                {{ $order->customer_phone }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.date_today') }}:</b>
-                                {{ \Helper::formatDate($this->order->start_date) }}
+                                {{ \Helper::formatDate($order->start_date) }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.start_date') }}:</b>
-                                {{ \Helper::formatHours($this->order->start_date) }}
+                                {{ \Helper::formatHours($order->start_date) }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.duration') }}:</b>
-                                {{ $this->order->duration }} {{ __('site.H') }}
+                                {{ $order->duration }} {{ __('site.H') }}
                             </div>
                             <div class="mb-3 flex justify-between row-invoice">
                                 <b>{{ __('site.end_date') }}:</b>
-                                {{ \Helper::formatHours($this->order->end_date) }}
+                                {{ \Helper::formatHours($order->end_date) }}
                             </div>
                         </div>
                         <div class="relative z-0 w-full group invoice-two">
@@ -79,8 +78,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($this->order->visitors)
-                                        @forelse ($this->order->visitors as $visitor)
+                                    @if ($order->visitors)
+                                        @forelse ($order->visitors as $visitor)
                                             <tr wire:key="visitor-{{ $visitor['name'] }}">
                                                 <td class="p-2 border">
                                                     {{ $visitor['name'] }}
@@ -105,26 +104,26 @@
                                     @endif
                                 </tbody>
                             </table>
-                            @if ($this->order->offer_id)
+                            @if ($order->offer_id)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
-                                    <b>{{ __('site.discount') }}: {{ $this->order->offer->name ?? 0 }}</b>
-                                    {{ $this->order->offer->price ?? 0 }}  {{ __('site.EGP') }}
+                                    <b>{{ __('site.discount') }}: {{ $order->offer->name ?? 0 }}</b>
+                                    {{ $order->offer->price ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
                             <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                 <b>{{ __('site.total') }} :</b>
-                                {{ $this->order->total ?? 0 }} {{ __('site.EGP') }}
+                                {{ $order->total ?? 0 }} {{ __('site.EGP') }}
                             </div>
-                            @if ($this->order->last_total)
+                            @if ($order->last_total)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.last_total') }}:</b>
-                                    {{ $this->order->last_total ?? 0 }} {{ __('site.EGP') }}
+                                    {{ $order->last_total ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
-                            @if ($this->order->remianing ?? 0)
+                            @if ($order->remianing ?? 0)
                                 <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
                                     <b>{{ __('site.remianing') }}:</b>
-                                    {{ $this->order->remianing ?? 0 }} {{ __('site.EGP') }}
+                                    {{ $order->remianing ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
                         </div>
@@ -133,7 +132,7 @@
             </x-slot>
 
             <x-slot name="footer">
-                <x-indigo-button onclick="printInvoice()">
+                <x-indigo-button onclick="printOrderKids('{{ $order->id }}','{{ LaravelLocalization::getCurrentLocale() }}')">
                     <x-icon name="printer" class="h-4 w-4" />
                     {{ __('site.print') }}
                 </x-indigo-button>
@@ -144,26 +143,4 @@
         </x-dialog-modal>
     @endif
 
-    @push('scriptPage')
-        <script>
-            function printInvoice() {
-                var prtContent = document.getElementById('print_invoice');
-                var winPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
-                winPrint.document.write(`<!DOCTYPE html>
-                <html lang='{{ LaravelLocalization::getCurrentLocale() }}' dir='{{ LaravelLocalization::getCurrentLocaleDirection() }}'>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <meta name="csrf-token" content="{{ csrf_token() }}">
-                <head>
-                <link rel='stylesheet' href='{{ asset('css/invoice.css') }}'/>
-                </head>
-                <body onload='window.print(); window.close();'>
-                <h1 class='header-invoice'>{{ __('site.invoice_title') }}</h1>`);
-                winPrint.document.write(prtContent.innerHTML);
-                winPrint.document.write('</body></html>');
-                winPrint.document.close();
-                winPrint.focus();
-            }
-        </script>
-    @endpush
 </div>

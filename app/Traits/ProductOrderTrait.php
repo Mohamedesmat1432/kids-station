@@ -18,6 +18,13 @@ trait ProductOrderTrait
     public $created_at;
     public $checkbox_arr = [];
 
+    public function showProductOrder($id)
+    {
+        $this->authorize('show-product-order');
+
+        $this->product_order = ProductOrder::findOrFail($id);
+    }
+
     public function setProductOrder($id)
     {
         $this->product_order = ProductOrder::withoutTrashed()->findOrFail($id);

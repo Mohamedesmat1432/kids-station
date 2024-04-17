@@ -13,8 +13,7 @@ class ShowProductOrder extends Component
     #[On('show-modal')]
     public function showModal($id)
     {
-        $this->authorize('show-product-order');
-        $this->setProductOrder($id);
+        $this->showProductOrder($id);
         $this->show_modal = true;
     }
 
