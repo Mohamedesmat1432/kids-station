@@ -329,17 +329,15 @@
         @push('scriptPage')
             <script src="{{ asset('js/invoice.js') }}"></script>
 
-            <script>
-                let lang = '{{ LaravelLocalization::getCurrentLocale() }}';
-                
+            <script>                
                 document.addEventListener('print-create-order-kids', (event) => {
                     let id = event.detail.id;
-                    printOrderKids(id, lang);
+                    printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
                 });
 
                 document.addEventListener('print-attach-order-kids', (event) => {
                     let id = event.detail.id;
-                    printOrderKids(id, lang);
+                    printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
                 });
             </script>
         @endpush
