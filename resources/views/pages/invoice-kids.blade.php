@@ -10,7 +10,7 @@
 
 <body>
     <div class="header">
-        <img src="{{ asset('images/kids_logo.jpeg') }}" alt="{{ __('site.invoice_title_kids') }}" class="logo">
+        <img src="{{ asset('images/kids_logo.jpeg') }}" alt="{{ __('site.invoice_title_kids') }}" class="logo" />
         <h1 class="title"> {{ __('site.invoice_title_kids') }}</h1>
     </div>
 
