@@ -94,7 +94,8 @@
 
             <x-slot name="footer">
                 <x-indigo-button
-                    onclick="printProductOrder('{{ $product_order->id }}','{{ LaravelLocalization::getCurrentLocale() }}')">
+                    onclick="printProductOrder('{{ $product_order->id }}','{{ LaravelLocalization::getCurrentLocale() }}')"
+                    wire:click="$set('show_modal',false)">
                     <x-icon name="printer" class="h-4 w-4" />
                     {{ __('site.print') }}
                 </x-indigo-button>
