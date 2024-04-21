@@ -9,7 +9,10 @@
 </head>
 
 <body>
-    <h1 class="header-invoice"> {{ __('site.invoice_title') }}</h1>
+    <div class="header">
+        <img src="{{ asset('images/kids_logo.jpeg') }}" alt="{{ __('site.invoice_title_products') }}" class="logo" />
+        <h1 class="title"> {{ __('site.invoice_title_products') }}</h1>
+    </div>
 
     <div class="w-full">
         <div class="grid md:grid-cols-1 md:gap-4">

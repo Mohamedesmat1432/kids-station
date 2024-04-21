@@ -13,11 +13,20 @@ body {
     gap: 5;
 }
 
-.header-invoice {
-    padding: 5px;
+.header {
     text-align: center;
+}
+
+.header .title {
+    padding: 5px;
     background-color: rgb(231, 228, 228);
     font-weight: bold;
+}
+
+.header .logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
 }
 
 .row-invoice {
