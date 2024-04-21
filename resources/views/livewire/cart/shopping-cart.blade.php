@@ -2,7 +2,7 @@
     <x-page-content page-name="{{ __('site.products') }}">
         <div class="grid md:grid-cols-2 gap-4 p-5">
             <div>
-                <div class="mt-6 text-gray-500 leading-relaxed">
+                <div class="mt-5 text-gray-500 leading-relaxed">
                     <div class="mt-3">
                         <div class="flex justify-between">
                             <div>

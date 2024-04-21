@@ -1,5 +1,5 @@
 <div>
-    <div class="w-full text-center mt-6 p-2 text-gray-500">
+    <div class="w-full text-center mt-2 p-2 text-gray-500">
         <div class="flex justify-between text-2xl text-bold w-full mb-3 p-2">
             <div>
                 <b>{{ __('site.total') }}</b> :
