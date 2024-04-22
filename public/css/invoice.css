@@ -1,61 +1,63 @@
-* {
-    font-family: "Cairo", sans-serif;
-}
+@media print {
+    * {
+        font-family: "Cairo", sans-serif;
+    }
 
-body {
-    width: 80%;
-    margin: auto;
-}
+    body {
+        width: 80%;
+        margin: auto;
+    }
 
-#print_invioce {
-    display: grid;
-    grid-column: 1;
-    gap: 5;
-}
+    #print_invioce {
+        display: grid;
+        grid-column: 1;
+        gap: 5;
+    }
 
-.header {
-    text-align: center;
-}
+    .header {
+        text-align: center;
+    }
 
-.header .title {
-    padding: 5px;
-    background-color: rgb(231, 228, 228);
-    font-weight: bold;
-}
+    .header .title {
+        padding: 5px;
+        background-color: rgb(231, 228, 228);
+        font-weight: bold;
+    }
 
-.header .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 20px;
-}
+    .header .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 20px;
+    }
 
-.row-invoice {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
+    .row-invoice {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
 
-.table-header {
-    margin-bottom: 12px;
-    text-align: center;
-    font-weight: bold;
-}
+    .table-header {
+        margin-bottom: 12px;
+        text-align: center;
+        font-weight: bold;
+    }
 
-table {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 12px;
-    border-collapse: collapse;
-}
+    table {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 12px;
+        border-collapse: collapse;
+    }
 
-table th {
-    font-weight: bold;
-}
+    table th {
+        font-weight: bold;
+    }
 
-table th,
-table td {
-    border: 1px solid gray;
-    padding: 5px;
+    table th,
+    table td {
+        border: 1px solid gray;
+        padding: 5px;
+    }
 }
 
 @page {
