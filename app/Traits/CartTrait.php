@@ -4,9 +4,8 @@ namespace App\Traits;
 
 use App\Models\Product;
 use App\Models\ProductOrder;
-use Cart;
 use Livewire\WithPagination;
-
+use Cart;
 
 trait CartTrait
 {
