@@ -36,11 +36,14 @@
                     <x-checkbox id="remember_me" name="remember" />
                     <span class="mx-2 text-sm text-gray-600">{{ __('site.remember_me') }}</span>
                 </label>
-                <a wire:navigate
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    href="{{ route('register') }}">
-                    {{ __('site.i_dont_have_account') }}
-                </a>
+                
+                @if (Route::has('register'))
+                    <a wire:navigate
+                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        href="{{ route('register') }}">
+                        {{ __('site.i_dont_have_account') }}
+                    </a>
+                @endif
             </div>
 
             <div class="flex items-center justify-between mt-4">
