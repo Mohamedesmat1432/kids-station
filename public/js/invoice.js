@@ -6,12 +6,11 @@ function printOrderKids(id, lang) {
             setTimeout(() => {
                 winPrint.print();
                 winPrint.close();
-            }, 1000);
+            }, 2000);
             winPrint.focus();
         })
         .catch(function(error) {
             console.log(error);
-            winPrint.close();
         });
 }
 
@@ -23,11 +22,10 @@ function printProductOrder(id, lang) {
             setTimeout(() => {
                 winPrint.print();
                 winPrint.close();
-            }, 1000);
+            }, 2000);
             winPrint.focus();
         })
         .catch(function(error) {
             console.log(error);
-            winPrint.close();
         });
 }
