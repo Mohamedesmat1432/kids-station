@@ -7,7 +7,7 @@ return [
     'update' => 'Update',
     'delete' => 'Delete',
     'dashboard' => 'Dashboard',
-    'wellcome_to_dashboard' => 'Wellcome to dashboard',
+    'wellcome_to_dashboard' => 'Wellcome To Dashboard',
     'users' => 'Users',
     'types' => 'Types',
     'type_names' => 'Type Names',
