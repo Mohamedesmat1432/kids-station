@@ -28,6 +28,12 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-permission',
             ],
             [
+                'name' => 'backup',
+                'value' => 'site.backup',
+                'icon' => 'inbox-stack',
+                'role' => 'view-backup-database',
+            ],
+            [
                 'name' => 'categories',
                 'value' => 'site.categories',
                 'icon' => 'rectangle-group',

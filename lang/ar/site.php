@@ -313,4 +313,6 @@ return [
     'force_bulk_delete_type' => 'حذف الاتواع نهائيا',
     'force_bulk_delete_type_name' => 'حذف اسماء الاتواع نهائيا',
     'note' => 'ملاحظة',
+    'download' => 'تنزيل',
+    'backup' => 'نسخ احتياطي',
 ];

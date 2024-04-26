@@ -139,7 +139,8 @@ class PermissionSeeder extends Seeder
             'restore-daily-expense-product',
             'view-money-safe-kids',
             'view-money-safe-product',
-            'view-trash-group-button'
+            'view-trash-group-button',
+            'view-backup-database',
             // 'add-more-visitor',
             // 'remove-visitor'
         ];

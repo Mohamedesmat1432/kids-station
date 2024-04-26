@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Livewire\Backup\ListBackup;
 use App\Livewire\Cart\ShoppingCart;
 use App\Livewire\Category\ListCategory;
 use App\Livewire\DailyExpense\ListDailyExpense;
@@ -63,4 +64,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         $product_order = ProductOrder::findOrFail($id);
         return view('pages.invoice-product', ['product_order' => $product_order]);
     })->name('invoice.product');
+
+    Route::get('/backup', ListBackup::class)->name('backup');
 });

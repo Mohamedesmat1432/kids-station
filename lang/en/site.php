@@ -313,4 +313,6 @@ return [
     'force_bulk_delete_type' => 'Force Bulk Delete Types',
     'force_bulk_delete_type_name' => 'Force Bulk Delete Type Names',
     'note' => 'Note',
+    'download' => 'Download',
+    'backup' => 'Backup',
 ];
