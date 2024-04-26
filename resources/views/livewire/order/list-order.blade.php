@@ -35,11 +35,11 @@
                             <x-trash-group-button />
                         </div>
 
-                        {{-- @can('import-export-order-kids')
+                        @can('import-export-order-kids')
                             <div class="mt-2">
                                 <livewire:order.import-export-order />
                             </div>
-                        @endcan --}}
+                        @endcan
                     </div>
 
                     @if ($this->trash)
@@ -329,7 +329,7 @@
         @push('scriptPage')
             <script src="{{ asset('js/invoice.js') }}"></script>
 
-            <script>                
+            <script>
                 document.addEventListener('print-create-order-kids', (event) => {
                     let id = event.detail.id;
                     printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
