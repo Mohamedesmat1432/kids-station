@@ -117,6 +117,12 @@
                         @endif
                     </div>
                 @endif
+                <div class="relative z-0 w-full mb-5 group">
+                    <x-label for="note" value="{{ __('site.note') }}" />
+                    <x-textarea class="mt-1 block w-full" wire:model="note" placeholder="{{ __('site.note') }}">
+                    </x-textarea>
+                    <x-input-error for="note" class="mt-2" />
+                </div>
             </x-slot>
 
             <x-slot name="footer">

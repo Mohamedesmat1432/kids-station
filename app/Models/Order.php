@@ -9,17 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'orders';
 
-    protected $fillable = ['number', 'user_id', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'visitors', 'total', 'remianing', 'last_number', 'last_total', 'start_date', 'end_date', 'status'];
+    protected $fillable = ['number', 'user_id', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'visitors', 'total', 'remianing', 'last_number', 'last_total', 'start_date', 'end_date', 'status', 'note'];
 
     protected $casts = [
         'start_date' => 'datetime: H:i',
         'end_date' => 'datetime: H:i',
-        'visitors' => 'array'
+        'visitors' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -40,11 +39,12 @@ class Order extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('number', 'like', '%' . $search . '%')
-            ->orWhere('customer_name', 'like', '%' . $search . '%')
-            ->orWhere('customer_phone', 'like', '%' . $search . '%')
-            ->orWhere('visitors', 'like', '%' . $search . '%')
-            ->orWhere('total', 'like', '%' . $search . '%');
+            $query
+                ->where('number', 'like', '%' . $search . '%')
+                ->orWhere('customer_name', 'like', '%' . $search . '%')
+                ->orWhere('customer_phone', 'like', '%' . $search . '%')
+                ->orWhere('visitors', 'like', '%' . $search . '%')
+                ->orWhere('total', 'like', '%' . $search . '%');
         });
     }
 

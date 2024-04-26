@@ -29,6 +29,7 @@ trait OrderTrait
     public $start_date;
     public $end_date;
     public $status;
+    public $note;
     public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
@@ -45,6 +46,7 @@ trait OrderTrait
             'visitors.*.serial' => 'required|string|min:2|max:20',
             'visitors.*.price' => 'required|numeric',
             // 'status' => 'required|in:inprogress,completed,completed_audit',
+            'note' => 'nullable|string'
         ];
     }
 
@@ -138,6 +140,7 @@ trait OrderTrait
         $this->last_total = $this->order->last_total ?? 0;
         $this->remianing = $this->order->remianing ?? 0;
         $this->status = $this->order->status;
+        $this->note = $this->order->note ?? '';
     }
 
     public function showOrder($id)

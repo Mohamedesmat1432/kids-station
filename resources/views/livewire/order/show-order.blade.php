@@ -126,6 +126,12 @@
                                     {{ $order->remianing ?? 0 }} {{ __('site.EGP') }}
                                 </div>
                             @endif
+                            @if ($order->note)
+                                <div class="mb-3 p-2 bg-gray-100 flex justify-between row-invoice">
+                                    <b>{{ __('site.note') }}:</b>
+                                    {{ $order->note ?? '' }}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

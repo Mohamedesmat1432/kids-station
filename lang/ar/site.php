@@ -312,4 +312,5 @@ return [
     'force_delete_type_name' => 'حذف اسم النوع نهائيا',
     'force_bulk_delete_type' => 'حذف الاتواع نهائيا',
     'force_bulk_delete_type_name' => 'حذف اسماء الاتواع نهائيا',
+    'note' => 'ملاحظة',
 ];
