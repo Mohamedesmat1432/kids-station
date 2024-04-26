@@ -154,7 +154,7 @@ trait OrderTrait
         $validated['number'] = '#' . random_int(1000000, 9999999);
         $validated['user_id'] = auth()->user()->id;
         $validated['start_date'] = Carbon::now();
-        $validated['end_date'] = Carbon::now()->addHours($this->duration);
+        $validated['end_date'] = Carbon::now()->addMinutes($this->duration * 60);
         $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
         $order = Order::create($validated);
@@ -173,7 +173,7 @@ trait OrderTrait
         $validated['number'] = '#' . random_int(1000000, 9999999);
         $validated['user_id'] = auth()->user()->id;
         $validated['start_date'] = Carbon::now();
-        $validated['end_date'] = Carbon::now()->addHours($this->duration);
+        $validated['end_date'] = Carbon::now()->addMinutes($this->duration * 60);
         $validated['last_number'] = $this->order->number;
         $validated['last_total'] = $this->order->total;
         $validated['remianing'] = $this->total - $this->order->total;

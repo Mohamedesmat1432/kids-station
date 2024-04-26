@@ -28,7 +28,8 @@ class AttachOrder extends Component
 
     public function render()
     {
-        $type_durations = Type::active()->distinct()->whereNot('duration', 0)->pluck('duration');
+        $type_durations = Type::active()->distinct()->whereNot('duration', 0)
+            ->orderBy('duration', 'ASC')->pluck('duration');
 
         $offers = Offer::active()->get();
 

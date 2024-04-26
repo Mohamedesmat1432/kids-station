@@ -306,4 +306,10 @@ return [
     'close_money_safe' => 'Close Money SaFe',
     'wellcome' => 'Wellcome',
     'tooo' => 'To',
+    'restore_type' => 'Restore Type',
+    'force_delete_type' => 'Force Delete Type',
+    'restore_type_name' => 'Restore Type Name',
+    'force_delete_type_name' => 'Force Delete Type Names',
+    'force_bulk_delete_type' => 'Force Bulk Delete Types',
+    'force_bulk_delete_type_name' => 'Force Bulk Delete Type Names',
 ];

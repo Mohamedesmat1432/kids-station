@@ -306,4 +306,10 @@ return [
     'close_money_safe' => 'تقفيل الخزنة',
     'wellcome' => 'مرحبا',
     'tooo' => 'بكم',
+    'restore_type' => 'استرجاع النوع',
+    'force_delete_type' => 'حذف النوع نهائيا',
+    'restore_type_name' => 'استرجاع اسم النوع',
+    'force_delete_type_name' => 'حذف اسم النوع نهائيا',
+    'force_bulk_delete_type' => 'حذف الاتواع نهائيا',
+    'force_bulk_delete_type_name' => 'حذف اسماء الاتواع نهائيا',
 ];
