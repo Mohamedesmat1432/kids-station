@@ -315,4 +315,8 @@ return [
     'note' => 'Note',
     'download' => 'Download',
     'backup' => 'Backup',
+    'download_file_backup' => 'backup file has been downloaded successfully',
+    'backup_success' => 'Backup has been loaded successfully',
+    'export_orders' => 'Export Orders',
+    'orders_exported' => 'Orders has been exported successfully',
 ];

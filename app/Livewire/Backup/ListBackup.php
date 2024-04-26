@@ -13,7 +13,7 @@ class ListBackup extends Component
 
     public function download($file_name)
     {
-        $this->successNotify(__('site.download_backup'));
+        $this->successNotify(__('site.download_file_backup'));
         return response()->download(storage_path('app/backup/' . $file_name));
     }
 
