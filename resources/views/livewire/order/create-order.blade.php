@@ -40,7 +40,7 @@
                     @foreach ($visitors as $key => $visitor)
                         <div class="grid md:grid-cols-7 md:gap-3">
                             <div class="relative z-0 w-full mb-5 group md:col-span-2">
-                                <x-label for="name" value="{{ __('si.tename') }}" />
+                                <x-label for="name" value="{{ __('site.name') }}" />
                                 <x-input type="text" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.name" placeholder="{{ __('site.name') }}"
                                     autocomplete="visitors.{{ $key }}.name" />
