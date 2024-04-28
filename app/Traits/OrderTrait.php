@@ -175,8 +175,8 @@ trait OrderTrait
         $validated = $this->validate();
         $validated['number'] = '#' . random_int(1000000, 9999999);
         $validated['user_id'] = auth()->user()->id;
-        $validated['start_date'] = Carbon::now();
-        $validated['end_date'] = Carbon::now()->addMinutes($this->duration * 60);
+        $validated['start_date'] = $this->order->start_date;
+        $validated['end_date'] = $this->order->start_date->addMinutes($this->duration * 60);
         $validated['last_number'] = $this->order->number;
         $validated['last_total'] = $this->order->total;
         $validated['remianing'] = $this->total - $this->order->total;

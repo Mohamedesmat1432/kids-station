@@ -82,16 +82,16 @@
                                         @forelse ($order->visitors as $visitor)
                                             <tr wire:key="visitor-{{ $visitor['name'] }}">
                                                 <td class="p-2 border">
-                                                    {{ $visitor['name'] }}
+                                                    {{ $visitor['name']  ?? ''}}
                                                 </td>
                                                 <td class="p-2 border">
-                                                    {{ App\Models\Type::findOrFail($visitor['type_id'])->typeName->name }}
+                                                    {{ App\Models\Type::findOrFail($visitor['type_id'])->typeName->name ?? '' }}
                                                 </td>
                                                 <td class="p-2 border">
-                                                    {{ $visitor['serial'] }}
+                                                    {{ $visitor['serial'] ?? ''}}
                                                 </td>
                                                 <td class="p-2 border">
-                                                    {{ $visitor['price'] }}
+                                                    {{ $visitor['price'] ?? 0}}
                                                 </td>
                                             </tr>
                                         @empty

@@ -74,20 +74,18 @@
                                     placeholder="{{ __('site.price') }}" />
                                 <x-input-error for="visitors.{{ $key }}.price" class="mt-2" />
                             </div>
-                            @if ($loop->index !== 0)
-                                <div class="relative z-0 w-full mb-5 group">
-                                    <x-danger-button class="mt-6" wire:click="remove({{ $key }})"
+                            <div class="relative z-0 w-full mb-5 group md:mt-6">
+                                @if ($loop->index !== 0)
+                                    <x-danger-button wire:click="remove({{ $key }})"
                                         wire:loading.attr="disabled">
                                         {{ __('site.remove') }}
                                     </x-danger-button>
-                                </div>
-                            @else
-                                <div class="relative z-0 w-full mb-5 group">
-                                    <x-indigo-button wire:click="add" class="mt-6" wire:loading.attr="disabled">
+                                @else
+                                    <x-indigo-button wire:click="add" wire:loading.attr="disabled">
                                         {{ __('site.add_more') }}
                                     </x-indigo-button>
-                                </div>
-                            @endif
+                                @endif
+                            </div>
                         </div>
                     @endforeach
                 @endif

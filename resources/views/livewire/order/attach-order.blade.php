@@ -69,7 +69,7 @@
                             </div>
 
                             @if ($loop->index !== 0)
-                                <div class="relative z-0 w-full mb-5 group mt-6">
+                                <div class="relative z-0 w-full mb-5 group md:mt-6">
                                     @can('remove-visitor')
                                         <x-danger-button wire:click="remove({{ $key }})"
                                             wire:loading.attr="disabled">
@@ -82,7 +82,7 @@
                                         @endcan
                                 </div>
                             @else
-                                <div class="relative z-0 w-full mb-5 group mt-6">
+                                <div class="relative z-0 w-full mb-5 group md:mt-6">
                                     @can('add-more-visitor')
                                         <x-indigo-button wire:click="add" wire:loading.attr="disabled">
                                             {{ __('site.add_more') }}

@@ -1,8 +1,39 @@
 <div>
+    {{-- <x-indigo-button wire:click="importModal()" wire:loading.attr="disabled">
+        <x-icon class="w-4 h-4 mr-1" name="arrow-up" />
+        {{ __('site.import') }}
+    </x-indigo-button> --}}
+
     <x-danger-button wire:click="exportModal()" wire:loading.attr="disabled">
-        <x-icon class="w-4 h-4" name="arrow-down" />
+        <x-icon class="w-4 h-4 mr-1" name="arrow-down" />
         {{ __('site.export') }}
     </x-danger-button>
+
+    @if ($this->import_modal)
+        <x-dialog-modal wire:model.live="import_modal" submit="import()" method="POST">
+            <x-slot name="title">
+                {{ __('site.import_orders') }}
+            </x-slot>
+
+            <x-slot name="content">
+                <div class="col-span-6 sm:col-span-4">
+                    <x-label for="file" value="{{ __('site.choose_file') }}" />
+                    <x-input type="file" class="mt-1 block w-full border p-1" wire:model="file" />
+                    <x-input-error for="file" class="mt-2" />
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-indigo-button type="submit" wire:loading.attr="disabled">
+                    {{ __('site.import') }}
+                </x-indigo-button>
+
+                <x-secondary-button class="mx-2" wire:click="$set('import_modal',false)" wire:loading.attr="disabled">
+                    {{ __('site.cancel') }}
+                </x-secondary-button>
+            </x-slot>
+        </x-dialog-modal>
+    @endif
 
     @if ($this->export_modal)
         <x-dialog-modal wire:model.live="export_modal" submit="export()" method="POST">
