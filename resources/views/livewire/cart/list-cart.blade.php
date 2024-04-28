@@ -9,8 +9,8 @@
                 {{ __('site.shoppingcart') }} ({{ Cart::getTotalQuantity() }})
             </div>
         </div>
-        <table class="text-sm lg:text-base w-full text-center border">
-            <thead>
+        <x-table class="text-sm lg:text-base w-full text-center border">
+            <x-slot name="thead">
                 <tr class="h-12 uppercase border">
                     <th class="p-2">#</th>
                     <th class="p-2">{{ __('site.name') }}</th>
@@ -18,8 +18,8 @@
                     <th class="p-2"> {{ __('site.price') }}</th>
                     <th class="p-2"> {{ __('site.action') }} </th>
                 </tr>
-            </thead>
-            <tbody>
+            </x-slot>
+            <x-slot name="tbody">
                 @forelse ($cartItems as $item)
                     <tr wire:key="cart-{{ $item['id'] }}" class="odd:bg-gray-100">
                         <td class="p-2">
@@ -53,8 +53,8 @@
                     </tr>
                 @endforelse
 
-            </tbody>
-        </table>
+            </x-slot>
+        </x-table>
         @if (Cart::getTotalQuantity() > 0)
             <div class="mt-3 flex justify-between p-2">
                 <x-indigo-button wire:click="createOrder">
