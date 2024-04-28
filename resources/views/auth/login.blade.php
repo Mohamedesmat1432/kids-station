@@ -25,10 +25,17 @@
                     autofocus autocomplete="username" />
             </div>
 
-            <div class="mt-4">
+            <div x-data="{ showPassword: false }" class="mt-4">
                 <x-label for="password" value="{{ __('site.password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="current-password" />
+                <div class="relative">
+                    <x-input id="password" class="block mt-1 w-full" ::type="showPassword ? 'text' : 'password'" name="password" required
+                        autocomplete="current-password" />
+                    <button class="absolute inset-y-0 rtl:left-0 ltr:right-0 px-3 flex items-center cursor-pointer"
+                        x-on:click="showPassword = ! showPassword" type="button">
+                        <x-icon name="eye" x-show="showPassword" />
+                        <x-icon name="eye-slash" x-show="!showPassword" />
+                    </button>
+                </div>
             </div>
 
             <div class="mt-4 flex justify-between">
@@ -36,7 +43,7 @@
                     <x-checkbox id="remember_me" name="remember" />
                     <span class="mx-2 text-sm text-gray-600">{{ __('site.remember_me') }}</span>
                 </label>
-                
+
                 @if (Route::has('register'))
                     <a wire:navigate
                         class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

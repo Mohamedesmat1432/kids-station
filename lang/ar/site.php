@@ -319,4 +319,8 @@ return [
     'backup_success' => 'تم تحميل النسخ الاحتياطي بنجاح',
     'export_orders' => 'تصدير طلبات الاطفال',
     'orders_exported' => 'تم تصدير طلبات الاطفال بنجاح',
+    'import_orders' => 'استرداد طلبات الاطفال',
+    'orders_imported' => 'تم استرداد طلبات الاطفال بنجاح',
+    'cache_clear_success' => 'تم حذف كل الكاش بنجاح',
+    'clear_all_cache' => 'حذف كل الكاشات',
 ];

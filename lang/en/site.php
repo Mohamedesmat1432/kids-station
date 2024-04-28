@@ -315,8 +315,12 @@ return [
     'note' => 'Note',
     'download' => 'Download',
     'backup' => 'Backup',
-    'download_file_backup' => 'backup file has been downloaded successfully',
+    'download_file_backup' => 'Backup file has been downloaded successfully',
     'backup_success' => 'Backup has been loaded successfully',
-    'export_orders' => 'Export Orders',
-    'orders_exported' => 'Orders has been exported successfully',
+    'export_orders' => 'Export Orders Kids',
+    'orders_exported' => 'Orders Kids has been exported successfully',
+    'import_orders' => 'Export Orders Kids',
+    'orders_imported' => 'Orders Kids has been imported successfully',
+    'cache_clear_success' => 'All cache has been cleared successfully',
+    'clear_all_cache' => 'Clear All Cache'
 ];

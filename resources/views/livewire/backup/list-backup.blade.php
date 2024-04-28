@@ -11,12 +11,13 @@
 
             <div class="mt-6 text-gray-500 leading-relaxed">
                 <div class="mt-3">
-                    <div class="md:flex justify-between">
-                        <div class="mt-2">
-                            <x-button wire:click.debounce.500ms="backupDB">
-                                {{ __('site.backup') }}
-                            </x-button>
-                        </div>
+                    <div class="md:flex">
+                        <x-button wire:click="backupDB">
+                            {{ __('site.backup') }}
+                        </x-button>
+                        <x-button wire:click="optimizeClear" class="mx-1">
+                            {{ __('site.clear_all_cache') }}
+                        </x-button>
                     </div>
                 </div>
 

@@ -23,6 +23,12 @@ class ListBackup extends Component
         $this->successNotify(__('site.backup_success'));
     }
 
+    public function optimizeClear()
+    {
+        Artisan::call('optimize:clear');
+        $this->successNotify(__('site.cache_clear_success'));
+    }
+
     public function render()
     {
         $this->authorize('view-backup-database');
