@@ -36,7 +36,7 @@
 
                 @if ($visitors)
                     @foreach ($visitors as $key => $visitor)
-                        <div class="grid md:grid-cols-5 md:gap-3">
+                        <div class="grid md:grid-cols-6 md:gap-3">
                             <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="name" value="{{ __('site.name') }}" />
                                 <x-input type="text" class="mt-1 block w-full"
@@ -44,9 +44,9 @@
                                     autocomplete="visitors.{{ $key }}.name" disabled />
                                 <x-input-error for="visitors.{{ $key }}.name" class="mt-2" />
                             </div>
-                            <div class="relative z-0 w-full mb-5 group">
+                            <div class="relative z-0 w-full mb-5 group md:col-span-2">
                                 <x-label for="type_id" value="{{ __('site.type') }}" />
-                                <x-input type="hidden" class="mt-1 block w-full"
+                                <x-input type="hidden" class="mt-1 block w-full text-center"
                                     wire:model="visitors.{{ $key }}.type_id" />
                                 <x-input type="text" class="mt-1 block w-full"
                                     value="{{ App\Models\Type::find($visitor['type_id'])->typeName->name ?? '' }}"
