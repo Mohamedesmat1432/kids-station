@@ -25,26 +25,26 @@ html {
 
 /* Track scrollbar*/
 ::-webkit-scrollbar-track {
-    background: #38393b;
+    background: #adbcff;
     border-radius: 4px;
 }
 
 /* Handle scrollbar*/
 ::-webkit-scrollbar-thumb {
-    background: #46474b;
+    background: #7296f8;
     border-radius: 4px;
     cursor: pointer;
 }
 
 /* Handle on hover scrollbar*/
 ::-webkit-scrollbar-thumb:hover {
-    background: #242424;
+    background: #7296f8;
 }
 
 /* Select option checked*/
 select option:checked,
 select option[multiple]:checked {
-    background-color: #46474b;
+    background-color: #6596ff;
     color: white;
     font-weight: bold;
     padding: 5px;
