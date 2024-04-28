@@ -36,8 +36,8 @@
 
                 @if ($visitors)
                     @foreach ($visitors as $key => $visitor)
-                        <div class="grid md:grid-cols-6 md:gap-3">
-                            <div class="relative z-0 w-full mb-5 group">
+                        <div class="grid md:grid-cols-7 md:gap-3">
+                            <div class="relative z-0 w-full mb-5 group md:col-span-2">
                                 <x-label for="name" value="{{ __('site.name') }}" />
                                 <x-input type="text" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.name" placeholder="{{ __('site.name') }}"
@@ -46,7 +46,7 @@
                             </div>
                             <div class="relative z-0 w-full mb-5 group md:col-span-2">
                                 <x-label for="type_id" value="{{ __('site.type') }}" />
-                                <x-input type="hidden" class="mt-1 block w-full text-center"
+                                <x-input type="hidden" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.type_id" />
                                 <x-input type="text" class="mt-1 block w-full"
                                     value="{{ App\Models\Type::find($visitor['type_id'])->typeName->name ?? '' }}"
