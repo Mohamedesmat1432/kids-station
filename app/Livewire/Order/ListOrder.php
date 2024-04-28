@@ -22,15 +22,7 @@ class ListOrder extends Component
     {
         $this->authorize('view-order-kids');
 
-        if (auth()->user()->hasRole(['Super Admin', 'Admin'])) {
-            $orders = $this->trash 
-                ? Order::onlyTrashed() 
-                : Order::withoutTrashed();
-        } else {
-            $orders = $this->trash 
-                ? auth()->user()->orders()->onlyTrashed() 
-                : auth()->user()->orders()->withoutTrashed();
-        }
+        $orders = $this->trash ? Order::onlyTrashed() : Order::withoutTrashed();
             
         $orders = $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->search($this->search)->searchDate($this->date)->paginate($this->page_element);
