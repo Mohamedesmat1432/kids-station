@@ -37,7 +37,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
 
     public function collection()
     {
-        return Order::select('id', 'number', 'user_id', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'visitors', 'total', 'remianing', 'last_number', 'last_total', 'start_date', 'end_date', 'status', 'note')
+        return Order::select('id', 'number', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'total', 'remianing', 'last_number', 'last_total', 'start_date', 'end_date')
             ->where('number', 'like', '%' . $this->search . '%')
             ->orWhere('customer_name', 'like', '%' . $this->search . '%')
             ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
@@ -46,6 +46,6 @@ class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
 
     public function headings(): array
     {
-        return ['ID', 'Number', 'User Id', 'Customer Name', 'Customer Phone', 'Duration', 'Offer Id', 'Visitors', 'Total', 'Remianing', 'Last Number', 'Last Total', 'Start Date', 'End Date', 'Status', 'Note'];
+        return ['ID', 'Number', 'Customer Name', 'Customer Phone', 'Duration', 'Offer Id', 'Total', 'Remianing', 'Last Number', 'Last Total', 'Start Date', 'End Date'];
     }
 }
