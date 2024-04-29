@@ -16,6 +16,7 @@ use App\Models\TypeName;
 use App\Models\Unit;
 use App\Models\User;
 use App\Traits\SortSearchTrait;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
@@ -124,8 +125,12 @@ class DashboardComponent extends Component
                 'role' => 'view-order-kids',
                 'bg' => 'bg-blue-500',
                 'hover' => 'hover:bg-blue-600',
-                'count' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? Order::count() : auth()->user()->orders()->count(),
-                'total' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? Order::sum('total') - Order::sum('last_total') : auth()->user()->orders()->sum('total') - auth()->user()->orders()->sum('last_total'),
+                'count' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? Order::count()
+                    : auth()->user()->orders()->whereDate('created_at', Carbon::today())->count(),
+                'total' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? Order::sum('total') - Order::sum('last_total')
+                    : auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('total') - auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('last_total'),
             ],
             [
                 'name' => 'product.orders',
@@ -134,8 +139,12 @@ class DashboardComponent extends Component
                 'role' => 'view-product-order',
                 'bg' => 'bg-green-500',
                 'hover' => 'hover:bg-green-600',
-                'count' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? ProductOrder::count() : auth()->user()->productOrders()->count(),
-                'total' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? ProductOrder::sum('total') : auth()->user()->productOrders()->sum('total'),
+                'count' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? ProductOrder::count()
+                    : auth()->user()->productOrders()->whereDate('created_at', Carbon::today())->count(),
+                'total' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? ProductOrder::sum('total')
+                    : auth()->user()->productOrders()->whereDate('created_at', Carbon::today())->sum('total'),
             ],
             [
                 'name' => 'daily.expenses',
@@ -144,8 +153,12 @@ class DashboardComponent extends Component
                 'role' => 'view-daily-expense-kids',
                 'bg' => 'bg-gray-500',
                 'hover' => 'hover:bg-gray-600',
-                'count' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? DailyExpense::count() : auth()->user()->dailyExpenses()->count(),
-                'total' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? DailyExpense::sum('total') : auth()->user()->dailyExpenses()->sum('total'),
+                'count' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? DailyExpense::count()
+                    : auth()->user()->dailyExpenses()->whereDate('created_at', Carbon::today())->count(),
+                'total' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? DailyExpense::sum('total')
+                    : auth()->user()->dailyExpenses()->whereDate('created_at', Carbon::today())->sum('total'),
             ],
             [
                 'name' => 'daily.expenses.product',
@@ -154,29 +167,49 @@ class DashboardComponent extends Component
                 'role' => 'view-daily-expense-product',
                 'bg' => 'bg-red-500',
                 'hover' => 'hover:bg-red-600',
-                'count' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? DailyExpenseProduct::count() : auth()->user()->dailyExpenseProducts()->count(),
-                'total' => auth()->user()->hasRole(['Super Admin', 'Admin']) ? DailyExpenseProduct::sum('total') : auth()->user()->dailyExpenseProducts()->sum('total'),
+                'count' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? DailyExpenseProduct::count()
+                    : auth()->user()->dailyExpenseProducts()->whereDate('created_at', Carbon::today())->count(),
+                'total' => auth()->user()->hasRole(['Super Admin', 'Admin'])
+                    ? DailyExpenseProduct::sum('total')
+                    : auth()->user()->dailyExpenseProducts()->whereDate('created_at', Carbon::today())->sum('total'),
             ],
         ];
     }
 
     public function render()
     {
-        $orders = auth()->user()->hasRole(['Super Admin', 'Admin']) ? new Order() : auth()->user()->orders();
+        $orders = auth()->user()->hasRole(['Super Admin', 'Admin'])
+            ? new Order()
+            : auth()->user()->orders();
+
         $orders_by_months = $orders->select(DB::raw('sum(total) as total'), DB::raw('sum(last_total) as last_total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')->paginate($this->page_element);
+            ->groupBy('months')
+            ->paginate($this->page_element);
 
-        $product_orders = auth()->user()->hasRole(['Super Admin', 'Admin']) ? new ProductOrder() : auth()->user()->productOrders();
+        $product_orders = auth()->user()->hasRole(['Super Admin', 'Admin'])
+            ? new ProductOrder()
+            : auth()->user()->productOrders();
+
         $product_orders_by_months = $product_orders->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')->paginate($this->page_element);
+            ->groupBy('months')
+            ->paginate($this->page_element);
 
-        $daily_expenses = auth()->user()->hasRole(['Super Admin', 'Admin']) ? new DailyExpense() : auth()->user()->dailyExpenses();
+        $daily_expenses = auth()->user()->hasRole(['Super Admin', 'Admin'])
+            ? new DailyExpense()
+            : auth()->user()->dailyExpenses();
+
         $daily_expenses_by_months = $daily_expenses->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')->paginate($this->page_element);
+            ->groupBy('months')
+            ->paginate($this->page_element);
 
-        $daily_expenses_product = auth()->user()->hasRole(['Super Admin', 'Admin']) ? new DailyExpenseProduct() : auth()->user()->dailyExpenseProducts();
+        $daily_expenses_product = auth()->user()->hasRole(['Super Admin', 'Admin'])
+            ? new DailyExpenseProduct()
+            : auth()->user()->dailyExpenseProducts();
+
         $daily_expenses_product_by_months = $daily_expenses_product->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')->paginate($this->page_element);
+            ->groupBy('months')
+            ->paginate($this->page_element);
 
         return view('livewire.dashboard.dashboard-component', [
             'dashboard_links' => $this->dashboardLinks(),
@@ -185,6 +218,5 @@ class DashboardComponent extends Component
             'daily_expenses_by_months' => $daily_expenses_by_months,
             'daily_expenses_product_by_months' => $daily_expenses_product_by_months,
         ]);
-
     }
 }
