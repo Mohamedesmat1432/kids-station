@@ -13,13 +13,13 @@
                 <form wire:submit="showMoneySafe">
                     <div class="mt-2 md:flex text-gray-500">
                         <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
-                            <x-select class="mt-1 block w-full" wire:model="user_id">
+                            <x-select class="mt-1 block w-full" wire:model="user_ids" multiple>
                                 <option value="">{{ __('site.select_user') }}</option>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
                             </x-select>
-                            <x-input-error for="user_id" class="mt-2" />
+                            <x-input-error for="user_ids" class="mt-2" />
                         </div>
                         <div class="col-span-6 sm:col-span-4 mt-3 md:mx-1">
                             <x-input type="date" class="mt-1 block w-full" wire:model="start_date"
