@@ -100,7 +100,7 @@ return [
     'manage_account' => 'Manage Account',
     'last_total' => 'Last Total Order',
     'remianing' => 'Remianing',
-    'password' => 'password',
+    'password' => 'Password',
     'order_created' => 'Order created successfully',
     'order_updated' => 'Order attach to current order created successfully',
     'order_deleted' => 'Order deleted successfully',
