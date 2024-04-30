@@ -13,7 +13,7 @@ trait DailyExpenseProductTrait
     public ?DailyExpenseProduct $daily_expense;
     public $daily_expense_id;
     public $user_id;
-    public $data;
+    public $data = [['name' => '', 'price' => 0]];
     public $total;
     public $checkbox_arr = [];
 
@@ -25,19 +25,15 @@ trait DailyExpenseProductTrait
         ];
     }
 
-    public function fillRow()
-    {
-        $this->data = collect([['name' => '', 'price' => 0]]);
-    }
-
     public function remove($key)
     {
-        $this->data->pull($key);
+        unset($this->data[$key]);
+        $this->data = array_values($this->data);
     }
 
     public function add()
     {
-        $this->data->push(['name' => '', 'price' => 0]);
+        $this->data[] = ['name' => '', 'price' => 0];
     }
 
     public function totalPriceData($data)

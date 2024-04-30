@@ -13,7 +13,6 @@ class CreateDailyExpenseProduct extends Component
     {
         $this->reset();
         $this->resetValidation();
-        $this->fillRow();
         $this->create_modal = true;
     }
 
