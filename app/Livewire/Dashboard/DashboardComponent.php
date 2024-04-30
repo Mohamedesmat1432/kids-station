@@ -179,37 +179,18 @@ class DashboardComponent extends Component
 
     public function render()
     {
-        $orders = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new Order()
-            : auth()->user()->orders();
 
-        $orders_by_months = $orders->select(DB::raw('sum(total) as total'), DB::raw('sum(last_total) as last_total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
+        $orders_by_months = Order::select(DB::raw('sum(total) as total'), DB::raw('sum(last_total) as last_total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
 
-        $product_orders = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new ProductOrder()
-            : auth()->user()->productOrders();
+        $product_orders_by_months = ProductOrder::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
 
-        $product_orders_by_months = $product_orders->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
+        $daily_expenses_by_months = DailyExpense::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
 
-        $daily_expenses = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new DailyExpense()
-            : auth()->user()->dailyExpenses();
-
-        $daily_expenses_by_months = $daily_expenses->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
-
-        $daily_expenses_product = auth()->user()->hasRole(['Super Admin', 'Admin'])
-            ? new DailyExpenseProduct()
-            : auth()->user()->dailyExpenseProducts();
-
-        $daily_expenses_product_by_months = $daily_expenses_product->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
-            ->groupBy('months')
-            ->paginate($this->page_element);
+        $daily_expenses_product_by_months = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
+            ->groupBy('months')->paginate($this->page_element);
 
         return view('livewire.dashboard.dashboard-component', [
             'dashboard_links' => $this->dashboardLinks(),
