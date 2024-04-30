@@ -173,11 +173,11 @@
                                 @if ($this->trash)
                                     <td class="p-2 border">
                                         <x-restore-button permission="restore-type" id="{{ $type->id }}"
-                                            name="{{ $type->typeName->name }}" />
+                                            name="{{ $type->typeName->name ?? '' }}" />
                                     </td>
                                     <td class="p-2 border">
                                         <x-force-delete-button permission="force-delete-type" id="{{ $type->id }}"
-                                            name="{{ $type->typeName->name }}" />
+                                            name="{{ $type->typeName->name  ?? ''}}" />
                                     </td>
                                 @else
                                     <td class="p-2 border">
@@ -185,7 +185,7 @@
                                     </td>
                                     <td class="p-2 border">
                                         <x-delete-button permission="delete-type" id="{{ $type->id }}"
-                                            name="{{ $type->typeName->name }}" />
+                                            name="{{ $type->typeName->name ?? ''}}" />
                                     </td>
                                 @endif
                             </tr>
