@@ -24,7 +24,7 @@ class CreateType extends Component
 
     public function render()
     {
-        $type_names = TypeName::active()->get();
+        $type_names = TypeName::get();
 
         return view('livewire.type.create-type',[
             'type_names' => $type_names,
