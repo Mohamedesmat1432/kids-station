@@ -239,6 +239,7 @@ return [
     'force_delete_product_order' => 'Force Delete Product Order',
     'force_bulk_delete_product_order' => 'Force Bulk Delete Product Orders',
     'restore_order' => 'Restore Order',
+    'order_restored' => 'Kids order restored successfully',
     'restore_product_order' => 'Restore Product Order',
     'product_order_restored' => 'Product order restored successfully',
     'product_order_deleted' => 'Product order deleted successfully',

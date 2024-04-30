@@ -241,6 +241,7 @@ return [
     'force_delete_product_order' => 'حذف طلب المنتج نهائيا',
     'force_bulk_delete_product_order' => 'حذف طلبات المنتجات نهائيا',
     'restore_order' => 'استرجاع الطلب',
+    'order_restored' => 'تم استرجاع طلب الطفل بنجاح',
     'restore_product_order' => 'استرجاع طلب المنتج',
     'product_order_restored' => 'تم استرجاع طلب المنتج بنجاح',
     'product_order_deleted' => 'تم حذف طلب المنتج بنجاح',

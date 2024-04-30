@@ -21,7 +21,7 @@ trait OrderTrait
     public $customer_phone;
     public $duration;
     public $offer_id;
-    public $visitors;
+    public $visitors = [['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]];
     public $total = 0;
     public $remianing = 0;
     public $last_number;
@@ -46,8 +46,20 @@ trait OrderTrait
             'visitors.*.serial' => 'required|string|min:2|max:20',
             'visitors.*.price' => 'required|numeric',
             // 'status' => 'required|in:inprogress,completed,completed_audit',
-            'note' => 'nullable|string'
+            'note' => 'nullable|string',
         ];
+    }
+
+    public function remove($key)
+    {
+        unset($this->visitors[$key]);
+        $this->visitors = array_values($this->visitors);
+        $this->totalVisitors();
+    }
+
+    public function add()
+    {
+        $this->visitors[] = ['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0];
     }
 
     public function discount()
@@ -59,13 +71,13 @@ trait OrderTrait
 
     public function refreshNewVisitor()
     {
-        $this->visitors = $this->visitors->map(function ($visitor) {
+        $this->visitors = array_map(function ($visitor) {
             $visitor['type_id'] = '';
             $visitor['price'] = number_format(0, 2);
             $this->total += $visitor['price'];
 
             return $visitor;
-        });
+        }, $this->visitors);
     }
 
     public function refreshAttachVisitors()
@@ -76,7 +88,7 @@ trait OrderTrait
         } else {
             $this->total = number_format(0, 2);
 
-            $this->visitors = $this->visitors->map(function ($visitor) {
+            $this->visitors = array_map(function ($visitor) {
                 if ($visitor) {
                     $unique_types = Type::whereIn('duration', [$this->duration, 0])
                         ->orderBy('price', 'ASC')
@@ -97,7 +109,7 @@ trait OrderTrait
 
                 $this->total += $visitor['price'];
                 return $visitor;
-            });
+            }, $this->visitors);
 
             $this->discount();
         }
@@ -108,7 +120,7 @@ trait OrderTrait
         $this->total = number_format(0, 2);
 
         if ($this->duration) {
-            $this->visitors = $this->visitors->map(function ($visitor) {
+            $this->visitors = array_map(function ($visitor) {
                 if ($visitor['type_id']) {
                     $visitor['price'] = Type::find($visitor['type_id'])->price;
                     $this->total += $visitor['price'];
@@ -116,7 +128,7 @@ trait OrderTrait
                     $visitor['price'] = number_format(0, 2);
                 }
                 return $visitor;
-            });
+            }, $this->visitors);
         }
 
         $this->discount();
@@ -131,7 +143,7 @@ trait OrderTrait
         $this->customer_name = $this->order->customer_name;
         $this->customer_phone = $this->order->customer_phone;
         $this->duration = $this->order->duration;
-        $this->visitors = collect($this->order->visitors);
+        $this->visitors = $this->order->visitors;
         $this->total = $this->order->total;
         $this->start_date = $this->order->start_date;
         $this->end_date = $this->order->end_date;
@@ -162,11 +174,10 @@ trait OrderTrait
         $validated['total'] = $this->total;
         $order = Order::create($validated);
         $this->reset();
-        $this->fillRow();
         $this->dispatch('print-create-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_created'));
-        $this->create_modal = false;    
+        $this->create_modal = false;
     }
 
     public function attachOrder()
@@ -184,27 +195,10 @@ trait OrderTrait
         $validated['total'] = $this->total;
         $order = Order::create($validated);
         $this->reset();
-        $this->fillRow();
         $this->dispatch('print-attach-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_updated'));
-        $this->attach_modal = false;    
-    }
-
-    public function remove($key)
-    {
-        $this->visitors->pull($key);
-        $this->totalVisitors();
-    }
-
-    public function add()
-    {
-        $this->visitors->push(['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]);
-    }
-
-    public function fillRow()
-    {
-        $this->visitors = collect([['name' => '', 'type_id' => '', 'serial' => '', 'price' => 0]]);
+        $this->attach_modal = false;
     }
 
     public function deleteOrder($id)
