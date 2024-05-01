@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Livewire\Backup\ListBackup;
 use App\Livewire\Cart\ShoppingCart;
 use App\Livewire\Category\ListCategory;
 use App\Livewire\DailyExpense\ListDailyExpense;
 use App\Livewire\DailyExpenseProduct\ListDailyExpenseProduct;
 use App\Livewire\Dashboard\DashboardComponent;
+use App\Livewire\Home\HomeComponent;
 use App\Livewire\MoneySafe\ListMoneySafe;
 use App\Livewire\MoneySafeProduct\ListMoneySafeProduct;
 use App\Livewire\Offer\ListOffer;
@@ -19,8 +20,6 @@ use App\Livewire\Type\ListType;
 use App\Livewire\TypeName\ListTypeName;
 use App\Livewire\Unit\ListUnit;
 use App\Livewire\User\ListUser;
-use App\Models\Order;
-use App\Models\ProductOrder;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 /*
@@ -33,7 +32,7 @@ use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', [HomeController::class, 'home']);
+Route::get('/', HomeComponent::class);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/user/profile',[UserProfileController::class,'show'])->name('profile.show');
@@ -54,16 +53,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/daily-expenses-product', ListDailyExpenseProduct::class)->name('daily.expenses.product');
     Route::get('/money-safe', ListMoneySafe::class)->name('money.safe');
     Route::get('/money-safe-product', ListMoneySafeProduct::class)->name('money.safe.product');
-
-    Route::get('/invoice-kids/{id}', function ($id) {
-        $order = Order::findOrFail($id);
-        return view('pages.invoice-kids', ['order' => $order]);
-    })->name('invoice.kids');
-
-    Route::get('/invoice-product/{id}', function ($id) {
-        $product_order = ProductOrder::findOrFail($id);
-        return view('pages.invoice-product', ['product_order' => $product_order]);
-    })->name('invoice.product');
-
     Route::get('/backup', ListBackup::class)->name('backup');
+
+    Route::get('/invoice-kids/{id}', [InvoiceController::class,'kidsInvoice'])->name('invoice.kids');
+    Route::get('/invoice-product/{id}', [InvoiceController::class,'productInvoice'])->name('invoice.product');
 });

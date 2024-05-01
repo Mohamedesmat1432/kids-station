@@ -28,7 +28,7 @@
             <livewire:navigate-menu />
             {{-- <livewire:chat.group-chat /> --}}
         @else
-            @include('home-menu')
+            <livewire:home-menu />
         @endauth
 
         <!-- Page Heading -->
@@ -36,14 +36,6 @@
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
                     <div>{{ $header }}</div>
-                    <div>
-                        {{-- <button onclick="openFullscreen()">
-                            <x-icon name="arrows-pointing-out" class="text-xl" />
-                        </button> --}}
-                        {{-- <button onclick="closeFullscreen()">
-                            <x-icon name="arrows-pointing-in" class="text-xl" />
-                        </button> --}}
-                    </div>
                 </div>
             </header>
         @endif
