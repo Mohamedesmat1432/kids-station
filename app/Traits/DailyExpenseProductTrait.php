@@ -59,7 +59,7 @@ trait DailyExpenseProductTrait
         $this->daily_expense = DailyExpenseProduct::withoutTrashed()->findOrFail($id);
         $this->daily_expense_id = $this->daily_expense->id;
         $this->user_id = $this->daily_expense->user_id;
-        $this->data = collect($this->daily_expense->data);
+        $this->data = $this->daily_expense->data;
         $this->total = $this->daily_expense->total;
     }
 
