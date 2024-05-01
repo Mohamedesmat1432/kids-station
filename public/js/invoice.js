@@ -6,7 +6,7 @@ function printOrderKids(id, lang) {
             setTimeout(() => {
                 winPrint.print();
                 winPrint.close();
-            }, 2000);
+            }, 1000);
             winPrint.focus();
         })
         .catch(function(error) {
@@ -22,7 +22,7 @@ function printProductOrder(id, lang) {
             setTimeout(() => {
                 winPrint.print();
                 winPrint.close();
-            }, 2000);
+            }, 1000);
             winPrint.focus();
         })
         .catch(function(error) {
