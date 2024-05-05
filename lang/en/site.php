@@ -323,5 +323,8 @@ return [
     'import_orders' => 'Export Orders Kids',
     'orders_imported' => 'Orders Kids has been imported successfully',
     'cache_clear_success' => 'All cache has been cleared successfully',
-    'clear_all_cache' => 'Clear All Cache'
+    'clear_all_cache' => 'Clear All Cache',
+    'today_orders' => 'Orders Today',
+    'visitors_count' => 'Visitors Count',
+    'count' => 'Count',
 ];

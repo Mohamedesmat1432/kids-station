@@ -7,7 +7,6 @@ use App\Models\DailyExpense;
 use App\Models\DailyExpenseProduct;
 use App\Models\Offer;
 use App\Models\Order;
-use App\Models\Permission;
 use App\Models\Product;
 use App\Models\ProductOrder;
 use App\Models\Role;
@@ -24,6 +23,8 @@ use Livewire\WithPagination;
 class DashboardComponent extends Component
 {
     use WithPagination, SortSearchTrait;
+
+    public $start_date = '' ,$end_date = '';
 
     public function dashboardLinks()
     {
@@ -48,16 +49,6 @@ class DashboardComponent extends Component
                 'count' => Role::count(),
                 'total' => '',
             ],
-            // [
-            //     'name' => 'permissions',
-            //     'value' => __('site.permissions'),
-            //     'icon' => 'receipt-percent',
-            //     'role' => 'view-permission',
-            //     'bg' => 'bg-red-500',
-            //     'hover' => 'hover:bg-red-600',
-            //     'count' => Permission::count(),
-            // 'total' => '',
-            // ],
             [
                 'name' => 'categories',
                 'value' => __('site.categories'),
@@ -133,6 +124,16 @@ class DashboardComponent extends Component
                     : auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('total') - auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('last_total'),
             ],
             [
+                'name' => 'orders',
+                'value' => __('site.today_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-order-kids',
+                'bg' => 'bg-blue-500',
+                'hover' => 'hover:bg-blue-600',
+                'count' => Order::whereDate('created_at', Carbon::today())->count(),
+                'total' => Order::whereDate('created_at', Carbon::today())->sum('total') - Order::whereDate('created_at', Carbon::today())->sum('last_total'),
+            ],
+            [
                 'name' => 'product.orders',
                 'value' => __('site.product_orders'),
                 'icon' => 'briefcase',
@@ -177,6 +178,20 @@ class DashboardComponent extends Component
         ];
     }
 
+    public function visitorsCount(){
+        $data = [];
+        $order_visitors = Order::whereDate('created_at','>=',$this->start_date)
+            ->whereDate('created_at','<=',$this->end_date)->pluck('visitors')->toArray();
+
+        foreach($order_visitors as $order_visitor){
+            foreach($order_visitor as $visitor){
+                array_push($data,Type::find($visitor['type_id'])->typeName->name);
+            }
+        }
+
+        return array_count_values($data);
+    }
+
     public function render()
     {
 
@@ -192,12 +207,14 @@ class DashboardComponent extends Component
         $daily_expenses_product_by_months = DailyExpenseProduct::select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))
             ->groupBy('months')->paginate($this->page_element);
 
+            
         return view('livewire.dashboard.dashboard-component', [
             'dashboard_links' => $this->dashboardLinks(),
             'orders_by_months' => $orders_by_months,
             'product_orders_by_months' => $product_orders_by_months,
             'daily_expenses_by_months' => $daily_expenses_by_months,
             'daily_expenses_product_by_months' => $daily_expenses_product_by_months,
+            'visitors_count' => $this->visitorsCount(),
         ]);
     }
 }

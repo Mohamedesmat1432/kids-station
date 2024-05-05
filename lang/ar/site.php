@@ -324,4 +324,7 @@ return [
     'orders_imported' => 'تم استرداد طلبات الاطفال بنجاح',
     'cache_clear_success' => 'تم حذف كل الكاش بنجاح',
     'clear_all_cache' => 'حذف كل الكاشات',
+    'today_orders' => 'طلبات الاطفال اليومية',
+    'visitors_count' => 'أعداد اﻷطفال',
+    'count' => 'العدد',
 ];
