@@ -178,19 +178,19 @@ class DashboardComponent extends Component
         ];
     }
 
-    // public function visitorsCount(){
-    //     $data = [];
-    //     $order_visitors = Order::whereDate('created_at','>=',$this->start_date)
-    //         ->whereDate('created_at','<=',$this->end_date)->pluck('visitors')->toArray();
+    public function visitorsCount(){
+        $data = [];
+        $order_visitors = Order::whereDate('created_at','>=',$this->start_date)
+            ->whereDate('created_at','<=',$this->end_date)->pluck('visitors')->toArray();
 
-    //     foreach($order_visitors as $order_visitor){
-    //         foreach($order_visitor as $visitor){
-    //             array_push($data,Type::find($visitor['type_id'])->typeName->name);
-    //         }
-    //     }
+        foreach($order_visitors as $order_visitor){
+            foreach($order_visitor as $visitor){
+                array_push($data,Type::find($visitor['type_id'])->typeName->name);
+            }
+        }
 
-    //     return array_count_values($data);
-    // }
+        return array_count_values($data);
+    }
 
     public function render()
     {
