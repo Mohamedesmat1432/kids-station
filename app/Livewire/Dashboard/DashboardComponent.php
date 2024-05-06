@@ -127,7 +127,7 @@ class DashboardComponent extends Component
                 'name' => 'orders',
                 'value' => __('site.today_orders'),
                 'icon' => 'briefcase',
-                'role' => 'view-order-kids',
+                'role' => 'view-today-order-kids',
                 'bg' => 'bg-blue-500',
                 'hover' => 'hover:bg-blue-600',
                 'count' => Order::whereDate('created_at', Carbon::today())->count(),

@@ -141,6 +141,7 @@ class PermissionSeeder extends Seeder
             'view-money-safe-product',
             'view-trash-group-button',
             'view-backup-database',
+            'view-today-order-kids',
             // 'add-more-visitor',
             // 'remove-visitor'
         ];
