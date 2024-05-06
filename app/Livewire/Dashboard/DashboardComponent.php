@@ -123,16 +123,16 @@ class DashboardComponent extends Component
                     ? Order::sum('total') - Order::sum('last_total')
                     : auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('total') - auth()->user()->orders()->whereDate('created_at', Carbon::today())->sum('last_total'),
             ],
-            // [
-            //     'name' => 'orders',
-            //     'value' => __('site.today_orders'),
-            //     'icon' => 'briefcase',
-            //     'role' => 'view-order-kids',
-            //     'bg' => 'bg-blue-500',
-            //     'hover' => 'hover:bg-blue-600',
-            //     'count' => Order::whereDate('created_at', Carbon::today())->count(),
-            //     'total' => Order::whereDate('created_at', Carbon::today())->sum('total') - Order::whereDate('created_at', Carbon::today())->sum('last_total'),
-            // ],
+            [
+                'name' => 'orders',
+                'value' => __('site.today_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-order-kids',
+                'bg' => 'bg-blue-500',
+                'hover' => 'hover:bg-blue-600',
+                'count' => Order::whereDate('created_at', Carbon::today())->count(),
+                'total' => Order::whereDate('created_at', Carbon::today())->sum('total') - Order::whereDate('created_at', Carbon::today())->sum('last_total'),
+            ],
             [
                 'name' => 'product.orders',
                 'value' => __('site.product_orders'),

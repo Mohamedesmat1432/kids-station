@@ -264,7 +264,7 @@
                         </x-table>
                     @endcan
 
-                    {{-- <div class="visitors-count">
+                    <div class="visitors-count">
                         <div class="flex justify-between">
                             <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
                                 placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
@@ -315,7 +315,7 @@
                                 @endforelse
                             </x-slot>
                         </x-table>
-                    </div> --}}
+                    </div>
                 </div>
             @endif
         </div>
