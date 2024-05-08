@@ -57,17 +57,17 @@
                     <!-- Account Management -->
                     @if (Route::has('login'))
                         @auth
-                            <x-responsive-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                            <x-responsive-nav-link class="flex" wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                                 {{ __('site.dashboard') }}
                             </x-responsive-nav-link>
                         @else
-                            <x-responsive-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            <x-responsive-nav-link class="flex" wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
                                 <x-icon name="arrow-right-on-rectangle" class="h-6 w-5" />
                                 {{ __('site.login') }}
                             </x-responsive-nav-link>
 
                             @if (Route::has('register'))
-                                <x-responsive-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
+                                <x-responsive-nav-link class="flex" wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
                                     <x-icon name="plus" class="h-6 w-5" />
                                     {{ __('site.register') }}
                                 </x-responsive-nav-link>
