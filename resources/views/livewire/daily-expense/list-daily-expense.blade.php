@@ -25,7 +25,7 @@
                     <div class="md:flex justify-between">
                         <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
-                                placeholder="{{ __('site.search') }}..." />
+                                placeholder="{{ __('site.search') }}..." class="mb-2" />
 
                             <x-input type="date" wire:model.live.debounce.500ms="date"
                                 placeholder="{{ __('site.date') }}..." />
