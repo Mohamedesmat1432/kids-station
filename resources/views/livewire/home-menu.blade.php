@@ -62,13 +62,13 @@
                             </x-responsive-nav-link>
                         @else
                             <x-responsive-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
-                                <x-icon name="arrow-right-on-rectangle" class="h-6 w-5 float-left" />
+                                <x-icon name="arrow-right-on-rectangle" class="h-6 w-5" />
                                 {{ __('site.login') }}
                             </x-responsive-nav-link>
 
                             @if (Route::has('register'))
                                 <x-responsive-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
-                                    <x-icon name="plus" class="h-6 w-5 float-left" />
+                                    <x-icon name="plus" class="h-6 w-5" />
                                     {{ __('site.register') }}
                                 </x-responsive-nav-link>
                             @endif
