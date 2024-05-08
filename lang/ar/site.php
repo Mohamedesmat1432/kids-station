@@ -327,4 +327,5 @@ return [
     'today_orders' => 'طلبات الاطفال اليومية',
     'visitors_count' => 'أعداد اﻷطفال',
     'count' => 'العدد',
+    'visitors_count_by_duration' => 'أعداد اﻷطفال بالمدة',
 ];

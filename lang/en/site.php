@@ -327,4 +327,5 @@ return [
     'today_orders' => 'Orders Today',
     'visitors_count' => 'Visitors Count',
     'count' => 'Count',
+    'visitors_count_by_duration' => 'Visitors Count By Duration',
 ];

@@ -22,7 +22,7 @@ trait SortSearchTrait
     public bool $sort_asc = false;
 
     #[Url('')]
-    public int $page_element = 10;
+    public int $page_element = 25;
     
     public bool $trash = false;
 

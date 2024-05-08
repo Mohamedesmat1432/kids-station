@@ -264,58 +264,101 @@
                         </x-table>
                     @endcan
 
-                    <div class="visitors-count">
-                        <div class="flex justify-between">
-                            <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
-                                placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
+                    <div class="flex justify-center col-span-2">
+                        <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
+                            placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
 
-                            <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="end_date"
-                                placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
-                        </div>
-                        <x-table>
-                            <x-slot name="caption">
-                                {{ __('site.visitors_count') }}
-                            </x-slot>
-                            <x-slot name="thead">
-                                <tr>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            <button wire:click="sortByField('type')">
-                                                {{ __('site.type') }}
-                                            </button>
-                                            <x-sort-icon sort_field="type" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                        </div>
+                        <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="end_date"
+                            placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
+                    </div>
+
+                    <x-table>
+                        <x-slot name="caption">
+                            {{ __('site.visitors_count') }}
+                        </x-slot>
+                        <x-slot name="thead">
+                            <tr>
+                                <td class="px-4 py-2 border">
+                                    <div class="flex justify-center">
+                                        <button wire:click="sortByField('type')">
+                                            {{ __('site.type') }}
+                                        </button>
+                                        <x-sort-icon sort_field="type" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    </div>
+                                </td>
+                                <td class="px-4 py-2 border">
+                                    <div class="flex justify-center">
+                                        <button wire:click="sortByField('count')">
+                                            {{ __('site.count') }}
+                                        </button>
+                                        <x-sort-icon sort_field="count" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </x-slot>
+                        <x-slot name="tbody">
+                            @forelse ($visitors_count as $key => $visitor)
+                                <tr wire:key="product-order-by-{{ $loop->iteration }}" class="odd:bg-gray-100">
+                                    <td class="p-2 border">
+                                        {{ $key }}
                                     </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            <button wire:click="sortByField('count')">
-                                                {{ __('site.count') }}
-                                            </button>
-                                            <x-sort-icon sort_field="count" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                                        </div>
+                                    <td class="p-2 border">
+                                        {{ $visitor }}
                                     </td>
                                 </tr>
-                            </x-slot>
-                            <x-slot name="tbody">
-                                @forelse ($visitors_count as $key => $visitor)
-                                    <tr wire:key="product-order-by-{{ $loop->iteration }}" class="odd:bg-gray-100">
-                                        <td class="p-2 border">
-                                            {{ $key }}
-                                        </td>
-                                        <td class="p-2 border">
-                                            {{ $visitor }}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="12" class="p-2 border text-center">
-                                            {{ __('site.no_data_found') }}
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </x-slot>
-                        </x-table>
-                    </div>
+                            @empty
+                                <tr>
+                                    <td colspan="12" class="p-2 border text-center">
+                                        {{ __('site.no_data_found') }}
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </x-slot>
+                    </x-table>
+
+                    <x-table>
+                        <x-slot name="caption">
+                            {{ __('site.visitors_count_by_duration') }}
+                        </x-slot>
+                        <x-slot name="thead">
+                            <tr>
+                                <td class="px-4 py-2 border">
+                                    <div class="flex justify-center">
+                                        <button wire:click="sortByField('type')">
+                                            {{ __('site.type') }}
+                                        </button>
+                                        <x-sort-icon sort_field="type" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    </div>
+                                </td>
+                                <td class="px-4 py-2 border">
+                                    <div class="flex justify-center">
+                                        <button wire:click="sortByField('count')">
+                                            {{ __('site.count') }}
+                                        </button>
+                                        <x-sort-icon sort_field="count" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </x-slot>
+                        <x-slot name="tbody">
+                            @forelse ($visitors_count_by_duration as $key => $visitor)
+                                <tr wire:key="product-order-by-{{ $loop->iteration }}" class="odd:bg-gray-100">
+                                    <td class="p-2 border">
+                                        {{ $key }}
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $visitor }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="12" class="p-2 border text-center">
+                                        {{ __('site.no_data_found') }}
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </x-slot>
+                    </x-table>
                 </div>
             @endif
         </div>
