@@ -265,6 +265,7 @@
                     @endcan
                 </div>
 
+                {{-- search date --}}
                 <div class="grid grid-cols-2 gap-8 mt-3">
                     <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
                         placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
@@ -274,6 +275,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
+                    {{-- visitors count  --}}
                     <x-table>
                         <x-slot name="caption">
                             {{ __('site.visitors_count') }}
@@ -317,7 +319,8 @@
                             @endforelse
                         </x-slot>
                     </x-table>
-
+                    
+                    {{-- visitors count by duration  --}}
                     <x-table>
                         <x-slot name="caption">
                             {{ __('site.visitors_count_by_duration') }}
