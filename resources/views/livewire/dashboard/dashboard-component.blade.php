@@ -267,10 +267,10 @@
 
                 {{-- search date --}}
                 <div class="grid grid-cols-2 gap-y-4 gap-x-8 mt-3">
-                    <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
+                    <x-input type="date" class="mt-1 block w-full" wire:model.live="start_date"
                         placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
 
-                    <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="end_date"
+                    <x-input type="date" class="mt-1 block w-full" wire:model.live="end_date"
                         placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
                 </div>
 
