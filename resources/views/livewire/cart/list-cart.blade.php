@@ -11,35 +11,62 @@
         </div>
         <x-table class="text-sm lg:text-base w-full text-center border">
             <x-slot name="thead">
-                <tr class="h-12 uppercase border">
-                    <th class="p-2">#</th>
-                    <th class="p-2">{{ __('site.name') }}</th>
-                    <th class="p-2">{{ __('site.qty') }}</th>
-                    <th class="p-2"> {{ __('site.price') }}</th>
-                    <th class="p-2"> {{ __('site.action') }} </th>
+                <tr>
+                    <td class="px-4 py-2 border">
+                        <div class="flex justify-center">
+                            <button wire:click="sortByField('id')">
+                                #
+                            </button>
+                            <x-sort-icon sort_field="id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                        </div>
+                    </td>
+                    <td class="px-4 py-2 border">
+                        <div class="flex justify-center">
+                            <button wire:click="sortByField('name')">
+                                {{ __('site.name') }}
+                            </button>
+                            <x-sort-icon sort_field="name" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                        </div>
+                    </td>
+                    <td class="px-4 py-2 border">
+                        <div class="flex justify-center">
+                            <button wire:click="sortByField('qty')">
+                                {{ __('site.qty') }}
+                            </button>
+                            <x-sort-icon sort_field="qty" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                        </div>
+                    </td>
+                    <td class="px-4 py-2 border">
+                        <div class="flex justify-center">
+                            <button wire:click="sortByField('price')">
+                                {{ __('site.price') }}
+                            </button>
+                            <x-sort-icon sort_field="price" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                        </div>
+                    </td>
+                    <td class="px-4 py-2 border">
+                        <div class="flex justify-center">
+                            {{ __('site.action') }}
+                        </div>
+                    </td>
                 </tr>
             </x-slot>
             <x-slot name="tbody">
                 @forelse ($cartItems as $item)
                     <tr wire:key="cart-{{ $item['id'] }}" class="odd:bg-gray-100">
-                        <td class="p-2">
+                        <td class="p-2 border">
                             {{ $loop->iteration }}
                         </td>
-                        {{--  <td class="p-2">
-                <a href="#">
-                  <img src="{{ $item['attributes']['image'] }}" class="w-20 rounded" alt="Thumbnail">
-                </a>
-              </td> --}}
-                        <td class="p-2">
+                        <td class="p-2 border">
                             {{ $item['name'] }}
                         </td>
                         <td class="p-2" wire:ignore>
                             <livewire:cart.update-cart :item="$item" :key="$item['id']" />
                         </td>
-                        <td class="p-2">
+                        <td class="p-2 border">
                             {{ $item['price'] }} {{ __('site.EGP') }}
                         </td>
-                        <td class="p-2">
+                        <td class="p-2 border">
                             <x-danger-button wire:click.prevent="removeCart('{{ $item['id'] }}')">
                                 <x-icon name="trash" class="w-4 h-4" />
                             </x-danger-button>

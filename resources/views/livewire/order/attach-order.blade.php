@@ -49,7 +49,7 @@
                                 <x-input type="hidden" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.type_id" />
                                 <x-input type="text" class="mt-1 block w-full"
-                                    value="{{ App\Models\Type::find($visitor['type_id'])->typeName->name ?? '' }}"
+                                    value="{{ $this->visitorType($visitor['type_id']) }}"
                                     disabled />
                                 <x-input-error for="visitors.{{ $key }}.type_id" class="mt-2" />
                             </div>
@@ -116,7 +116,7 @@
                             <div class="relative z-0 w-full mb-5 group">
                                 <div class="font-bold text-center bg-gray-100 rounded mt-5 p-2">
                                     <span> {{ __('site.discount') }}:</span>
-                                    <span>{{ App\Models\Offer::find($this->offer_id)->price }}
+                                    <span>{{ $this->priceOffer($this->offer_id) }}
                                         {{ __('site.EGP') }}</span>
                                 </div>
                             </div>

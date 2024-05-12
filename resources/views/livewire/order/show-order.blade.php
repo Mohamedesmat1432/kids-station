@@ -85,7 +85,7 @@
                                                     {{ $visitor['name']  ?? ''}}
                                                 </td>
                                                 <td class="p-2 border">
-                                                    {{ App\Models\Type::findOrFail($visitor['type_id'])->typeName->name ?? '' }}
+                                                    {{ $this->visitorType($visitor['type_id']) }}
                                                 </td>
                                                 <td class="p-2 border">
                                                     {{ $visitor['serial'] ?? ''}}

@@ -1,11 +1,11 @@
 <div>
     <x-page-content page-name="{{ __('site.dashboard') }}">
-        <h1 class="mt-6 p-2 text-2xl font-semibold text-gray-700 text-center">
+        <h1 class="mb-5 p-2 text-2xl font-semibold text-gray-700 text-center">
             {{ __('site.wellcome_to_dashboard') }} {{ auth()->user()->name ?? '' }}
         </h1>
 
-        <div class="p-6 lg:p-6 bg-white border-b border-gray-200">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3">
+        <div class="p-6 lg:p-6 bg-white border-b border-gray-200 rounded-lg">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
                 @foreach ($dashboard_links as $link)
                     @can($link['role'])
                         <a wire:navigate href="{{ route($link['name']) }}">
@@ -30,7 +30,7 @@
             </div>
 
             @if (auth()->user()->hasRole(['Super Admin', 'Admin']))
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mt-3">
 
                     {{-- orders --}}
                     @can('view-order-kids')
@@ -266,7 +266,7 @@
                 </div>
 
                 {{-- search date --}}
-                <div class="grid grid-cols-2 gap-8 mt-3">
+                <div class="grid grid-cols-2 gap-y-4 gap-x-8 mt-3">
                     <x-input type="date" class="mt-1 block w-full mx-2" wire:model.live="start_date"
                         placeholder="{{ __('site.start_date') }}" autocomplete="start_date" />
 
@@ -274,7 +274,7 @@
                         placeholder="{{ __('site.end_date') }}" autocomplete="end_date" />
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mt-3">
                     {{-- visitors count  --}}
                     <x-table>
                         <x-slot name="caption">

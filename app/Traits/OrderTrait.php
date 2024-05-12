@@ -162,6 +162,20 @@ trait OrderTrait
         $this->order = Order::with('offer')->findOrFail($id);
     }
 
+    public function visitorType($id)
+    {
+        $visitor_type = Type::findOrFail($id);
+
+        return $visitor_type->typeName->name ?? '';
+    }
+
+    public function priceOffer($id)
+    {
+        $offer = Offer::findOrFail($id);
+
+        return $offer->price ?? number_format(0, 2);
+    }
+
     public function storeOrder()
     {
         $this->authorize('create-order-kids');
