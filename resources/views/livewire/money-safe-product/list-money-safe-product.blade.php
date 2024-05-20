@@ -1,7 +1,7 @@
 <div>
     <x-page-content page-name="{{ __('site.money_safe_products') }}">
 
-        <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
+        <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
             <div class="md:flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
