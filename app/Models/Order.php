@@ -68,7 +68,7 @@ class Order extends Model
     {
         return auth()->user()->hasRole(['Super Admin', 'Admin'])
             ? $query->sum('total') - $query->sum('last_total')
-            : number_format(0, 2);
+            : 0;
     }
 
     public function scopeTodayCountOrder($query)

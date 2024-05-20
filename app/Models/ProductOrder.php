@@ -53,7 +53,7 @@ class ProductOrder extends Model
     {
         return auth()->user()->hasRole(['Super Admin', 'Admin'])
             ? $query->sum('total')
-            : number_format(0, 2);
+            : 0;
     }
 
     public function scopeProductOrderByMonth($query, $page)

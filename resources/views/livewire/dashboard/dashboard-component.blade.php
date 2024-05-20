@@ -18,7 +18,7 @@
                                     <div class="text-center">
                                         <div>{{ $link['value'] }}</div>
                                         <div class="mt-3">
-                                            {{ $link['total'] ? $link['total'] . ' ' . __('site.EGP') : '' }}
+                                            {{ $link['total'] ? number_format($link['total'], 2) . ' ' . __('site.EGP') : '' }}
 
                                         </div>
                                     </div>
