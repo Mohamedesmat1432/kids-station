@@ -24,7 +24,7 @@ class Unit extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
+            $query->where('name', 'like', "%{$search}%");
         });
     }
 }

@@ -35,7 +35,7 @@ class Type extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('price', 'like', '%' . $search . '%');
+            $query->where('price', 'like', "%{$search}%");
         });
     }
 }

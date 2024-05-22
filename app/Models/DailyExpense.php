@@ -28,14 +28,14 @@ class DailyExpense extends Model
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('total', 'like', '%' . $search . '%');
+            $query->where('total', 'like', "%{$search}%");
         });
     }
 
     public function scopeSearchDate($query, $date)
     {
         return $query->where(function ($query) use ($date) {
-            $query->where('created_at', 'like', '%' . $date . '%');
+            $query->where('created_at', 'like', "%{$date}%");
         });
     }
 
