@@ -24,8 +24,9 @@ class ListUnit extends Component
 
         $units = $this->trash ? Unit::onlyTrashed() : Unit::withoutTrashed();
 
-        $units = $units->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $units = $units->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.unit.list-unit', [
             'units' => $units,

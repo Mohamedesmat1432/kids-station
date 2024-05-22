@@ -24,8 +24,9 @@ class ListOffer extends Component
 
         $offers = $this->trash ? Offer::onlyTrashed() : Offer::withoutTrashed();
             
-        $offers = $offers->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $offers = $offers->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
             
         return view('livewire.offer.list-offer', [
             'offers' => $offers,

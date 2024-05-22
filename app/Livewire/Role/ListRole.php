@@ -16,8 +16,9 @@ class ListRole extends Component
     {
         $this->authorize('view-role');
 
-        $roles =  Role::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $roles =  Role::search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.role.list-role', [
             'roles' => $roles,

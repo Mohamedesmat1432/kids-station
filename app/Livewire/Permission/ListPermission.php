@@ -16,8 +16,9 @@ class ListPermission extends Component
     {
         $this->authorize('view-permission');
 
-        $permissions = Permission::orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $permissions = Permission::search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.permission.list-permission', [
             'permissions' => $permissions,

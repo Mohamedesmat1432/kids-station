@@ -24,8 +24,9 @@ class ListTypeName extends Component
 
         $type_names = $this->trash ? TypeName::onlyTrashed() : TypeName::withoutTrashed();
             
-        $type_names = $type_names->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $type_names = $type_names->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.type-name.list-type-name', [
             'type_names' => $type_names,

@@ -24,8 +24,9 @@ class ListCategory extends Component
 
         $category = $this->trash ? Category::onlyTrashed() : Category::withoutTrashed();
 
-        $categories = $category->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $categories = $category->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.category.list-category', [
             'categories' => $categories,

@@ -32,8 +32,9 @@ class ListDailyExpenseProduct extends Component
                 : auth()->user()->dailyExpenseProducts()->withoutTrashed();
         }
         
-        $daily_expenses = $daily_expenses->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search, $this->date)->paginate($this->page_element);
+        $daily_expenses = $daily_expenses->search($this->search, $this->date)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.daily-expense-product.list-daily-expense-product', [
             'daily_expenses' => $daily_expenses,

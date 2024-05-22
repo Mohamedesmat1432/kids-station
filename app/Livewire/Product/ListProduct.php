@@ -24,8 +24,9 @@ class ListProduct extends Component
 
         $products = $this->trash ? Product::onlyTrashed() : Product::withoutTrashed();
 
-        $products = $products->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->paginate($this->page_element);
+        $products = $products->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
 
         return view('livewire.product.list-product', [
             'products' => $products,
