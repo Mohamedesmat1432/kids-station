@@ -28,7 +28,7 @@ class TypeName extends Model
 
     public function scopeSearch($query, $search)
     {
-        return $query->where(function ($query) use ($search) {
+        return $query->when($search, function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%");
         });
     }

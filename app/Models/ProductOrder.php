@@ -27,17 +27,12 @@ class ProductOrder extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search, $date)
     {
-        return $query->where(function ($query) use ($search) {
+        return $query->when($search, function ($query) use ($search) {
             $query->where('total', 'like', "%{$search}%")
                 ->orWhere('products', 'like', "%{$search}%");
-        });
-    }
-
-    public function scopeSearchDate($query, $date)
-    {
-        return $query->where(function ($query) use ($date) {
+        })->when($date, function ($query) use ($date) {
             $query->where('created_at', 'like', "%{$date}%");
         });
     }

@@ -33,7 +33,7 @@ class ListDailyExpense extends Component
         }
 
         $daily_expenses = $daily_expenses->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->searchDate($this->date)->paginate($this->page_element);
+            ->search($this->search, $this->date)->paginate($this->page_element);
 
         return view('livewire.daily-expense.list-daily-expense', [
             'daily_expenses' => $daily_expenses,

@@ -25,7 +25,7 @@ class ListOrder extends Component
         $orders = $this->trash ? Order::onlyTrashed() : Order::withoutTrashed();
             
         $orders = $orders->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->search($this->search)->searchDate($this->date)->paginate($this->page_element);
+            ->search($this->search, $this->date)->paginate($this->page_element);
 
         return view('livewire.order.list-order', [
             'orders' => $orders,
