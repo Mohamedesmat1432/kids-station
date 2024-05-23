@@ -96,7 +96,7 @@ return [
     'right' => 'right',
     'l' => 'l',
     'r' => 'r',
-    'logout' => 'Log Out',
+    'logout' => 'LogOut',
     'manage_account' => 'Manage Account',
     'last_total' => 'Last Total Order',
     'remianing' => 'Remianing',
