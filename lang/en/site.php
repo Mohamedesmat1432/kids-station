@@ -88,7 +88,7 @@ return [
     'order' => 'Order',
     'type' => 'Type',
     'offer' => 'Offer',
-    'search' => 'ٍSearch',
+    'search' => 'Search',
     'EGP' => 'EGP',
     'H' => 'H',
     'casher_name' => 'Casher Name',
