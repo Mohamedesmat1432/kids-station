@@ -60,9 +60,11 @@ class Order extends Model
 
     public function scopeTotalOrder($query)
     {
+        $orders_user = auth()->user()->orders()->whereDate('created_at', Carbon::today());
+
         return auth()->user()->hasRole(['Super Admin', 'Admin'])
             ? $query->sum('total') - $query->sum('last_total')
-            : 0;
+            : $orders_user->sum('total') - $orders_user->sum('last_total');
     }
 
     public function scopeTodayCountOrder($query)

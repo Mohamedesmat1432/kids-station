@@ -48,7 +48,7 @@ class ProductOrder extends Model
     {
         return auth()->user()->hasRole(['Super Admin', 'Admin'])
             ? $query->sum('total')
-            : 0;
+            : auth()->user()->productOrders()->whereDate('created_at', Carbon::today())->sum('total');
     }
 
     public function scopeProductOrderByMonth($query, $page)
