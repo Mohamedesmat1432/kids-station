@@ -65,11 +65,11 @@
                                                 {{ __('site.type') }}
                                             </div>
                                         </th>
-                                        <th class="px-4 py-2 border">
+                                        {{-- <th class="px-4 py-2 border">
                                             <div class="flex justify-center">
                                                 {{ __('site.serial') }}
                                             </div>
-                                        </th>
+                                        </th> --}}
                                         <th class="px-4 py-2 border">
                                             <div class="flex justify-center">
                                                 {{ __('site.price') }}
@@ -87,9 +87,9 @@
                                                 <td class="p-2 border">
                                                     {{ $this->visitorType($visitor['type_id']) }}
                                                 </td>
-                                                <td class="p-2 border">
+                                                {{-- <td class="p-2 border">
                                                     {{ $visitor['serial'] ?? ''}}
-                                                </td>
+                                                </td> --}}
                                                 <td class="p-2 border">
                                                     {{ $visitor['price'] ?? 0}}
                                                 </td>

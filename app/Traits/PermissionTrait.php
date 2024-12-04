@@ -12,7 +12,6 @@ trait PermissionTrait
     public ?Permission $permission;
     public $permission_id;
     public $name;
-    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -59,18 +58,6 @@ trait PermissionTrait
         $this->dispatch('refresh-list-permission');
         $this->successNotify(__('site.permission_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $data = Permission::pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeletePermission($arr)

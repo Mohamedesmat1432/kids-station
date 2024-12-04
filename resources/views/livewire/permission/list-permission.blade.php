@@ -52,7 +52,7 @@
                         @forelse ($permissions as $permission)
                             <tr wire:key="permission-{{ $permission->id }}" class="odd:bg-gray-100">
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $permission->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $permission->name }}

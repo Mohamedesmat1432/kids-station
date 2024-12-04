@@ -75,7 +75,7 @@
                                     @can('force-bulk-delete-daily-expense-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -83,7 +83,7 @@
                                     @can('bulk-delete-daily-expense-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -166,7 +166,7 @@
                                     @endif
                                 @endif
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $daily_expense->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $daily_expense->user->name ?? '' }}

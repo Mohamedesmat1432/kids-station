@@ -27,18 +27,16 @@ class UnitsExport implements FromCollection, WithHeadings, WithStyles, ShouldAut
 
     public function styles(Worksheet $sheet)
     {
-        return [
-            1    => [
-                'font' => ['bold' => true],
-                'color' => ['#FFFF00' => true],
-            ],
-        ];
+        $sheet->getStyle('A1:Z' . Unit::count() + 1)->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1:Z1')->getFont()->setBold(true);
+        return;
     }
 
     public function collection()
     {
         return Unit::select('id', 'name','qty')
-            ->where('name', 'like', '%' . $this->search . '%')->get();
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->get();
     }
 
     public function headings(): array

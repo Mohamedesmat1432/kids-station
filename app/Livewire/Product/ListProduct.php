@@ -15,6 +15,7 @@ class ListProduct extends Component
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
+        $this->checkbox_status = false;
     }
 
     #[On('refresh-list-product')]
@@ -27,6 +28,8 @@ class ListProduct extends Component
         $products = $products->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+
+        $this->checkbox_all = $products->pluck('id')->toArray();
 
         return view('livewire.product.list-product', [
             'products' => $products,

@@ -3,6 +3,8 @@
 
         <livewire:user.update-user />
         <livewire:user.delete-user />
+        <livewire:user.restore-user />
+        <livewire:user.force-delete-user />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
@@ -19,6 +21,9 @@
                         <div>
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
+                        </div>
+                        <div class="mt-2">
+                            <x-trash-group-button />
                         </div>
                     </div>
                 </div>
@@ -50,6 +55,14 @@
                                     <x-sort-icon sort_field="email" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('status')">
+                                        {{ __('site.status') }}
+                                    </button>
+                                    <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
                             {{-- <td class="px-4 py-2 border">
                             <div class="flex justify-center">
                                 <button wire:click="sortByField('role')">
@@ -58,7 +71,7 @@
                                 <x-sort-icon sort_field="role" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                             </div>
                         </td> --}}
-                            <td class="px-4 py-2 border" colspan="2">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -69,7 +82,7 @@
                         @forelse ($users as $user)
                             <tr wire:key="user-{{ $user->id }}" class="odd:bg-gray-100">
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $user->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $user->name }}
@@ -77,16 +90,42 @@
                                 <td class="p-2 border">
                                     {{ $user->email }}
                                 </td>
+                                <td class="p-2 border">
+                                    @if ($user->status)
+                                        <span class="p-2 bg-green-500 rounded-full text-white">
+                                            {{ __('site.active') }}
+                                        </span>
+                                    @else
+                                        <span class="p-2 bg-red-500 rounded-full text-white">
+                                            {{ __('site.not_active') }}
+                                        </span>
+                                    @endif
+                                </td>
                                 {{-- <td class="p-2 border">
-                                {{ $user->getRoleNames() }}
-                            </td> --}}
-                                <td class="p-2 border">
-                                    <x-edit-button permission="edit-user" id="{{ $user->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-user" id="{{ $user->id }}"
-                                        name="{{ $user->name }}" />
-                                </td>
+                                    {{ $user->getRoleNames() }}
+                                </td> --}}
+                                @if ($this->trash)
+                                    <td class="p-2 border">
+                                        <div>
+                                            <x-restore-button permission="restore-user" id="{{ $user->id }}"
+                                                name="{{ $user->name }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-force-delete-button permission="force-delete-user"
+                                                id="{{ $user->id }}" name="{{ $user->name }}" />
+                                        </div>
+                                    </td>
+                                @else
+                                    <td class="p-2 border">
+                                        <div>
+                                            <x-edit-button permission="edit-user" id="{{ $user->id }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-delete-button permission="delete-user" id="{{ $user->id }}"
+                                                name="{{ $user->name }}" />
+                                        </div>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

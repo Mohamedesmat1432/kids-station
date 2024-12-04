@@ -16,7 +16,6 @@ trait ProductOrderTrait
     public $total;
     public $status;
     public $created_at;
-    public $checkbox_arr = [];
 
     public function showProductOrder($id)
     {
@@ -46,20 +45,6 @@ trait ProductOrderTrait
         $this->dispatch('refresh-list-product-order');
         $this->successNotify(__('site.product_order_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $product_orders_trashed = ProductOrder::onlyTrashed()->pluck('id')->toArray();
-        $product_orders = ProductOrder::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $product_orders_trashed : $product_orders;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteProductOrder($arr)

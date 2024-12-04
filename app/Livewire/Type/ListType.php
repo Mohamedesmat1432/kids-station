@@ -15,6 +15,7 @@ class ListType extends Component
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
+        $this->checkbox_status = false;
     }
 
     #[On('refresh-list-type')]
@@ -27,6 +28,8 @@ class ListType extends Component
         $types = $types->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+
+        $this->checkbox_all = $types->pluck('id')->toArray();
 
         return view('livewire.type.list-type', [
             'types' => $types,

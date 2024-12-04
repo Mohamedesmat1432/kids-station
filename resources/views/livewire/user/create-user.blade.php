@@ -32,8 +32,8 @@
                 <div x-data="{ showPassword: false }" class="col-span-6 sm:col-span-4 mt-3">
                     <x-label for="password" value="{{ __('site.password') }}" />
                     <div class="relative">
-                        <x-input id="password" class="block mt-1 w-full" ::type="showPassword ? 'text' : 'password'" wire:model="password" required
-                            placeholder="{{ __('site.password') }}" autocomplete="current-password" />
+                        <x-input id="password" class="block mt-1 w-full" ::type="showPassword ? 'text' : 'password'" wire:model="password"
+                            required placeholder="{{ __('site.password') }}" autocomplete="current-password" />
                         <button class="absolute inset-y-0 rtl:left-0 ltr:right-0 px-3 flex items-center cursor-pointer"
                             x-on:click="showPassword = ! showPassword" type="button">
                             <x-icon name="eye" x-show="showPassword" />
@@ -41,6 +41,10 @@
                         </button>
                     </div>
                     <x-input-error for="password" class="mt-2" />
+                </div>
+                <div class="col-span-6 sm:col-span-4 mt-3">
+                    <x-toggle-status-kids-orders :status="$status" />
+                    <x-input-error for="status" class="mt-2" />
                 </div>
             </x-slot>
 

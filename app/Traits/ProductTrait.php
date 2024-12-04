@@ -22,7 +22,6 @@ trait ProductTrait
     public $revenue_price;
     public $unit_id;
     public $category_id;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -119,20 +118,6 @@ trait ProductTrait
         $this->dispatch('refresh-list-product');
         $this->successNotify(__('site.product_deleted'));
         $this->force_delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $products_trashed = Product::onlyTrashed()->pluck('id')->toArray();
-        $products = Product::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $products_trashed : $products;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteProduct($arr)

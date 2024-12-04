@@ -18,6 +18,7 @@ use App\Traits\SortSearchTrait;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use Carbon\Carbon;
 
 class DashboardComponent extends Component
 {
@@ -121,13 +122,53 @@ class DashboardComponent extends Component
             ],
             [
                 'name' => 'orders',
+                'value' => __('site.attach_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-today-order-kids',
+                'bg' => 'bg-gray-600',
+                'hover' => 'hover:bg-gray-700',
+                'count' => Order::countAttachOrder(),
+                'total' => Order::totalAttachOrder(),
+            ],
+            [
+                'name' => 'orders',
                 'value' => __('site.today_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-today-order-kids',
+                'bg' => 'bg-green-500',
+                'hover' => 'hover:bg-green-600',
+                'count' => Order::todayCountOrder(),
+                'total' => Order::todayTotalOrder(),
+            ],
+            [
+                'name' => 'orders',
+                'value' => __('site.today_attach_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-today-order-kids',
+                'bg' => 'bg-blue-600',
+                'hover' => 'hover:bg-blue-700',
+                'count' => Order::todayCountAttachOrder(),
+                'total' => Order::todayTotalAttchOrder(),
+            ],
+            [
+                'name' => 'orders',
+                'value' => __('site.without_attach_orders'),
+                'icon' => 'briefcase',
+                'role' => 'view-today-order-kids',
+                'bg' => 'bg-red-600',
+                'hover' => 'hover:bg-red-700',
+                'count' => Order::countWithoutAttachOrder(),
+                'total' => Order::totalWithoutAttachOrder(),
+            ],
+            [
+                'name' => 'orders',
+                'value' => __('site.insurance'),
                 'icon' => 'briefcase',
                 'role' => 'view-today-order-kids',
                 'bg' => 'bg-yellow-600',
                 'hover' => 'hover:bg-yellow-700',
-                'count' => Order::todayCountOrder(),
-                'total' => Order::todayTotalOrder(),
+                'count' => Order::whereNot('insurance',0)->count(),
+                'total' => Order::whereNot('insurance',0)->sum('insurance'),
             ],
             [
                 'name' => 'product.orders',
@@ -195,6 +236,11 @@ class DashboardComponent extends Component
         }
 
         return array_count_values($data);
+    }
+
+    public function updateInsuranceTotalOrders() {
+        return Order::whereNot('insurance',0)->whereDate('end_date','<=',Carbon::now())
+        ->update(['insurance' => 0]);
     }
 
     public function render()

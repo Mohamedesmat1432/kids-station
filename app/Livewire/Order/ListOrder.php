@@ -14,6 +14,7 @@ class ListOrder extends Component
     #[On('checkbox-clear')]
     public function checkboxClear()
     {
+        $this->checkbox_status = false;
         $this->checkbox_arr = [];
     }
 
@@ -24,9 +25,12 @@ class ListOrder extends Component
 
         $orders = $this->trash ? Order::onlyTrashed() : Order::withoutTrashed();
             
-        $orders = $orders->search($this->search, $this->date)
+        $orders =  $orders->search($this->search)->dateSearch($this->date)
+            ->childSearch($this->child_search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+
+        $this->checkbox_all = $orders->pluck('id')->toArray();
 
         return view('livewire.order.list-order', [
             'orders' => $orders,

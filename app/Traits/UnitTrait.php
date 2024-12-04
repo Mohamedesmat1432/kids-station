@@ -14,7 +14,6 @@ trait UnitTrait
     public $unit_id;
     public $name;
     public $qty;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -67,19 +66,6 @@ trait UnitTrait
         $this->delete_modal = false;
     }
 
-    public function checkboxAll()
-    {
-        $units_trashed = Unit::onlyTrashed()->pluck('id')->toArray();
-        $units = Unit::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $units_trashed : $units;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
-    }
 
     public function bulkDeleteUnit($arr)
     {

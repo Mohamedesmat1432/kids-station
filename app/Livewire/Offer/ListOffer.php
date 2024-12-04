@@ -15,6 +15,7 @@ class ListOffer extends Component
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
+        $this->checkbox_status = false;
     }
 
     #[On('refresh-list-offer')]
@@ -27,6 +28,8 @@ class ListOffer extends Component
         $offers = $offers->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+        
+        $this->checkbox_all = $offers->pluck('id')->toArray();
             
         return view('livewire.offer.list-offer', [
             'offers' => $offers,

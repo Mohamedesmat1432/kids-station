@@ -52,7 +52,7 @@
                         @forelse ($roles as $role)
                             <tr wire:key="role-{{ $role->id }}" class="odd:bg-gray-100">
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $role->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $role->name }}

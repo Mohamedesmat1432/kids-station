@@ -23,7 +23,7 @@ class AttachOrder extends Component
 
     public function save()
     {
-        $this->AttachOrder();
+        $this->attachOrder();
     }
 
     public function render()

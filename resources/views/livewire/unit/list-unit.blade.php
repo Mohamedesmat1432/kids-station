@@ -2,11 +2,8 @@
     <x-page-content page-name="{{ __('site.units') }}">
 
         <livewire:unit.update-unit />
-
         <livewire:unit.restore-unit />
-
         <livewire:unit.delete-unit />
-
         <livewire:unit.force-delete-unit />
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
@@ -68,7 +65,7 @@
                                     @can('force-bulk-delete-unit')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -76,7 +73,7 @@
                                     @can('bulk-delete-unit')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -132,7 +129,7 @@
                                     @endif
                                 @endif
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $unit->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $unit->name }}

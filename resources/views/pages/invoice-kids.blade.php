@@ -6,6 +6,9 @@
 
 <head>
     <link rel="stylesheet" href="{{ asset('css/invoice.css') }}" />
+
+    @livewireStyles
+    @vite('resources/js/app.js')
 </head>
 
 <body>
@@ -70,11 +73,11 @@
                                     {{ __('site.type') }}
                                 </div>
                             </th>
-                            <th class="px-4 py-2 border">
+                            {{-- <th class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.serial') }}
                                 </div>
-                            </th>
+                            </th> --}}
                             <th class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.price') }}
@@ -92,9 +95,9 @@
                                     <td class="p-2 border">
                                         {{ App\Models\Type::findOrFail($visitor['type_id'])->typeName->name }}
                                     </td>
-                                    <td class="p-2 border">
+                                    {{-- <td class="p-2 border">
                                         {{ $visitor['serial'] }}
-                                    </td>
+                                    </td> --}}
                                     <td class="p-2 border">
                                         {{ $visitor['price'] }}
                                     </td>
@@ -139,7 +142,14 @@
                 @endif
             </div>
         </div>
+        @foreach (App\Models\InvoiceDetail::active()->get() as $invoice_detail)
+            <div class="invoice-details">
+                <span>{{ $invoice_detail->note }}</span>
+            </div>
+        @endforeach
     </div>
+
+    @livewireScripts
 </body>
 
 </html>

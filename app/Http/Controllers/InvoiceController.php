@@ -11,7 +11,10 @@ class InvoiceController extends Controller
     public function kidsInvoice($id)
     {
         $order = Order::findOrFail($id);
-        return view('pages.invoice-kids', ['order' => $order]);
+
+        return view('pages.invoice-kids', [
+            'order' => $order,
+        ]);
     }
 
     public function productInvoice($id)

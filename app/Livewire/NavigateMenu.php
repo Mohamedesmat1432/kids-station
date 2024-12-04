@@ -34,6 +34,12 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-backup-database',
             ],
             [
+                'name' => 'invoice.details',
+                'value' => 'site.invoice_details',
+                'icon' => 'inbox-stack',
+                'role' => 'view-invoice-details',
+            ],
+            [
                 'name' => 'categories',
                 'value' => 'site.categories',
                 'icon' => 'rectangle-group',

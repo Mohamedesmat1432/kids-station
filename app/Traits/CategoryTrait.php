@@ -13,7 +13,6 @@ trait CategoryTrait
     public ?Category $category;
     public $category_id;
     public $name;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -89,14 +88,12 @@ trait CategoryTrait
 
     public function checkboxAll()
     {
-        $categories_trashed = Category::onlyTrashed()->pluck('id')->toArray();
-        $categories = Category::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $categories_trashed : $categories;
+        $data = $this->checkbox_status ? $this->checkbox_all  : $this->checkbox_arr;
 
-        if ($checkbox_count < count($data)) {
+        if (count($this->checkbox_arr) < 1 || count($this->checkbox_arr) < count($data)) {
             $this->checkbox_arr = $data;
         } else {
+            $this->checkbox_status = false;
             $this->checkbox_arr = [];
         }
     }

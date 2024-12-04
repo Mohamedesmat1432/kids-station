@@ -15,7 +15,6 @@ trait DailyExpenseProductTrait
     public $user_id;
     public $data = [['name' => '', 'price' => 0]];
     public $total;
-    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -86,21 +85,7 @@ trait DailyExpenseProductTrait
         $this->successNotify(__('site.daily_expense_deleted'));
         $this->delete_modal = false;
     }
-
-    public function checkboxAll()
-    {
-        $daily_expenses_trashed = DailyExpenseProduct::onlyTrashed()->pluck('id')->toArray();
-        $daily_expenses = DailyExpenseProduct::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $daily_expenses_trashed : $daily_expenses;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
-    }
-
+    
     public function bulkDeleteDailyExpense($arr)
     {
         $this->authorize('bulk-delete-daily-expense-product');

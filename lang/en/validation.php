@@ -203,6 +203,7 @@ return [
         'revenue_price' => 'revenue price',
         'unit_id' => 'unit',
         'category_id' => 'category',
+        'note' => 'note',
     ],
 
 ];

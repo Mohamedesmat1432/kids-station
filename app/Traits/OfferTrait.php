@@ -15,7 +15,6 @@ trait OfferTrait
     public $name;
     public $price;
     public $status;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -68,20 +67,6 @@ trait OfferTrait
         $this->dispatch('refresh-list-offer');
         $this->successNotify(__('site.offer_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $offers_trashed = Offer::onlyTrashed()->pluck('id')->toArray();
-        $offers = Offer::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $offers_trashed : $offers;
-
-        if ($checkbox_count < 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteOffer($arr)

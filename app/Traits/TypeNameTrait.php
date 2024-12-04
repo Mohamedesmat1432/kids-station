@@ -14,7 +14,6 @@ trait TypeNameTrait
     public $type_name_id;
     public $name;
     public $status;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -65,20 +64,6 @@ trait TypeNameTrait
         $this->dispatch('refresh-list-type-name');
         $this->successNotify(__('site.type_name_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $types_trashed = TypeName::onlyTrashed()->pluck('id')->toArray();
-        $types = TypeName::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $types_trashed : $types;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteTypeName($arr)

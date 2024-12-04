@@ -70,7 +70,7 @@
                                     @can('force-bulk-delete-product')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -78,7 +78,7 @@
                                     @can('bulk-delete-product')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -183,7 +183,7 @@
                                     @endif
                                 @endif
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $product->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $product->name }}

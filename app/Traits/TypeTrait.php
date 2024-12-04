@@ -16,7 +16,6 @@ trait TypeTrait
     public $price;
     public $duration;
     public $status;
-    public $checkbox_arr = [];
     public $file;
     public $extension = 'xlsx';
 
@@ -71,20 +70,6 @@ trait TypeTrait
         $this->dispatch('refresh-list-type');
         $this->successNotify(__('site.type_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $types_trashed = Type::onlyTrashed()->pluck('id')->toArray();
-        $types = Type::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $types_trashed : $types;
-
-        if ($checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteType($arr)

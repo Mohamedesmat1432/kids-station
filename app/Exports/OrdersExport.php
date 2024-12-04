@@ -27,25 +27,20 @@ class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
 
     public function styles(Worksheet $sheet)
     {
-        return [
-            1 => [
-                'font' => ['bold' => true],
-                'color' => ['#FFFF00' => true],
-            ],
-        ];
+        $sheet->getStyle('A1:Z' . Order::count() + 1)->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1:Z1')->getFont()->setBold(true);
+        return;
     }
 
     public function collection()
     {
-        return Order::select('id', 'number', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'total', 'remianing', 'last_number', 'last_total', 'start_date', 'end_date')
-            ->where('number', 'like', '%' . $this->search . '%')
-            ->orWhere('customer_name', 'like', '%' . $this->search . '%')
-            ->orWhere('customer_phone', 'like', '%' . $this->search . '%')
+        return Order::select('id', 'number', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'total', 'remianing', 'last_number', 'last_total', 'created_at', 'start_date', 'end_date')
+            ->search($this->search)
             ->get();
     }
 
     public function headings(): array
     {
-        return ['ID', 'Number', 'Customer Name', 'Customer Phone', 'Duration', 'Offer Id', 'Total', 'Remianing', 'Last Number', 'Last Total', 'Start Date', 'End Date'];
+        return ['ID', 'Order Number', 'Customer Name', 'Customer Phone', 'Duration', 'Offer Id', 'Total', 'Remianing', 'Last Order Number', 'Last Order Total', 'Order Date', 'Start Date', 'End Date'];
     }
 }

@@ -32,7 +32,7 @@ class User extends Authenticatable
      */
     protected $table = 'users';
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'status'];
 
     /**
      * The attributes that should be hidden for serialization.

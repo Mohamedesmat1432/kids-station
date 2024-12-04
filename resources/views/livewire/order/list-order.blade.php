@@ -1,5 +1,8 @@
 <div>
     <x-page-content page-name="{{ __('site.orders') }}">
+        <livewire:order.create-exists-order />
+
+        <livewire:order.update-order />
 
         <livewire:order.attach-order />
 
@@ -25,7 +28,10 @@
                     <div class="md:flex justify-between">
                         <div class="mt-2">
                             <x-input type="search" wire:model.live.debounce.500ms="search"
-                                placeholder="{{ __('site.search') }}..." class="mb-2" />
+                                placeholder="{{ __('site.parent_search') }}..." class="mb-2" />
+
+                            <x-input type="search" wire:model.live.debounce.500ms="child_search"
+                                placeholder="{{ __('site.child_search') }}..." class="mb-2" />
 
                             <x-input type="date" wire:model.live.debounce.500ms="date"
                                 placeholder="{{ __('site.date') }}..." />
@@ -44,23 +50,26 @@
 
                     @if ($this->trash)
                         @can('force-bulk-delete-order-kids')
-                            <td class="px-4 py-2 border">
+                            <div class="px-4 py-2 border">
                                 <div class="mt-3">
                                     <x-force-bulk-delete-button />
 
                                     <livewire:order.force-bulk-delete-order />
                                 </div>
-                            </td>
+                            </div>
                         @endcan
                     @else
                         @can('bulk-delete-order-kids')
-                            <td class="px-4 py-2 border">
-                                <div class="mt-3">
-                                    <x-bulk-delete-button />
+                            <div class="mt-3">
+                                <x-bulk-delete-button />
 
-                                    <livewire:order.bulk-delete-order />
-                                </div>
-                            </td>
+                                <livewire:order.bulk-delete-order />
+                            </div>
+                            {{-- <div class="mt-3">
+                                <x-update-note-orders-button />
+
+                                <livewire:order.note-orders />
+                            </div> --}}
                         @endcan
                     @endif
                 </div>
@@ -73,7 +82,7 @@
                                     @can('force-bulk-delete-order-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -81,7 +90,7 @@
                                     @can('bulk-delete-order-kids')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -103,14 +112,14 @@
                                     <x-sort-icon sort_field="number" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            {{-- <td class="px-4 py-2 border">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('user_id')">
                                         {{ __('site.casher_name') }}
                                     </button>
                                     <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td> --}}
+                            </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('customer_name')">
@@ -135,14 +144,14 @@
                                     <x-sort-icon sort_field="duration" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            {{-- <td class="px-4 py-2 border">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('visitors')">
                                         {{ __('site.visitors') }}
                                     </button>
                                     <x-sort-icon sort_field="visitors" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
-                            </td> --}}
+                            </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('total')">
@@ -199,7 +208,7 @@
                                     <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td> --}}
-                            <td class="px-4 py-2 border" colspan="{{ $this->trash ? 2 : 3 }}">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -226,14 +235,14 @@
                                     @endif
                                 @endif
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $order->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->number }}
                                 </td>
-                                {{-- <td class="p-2 border">
+                                <td class="p-2 border">
                                     {{ $order->user->name ?? '' }}
-                                </td> --}}
+                                </td>
                                 <td class="p-2 border">
                                     {{ $order->customer_name }}
                                 </td>
@@ -243,12 +252,12 @@
                                 <td class="p-2 border">
                                     {{ $order->duration }}
                                 </td>
-                                {{-- <td class="w-1/2 p-2 border">
+                                <td class="w-1/2 p-2 border">
                                     <table class="text-center w-full">
                                         <thead>
                                             <th>#</th>
                                             <th>{{ __('site.name') }}</th>
-                                            <th>{{ __('site.serial') }}</th>
+                                            {{-- <th>{{ __('site.serial') }}</th> --}}
                                             <th>{{ __('site.type') }}</th>
                                             <th>{{ __('site.price') }}</th>
                                         </thead>
@@ -257,7 +266,7 @@
                                                 <tr>
                                                     <td> {{ $loop->iteration }}</td>
                                                     <td> {{ $visitor['name'] }}</td>
-                                                    <td> {{ $visitor['serial'] }}</td>
+                                                    {{-- <td> {{ $visitor['serial'] }}</td> --}}
                                                     <td>
                                                         {{ App\Models\Type::find($visitor['type_id'])->TypeName->name ?? '' }}
                                                     </td>
@@ -266,7 +275,7 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                </td> --}}
+                                </td>
                                 <td class="p-2 border">
                                     {{ $order->total ?? '--' }}
                                 </td>
@@ -290,23 +299,35 @@
                                 </td> --}}
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-order-kids" id="{{ $order->id }}"
-                                            name="{{ $order->customer_name }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-order-kids"
-                                            id="{{ $order->id }}" name="{{ $order->customer_name }}" />
+                                        <div>
+                                            <x-restore-button permission="restore-order-kids"
+                                                id="{{ $order->id }}" name="{{ $order->customer_name }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-force-delete-button permission="force-delete-order-kids"
+                                                id="{{ $order->id }}" name="{{ $order->customer_name }}" />
+                                        </div>
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-show-button permission="show-order-kids" id="{{ $order->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-attach-button permission="attach-order-kids" id="{{ $order->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-delete-button permission="delete-order-kids" id="{{ $order->id }}"
-                                            name="{{ $order->customer_name }}" />
+                                        <div>
+                                            <x-show-button permission="show-order-kids" id="{{ $order->id }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-attach-button permission="attach-order-kids"
+                                                id="{{ $order->id }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-create-exists-button permission="create-exists-order-kids"
+                                                id="{{ $order->id }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-edit-button permission="edit-order-kids" id="{{ $order->id }}" />
+                                        </div>
+                                        <div class="mt-1">
+                                            <x-delete-button permission="delete-order-kids" id="{{ $order->id }}"
+                                                name="{{ $order->customer_name }}" />
+                                        </div>
                                     </td>
                                 @endif
                             </tr>
@@ -331,6 +352,16 @@
 
             <script>
                 document.addEventListener('print-create-order-kids', (event) => {
+                    let id = event.detail.id;
+                    printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
+                });
+
+                document.addEventListener('print-create-exists-order-kids', (event) => {
+                    let id = event.detail.id;
+                    printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
+                });
+
+                document.addEventListener('print-update-order-kids', (event) => {
                     let id = event.detail.id;
                     printOrderKids(id, '{{ LaravelLocalization::getCurrentLocale() }}');
                 });

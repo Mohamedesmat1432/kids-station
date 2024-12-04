@@ -15,6 +15,7 @@ class ListUnit extends Component
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
+        $this->checkbox_status = false;
     }
 
     #[On('refresh-list-unit')]
@@ -27,6 +28,8 @@ class ListUnit extends Component
         $units = $units->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+
+        $this->checkbox_all = $units->pluck('id')->toArray();
 
         return view('livewire.unit.list-unit', [
             'units' => $units,

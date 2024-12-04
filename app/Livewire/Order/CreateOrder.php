@@ -25,18 +25,11 @@ class CreateOrder extends Component
 
     public function render()
     {
-        $type_durations = Type::active()->distinct()->whereNot('duration', 0)
-            ->orderBy('duration', 'ASC')->pluck('duration');
-
-        $unique_types = Type::active()
-            ->whereIn('duration', [$this->duration, 0])
-            ->orderBy('price', 'ASC')->get();
-
         $offers = Offer::active()->get();
 
         return view('livewire.order.create-order', [
-            'type_durations' => $type_durations,
-            'unique_types' => $unique_types,
+            'type_durations' => $this->typeDuration(),
+            'unique_types' => $this->uniqueTypes(),
             'offers' => $offers,
         ]);
     }

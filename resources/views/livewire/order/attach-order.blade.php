@@ -3,7 +3,7 @@
         <x-dialog-modal wire:model="attach_modal" submit="save()" method="PATCH">
             <x-slot name="title">
                 <div class="flex justify-between">
-                    <h1>{{ __('site.update_order') }}</h1>
+                    <h1>{{ __('site.attach_order') }}</h1>
                     <div>{{ __('site.total') }} : {{ number_format($this->total, 2) }} {{ __('site.EGP') }}</div>
                 </div>
             </x-slot>
@@ -53,13 +53,13 @@
                                     disabled />
                                 <x-input-error for="visitors.{{ $key }}.type_id" class="mt-2" />
                             </div>
-                            <div class="relative z-0 w-full mb-5 group">
+                            {{-- <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="serial" value="{{ __('site.serial') }}" />
                                 <x-input type="text" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.serial"
                                     placeholder="{{ __('site.serial') }}" disabled />
                                 <x-input-error for="visitors.{{ $key }}.serial" class="mt-2" />
-                            </div>
+                            </div> --}}
                             <div class="relative z-0 w-full mb-5 group">
                                 <x-label for="price" value="{{ __('site.price') }}" />
                                 <x-input type="number" class="mt-1 block w-full" disabled
@@ -78,7 +78,7 @@
                                     @else
                                         <x-danger-button class="cursor-not-allowed opacity-60">
                                             {{ __('site.remove') }}
-                                            </x-indigo-button>
+                                            </x-danger-button>
                                         @endcan
                                 </div>
                             @else
@@ -123,6 +123,22 @@
                         @endif
                     </div>
                 @endif
+                <div class="grid md:grid-cols-2 md:gap-4">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <x-label for="locker_number" value="{{ __('site.locker_number') }}" />
+                        <x-input type="text" class="mt-1 block w-full"
+                            wire:model="locker_number" placeholder="{{ __('site.locker_number') }}"
+                            autocomplete="locker_number" />
+                        <x-input-error for="locker_number" class="mt-2" />
+                    </div>
+                    <div class="relative z-0 w-full mb-5">
+                        <x-label for="insurance" value="{{ __('site.insurance') }}" />
+                        <x-input type="text" class="mt-1 block w-full"
+                            wire:model="insurance" placeholder="{{ __('site.insurance') }}"
+                            autocomplete="insurance" />
+                        <x-input-error for="insurance" class="mt-2" />
+                    </div>
+                </div>
                 <div class="relative z-0 w-full mb-5 group">
                     <x-label for="note" value="{{ __('site.note') }}" />
                     <x-textarea class="mt-1 block w-full" wire:model="note" placeholder="{{ __('site.note') }}">

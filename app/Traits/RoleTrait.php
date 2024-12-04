@@ -13,7 +13,6 @@ trait RoleTrait
     public $role_id;
     public $name;
     public $permission;
-    public $checkbox_arr = [];
 
     protected function rules()
     {
@@ -67,18 +66,6 @@ trait RoleTrait
         $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $data = Role::pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-
-        if ($checkbox_count <= 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
     }
 
     public function bulkDeleteRole()

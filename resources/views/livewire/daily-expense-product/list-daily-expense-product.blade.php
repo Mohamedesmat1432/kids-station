@@ -37,29 +37,29 @@
 
                         {{-- @can('import-export-daily-expense')
                             <div class="mt-2">
-                                <livewire:daily-expense.import-export-daily-expense />
+                                <livewire:daily-expense-product.import-export-daily-expense />
                             </div>
                         @endcan --}}
                     </div>
 
                     @if (count($daily_expenses) > 1)
                         @if ($this->trash)
-                            @can('force-bulk-delete-daily-expense')
+                            @can('force-bulk-delete-daily-expense-product')
                                 <td class="px-4 py-2 border">
                                     <div class="mt-3">
                                         <x-force-bulk-delete-button />
 
-                                        <livewire:daily-expense.force-bulk-delete-daily-expense-product />
+                                        <livewire:daily-expense-product.force-bulk-delete-daily-expense-product />
                                     </div>
                                 </td>
                             @endcan
                         @else
-                            @can('bulk-delete-daily-expense')
-                                <td class="px-4 py-2 bo@elserder">
+                            @can('bulk-delete-daily-expense-product')
+                                <td class="px-4 py-2 border">
                                     <div class="mt-3">
                                         <x-bulk-delete-button />
 
-                                        <livewire:daily-expense.bulk-delete-daily-expense-product />
+                                        <livewire:daily-expense-product.bulk-delete-daily-expense-product />
                                     </div>
                                 </td>
                             @endcan
@@ -75,7 +75,7 @@
                                     @can('force-bulk-delete-daily-expense-product')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -83,7 +83,7 @@
                                     @can('bulk-delete-daily-expense-product')
                                         <td class="px-4 py-2 border">
                                             <div class="text-center">
-                                                <x-checkbox wire:click="checkboxAll" />
+                                                <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
                                             </div>
                                         </td>
                                     @endcan
@@ -166,7 +166,7 @@
                                     @endif
                                 @endif
                                 <td class="p-2 border">
-                                    {{ $loop->iteration }}
+                                    {{ $daily_expense->id }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $daily_expense->user->name ?? '' }}

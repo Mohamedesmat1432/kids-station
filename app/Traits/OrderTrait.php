@@ -30,7 +30,8 @@ trait OrderTrait
     public $end_date;
     public $status;
     public $note;
-    public $checkbox_arr = [];
+    public $locker_number;
+    public $insurance = 0;
     public $file;
     public $extension = 'xlsx';
 
@@ -43,11 +44,25 @@ trait OrderTrait
             'offer_id' => 'nullable|numeric|exists:offers,id',
             'visitors.*.name' => 'required|string|min:2|max:20',
             'visitors.*.type_id' => 'required|numeric|exists:types,id',
-            'visitors.*.serial' => 'required|string|min:2|max:20',
+            'visitors.*.serial' => 'nullable',
             'visitors.*.price' => 'required|numeric',
             // 'status' => 'required|in:inprogress,completed,completed_audit',
             'note' => 'nullable|string',
+            'locker_number' => 'nullable|string',
+            'insurance' => 'nullable|numeric',
         ];
+    }
+
+    public function typeDuration()
+    {
+        return Type::active()->distinct()->whereNot('duration', 0)
+            ->orderBy('duration', 'ASC')->pluck('duration');
+    }
+
+    public function uniqueTypes()
+    {
+        return Type::active()->distinct()->whereIn('duration',[0,$this->duration])
+            ->orderBy('price', 'ASC')->get();
     }
 
     public function remove($key)
@@ -74,7 +89,7 @@ trait OrderTrait
         $this->visitors = array_map(function ($visitor) {
             $visitor['type_id'] = '';
             $visitor['price'] = number_format(0, 2);
-            $this->total += $visitor['price'];
+            $this->total = number_format(0, 2);
 
             return $visitor;
         }, $this->visitors);
@@ -91,13 +106,12 @@ trait OrderTrait
             $this->visitors = array_map(function ($visitor) {
                 if ($visitor) {
                     $unique_types = Type::whereIn('duration', [$this->duration, 0])
-                        ->orderBy('price', 'ASC')
-                        ->get();
+                        ->orderBy('price', 'ASC')->get();
 
-                    $type_id = Type::find($visitor['type_id'])->typeName->name;
+                    $type_name = Type::find($visitor['type_id'])->typeName->name;
 
                     foreach ($unique_types as $type) {
-                        if ($type->typeName->name === $type_id && $type->duration === $this->duration && $type->duration !== 0) {
+                        if ($type->typeName->name === $type_name && $type->duration === $this->duration && $type->duration !== 0) {
                             $visitor['type_id'] = $type->id;
                             $visitor['price'] = $type->price;
                         }
@@ -136,7 +150,7 @@ trait OrderTrait
 
     public function setOrder($id)
     {
-        $this->order = Order::withoutTrashed()->findOrFail($id);
+        $this->order = Order::findOrFail($id);
         $this->order_id = $this->order->id;
         $this->number = $this->order->number;
         $this->user_id = $this->order->user_id;
@@ -153,6 +167,8 @@ trait OrderTrait
         $this->remianing = $this->order->remianing ?? 0;
         $this->status = $this->order->status;
         $this->note = $this->order->note ?? '';
+        $this->locker_number = $this->order->locker_number ?? '';
+        $this->insurance = $this->order->insurance ?? 0;
     }
 
     public function showOrder($id)
@@ -194,6 +210,36 @@ trait OrderTrait
         $this->create_modal = false;
     }
 
+    public function storeExistsOrder()
+    {
+        $this->authorize('create-exists-order-kids');
+        $validated = $this->validate();
+        $validated['number'] = '#' . random_int(1000000, 9999999);
+        $validated['user_id'] = auth()->user()->id;
+        $validated['start_date'] =  Carbon::now();
+        $validated['end_date'] = Carbon::now()->addMinutes($this->duration * 60);
+        $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
+        $validated['total'] = $this->total;
+        $order = Order::create($validated);
+        $this->dispatch('print-create-exists-order-kids', id: $order->id);
+        $this->dispatch('refresh-list-order-kids');
+        $this->successNotify(__('site.order_created'));
+        $this->create_exists_modal = false;
+        $this->reset();
+    }
+
+    public function updateOrder()
+    {
+        $this->authorize('edit-order-kids');
+        $validated = $this->validate();
+        $this->order->update($validated);
+        $this->dispatch('print-update-order-kids', id: $this->order_id);
+        $this->dispatch('refresh-list-order-kids');
+        $this->successNotify(__('site.order_updated'));
+        $this->edit_modal = false;
+        $this->reset();
+    }
+
     public function attachOrder()
     {
         $this->authorize('attach-order-kids');
@@ -208,11 +254,11 @@ trait OrderTrait
         $validated['offer_id'] = $this->offer_id ? $this->offer_id : null;
         $validated['total'] = $this->total;
         $order = Order::create($validated);
-        $this->reset();
         $this->dispatch('print-attach-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_updated'));
         $this->attach_modal = false;
+        $this->reset();
     }
 
     public function deleteOrder($id)
@@ -220,24 +266,10 @@ trait OrderTrait
         $this->authorize('delete-order-kids');
         $order = Order::withoutTrashed()->findOrFail($id);
         $order->delete();
-        $this->reset();
         $this->dispatch('refresh-list-order-kids');
         $this->successNotify(__('site.order_deleted'));
         $this->delete_modal = false;
-    }
-
-    public function checkboxAll()
-    {
-        $orders_trashed = Order::onlyTrashed()->pluck('id')->toArray();
-        $orders = Order::withoutTrashed()->pluck('id')->toArray();
-        $checkbox_count = count($this->checkbox_arr);
-        $data = $this->trash ? $orders_trashed : $orders;
-
-        if ($checkbox_count < 1 || $checkbox_count < count($data)) {
-            $this->checkbox_arr = $data;
-        } else {
-            $this->checkbox_arr = [];
-        }
+        $this->reset();
     }
 
     public function bulkDeleteOrder($arr)
@@ -284,5 +316,16 @@ trait OrderTrait
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.order_delete_all'));
         $this->force_bulk_delete_modal = false;
+    }
+
+    public function noteOrders($arr) {
+        $this->validate(['note' => 'required|string']);
+        $orders = Order::withoutTrashed()->whereIn('id', $arr);
+        $orders->update(['note' => $this->note]);
+        $this->reset();
+        $this->dispatch('refresh-list-order-kids');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.note_orders_updated'));
+        $this->note_modal = false;
     }
 }

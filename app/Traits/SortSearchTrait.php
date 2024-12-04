@@ -10,6 +10,9 @@ trait SortSearchTrait
     public string $search = '';
 
     #[Url('')]
+    public string $child_search = '';
+
+    #[Url('')]
     public string $date = '';
 
     #[Url('')]
@@ -25,6 +28,21 @@ trait SortSearchTrait
     public int $page_element = 25;
     
     public bool $trash = false;
+    public $checkbox_arr = [];
+    public $checkbox_all = [];
+    public $checkbox_status = false;
+
+    public function checkboxAll()
+    {
+        $data = $this->checkbox_status ? $this->checkbox_all  : $this->checkbox_arr;
+
+        if (count($this->checkbox_arr) < 1 || count($this->checkbox_arr) < count($data)) {
+            $this->checkbox_arr = $data;
+        } else {
+            $this->checkbox_status = false;
+            $this->checkbox_arr = [];
+        }
+    }
 
     public function sortByField($field)
     {
@@ -44,6 +62,11 @@ trait SortSearchTrait
         $this->resetPage();
     }
 
+    public function updatingChildSearch()
+    {
+        $this->resetPage();
+    }
+
     public function updatingDate()
     {
         $this->resetPage();
@@ -56,6 +79,11 @@ trait SortSearchTrait
     }
 
     public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingUrl()
     {
         $this->resetPage();
     }

@@ -27,12 +27,9 @@ class ProductsExport implements FromCollection, WithHeadings, WithStyles, Should
 
     public function styles(Worksheet $sheet)
     {
-        return [
-            1 => [
-                'font' => ['bold' => true],
-                'color' => ['#FFFF00' => true],
-            ],
-        ];
+        $sheet->getStyle('A1:Z' . Product::count() + 1)->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1:Z1')->getFont()->setBold(true);
+        return;
     }
 
     public function collection()

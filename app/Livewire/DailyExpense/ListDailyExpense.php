@@ -15,6 +15,7 @@ class ListDailyExpense extends Component
     public function checkboxClear()
     {
         $this->checkbox_arr = [];
+        $this->checkbox_status = false;
     }
 
     #[On('refresh-list-daily-expense-kids')]
@@ -35,6 +36,9 @@ class ListDailyExpense extends Component
         $daily_expenses = $daily_expenses->search($this->search, $this->date)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
+        
+        $this->checkbox_all = $daily_expenses->pluck('id')->toArray();
+
 
         return view('livewire.daily-expense.list-daily-expense', [
             'daily_expenses' => $daily_expenses,

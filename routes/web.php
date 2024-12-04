@@ -8,6 +8,7 @@ use App\Livewire\DailyExpense\ListDailyExpense;
 use App\Livewire\DailyExpenseProduct\ListDailyExpenseProduct;
 use App\Livewire\Dashboard\DashboardComponent;
 use App\Livewire\Home\HomeComponent;
+use App\Livewire\InvoiceDetails\ListInvoice;
 use App\Livewire\MoneySafe\ListMoneySafe;
 use App\Livewire\MoneySafeProduct\ListMoneySafeProduct;
 use App\Livewire\Offer\ListOffer;
@@ -54,6 +55,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/money-safe', ListMoneySafe::class)->name('money.safe');
     Route::get('/money-safe-product', ListMoneySafeProduct::class)->name('money.safe.product');
     Route::get('/backup', ListBackup::class)->name('backup');
+    Route::get('/invoice-details', ListInvoice::class)->name('invoice.details');
 
     Route::get('/invoice-kids/{id}', [InvoiceController::class,'kidsInvoice'])->name('invoice.kids');
     Route::get('/invoice-product/{id}', [InvoiceController::class,'productInvoice'])->name('invoice.product');
