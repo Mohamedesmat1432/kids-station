@@ -1,6 +1,6 @@
 <div>
     @if ($this->create_exists_modal)
-        <x-dialog-modal wire:model="create_exists_modal" submit="save()" method="POST">
+        <x-dialog-modal id="create_exists_modal" wire:model="create_exists_modal" submit="save()" method="POST">
             <x-slot name="title">
                 <div class="flex justify-between">
                     <h1>{{ __('site.create_exists_order') }}</h1>
@@ -26,7 +26,7 @@
                         <x-label for="duration" value="{{ __('site.duration') }}" />
                         <x-select wire:change="refreshNewVisitor" class="mt-1 block w-full" wire:model="duration">
                             <option value="">{{ __('site.duration') }}</option>
-                            @foreach ($type_durations as $duration)
+                            @foreach ($this->typeDuration() as $duration)
                                 <option value="{{ $duration }}">{{ $duration }}</option>
                             @endforeach
                         </x-select>
@@ -49,9 +49,9 @@
                                 <x-select wire:model="visitors.{{ $key }}.type_id" wire:change="totalVisitors"
                                     class="mt-1 block w-full">
                                     <option value="">{{ __('site.type') }}</option>
-                                    @foreach ($unique_types as $type)
+                                    @foreach ($this->uniqueTypes() as $type)
                                         <option value="{{ $type->id }}">
-                                            {{ $type->typeName->name }}
+                                            {{ $type->typeName->name ?? '' }}
                                         </option>
                                     @endforeach
                                 </x-select>
@@ -68,7 +68,7 @@
                                 <x-label for="price" value="{{ __('site.price') }}" />
                                 <x-input type="number" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.price"
-                                    placeholder="{{ __('site.price') }}" />
+                                    placeholder="{{ __('site.price') }}" disabled />
                                 <x-input-error for="visitors.{{ $key }}.price" class="mt-2" />
                             </div>
 

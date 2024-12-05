@@ -43,7 +43,7 @@
                     <x-input-error for="password" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4 mt-3">
-                    <x-toggle-status-kids-orders :status="$status" />
+                    <x-toggle-status :status="$status" />
                     <x-input-error for="status" class="mt-2" />
                 </div>
             </x-slot>

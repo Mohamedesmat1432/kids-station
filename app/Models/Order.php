@@ -53,7 +53,7 @@ class Order extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(Type::class, 'visitors');
+        return $this->belongsTo(Type::class, 'visitors->type_id');
     }
 
     public function scopeSearch($query, $search)

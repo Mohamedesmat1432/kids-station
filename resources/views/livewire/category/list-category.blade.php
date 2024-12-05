@@ -99,7 +99,7 @@
                                     <x-sort-icon sort_field="name" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="2">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -131,21 +131,21 @@
                                     {{ $category->name }}
                                 </td>
                                 @if ($this->trash)
-                                    <td class="p-2 border">
+                                    <td class="p-2 border flex justify-center">
                                         <x-restore-button permission="restore-category" id="{{ $category->id }}"
                                             name="{{ $category->name }}" />
-                                    </td>
-                                    <td class="p-2 border">
+                                        <div class="mx-1"></div>
                                         <x-force-delete-button permission="force-delete-category"
                                             id="{{ $category->id }}" name="{{ $category->name }}" />
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-edit-button permission="edit-category" id="{{ $category->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-delete-button permission="delete-category" id="{{ $category->id }}"
-                                            name="{{ $category->name }}" />
+                                        <div class="flex justify-center">
+                                            <x-edit-button permission="edit-category" id="{{ $category->id }}" />
+                                            <div class="mx-1"></div>
+                                            <x-delete-button permission="delete-category" id="{{ $category->id }}"
+                                                name="{{ $category->name }}" />
+                                        </div>
                                     </td>
                                 @endif
                             </tr>
@@ -158,7 +158,7 @@
                         @endforelse
                     </x-slot>
                 </x-table>
-                
+
                 @if ($categories->hasPages())
                     <x-paginate :data-links="$categories->links()" />
                 @endif

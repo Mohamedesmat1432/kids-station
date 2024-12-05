@@ -12,7 +12,6 @@ trait InvoiceDetailsTrait
     public ?InvoiceDetail $invoice_detail;
     public $invoice_detail_id;
     public $note;
-    public $status;
     public $image;
 
     protected function rules()

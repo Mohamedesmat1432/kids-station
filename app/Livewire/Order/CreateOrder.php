@@ -28,8 +28,6 @@ class CreateOrder extends Component
         $offers = Offer::active()->get();
 
         return view('livewire.order.create-order', [
-            'type_durations' => $this->typeDuration(),
-            'unique_types' => $this->uniqueTypes(),
             'offers' => $offers,
         ]);
     }

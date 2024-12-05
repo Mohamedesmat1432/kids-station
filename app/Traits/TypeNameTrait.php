@@ -13,7 +13,6 @@ trait TypeNameTrait
     public ?TypeName $type_name;
     public $type_name_id;
     public $name;
-    public $status;
     public $file;
     public $extension = 'xlsx';
 

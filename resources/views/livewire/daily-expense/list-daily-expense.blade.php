@@ -137,7 +137,7 @@
                                     <x-sort-icon sort_field="updated_at" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="3">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -201,21 +201,23 @@
                                 </td>
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-daily-expense-kids"
-                                            id="{{ $daily_expense->id }}" name="" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-daily-expense-kids"
-                                            id="{{ $daily_expense->id }}" name="" />
+                                        <div class="flex justify-center">
+                                            <x-restore-button permission="restore-daily-expense-kids"
+                                                id="{{ $daily_expense->id }}" name="" />
+                                            <div class="mx-1"></div>
+                                            <x-force-delete-button permission="force-delete-daily-expense-kids"
+                                                id="{{ $daily_expense->id }}" name="" />
+                                        </div>
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-edit-button permission="edit-daily-expense-kids"
-                                            id="{{ $daily_expense->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-delete-button permission="delete-daily-expense-kids"
-                                            id="{{ $daily_expense->id }}" name="" />
+                                        <div class="flex justify-center">
+                                            <x-edit-button permission="edit-daily-expense-kids"
+                                                id="{{ $daily_expense->id }}" />
+                                            <div class="mx-1"></div>
+                                            <x-delete-button permission="delete-daily-expense-kids"
+                                                id="{{ $daily_expense->id }}" name="" />
+                                        </div>
                                     </td>
                                 @endif
                             </tr>

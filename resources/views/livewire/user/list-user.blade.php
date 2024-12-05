@@ -31,7 +31,7 @@
                 <x-table>
                     <x-slot name="thead">
                         <tr>
-                            <td class="px-4 py-2 border">
+                            <td class="p-2 border">
                                 <div class="flex justify-center">
                                     <button wire:click="sortByField('id')">
                                         {{ __('site.id') }}
@@ -106,21 +106,19 @@
                                 </td> --}}
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <div>
+                                        <div class="flex justify-center">
                                             <x-restore-button permission="restore-user" id="{{ $user->id }}"
                                                 name="{{ $user->name }}" />
-                                        </div>
-                                        <div class="mt-1">
+                                            <div class="mx-1"></div>
                                             <x-force-delete-button permission="force-delete-user"
                                                 id="{{ $user->id }}" name="{{ $user->name }}" />
                                         </div>
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <div>
+                                        <div class="flex justify-center">
                                             <x-edit-button permission="edit-user" id="{{ $user->id }}" />
-                                        </div>
-                                        <div class="mt-1">
+                                            <div class="mx-1"></div>
                                             <x-delete-button permission="delete-user" id="{{ $user->id }}"
                                                 name="{{ $user->name }}" />
                                         </div>

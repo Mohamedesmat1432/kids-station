@@ -28,13 +28,9 @@ class AttachOrder extends Component
 
     public function render()
     {
-        $type_durations = Type::active()->distinct()->whereNot('duration', 0)
-            ->orderBy('duration', 'ASC')->pluck('duration');
-
         $offers = Offer::active()->get();
 
         return view('livewire.order.attach-order', [
-            'type_durations' => $type_durations,
             'offers' => $offers,
         ]);
     }

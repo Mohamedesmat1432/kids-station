@@ -25,7 +25,7 @@
                                 placeholder="{{ __('site.search') }}..." class="mb-2" />
 
                             <x-input type="date" wire:model.live.debounce.500ms="date"
-                                placeholder="{{ __('site.date') }}..."/>
+                                placeholder="{{ __('site.date') }}..." />
                         </div>
 
                         <div class="mt-2">
@@ -134,7 +134,7 @@
                                     <x-sort-icon sort_field="created_at" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="3">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -205,23 +205,26 @@
                                 </td>
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-product-order"
-                                            id="{{ $product_order->id }}"
-                                            name="{{ $product_order->user->name ?? '' }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-product-order"
-                                            id="{{ $product_order->id }}"
-                                            name="{{ $product_order->user->name ?? '' }}" />
+                                        <div class="flex justify-center">
+                                            <x-restore-button permission="restore-product-order"
+                                                id="{{ $product_order->id }}"
+                                                name="{{ $product_order->user->name ?? '' }}" />
+                                            <div class="mx-1"></div>
+                                            <x-force-delete-button permission="force-delete-product-order"
+                                                id="{{ $product_order->id }}"
+                                                name="{{ $product_order->user->name ?? '' }}" />
+                                        </div>
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-show-button permission="show-product-order" id="{{ $product_order->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-delete-button permission="delete-product-order"
-                                            id="{{ $product_order->id }}"
-                                            name="{{ $product_order->user->name ?? '' }}" />
+                                        <div class="flex justify-center">
+                                            <x-show-button permission="show-product-order"
+                                                id="{{ $product_order->id }}" />
+                                            <div class="mx-1"></div>
+                                            <x-delete-button permission="delete-product-order"
+                                                id="{{ $product_order->id }}"
+                                                name="{{ $product_order->user->name ?? '' }}" />
+                                        </div>
                                     </td>
                                 @endif
                             </tr>

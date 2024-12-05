@@ -50,7 +50,7 @@
                                     <x-sort-icon sort_field="status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="2">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -78,11 +78,13 @@
                                     @endif
                                 </td>
                                 <td class="p-2 border">
-                                    <x-edit-button permission="edit-invoice-details" id="{{ $invoice_detail->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-invoice-details" id="{{ $invoice_detail->id }}"
-                                        name="{{ $invoice_detail->note }}" />
+                                    <div class="flex justify-center">
+                                        <x-edit-button permission="edit-invoice-details"
+                                            id="{{ $invoice_detail->id }}" />
+                                        <div class="mx-1"></div>
+                                        <x-delete-button permission="delete-invoice-details"
+                                            id="{{ $invoice_detail->id }}" name="{{ $invoice_detail->note }}" />
+                                    </div>
                                 </td>
                             </tr>
                         @empty

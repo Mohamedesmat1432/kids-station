@@ -350,4 +350,8 @@ return [
     'attach_orders' => 'Attach Orders',
     'without_attach_orders' => 'Orders Without Attach',
     'today_attach_orders' => 'Today Attach Orders',
+    'restore_product' => 'Restore Order',
+    'category_restored' => 'Category has been restord successfully',
+    'offer_restored' => 'Offer has been restord successfully',
+    'type_restored' => 'Type has been restord successfully',
 ];

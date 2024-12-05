@@ -14,7 +14,6 @@ trait UserTrait
     public $user_id;
     public $name;
     public $email;
-    public $status = false;
     public $password;
     public $new_password;
     public $role;
@@ -24,7 +23,7 @@ trait UserTrait
             'name' => 'required|string|min:4',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->user_id,
             'role' => 'nullable|exists:roles,id',
-            'status' => 'required|boolean'
+            'status' => 'required|boolean',
         ];
 
         if($this->password) {
@@ -36,11 +35,6 @@ trait UserTrait
         }
 
         return $rules;
-    }
-
-    public function toggleStatus()
-    {
-        $this->status = !$this->status;
     }
 
     public function setUser($id)

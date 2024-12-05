@@ -14,7 +14,6 @@ trait ProductOrderTrait
     public $casher_name;
     public $products;
     public $total;
-    public $status;
     public $created_at;
 
     public function showProductOrder($id)

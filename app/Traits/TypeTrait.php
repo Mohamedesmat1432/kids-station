@@ -15,7 +15,6 @@ trait TypeTrait
     public $type_name_id;
     public $price;
     public $duration;
-    public $status;
     public $file;
     public $extension = 'xlsx';
 
@@ -25,7 +24,7 @@ trait TypeTrait
             'type_name_id' => 'required|numeric|exists:type_names,id',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
-            'status' => 'required|boolean|in:0,1',
+            'status' => 'required|boolean',
         ];
     }
 

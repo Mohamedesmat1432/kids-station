@@ -350,4 +350,8 @@ return [
     'attach_orders' => 'الطلبات المرفقة',
     'without_attach_orders' => 'الطلبات بدون المرفقات',
     'today_attach_orders' => 'الطلبات المرفقة اليومية',
+    'restore_product' => 'استرجاع المنتج',
+    'category_restored' => 'تم استرجاع القسم بنجاح',
+    'offer_restored' =>  'تم استرجاع العرض بنجاح',
+    'type_restored' => 'تم استرجاع النوع بنجاح',
 ];

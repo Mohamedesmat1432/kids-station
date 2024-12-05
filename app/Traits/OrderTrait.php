@@ -28,7 +28,6 @@ trait OrderTrait
     public $last_total = 0;
     public $start_date;
     public $end_date;
-    public $status;
     public $note;
     public $locker_number;
     public $insurance = 0;
@@ -55,14 +54,37 @@ trait OrderTrait
 
     public function typeDuration()
     {
-        return Type::active()->distinct()->whereNot('duration', 0)
+        $durations = Type::active()->distinct()->whereNot('duration', 0)
             ->orderBy('duration', 'ASC')->pluck('duration');
+
+        return $durations;
+    }
+
+    public function attachTypeDuration()
+    {
+        $typeId = array_unique(array_column($this->visitors,'type_id'));
+
+        $typeNameIds = Type::active()->whereIn('id',$typeId)
+            ->pluck('type_name_id')->toArray();
+
+        $durations = Type::active()->whereNot('duration', 0)->whereIn('type_name_id', $typeNameIds)
+            ->orderBy('duration', 'ASC')->pluck('duration');
+
+        return $durations; 
     }
 
     public function uniqueTypes()
     {
-        return Type::active()->distinct()->whereIn('duration',[0,$this->duration])
+        return Type::active()->whereIn('duration',[0, $this->duration, $this->order->duration ?? 0])
             ->orderBy('price', 'ASC')->get();
+
+    }
+
+    public function uniqueTypeNamesId()
+    {
+        return Type::active()->whereIn('duration',[0,$this->order->duration ?? 0])
+            ->orderBy('price', 'ASC')->pluck('id')->toArray();
+
     }
 
     public function remove($key)
@@ -148,6 +170,20 @@ trait OrderTrait
         $this->discount();
     }
 
+    public function visitorType($id)
+    {
+        $visitor_type = Type::findOrFail($id);
+
+        return $visitor_type->typeName->name ?? '';
+    }
+
+    public function priceOffer($id)
+    {
+        $offer = Offer::findOrFail($id);
+
+        return $offer->price ?? number_format(0, 2);
+    }
+
     public function setOrder($id)
     {
         $this->order = Order::findOrFail($id);
@@ -176,20 +212,6 @@ trait OrderTrait
         $this->authorize('show-order-kids');
 
         $this->order = Order::with('offer')->findOrFail($id);
-    }
-
-    public function visitorType($id)
-    {
-        $visitor_type = Type::findOrFail($id);
-
-        return $visitor_type->typeName->name ?? '';
-    }
-
-    public function priceOffer($id)
-    {
-        $offer = Offer::findOrFail($id);
-
-        return $offer->price ?? number_format(0, 2);
     }
 
     public function storeOrder()

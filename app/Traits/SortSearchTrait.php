@@ -28,9 +28,15 @@ trait SortSearchTrait
     public int $page_element = 25;
     
     public bool $trash = false;
+    public $status = false;
     public $checkbox_arr = [];
     public $checkbox_all = [];
     public $checkbox_status = false;
+
+    public function toggleStatus()
+    {
+        $this->status = !$this->status;
+    }
 
     public function checkboxAll()
     {

@@ -41,7 +41,7 @@
                                     <x-sort-icon sort_field="name" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="2">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -58,11 +58,12 @@
                                     {{ $permission->name }}
                                 </td>
                                 <td class="p-2 border">
-                                    <x-edit-button permission="edit-permission" id="{{ $permission->id }}" />
-                                </td>
-                                <td class="p-2 border">
-                                    <x-delete-button permission="delete-permission" id="{{ $permission->id }}"
-                                        name="{{ $permission->name }}" />
+                                    <div class="flex justify-center">
+                                        <x-edit-button permission="edit-permission" id="{{ $permission->id }}" />
+                                        <div class="mx-1"></div>
+                                        <x-delete-button permission="delete-permission" id="{{ $permission->id }}"
+                                            name="{{ $permission->name }}" />
+                                    </div>
                                 </td>
                             </tr>
                         @empty

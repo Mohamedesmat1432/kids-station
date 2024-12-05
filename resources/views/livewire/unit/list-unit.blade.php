@@ -103,7 +103,7 @@
                                     <x-sort-icon sort_field="qty" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
-                            <td class="px-4 py-2 border" colspan="2">
+                            <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
@@ -139,20 +139,22 @@
                                 </td>
                                 @if ($this->trash)
                                     <td class="p-2 border">
-                                        <x-restore-button permission="restore-unit" id="{{ $unit->id }}"
-                                            name="{{ $unit->name }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-force-delete-button permission="force-delete-unit" id="{{ $unit->id }}"
-                                            name="{{ $unit->name }}" />
+                                        <div class="flex justify-center">
+                                            <x-restore-button permission="restore-unit" id="{{ $unit->id }}"
+                                                name="{{ $unit->name }}" />
+                                            <div class="mx-1"></div>
+                                            <x-force-delete-button permission="force-delete-unit"
+                                                id="{{ $unit->id }}" name="{{ $unit->name }}" />
+                                        </div>
                                     </td>
                                 @else
                                     <td class="p-2 border">
-                                        <x-edit-button permission="edit-unit" id="{{ $unit->id }}" />
-                                    </td>
-                                    <td class="p-2 border">
-                                        <x-delete-button permission="delete-unit" id="{{ $unit->id }}"
-                                            name="{{ $unit->name }}" />
+                                        <div class="flex justify-center">
+                                            <x-edit-button permission="edit-unit" id="{{ $unit->id }}" />
+                                            <div class="mx-1"></div>
+                                            <x-delete-button permission="delete-unit" id="{{ $unit->id }}"
+                                                name="{{ $unit->name }}" />
+                                        </div>
                                     </td>
                                 @endif
 

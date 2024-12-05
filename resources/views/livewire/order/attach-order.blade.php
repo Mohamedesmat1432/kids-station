@@ -26,7 +26,7 @@
                         <x-label for="duration" value="{{ __('site.duration') }}" />
                         <x-select wire:change="refreshAttachVisitors" class="mt-1 block w-full" wire:model="duration">
                             <option value="">{{ __('site.duration') }}</option>
-                            @foreach ($type_durations as $duration)
+                            @foreach ($this->attachTypeDuration() as $duration)
                                 <option value="{{ $duration }}">{{ $duration }}</option>
                             @endforeach
                         </x-select>
@@ -49,8 +49,7 @@
                                 <x-input type="hidden" class="mt-1 block w-full"
                                     wire:model="visitors.{{ $key }}.type_id" />
                                 <x-input type="text" class="mt-1 block w-full"
-                                    value="{{ $this->visitorType($visitor['type_id']) }}"
-                                    disabled />
+                                    value="{{ $this->visitorType($visitor['type_id']) }}" disabled />
                                 <x-input-error for="visitors.{{ $key }}.type_id" class="mt-2" />
                             </div>
                             {{-- <div class="relative z-0 w-full mb-5 group">
@@ -78,8 +77,8 @@
                                     @else
                                         <x-danger-button class="cursor-not-allowed opacity-60">
                                             {{ __('site.remove') }}
-                                            </x-danger-button>
-                                        @endcan
+                                        </x-danger-button>
+                                    @endcan
                                 </div>
                             @else
                                 <div class="relative z-0 w-full mb-5 group md:mt-6">
@@ -126,16 +125,14 @@
                 <div class="grid md:grid-cols-2 md:gap-4">
                     <div class="relative z-0 w-full mb-5 group">
                         <x-label for="locker_number" value="{{ __('site.locker_number') }}" />
-                        <x-input type="text" class="mt-1 block w-full"
-                            wire:model="locker_number" placeholder="{{ __('site.locker_number') }}"
-                            autocomplete="locker_number" />
+                        <x-input type="text" class="mt-1 block w-full" wire:model="locker_number"
+                            placeholder="{{ __('site.locker_number') }}" autocomplete="locker_number" />
                         <x-input-error for="locker_number" class="mt-2" />
                     </div>
                     <div class="relative z-0 w-full mb-5">
                         <x-label for="insurance" value="{{ __('site.insurance') }}" />
-                        <x-input type="text" class="mt-1 block w-full"
-                            wire:model="insurance" placeholder="{{ __('site.insurance') }}"
-                            autocomplete="insurance" />
+                        <x-input type="text" class="mt-1 block w-full" wire:model="insurance"
+                            placeholder="{{ __('site.insurance') }}" autocomplete="insurance" />
                         <x-input-error for="insurance" class="mt-2" />
                     </div>
                 </div>

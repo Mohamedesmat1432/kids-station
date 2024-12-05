@@ -14,7 +14,6 @@ trait OfferTrait
     public $offer_id;
     public $name;
     public $price;
-    public $status;
     public $file;
     public $extension = 'xlsx';
 

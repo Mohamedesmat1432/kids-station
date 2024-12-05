@@ -15,12 +15,7 @@
                     <x-input-error for="name" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4 mt-3">
-                    <x-label for="role" value="{{ __('site.status') }}" />
-                    <x-select class="mt-1 block w-full" wire:model="status">
-                        <option value="">{{ __('site.status') }}</option>
-                        <option value="1">{{ __('site.active') }}</option>
-                        <option value="0">{{ __('site.not_active') }}</option>
-                    </x-select>
+                    <x-toggle-status :status="$status" />
                     <x-input-error for="status" class="mt-2" />
                 </div>
             </x-slot>
