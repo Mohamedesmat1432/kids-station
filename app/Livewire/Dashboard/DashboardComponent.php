@@ -200,6 +200,16 @@ class DashboardComponent extends Component
                 'count' => DailyExpenseProduct::countDailyExpenseProduct(),
                 'total' => DailyExpenseProduct::totalDailyExpenseProduct(),
             ],
+            [
+                'name' => 'orders',
+                'value' => __('site.today_money_safe_kids'),
+                'icon' => 'briefcase',
+                'role' => 'view-today-money-safe-kids',
+                'bg' => 'bg-blue-600',
+                'hover' => 'hover:bg-blue-700',
+                'count' => Order::todayCountOrder() - DailyExpense::todayCountDailyExpense(),
+                'total' => Order::todayTotalOrder() - DailyExpense::todayTotalDailyExpense(),
+            ],
         ];
     }
 
@@ -239,8 +249,16 @@ class DashboardComponent extends Component
     }
 
     public function updateInsuranceTotalOrders() {
-        return Order::whereNot('insurance',0)->whereDate('end_date','<=',Carbon::now())
-        ->update(['insurance' => 0]);
+        $orders = Order::whereNot('insurance',0)->get();
+
+        foreach($orders as $order) {
+            if($order->end_date <= Carbon::now()) {
+                $order->update(['insurance' => 0]);
+                $this->dispatch('refresh-list-order-kids');
+            }
+        }
+
+        return;
     }
 
     public function render()

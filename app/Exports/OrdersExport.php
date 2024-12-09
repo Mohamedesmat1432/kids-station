@@ -2,15 +2,17 @@
 
 namespace App\Exports;
 
+use App\Helpers\Helper;
 use App\Models\Order;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize
+class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize, WithMapping
 {
     use Exportable;
 
@@ -34,9 +36,26 @@ class OrdersExport implements FromCollection, WithHeadings, WithStyles, ShouldAu
 
     public function collection()
     {
-        return Order::select('id', 'number', 'customer_name', 'customer_phone', 'duration', 'offer_id', 'total', 'remianing', 'last_number', 'last_total', 'created_at', 'start_date', 'end_date')
-            ->search($this->search)
-            ->get();
+        return Order::search($this->search)->get();
+    }
+
+    public function map($order): array
+    {
+        return [
+            $order->id,
+            $order->number,
+            $order->customer_name,
+            $order->customer_phone,
+            $order->duration,
+            $order->offer_id,
+            $order->total,
+            $order->remianing,
+            $order->last_number,
+            $order->last_total,
+            Helper::formatDate($order->created_at),
+            Helper::formatHours($order->start_date),
+            Helper::formatHours($order->end_date),
+        ];
     }
 
     public function headings(): array

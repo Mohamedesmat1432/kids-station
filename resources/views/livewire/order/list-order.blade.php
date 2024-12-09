@@ -154,6 +154,22 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('locker_number')">
+                                        {{ __('site.locker_number') }}
+                                    </button>
+                                    <x-sort-icon sort_field="locker_number" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('insurance')">
+                                        {{ __('site.insurance') }}
+                                    </button>
+                                    <x-sort-icon sort_field="insurance" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     <button wire:click="sortByField('total')">
                                         {{ __('site.total') }}
                                     </button>
@@ -275,6 +291,12 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $order->locker_number }}
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $order->insurance }}
                                 </td>
                                 <td class="p-2 border">
                                     {{ $order->total ?? '--' }}

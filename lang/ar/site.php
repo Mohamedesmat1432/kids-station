@@ -105,7 +105,8 @@ return [
     'remianing' => 'المتبقي',
     'password' => 'كلمة المرور',
     'order_created' => 'تم انشاء الطلب بنجاح',
-    'order_updated' => 'تم انشاء طلب مرفق بالطلب الحالي بنجاح',
+    'order_updated' => 'تم تعديل الطلب بنجاح',
+    'order_attached' => 'تم انشاء طلب مرفق بالطلب الحالي بنجاح',
     'order_deleted' => 'تم حذف الطلب بنجاح',
     'order_delete_all' => 'تم حذف الطلبات بنجاح',
     'category_created' => 'تم انشاء القسم بنجاح',
@@ -354,4 +355,5 @@ return [
     'category_restored' => 'تم استرجاع القسم بنجاح',
     'offer_restored' =>  'تم استرجاع العرض بنجاح',
     'type_restored' => 'تم استرجاع النوع بنجاح',
+    'today_money_safe_kids' => 'الخزنة اليومية للاطفال',
 ];

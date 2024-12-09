@@ -103,7 +103,8 @@ return [
     'remianing' => 'Remianing',
     'password' => 'Password',
     'order_created' => 'Order created successfully',
-    'order_updated' => 'Order attach to current order created successfully',
+    'order_updated' => 'Order updated successfully',
+    'order_attached' => 'Order attach to current order created successfully',
     'order_deleted' => 'Order deleted successfully',
     'order_delete_all' => 'Order deleted all successfully',
     'offer_created' => 'Offer created successfully',
@@ -354,4 +355,5 @@ return [
     'category_restored' => 'Category has been restord successfully',
     'offer_restored' => 'Offer has been restord successfully',
     'type_restored' => 'Type has been restord successfully',
+    'today_money_safe_kids' => 'Today Money Safe Kids',
 ];

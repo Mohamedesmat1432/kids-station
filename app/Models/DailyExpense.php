@@ -41,11 +41,23 @@ class DailyExpense extends Model
             : auth()->user()->dailyExpenses()->whereDate('created_at', Carbon::today())->count();
     }
 
+
+
     public function scopeTotalDailyExpense($query)
     {
         return auth()->user()->hasRole(['Super Admin', 'Admin'])
             ? $query->sum('total')
             : auth()->user()->dailyExpenses()->whereDate('created_at', Carbon::today())->sum('total');
+    }
+
+    public function scopeTodayCountDailyExpense($query)
+    {
+        return $query->whereDate('created_at', Carbon::today())->count();
+    }
+    
+    public function scopeTodayTotalDailyExpense($query)
+    {
+        return $query->whereDate('created_at', Carbon::today())->sum('total');
     }
 
     public function scopeDailyExpenseByMonth($query, $page)

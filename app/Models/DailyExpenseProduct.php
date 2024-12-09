@@ -48,6 +48,16 @@ class DailyExpenseProduct extends Model
             : auth()->user()->dailyExpenseProducts()->whereDate('created_at', Carbon::today())->sum('total');
     }
 
+    public function scopeTodayCountDailyExpenseProduct($query)
+    {
+        return $query->whereDate('created_at', Carbon::today())->count();
+    }
+    
+    public function scopeTodayTotalDailyExpenseProduct($query)
+    {
+        return $query->whereDate('created_at', Carbon::today())->sum('total');
+    }
+
     public function scopeDailyExpenseProductByMonth($query, $page)
     {
         return $query->select(DB::raw('sum(total) as total'), DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"))

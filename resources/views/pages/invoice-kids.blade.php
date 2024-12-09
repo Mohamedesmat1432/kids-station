@@ -43,6 +43,14 @@
                     {{ $order->customer_phone }}
                 </div>
                 <div class="mb-3 flex justify-between row-invoice">
+                    <b>{{ __('site.locker_number') }}:</b>
+                    {{ $order->locker_number }}
+                </div>
+                <div class="mb-3 flex justify-between row-invoice">
+                    <b>{{ __('site.insurance') }}:</b>
+                    {{ $order->insurance}}
+                </div>
+                <div class="mb-3 flex justify-between row-invoice">
                     <b>{{ __('site.date_today') }}:</b>
                     {{ \Helper::formatDate($order->start_date) }}
                 </div>

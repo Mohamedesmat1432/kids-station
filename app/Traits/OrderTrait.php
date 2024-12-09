@@ -75,7 +75,7 @@ trait OrderTrait
 
     public function uniqueTypes()
     {
-        return Type::active()->whereIn('duration',[0, $this->duration, $this->order->duration ?? 0])
+        return Type::active()->whereIn('duration',[0, $this->duration])
             ->orderBy('price', 'ASC')->get();
 
     }
@@ -203,7 +203,7 @@ trait OrderTrait
         $this->remianing = $this->order->remianing ?? 0;
         $this->status = $this->order->status;
         $this->note = $this->order->note ?? '';
-        $this->locker_number = $this->order->locker_number ?? '';
+        $this->locker_number = $this->order->locker_number ?? 0;
         $this->insurance = $this->order->insurance ?? 0;
     }
 
@@ -254,6 +254,7 @@ trait OrderTrait
     {
         $this->authorize('edit-order-kids');
         $validated = $this->validate();
+        $validated['total'] = $this->total;
         $this->order->update($validated);
         $this->dispatch('print-update-order-kids', id: $this->order_id);
         $this->dispatch('refresh-list-order-kids');
@@ -278,7 +279,7 @@ trait OrderTrait
         $order = Order::create($validated);
         $this->dispatch('print-attach-order-kids', id: $order->id);
         $this->dispatch('refresh-list-order-kids');
-        $this->successNotify(__('site.order_updated'));
+        $this->successNotify(__('site.order_attached'));
         $this->attach_modal = false;
         $this->reset();
     }
