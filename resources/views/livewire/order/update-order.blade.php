@@ -90,19 +90,33 @@
 
                             @if ($loop->index !== 0)
                                 <div class="relative z-0 w-full mb-5 group md:mt-6">
-                                    @if ($visitor['name'] != '' && $visitor['type_id'] != '')
-                                        <x-danger-button class="cursor-not-allowed opacity-60">
-                                            {{ __('site.remove') }}
-                                        </x-danger-button>
-                                    @else
+                                    @if (auth()->user()->hasRole(['Super Admin']))
                                         <x-danger-button wire:click="remove({{ $key }})"
                                             wire:loading.attr="disabled">
                                             {{ __('site.remove') }}
                                         </x-danger-button>
+                                    @else
+                                        @if ($visitor['name'] != '' && $visitor['type_id'] != '')
+                                            <x-danger-button class="cursor-not-allowed opacity-60">
+                                                {{ __('site.remove') }}
+                                            </x-danger-button>
+                                        @else
+                                            <x-danger-button wire:click="remove({{ $key }})"
+                                                wire:loading.attr="disabled">
+                                                {{ __('site.remove') }}
+                                            </x-danger-button>
+                                        @endif
                                     @endif
                                 </div>
                             @else
-                                <div class="relative z-0 w-full mb-5 group md:mt-6">
+                                <div class="relative z-0 w-full mb-5 group md:mt-6 flex">
+                                    @if (auth()->user()->hasRole(['Super Admin']))
+                                        <x-danger-button wire:click="remove({{ $key }})"
+                                            wire:loading.attr="disabled">
+                                            {{ __('site.remove') }}
+                                        </x-danger-button>
+                                        <div class="mx-1"></div>
+                                    @endif
                                     <x-indigo-button wire:click="add" wire:loading.attr="disabled">
                                         {{ __('site.add_more') }}
                                     </x-indigo-button>
